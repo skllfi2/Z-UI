@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="ZapretGUI.Views.LogsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="32,24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Логи"
+                   Style="{ThemeResource TitleLargeTextBlockStyle}"
+                   Margin="0,0,0,16"/>
+
+        <Border Grid.Row="1" CornerRadius="12"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1">
+            <ScrollViewer x:Name="LogsScrollViewer"
+                          VerticalScrollBarVisibility="Auto"
+                          Padding="16">
+                <TextBlock x:Name="LogsTextBlock"
+                           FontFamily="Consolas"
+                           FontSize="12"
+                           TextWrapping="Wrap"
+                           Opacity="0.9"/>
+            </ScrollViewer>
+        </Border>
+
+        <Button Grid.Row="2" Content="Очистить логи"
+                Margin="0,12,0,0"
+                Click="ClearLogs_Click"/>
+    </Grid>
+</Page>

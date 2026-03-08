@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GigaCodeAgentSettings">
+    <option name="autoApproveEdits" value="true" />
+    <option name="autoApprovedCommands">
+      <list>
+        <Execute>
+          <option name="pattern" value="mkdir &quot;F:/Development/ZapretGUI/ZapretGUI/Views&quot;" />
+        </Execute>
+        <Execute>
+          <option name="pattern" value="type &quot;F:/Development/ZapretGUI/ZapretGUI/Views/StrategiesPage.xaml&quot;" />
+        </Execute>
+        <Execute>
+          <option name="pattern" value="chcp 65001 &amp;&amp; type &quot;F:/Development/ZapretGUI/ZapretGUI/Views/StrategiesPage.xaml&quot;" />
+        </Execute>
+        <Execute>
+          <option name="pattern" value="powershell -Command &quot;Get-Content -Path 'F:/Development/ZapretGUI/ZapretGUI/Views/StrategiesPage.xaml' -Encoding UTF8&quot;" />
+        </Execute>
+      </list>
+    </option>
+    <option name="autoApprovedMcpTools">
+      <list>
+        <Mcp>
+          <option name="server" value="secure-filesystem-server" />
+          <option name="tool" value="create_directory" />
+        </Mcp>
+        <Mcp>
+          <option name="server" value="secure-filesystem-server" />
+          <option name="tool" value="write_file" />
+        </Mcp>
+        <Mcp>
+          <option name="server" value="secure-filesystem-server" />
+          <option name="tool" value="list_directory" />
+        </Mcp>
+        <Mcp>
+          <option name="server" value="secure-filesystem-server" />
+          <option name="tool" value="get_file_info" />
+        </Mcp>
+        <Mcp>
+          <option name="server" value="gcmp-core" />
+          <option name="tool" value="get_context" />
+        </Mcp>
+        <Mcp>
+          <option name="server" value="gcmp-core" />
+          <option name="tool" value="get_plan" />
+        </Mcp>
+      </list>
+    </option>
+  </component>
+</project>

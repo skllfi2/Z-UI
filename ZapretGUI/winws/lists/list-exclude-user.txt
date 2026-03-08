@@ -1,0 +1,7 @@
+domain.example.abc
+github.com
+api.github.com
+objects.githubusercontent.com
+vscode.dev
+marketplace.visualstudio.com
+vscode-auth.github.com

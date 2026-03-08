@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ZapretGUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ZapretGUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

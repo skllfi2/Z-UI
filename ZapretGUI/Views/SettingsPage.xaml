@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="ZapretGUI.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZapretGUI.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollViewer Padding="32,24,32,24">
+        <StackPanel Spacing="8" MaxWidth="800" HorizontalAlignment="Stretch">
+
+            <TextBlock Text="Настройки" Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,16"/>
+
+            <!-- Запуск -->
+            <TextBlock Text="Запуск" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,0,0,8"/>
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1" CornerRadius="8" Padding="16,8">
+                <StackPanel>
+
+                    <Grid Padding="0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Автозапуск вместе с Windows" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock Text="Запускать ZapretGUI при входе в систему" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
+                        </StackPanel>
+                        <ToggleSwitch x:Name="AutostartToggle" Grid.Column="1"
+                                      OnContent="" OffContent=""
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Right"
+                                      MinWidth="0"
+                                      Margin="0"
+                                      Padding="0"
+                                      Toggled="AutostartToggle_Toggled"/>
+                    </Grid>
+
+                    <Border Height="1" Background="{ThemeResource DividerStrokeColorDefaultBrush}"/>
+
+                    <Grid Padding="0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Автостарт zapret" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock Text="Запускать защиту при открытии приложения" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
+                        </StackPanel>
+                        <ToggleSwitch x:Name="AutoStartZapretToggle" Grid.Column="1"
+                                      OnContent="" OffContent=""
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Right"
+                                      MinWidth="0"
+                                      Margin="0"
+                                      Padding="0"
+                                      Toggled="AutoStartZapretToggle_Toggled"/>
+                    </Grid>
+
+                    <Border Height="1" Background="{ThemeResource DividerStrokeColorDefaultBrush}"/>
+
+                    <Grid Padding="0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Минимизация в трей при запуске" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock Text="Скрывать окно при старте приложения" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
+                        </StackPanel>
+                        <ToggleSwitch x:Name="MinimizeToTrayToggle" Grid.Column="1"
+                                      OnContent="" OffContent=""
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Right"
+                                      MinWidth="0"
+                                      Margin="0"
+                                      Padding="0"
+                                      Toggled="MinimizeToTrayToggle_Toggled"/>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Внешний вид -->
+            <TextBlock Text="Внешний вид" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,16,0,8"/>
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1" CornerRadius="8" Padding="16,8">
+                <StackPanel>
+
+                    <Grid Padding="0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Тема приложения" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock Text="Выберите светлую, тёмную или системную тему" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
+                        </StackPanel>
+                        <ComboBox x:Name="ThemeComboBox" Grid.Column="1"
+                                  MinWidth="160" VerticalAlignment="Center"
+                                  SelectionChanged="ThemeComboBox_SelectionChanged">
+                            <ComboBoxItem Content="Системная" Tag="Default"/>
+                            <ComboBoxItem Content="Светлая" Tag="Light"/>
+                            <ComboBoxItem Content="Тёмная" Tag="Dark"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <Border Height="1" Background="{ThemeResource DividerStrokeColorDefaultBrush}"/>
+
+                    <Grid Padding="0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Язык" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock Text="Язык интерфейса приложения" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
+                        </StackPanel>
+                        <ComboBox x:Name="LanguageComboBox" Grid.Column="1"
+                                  MinWidth="160" VerticalAlignment="Center"
+                                  SelectionChanged="LanguageComboBox_SelectionChanged">
+                            <ComboBoxItem Content="Русский" Tag="ru"/>
+                            <ComboBoxItem Content="English" Tag="en"/>
+                        </ComboBox>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Уведомления -->
+            <TextBlock Text="Уведомления" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,16,0,8"/>
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1" CornerRadius="8" Padding="16,8">
+                <StackPanel>
+
+                    <Grid Padding="0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Звуковые эффекты" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock Text="Звук при запуске и остановке защиты" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
+                        </StackPanel>
+                        <ToggleSwitch x:Name="SoundEffectsToggle" Grid.Column="1"
+                                      OnContent="" OffContent=""
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Right"
+                                      MinWidth="0"
+                                      Margin="0"
+                                      Padding="0"
+                                      Toggled="SoundEffectsToggle_Toggled"/>
+                    </Grid>
+
+                    <Border Height="1" Background="{ThemeResource DividerStrokeColorDefaultBrush}"/>
+
+                    <Grid Padding="0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Всплывающие уведомления" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock Text="Показывать уведомления при изменении статуса" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
+                        </StackPanel>
+                        <ToggleSwitch x:Name="ToastNotificationsToggle" Grid.Column="1"
+                                      OnContent="" OffContent=""
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Right"
+                                      MinWidth="0"
+                                      Margin="0"
+                                      Padding="0"
+                                      Toggled="ToastNotificationsToggle_Toggled"/>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>
