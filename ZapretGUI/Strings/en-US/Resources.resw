@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:element name="root" ns1:IsDataSet="true" />
+  </xs:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <data name="Zapretgui.Text" xml:space="preserve">
+    <value>ZapretGUI</value>
+  </data>
+  <data name="Glavnaya.Content" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="Strategii.Content" xml:space="preserve">
+    <value>Стратегии</value>
+  </data>
+  <data name="Logi.Content" xml:space="preserve">
+    <value>Логи</value>
+  </data>
+  <data name="Nastroyki.Content" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Glavnaya1.Text" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="StatusZaschity.Text" xml:space="preserve">
+    <value>Статус защиты</value>
+  </data>
+  <data name="StatusText.Text" xml:space="preserve">
+    <value>Остановлено</value>
+  </data>
+  <data name="StrategyText.Text" xml:space="preserve">
+    <value>Стратегия не выбрана</value>
+  </data>
+  <data name="StartButton.Content" xml:space="preserve">
+    <value>▶  Запустить</value>
+  </data>
+  <data name="StopButton.Content" xml:space="preserve">
+    <value>⏹  Остановить</value>
+  </data>
+  <data name="Control.Text" xml:space="preserve">
+    <value>🎮</value>
+  </data>
+  <data name="Discord.Text" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="ObkhodDpiAktiven.Text" xml:space="preserve">
+    <value>Обход DPI активен</value>
+  </data>
+  <data name="Control1.Text" xml:space="preserve">
+    <value>▶️</value>
+  </data>
+  <data name="Youtube.Text" xml:space="preserve">
+    <value>YouTube</value>
+  </data>
+  <data name="ObkhodDpiAktiven1.Text" xml:space="preserve">
+    <value>Обход DPI активен</value>
+  </data>
+  <data name="Control2.Text" xml:space="preserve">
+    <value>🔍</value>
+  </data>
+  <data name="Google.Text" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ObkhodDpiAktiven2.Text" xml:space="preserve">
+    <value>Обход DPI активен</value>
+  </data>
+  <data name="StrategiyaPodklyucheniya.Text" xml:space="preserve">
+    <value>Стратегия подключения</value>
+  </data>
+  <data name="VyberiteOptimalnuyuStrategiyuDlyaVashegoProvaydera.Text" xml:space="preserve">
+    <value>Выберите оптимальную стратегию для вашего провайдера</value>
+  </data>
+  <data name="Izmenit.Content" xml:space="preserve">
+    <value>Изменить →</value>
+  </data>
+  <data name="Logi1.Text" xml:space="preserve">
+    <value>Логи</value>
+  </data>
+  <data name="OchistitLogi.Content" xml:space="preserve">
+    <value>Очистить логи</value>
+  </data>
+  <data name="Nastroyki.Text" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Zapusk.Text" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="AvtozapuskVmesteSWindows.Text" xml:space="preserve">
+    <value>Автозапуск вместе с Windows</value>
+  </data>
+  <data name="ZapuskatZapretguiPriVkhodeVSistemu.Text" xml:space="preserve">
+    <value>Запускать ZapretGUI при входе в систему</value>
+  </data>
+  <data name="AvtostartZapret.Text" xml:space="preserve">
+    <value>Автостарт zapret</value>
+  </data>
+  <data name="ZapuskatZaschituPriOtkrytiiPrilozheniya.Text" xml:space="preserve">
+    <value>Запускать защиту при открытии приложения</value>
+  </data>
+  <data name="MinimizatsiyaVTreyPriZapuske.Text" xml:space="preserve">
+    <value>Минимизация в трей при запуске</value>
+  </data>
+  <data name="SkryvatOknoPriStartePrilozheniya.Text" xml:space="preserve">
+    <value>Скрывать окно при старте приложения</value>
+  </data>
+  <data name="VneshniyVid.Text" xml:space="preserve">
+    <value>Внешний вид</value>
+  </data>
+  <data name="TemaPrilozheniya.Text" xml:space="preserve">
+    <value>Тема приложения</value>
+  </data>
+  <data name="VyberiteSvetluyuTyomnuyuIliSistemnuyuTemu.Text" xml:space="preserve">
+    <value>Выберите светлую, тёмную или системную тему</value>
+  </data>
+  <data name="Sistemnaya.Content" xml:space="preserve">
+    <value>Системная</value>
+  </data>
+  <data name="Svetlaya.Content" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
+  <data name="Tyomnaya.Content" xml:space="preserve">
+    <value>Тёмная</value>
+  </data>
+  <data name="Yazyk.Text" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="YazykInterfeysaPrilozheniya.Text" xml:space="preserve">
+    <value>Язык интерфейса приложения</value>
+  </data>
+  <data name="Russkiy.Content" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="English.Content" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Uvedomleniya.Text" xml:space="preserve">
+    <value>Уведомления</value>
+  </data>
+  <data name="ZvukovyeEffekty.Text" xml:space="preserve">
+    <value>Звуковые эффекты</value>
+  </data>
+  <data name="ZvukPriZapuskeIOstanovkeZaschity.Text" xml:space="preserve">
+    <value>Звук при запуске и остановке защиты</value>
+  </data>
+  <data name="VsplyvayuschieUvedomleniya.Text" xml:space="preserve">
+    <value>Всплывающие уведомления</value>
+  </data>
+  <data name="PokazyvatUvedomleniyaPriIzmeneniiStatusa.Text" xml:space="preserve">
+    <value>Показывать уведомления при изменении статуса</value>
+  </data>
+  <data name="Strategii1.Text" xml:space="preserve">
+    <value>Стратегии</value>
+  </data>
+  <data name="StrategyTitleText.Text" xml:space="preserve">
+    <value>Выберите стратегию</value>
+  </data>
+  <data name="StrategyDescText.Text" xml:space="preserve">
+    <value>Выберите стратегию из списка слева для просмотра информации.</value>
+  </data>
+  <data name="TipStrategii.Text" xml:space="preserve">
+    <value>Тип стратегии:</value>
+  </data>
+  <data name="Primenimost.Text" xml:space="preserve">
+    <value>Применимость:</value>
+  </data>
+  <data name="ApplyStrategyButton.Content" xml:space="preserve">
+    <value>Применить стратегию</value>
+  </data>
+</root>

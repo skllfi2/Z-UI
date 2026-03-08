@@ -9,7 +9,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Логи"
+        <TextBlock x:Uid="Logi1" Grid.Row="0" Text="Логи"
                    Style="{ThemeResource TitleLargeTextBlockStyle}"
                    Margin="0,0,0,16"/>
 
@@ -20,7 +20,7 @@
             <ScrollViewer x:Name="LogsScrollViewer"
                           VerticalScrollBarVisibility="Auto"
                           Padding="16">
-                <TextBlock x:Name="LogsTextBlock"
+                <TextBlock x:Uid="LogsTextBlock" x:Name="LogsTextBlock"
                            FontFamily="Consolas"
                            FontSize="12"
                            TextWrapping="Wrap"
@@ -28,7 +28,7 @@
             </ScrollViewer>
         </Border>
 
-        <Button Grid.Row="2" Content="Очистить логи"
+        <Button x:Uid="OchistitLogi" Grid.Row="2" Content="Очистить логи"
                 Margin="0,12,0,0"
                 Click="ClearLogs_Click"/>
     </Grid>

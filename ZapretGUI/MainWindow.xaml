@@ -25,7 +25,7 @@
                     <Image Source="Assets/TLSProxy.ico"
                            Width="16" Height="16"
                            Margin="0,0,8,0"/>
-                    <TextBlock Text="ZapretGUI"
+                    <TextBlock x:Uid="Zapretgui" Text="ZapretGUI"
                                FontSize="12"
                                VerticalAlignment="Center"
                                Style="{StaticResource CaptionTextBlockStyle}"/>
@@ -34,10 +34,10 @@
         </NavigationView.PaneHeader>
 
         <NavigationView.MenuItems>
-            <NavigationViewItem Icon="Home" Content="Главная" Tag="dashboard" />
-            <NavigationViewItem Icon="Library" Content="Стратегии" Tag="strategies" />
-            <NavigationViewItem Icon="Document" Content="Логи" Tag="logs" />
-            <NavigationViewItem Icon="Setting" Content="Настройки" Tag="settings" />
+            <NavigationViewItem x:Uid="Glavnaya" Icon="Home" Content="Главная" Tag="dashboard" />
+            <NavigationViewItem x:Uid="Strategii" Icon="Library" Content="Стратегии" Tag="strategies" />
+            <NavigationViewItem x:Uid="Logi" Icon="Document" Content="Логи" Tag="logs" />
+            <NavigationViewItem x:Uid="Nastroyki" Icon="Setting" Content="Настройки" Tag="settings" />
         </NavigationView.MenuItems>
 
         <NavigationView.Content>

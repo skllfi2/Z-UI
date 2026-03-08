@@ -20,7 +20,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0"
+            <TextBlock x:Uid="Strategii1" Grid.Row="0"
                        Text="Стратегии"
                        Style="{ThemeResource TitleTextBlockStyle}"
                        Margin="0,0,0,16"/>
@@ -31,7 +31,7 @@
                       CornerRadius="8">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}" Padding="8,4"/>
+                        <TextBlock x:Uid="TextBlock" Text="{Binding}" Padding="8,4"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -45,7 +45,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0"
+            <TextBlock x:Uid="StrategyTitleText" Grid.Row="0"
                        x:Name="StrategyTitleText"
                        Text="Выберите стратегию"
                        Style="{ThemeResource TitleTextBlockStyle}"
@@ -60,7 +60,7 @@
                              IsClosable="False"/>
 
                     <!-- Описание -->
-                    <TextBlock x:Name="StrategyDescText"
+                    <TextBlock x:Uid="StrategyDescText" x:Name="StrategyDescText"
                                Text="Выберите стратегию из списка слева для просмотра информации."
                                TextWrapping="Wrap"
                                Style="{ThemeResource BodyTextBlockStyle}"
@@ -68,18 +68,18 @@
 
                     <!-- Тип стратегии -->
                     <StackPanel x:Name="StrategyInfoPanel" Visibility="Collapsed" Spacing="8">
-                        <TextBlock Text="Тип стратегии:" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
-                        <TextBlock x:Name="StrategyTypeText" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+                        <TextBlock x:Uid="TipStrategii" Text="Тип стратегии:" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
+                        <TextBlock x:Uid="StrategyTypeText" x:Name="StrategyTypeText" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
 
-                        <TextBlock Text="Применимость:" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5" Margin="0,8,0,0"/>
-                        <TextBlock x:Name="StrategyUsageText" TextWrapping="Wrap" Style="{ThemeResource BodyTextBlockStyle}"/>
+                        <TextBlock x:Uid="Primenimost" Text="Применимость:" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5" Margin="0,8,0,0"/>
+                        <TextBlock x:Uid="StrategyUsageText" x:Name="StrategyUsageText" TextWrapping="Wrap" Style="{ThemeResource BodyTextBlockStyle}"/>
                     </StackPanel>
 
                 </StackPanel>
             </ScrollViewer>
 
             <!-- Кнопка -->
-            <Button Grid.Row="2"
+            <Button x:Uid="ApplyStrategyButton" Grid.Row="2"
                     x:Name="ApplyStrategyButton"
                     Content="Применить стратегию"
                     Click="ApplyStrategyButton_Click"

@@ -10,7 +10,7 @@
         <StackPanel Spacing="16" Padding="32,24">
 
             <!-- Заголовок -->
-            <TextBlock Text="Главная"
+            <TextBlock x:Uid="Glavnaya1" Text="Главная"
                        Style="{ThemeResource TitleLargeTextBlockStyle}"
                        Margin="0,0,0,8"/>
 
@@ -26,18 +26,18 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Spacing="8">
-                        <TextBlock Text="Статус защиты"
+                        <TextBlock x:Uid="StatusZaschity" Text="Статус защиты"
                                    Style="{ThemeResource CaptionTextBlockStyle}"
                                    Opacity="0.6"/>
                         <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
                             <Ellipse x:Name="StatusIndicator"
                                      Width="14" Height="14"
                                      Fill="Red"/>
-                            <TextBlock x:Name="StatusText"
+                            <TextBlock x:Uid="StatusText" x:Name="StatusText"
                                        Text="Остановлено"
                                        Style="{ThemeResource SubtitleTextBlockStyle}"/>
                         </StackPanel>
-                        <TextBlock x:Name="StrategyText"
+                        <TextBlock x:Uid="StrategyText" x:Name="StrategyText"
                                    Text="Стратегия не выбрана"
                                    Style="{ThemeResource CaptionTextBlockStyle}"
                                    Opacity="0.6"/>
@@ -46,12 +46,12 @@
                     <!-- Кнопки -->
                     <StackPanel Grid.Column="1" Orientation="Horizontal"
                                 Spacing="8" VerticalAlignment="Center">
-                        <Button x:Name="StartButton"
+                        <Button x:Uid="StartButton" x:Name="StartButton"
                                 Content="▶  Запустить"
                                 Style="{ThemeResource AccentButtonStyle}"
                                 Click="StartButton_Click"
                                 Padding="20,10"/>
-                        <Button x:Name="StopButton"
+                        <Button x:Uid="StopButton" x:Name="StopButton"
                                 Content="⏹  Остановить"
                                 Click="StopButton_Click"
                                 Padding="20,10"/>
@@ -73,10 +73,10 @@
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1">
                     <StackPanel Spacing="8">
-                        <TextBlock Text="🎮" FontSize="28"/>
-                        <TextBlock Text="Discord"
+                        <TextBlock x:Uid="Control" Text="🎮" FontSize="28"/>
+                        <TextBlock x:Uid="Discord" Text="Discord"
                                    Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                        <TextBlock Text="Обход DPI активен"
+                        <TextBlock x:Uid="ObkhodDpiAktiven" Text="Обход DPI активен"
                                    Style="{ThemeResource CaptionTextBlockStyle}"
                                    Opacity="0.6"/>
                     </StackPanel>
@@ -88,10 +88,10 @@
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1">
                     <StackPanel Spacing="8">
-                        <TextBlock Text="▶️" FontSize="28"/>
-                        <TextBlock Text="YouTube"
+                        <TextBlock x:Uid="Control1" Text="▶️" FontSize="28"/>
+                        <TextBlock x:Uid="Youtube" Text="YouTube"
                                    Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                        <TextBlock Text="Обход DPI активен"
+                        <TextBlock x:Uid="ObkhodDpiAktiven1" Text="Обход DPI активен"
                                    Style="{ThemeResource CaptionTextBlockStyle}"
                                    Opacity="0.6"/>
                     </StackPanel>
@@ -103,10 +103,10 @@
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1">
                     <StackPanel Spacing="8">
-                        <TextBlock Text="🔍" FontSize="28"/>
-                        <TextBlock Text="Google"
+                        <TextBlock x:Uid="Control2" Text="🔍" FontSize="28"/>
+                        <TextBlock x:Uid="Google" Text="Google"
                                    Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                        <TextBlock Text="Обход DPI активен"
+                        <TextBlock x:Uid="ObkhodDpiAktiven2" Text="Обход DPI активен"
                                    Style="{ThemeResource CaptionTextBlockStyle}"
                                    Opacity="0.6"/>
                     </StackPanel>
@@ -124,13 +124,13 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Spacing="4">
-                        <TextBlock Text="Стратегия подключения"
+                        <TextBlock x:Uid="StrategiyaPodklyucheniya" Text="Стратегия подключения"
                                    Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                        <TextBlock Text="Выберите оптимальную стратегию для вашего провайдера"
+                        <TextBlock x:Uid="VyberiteOptimalnuyuStrategiyuDlyaVashegoProvaydera" Text="Выберите оптимальную стратегию для вашего провайдера"
                                    Style="{ThemeResource CaptionTextBlockStyle}"
                                    Opacity="0.6"/>
                     </StackPanel>
-                    <HyperlinkButton Grid.Column="1"
+                    <HyperlinkButton x:Uid="Izmenit" Grid.Column="1"
                                      Content="Изменить →"
                                      VerticalAlignment="Center"
                                      Click="ChangeStrategy_Click"/>
