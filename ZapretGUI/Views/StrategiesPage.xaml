@@ -20,8 +20,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock x:Uid="Strategii1" Grid.Row="0"
-                       Text="Стратегии"
+            <TextBlock x:Uid="StrategiesTitle" Grid.Row="0" Text="Стратегии"
                        Style="{ThemeResource TitleTextBlockStyle}"
                        Margin="0,0,0,16"/>
 

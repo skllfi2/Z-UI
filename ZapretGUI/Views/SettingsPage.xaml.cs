@@ -2,6 +2,8 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Win32;
 using System;
+using System.Threading.Tasks;
+using ZapretGUI.Services;
 
 namespace ZapretGUI.Views
 {
@@ -16,6 +18,7 @@ namespace ZapretGUI.Views
             this.InitializeComponent();
             LoadSettings();
             _isLoading = false;
+            _ = Task.Run(LoadServiceStatus);
         }
 
         private void LoadSettings()
@@ -113,6 +116,46 @@ namespace ZapretGUI.Views
                     _ => ElementTheme.Default
                 };
             }
+        }
+
+        private async void LoadServiceStatus()
+        {
+            var status = await ServiceManager.GetStatusAsync();
+            DispatcherQueue.TryEnqueue(() => ServiceStatusText.Text = status);
+        }
+
+        private void AppendServiceLog(string text)
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                ServiceLogText.Text += text + "\n";
+                ServiceLogScrollViewer.ScrollToVerticalOffset(double.MaxValue);
+            });
+        }
+
+        private async void InstallService_Click(object sender, RoutedEventArgs e)
+        {
+            var strategy = AppState.CurrentStrategy;
+            var strategiesPath = System.IO.Path.Combine(AppContext.BaseDirectory, "winws", "strategies");
+            var batFile = System.IO.Path.Combine(strategiesPath, strategy + ".bat");
+            var binPath = System.IO.Path.Combine(AppContext.BaseDirectory, "winws") + "\\";
+            var listsPath = System.IO.Path.Combine(AppContext.BaseDirectory, "winws", "lists") + "\\";
+            var arguments = Services.BatStrategyParser.ExtractArguments(batFile, binPath, listsPath);
+            if (arguments == null) { AppendServiceLog("Ошибка: не удалось распарсить стратегию"); return; }
+
+            InstallServiceButton.IsEnabled = false;
+            AppendServiceLog($"Устанавливаю службу со стратегией: {strategy}...");
+            await ServiceManager.InstallAsync(strategy, arguments, AppendServiceLog);
+            InstallServiceButton.IsEnabled = true;
+            LoadServiceStatus();
+        }
+
+        private async void RemoveService_Click(object sender, RoutedEventArgs e)
+        {
+            AppendServiceLog("Удаляю службы...");
+            await ServiceManager.RemoveAsync(AppendServiceLog);
+            AppendServiceLog("Готово.");
+            LoadServiceStatus();
         }
     }
 }

@@ -24,7 +24,7 @@
   <data name="Nastroyki.Content" xml:space="preserve">
     <value>Настройки</value>
   </data>
-  <data name="Glavnaya1.Text" xml:space="preserve">
+  <data name="DashboardTitle.Text" xml:space="preserve">
     <value>Главная</value>
   </data>
   <data name="StatusZaschity.Text" xml:space="preserve">
@@ -51,23 +51,11 @@
   <data name="ObkhodDpiAktiven.Text" xml:space="preserve">
     <value>Обход DPI активен</value>
   </data>
-  <data name="Control1.Text" xml:space="preserve">
-    <value>▶️</value>
-  </data>
   <data name="Youtube.Text" xml:space="preserve">
     <value>YouTube</value>
   </data>
-  <data name="ObkhodDpiAktiven1.Text" xml:space="preserve">
-    <value>Обход DPI активен</value>
-  </data>
-  <data name="Control2.Text" xml:space="preserve">
-    <value>🔍</value>
-  </data>
   <data name="Google.Text" xml:space="preserve">
     <value>Google</value>
-  </data>
-  <data name="ObkhodDpiAktiven2.Text" xml:space="preserve">
-    <value>Обход DPI активен</value>
   </data>
   <data name="StrategiyaPodklyucheniya.Text" xml:space="preserve">
     <value>Стратегия подключения</value>
@@ -78,14 +66,11 @@
   <data name="Izmenit.Content" xml:space="preserve">
     <value>Изменить →</value>
   </data>
-  <data name="Logi1.Text" xml:space="preserve">
+  <data name="LogsTitle.Text" xml:space="preserve">
     <value>Логи</value>
   </data>
   <data name="OchistitLogi.Content" xml:space="preserve">
     <value>Очистить логи</value>
-  </data>
-  <data name="Nastroyki.Text" xml:space="preserve">
-    <value>Настройки</value>
   </data>
   <data name="Zapusk.Text" xml:space="preserve">
     <value>Запуск</value>
@@ -97,7 +82,7 @@
     <value>Запускать ZapretGUI при входе в систему</value>
   </data>
   <data name="AvtostartZapret.Text" xml:space="preserve">
-    <value>Автостарт zapret</value>
+    <value>Запускать защиту автоматически</value>
   </data>
   <data name="ZapuskatZaschituPriOtkrytiiPrilozheniya.Text" xml:space="preserve">
     <value>Запускать защиту при открытии приложения</value>
@@ -153,7 +138,7 @@
   <data name="PokazyvatUvedomleniyaPriIzmeneniiStatusa.Text" xml:space="preserve">
     <value>Показывать уведомления при изменении статуса</value>
   </data>
-  <data name="Strategii1.Text" xml:space="preserve">
+  <data name="StrategiesTitle.Text" xml:space="preserve">
     <value>Стратегии</value>
   </data>
   <data name="StrategyTitleText.Text" xml:space="preserve">
@@ -170,5 +155,62 @@
   </data>
   <data name="ApplyStrategyButton.Content" xml:space="preserve">
     <value>Применить стратегию</value>
+  </data>
+  <data name="SluzhbaWindows.Text" xml:space="preserve">
+    <value>Служба Windows</value>
+  </data>
+  <data name="Status.Text" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="SluzhbaZapret.Text" xml:space="preserve">
+    <value>Служба zapret</value>
+  </data>
+  <data name="ServiceStatusText.Text" xml:space="preserve">
+    <value>Проверяется...</value>
+  </data>
+  <data name="Obnovit.Content" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="UstanovkaSluzhby.Text" xml:space="preserve">
+    <value>Установка службы</value>
+  </data>
+  <data name="VyberiteStrategiyuDlyaSluzhby.Text" xml:space="preserve">
+    <value>Выберите стратегию для службы</value>
+  </data>
+  <data name="SluzhbaBudetAvtomaticheskiZapuskatsyaVmesteSWindow.Text" xml:space="preserve">
+    <value>Служба будет автоматически запускаться вместе с Windows</value>
+  </data>
+  <data name="InstallButton.Content" xml:space="preserve">
+    <value>Установить службу</value>
+  </data>
+  <data name="Upravlenie.Text" xml:space="preserve">
+    <value>Управление</value>
+  </data>
+  <data name="UdalitSluzhby.Text" xml:space="preserve">
+    <value>Удалить службы</value>
+  </data>
+  <data name="UdalyaetZapretWindivertIZavershaetWinwsExe.Text" xml:space="preserve">
+    <value>Удаляет zapret, WinDivert и завершает winws.exe</value>
+  </data>
+  <data name="Udalit.Content" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Vyvod.Text" xml:space="preserve">
+    <value>Вывод</value>
+  </data>
+  <data name="NastroykiTitle.Text" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="UstanovitSluzhbu.Text" xml:space="preserve">
+    <value>Установить службу</value>
+  </data>
+  <data name="AvtozapuskSluzhbySWindowsBezZapuskaPrilozheniya.Text" xml:space="preserve">
+    <value>Автозапуск службы с Windows без запуска приложения</value>
+  </data>
+  <data name="InstallServiceButton.Content" xml:space="preserve">
+    <value>Установить</value>
+  </data>
+  <data name="LogOperatsiy.Text" xml:space="preserve">
+    <value>Лог операций</value>
   </data>
 </root>

@@ -70,7 +70,27 @@ def slugify(text: str, max_len: int = 50) -> str:
     result = re.sub(r"[^A-Za-z0-9]", "", result)
     return result[:max_len] or "Control"
 
-def make_uid(elem: ET.Element, control: str, used: set) -> str:
+# Суффиксы для разрешения конфликтов типов контролов
+CTRL_SUFFIX = {
+    "TextBlock":          "Title",
+    "Button":             "Btn",
+    "ComboBoxItem":       "Item",
+    "ToggleSwitch":       "Toggle",
+    "NavigationViewItem": "Nav",
+    "AppBarButton":       "AppBtn",
+    "CheckBox":           "Check",
+    "RadioButton":        "Radio",
+    "HyperlinkButton":    "Link",
+}
+
+def make_uid(elem: ET.Element, control: str, used: set, uid_ctrl: dict) -> str:
+    """
+    uid_ctrl: { uid -> control_type } — карта уже выданных uid и их типов.
+    Если base уже занят контролом ДРУГОГО типа — добавляем суффикс типа,
+    чтобы избежать конфликта .Text vs .Content в .resw.
+    Например: Nastroyki занят NavigationViewItem, новый TextBlock
+    → генерируем NastroykiTitle.
+    """
     # 1) x:Name
     base = elem.get(X_NAME) or elem.get("x:Name", "")
 
@@ -86,12 +106,18 @@ def make_uid(elem: ET.Element, control: str, used: set) -> str:
     if not base:
         base = control
 
+    # Если base уже занят контролом другого типа — добавляем суффикс
+    if base in uid_ctrl and uid_ctrl[base] != control:
+        suffix = CTRL_SUFFIX.get(control, control)
+        base = f"{base}{suffix}"
+
     uid = base
     n = 1
     while uid in used:
         uid = f"{base}{n}"
         n += 1
     used.add(uid)
+    uid_ctrl[uid] = control
     return uid
 
 # ─── Вставка x:Uid в сырой текст XAML ────────────────────────────────────────
@@ -144,6 +170,7 @@ def process_xaml(
     path: Path,
     controls: list,
     used_uids: set,
+    uid_ctrl: dict,
     dry: bool,
 ) -> list:
     """
@@ -178,7 +205,7 @@ def process_xaml(
         if existing_uid:
             uid = existing_uid
         else:
-            uid = make_uid(elem, local, used_uids)
+            uid = make_uid(elem, local, used_uids, uid_ctrl)
             new_text = inject_xuid(text, elem, local, uid)
             if new_text != text:
                 text = new_text
@@ -297,12 +324,13 @@ def main():
         return
 
     used_uids: set = set()
+    uid_ctrl: dict = {}
     all_entries: list = []
 
     for xaml_path in xaml_files:
         rel = xaml_path.relative_to(root_dir)
         print(f"📄 {rel}")
-        all_entries.extend(process_xaml(xaml_path, controls, used_uids, args.dry))
+        all_entries.extend(process_xaml(xaml_path, controls, used_uids, uid_ctrl, args.dry))
 
     print(f"\n{'─'*55}")
     print(f"Файлов:         {len(xaml_files)}")

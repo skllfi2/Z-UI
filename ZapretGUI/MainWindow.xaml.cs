@@ -34,7 +34,7 @@ namespace ZapretGUI
             AppWindow.SetPresenter(presenter);
 
             // Размер и центрирование
-            AppWindow.Resize(new Windows.Graphics.SizeInt32(900, 600));
+            AppWindow.Resize(new Windows.Graphics.SizeInt32(1080, 750));
             var displayArea = Microsoft.UI.Windowing.DisplayArea.GetFromWindowId(
                 AppWindow.Id, Microsoft.UI.Windowing.DisplayAreaFallback.Primary);
             var x = (displayArea.WorkArea.Width - 900) / 2;
@@ -62,6 +62,7 @@ namespace ZapretGUI
                 case "settings":
                     NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems[3];
                     ContentFrame.Navigate(typeof(SettingsPage)); break;
+                case "service": ContentFrame.Navigate(typeof(ServicePage)); break;
             }
         }
 
@@ -74,6 +75,7 @@ namespace ZapretGUI
                 case "strategies": ContentFrame.Navigate(typeof(StrategiesPage)); break;
                 case "logs": ContentFrame.Navigate(typeof(LogsPage)); break;
                 case "settings": ContentFrame.Navigate(typeof(SettingsPage)); break;
+
             }
         }
     }

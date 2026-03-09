@@ -38,6 +38,7 @@
             <NavigationViewItem x:Uid="Strategii" Icon="Library" Content="Стратегии" Tag="strategies" />
             <NavigationViewItem x:Uid="Logi" Icon="Document" Content="Логи" Tag="logs" />
             <NavigationViewItem x:Uid="Nastroyki" Icon="Setting" Content="Настройки" Tag="settings" />
+
         </NavigationView.MenuItems>
 
         <NavigationView.Content>

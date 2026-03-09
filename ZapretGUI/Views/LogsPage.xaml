@@ -9,7 +9,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Uid="Logi1" Grid.Row="0" Text="Логи"
+        <TextBlock x:Uid="LogsTitle" Grid.Row="0" Text="Логи"
                    Style="{ThemeResource TitleLargeTextBlockStyle}"
                    Margin="0,0,0,16"/>
 

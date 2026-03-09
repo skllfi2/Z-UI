@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="ZapretGUI.Views.ServicePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollViewer Padding="32,24,32,24">
+        <StackPanel Spacing="8" MaxWidth="800" HorizontalAlignment="Stretch">
+
+            <TextBlock x:Uid="SluzhbaWindows" Text="Служба Windows" Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,16"/>
+
+            <!-- Статус -->
+            <TextBlock x:Uid="Status" Text="Статус" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,0,0,8"/>
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1" CornerRadius="8" Padding="16,12">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock x:Uid="SluzhbaZapret" Text="Служба zapret" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock x:Uid="ServiceStatusText" x:Name="ServiceStatusText"
+                                   Text="Проверяется..."
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Opacity="0.6"/>
+                    </StackPanel>
+                    <Button x:Uid="Obnovit" Grid.Column="1" Content="Обновить" Click="RefreshStatus_Click"
+                            VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Установка -->
+            <TextBlock x:Uid="UstanovkaSluzhby" Text="Установка службы" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,16,0,8"/>
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1" CornerRadius="8" Padding="16,12">
+                <StackPanel Spacing="12">
+                    <StackPanel Spacing="8">
+                        <TextBlock x:Uid="VyberiteStrategiyuDlyaSluzhby" Text="Выберите стратегию для службы" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock x:Uid="SluzhbaBudetAvtomaticheskiZapuskatsyaVmesteSWindow" Text="Служба будет автоматически запускаться вместе с Windows" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
+                        <ComboBox x:Name="StrategyComboBox" MinWidth="300" PlaceholderText="Выберите стратегию..."/>
+                    </StackPanel>
+                    <Button x:Uid="InstallButton" x:Name="InstallButton" Content="Установить службу"
+                            Style="{StaticResource AccentButtonStyle}"
+                            Click="InstallService_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Удаление -->
+            <TextBlock x:Uid="Upravlenie" Text="Управление" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,16,0,8"/>
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1" CornerRadius="8" Padding="16,12">
+                <StackPanel Spacing="12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock x:Uid="UdalitSluzhby" Text="Удалить службы" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock x:Uid="UdalyaetZapretWindivertIZavershaetWinwsExe" Text="Удаляет zapret, WinDivert и завершает winws.exe" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
+                        </StackPanel>
+                        <Button x:Uid="Udalit" Grid.Column="1" Content="Удалить" Click="RemoveService_Click"
+                                VerticalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Лог -->
+            <TextBlock x:Uid="Vyvod" Text="Вывод" Style="{StaticResource BodyStrongTextBlockStyle}" Margin="0,16,0,8"/>
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1" CornerRadius="8" Padding="16">
+                <ScrollViewer x:Name="OutputScrollViewer" MaxHeight="200">
+                    <TextBlock x:Uid="OutputText" x:Name="OutputText"
+                               FontFamily="Consolas"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Opacity="0.9"/>
+                </ScrollViewer>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>
