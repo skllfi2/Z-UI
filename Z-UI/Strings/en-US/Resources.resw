@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:schema id="root">
     <xs:element name="root" ns1:IsDataSet="true" />
@@ -9,8 +9,8 @@
   <resheader name="version">
     <value>2.0</value>
   </resheader>
-  <data name="Zapretgui.Text" xml:space="preserve">
-    <value>BanGUI</value>
+  <data name="ZUI.Text" xml:space="preserve">
+    <value>ZUI</value>
   </data>
   <data name="Glavnaya.Content" xml:space="preserve">
     <value>Home</value>
@@ -51,8 +51,8 @@
   <data name="AvtozapuskVmesteSWindows.Text" xml:space="preserve">
     <value>Auto-start with Windows</value>
   </data>
-  <data name="ZapuskatZapretguiPriVkhodeVSistemu.Text" xml:space="preserve">
-    <value>Start ZapretGUI on system login</value>
+  <data name="ZapuskatZUIPriVkhodeVSistemu.Text" xml:space="preserve">
+    <value>Start ZUI on system login</value>
   </data>
   <data name="AvtostartZapret.Text" xml:space="preserve">
     <value>Automatically start protection</value>
@@ -110,9 +110,6 @@
   </data>
   <data name="PokazyvatUvedomleniyaPriIzmeneniiStatusa.Text" xml:space="preserve">
     <value>Show notifications on status change</value>
-  </data>
-  <data name="StrategyTitleText.Text" xml:space="preserve">
-    <value>Select strategy</value>
   </data>
   <data name="StrategyDescText.Text" xml:space="preserve">
     <value>Select a strategy from the list on the left to view information.</value>
@@ -270,7 +267,10 @@
   <data name="UpdateHostsButton.Content" xml:space="preserve">
     <value>Update</value>
   </data>
-  <data name="AktivnayaStrategiya.Text" xml:space="preserve">
+  <data name="StrategyDescription.Text" xml:space="preserve">
+    <value>Standard protection for bypassing popular networks</value>
+  </data>
+  <data name="StrategyTitleText.Text" xml:space="preserve">
     <value>Active strategy</value>
   </data>
   <data name="Servisy.Text" xml:space="preserve">
@@ -435,8 +435,8 @@
   <data name="5.Text" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="DobroPozhalovatVZapretgui.Text" xml:space="preserve">
-    <value>Welcome to ZapretGUI</value>
+  <data name="DobroPozhalovatVZUI.Text" xml:space="preserve">
+    <value>Welcome to Z-UI</value>
   </data>
   <data name="MasterNastroykiPomozhetUstanovitInstrumentObkhodaD.Text" xml:space="preserve">
     <value>The setup wizard will help you install the DPI bypass tool zapret and configure it according to your needs.</value>

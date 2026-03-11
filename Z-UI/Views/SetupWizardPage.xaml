@@ -78,10 +78,9 @@
 
             <!-- ══ Шаг 1: Добро пожаловать ══ -->
             <StackPanel x:Name="PanelStep1" Spacing="16" HorizontalAlignment="Center">
-                <FontIcon Glyph="&#xEA18;" FontSize="56"
-                          HorizontalAlignment="Center"
-                          Foreground="{ThemeResource AccentFillColorDefaultBrush}"/>
-                <TextBlock x:Uid="DobroPozhalovatVZapretgui" Text="Добро пожаловать в ZapretGUI"
+                <Image Source="Assets/Z-UI.ico" Width="56" Height="56"
+                          HorizontalAlignment="Center"/>
+                <TextBlock x:Uid="DobroPozhalovatVZUI" Text="Добро пожаловать в ZUI"
                            Style="{ThemeResource TitleLargeTextBlockStyle}"
                            HorizontalAlignment="Center" TextAlignment="Center"/>
                 <TextBlock x:Uid="MasterNastroykiPomozhetUstanovitInstrumentObkhodaD" TextAlignment="Center" Opacity="0.6" TextWrapping="Wrap"
@@ -307,11 +306,15 @@
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"/>
 
-                <Button x:Uid="WizardNextButton" x:Name="WizardNextButton"
-                        Grid.Column="2"
-                        Content="Далее →"
-                        Style="{ThemeResource AccentButtonStyle}"
-                        Click="WizardNext_Click"/>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="WizardSkipButton"
+                            Content="Пропустить"
+                            Click="WizardSkip_Click"/>
+                    <Button x:Uid="WizardNextButton" x:Name="WizardNextButton"
+                            Content="Далее →"
+                            Style="{ThemeResource AccentButtonStyle}"
+                            Click="WizardNext_Click"/>
+                </StackPanel>
             </Grid>
         </Border>
     </Grid>

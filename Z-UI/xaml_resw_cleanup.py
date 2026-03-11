@@ -15,8 +15,8 @@ xaml_resw_cleanup.py
      → удаляем (опционально, флаг --keep-orphans)
 
 Запуск:
-    python xaml_resw_cleanup.py --root "F:\\Dev\\ZapretGUI\\ZapretGUI"
-    python xaml_resw_cleanup.py --root "F:\\Dev\\ZapretGUI\\ZapretGUI" --dry
+    python xaml_resw_cleanup.py --root "F:\\Dev\\ZUI\\ZUI"
+    python xaml_resw_cleanup.py --root "F:\\Dev\\ZUI\\ZUI" --dry
 """
 
 import argparse

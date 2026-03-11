@@ -17,7 +17,7 @@ namespace ZUI.Services
         private static readonly HttpClient _http = new()
         {
             Timeout = TimeSpan.FromSeconds(8),
-            DefaultRequestHeaders = { { "User-Agent", "ZapretGUI" } }
+            DefaultRequestHeaders = { { "User-Agent", "ZUI" } }
         };
 
         public static string? LatestVersion { get; private set; }

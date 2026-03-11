@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:schema id="root">
     <xs:element name="root" ns1:IsDataSet="true" />
@@ -9,8 +9,8 @@
   <resheader name="version">
     <value>2.0</value>
   </resheader>
-  <data name="Zapretgui.Text" xml:space="preserve">
-    <value>ZapretGUI</value>
+  <data name="ZUI.Text" xml:space="preserve">
+    <value>ZUI</value>
   </data>
   <data name="Glavnaya.Content" xml:space="preserve">
     <value>Главная</value>
@@ -51,8 +51,8 @@
   <data name="AvtozapuskVmesteSWindows.Text" xml:space="preserve">
     <value>Автозапуск вместе с Windows</value>
   </data>
-  <data name="ZapuskatZapretguiPriVkhodeVSistemu.Text" xml:space="preserve">
-    <value>Запускать ZapretGUI при входе в систему</value>
+  <data name="ZapuskatZUIPriVkhodeVSistemu.Text" xml:space="preserve">
+    <value>Запускать ZUI при входе в систему</value>
   </data>
   <data name="AvtostartZapret.Text" xml:space="preserve">
     <value>Запускать защиту автоматически</value>
@@ -110,9 +110,6 @@
   </data>
   <data name="PokazyvatUvedomleniyaPriIzmeneniiStatusa.Text" xml:space="preserve">
     <value>Показывать уведомления при изменении статуса</value>
-  </data>
-  <data name="StrategyTitleText.Text" xml:space="preserve">
-    <value>Выберите стратегию</value>
   </data>
   <data name="StrategyDescText.Text" xml:space="preserve">
     <value>Выберите стратегию из списка слева для просмотра информации.</value>
@@ -208,7 +205,7 @@
     <value>Проверять новые версии zapret при запуске приложения</value>
   </data>
   <data name="GameFilter.Text" xml:space="preserve">
-    <value>Game Filter</value>
+    <value>Игровой фильтр</value>
   </data>
   <data name="RasshiritObkhodDpiNaIgrovyePorty102465535.Text" xml:space="preserve">
     <value>Расширить обход DPI на игровые порты (1024-65535)</value>
@@ -226,7 +223,7 @@
     <value>Только UDP</value>
   </data>
   <data name="IpsetFilter.Text" xml:space="preserve">
-    <value>IPSet Filter</value>
+    <value>IPSet фильтр</value>
   </data>
   <data name="IpsetStatusText.Text" xml:space="preserve">
     <value>Загружен список IP</value>
@@ -270,7 +267,10 @@
   <data name="ToggleButton.Content" xml:space="preserve">
     <value>▶  Запустить</value>
   </data>
-  <data name="AktivnayaStrategiya.Text" xml:space="preserve">
+  <data name="StrategyDescription.Text" xml:space="preserve">
+    <value>Стандартная протекция для обхода популярных сетей</value>
+  </data>
+  <data name="StrategyTitleText.Text" xml:space="preserve">
     <value>Активная стратегия</value>
   </data>
   <data name="Servisy.Text" xml:space="preserve">
@@ -435,8 +435,8 @@
   <data name="5.Text" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="DobroPozhalovatVZapretgui.Text" xml:space="preserve">
-    <value>Добро пожаловать в ZapretGUI</value>
+  <data name="DobroPozhalovatVZUI.Text" xml:space="preserve">
+    <value>Добро пожаловать в Z-UI</value>
   </data>
   <data name="MasterNastroykiPomozhetUstanovitInstrumentObkhodaD.Text" xml:space="preserve">
     <value>Мастер настройки поможет установить инструмент обхода DPI zapret и настроить его под ваши нужды.

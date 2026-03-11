@@ -12,7 +12,7 @@ namespace ZUI.Views
     public sealed partial class SettingsPage : Page
     {
         private const string RegistryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
-        private const string AppName = "ZapretGUI";
+        private const string AppName = "ZUI";
         private bool _isLoading = true;
 
         public SettingsPage()

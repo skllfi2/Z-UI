@@ -1,6 +1,9 @@
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Windows.Foundation;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Windows.UI;
@@ -27,6 +30,7 @@ namespace ZUI.Views
                 ButtonAnimator.AttachToIcon(YoutubeIndicator, "pulse");
                 ButtonAnimator.AttachToIcon(GoogleIndicator,  "pulse");
 
+                SetupRequiredBar.IsOpen = !System.IO.File.Exists(ZapretPaths.WinwsExe);
                 UpdateStatus();
                 LoadFilters();
                 if (UpdateChecker.UpdateAvailable && UpdateChecker.LatestVersion != null)
@@ -57,7 +61,9 @@ namespace ZUI.Views
                     CloseButtonText = "Отмена",
                     XamlRoot        = this.XamlRoot
                 };
-                if (await dialog.ShowAsync().AsTask() == ContentDialogResult.Primary)
+
+                var result = await Task.Run(() => dialog.ShowAsync().GetResults());
+                if (result == ContentDialogResult.Primary)
                 {
                     AppSettings.SetupCompleted = false;
                     AppSettings.Save();
@@ -133,6 +139,9 @@ namespace ZUI.Views
             UpdateInfoBar.Message = $"Доступна новая версия zapret: {version}";
             UpdateInfoBar.IsOpen = true;
         }
+
+        private void OpenWizard_Click(object sender, RoutedEventArgs e) =>
+            MainWindow.Instance?.NavigateTo("setup");
 
         private void UpdateBanner_Click(object sender, RoutedEventArgs e) =>
             MainWindow.Instance?.NavigateTo("updates");

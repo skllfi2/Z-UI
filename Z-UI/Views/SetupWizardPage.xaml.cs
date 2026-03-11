@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Windows.UI;
 using ZUI.Animations;
 using ZUI.Services;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace ZUI.Views
 {
@@ -21,7 +22,7 @@ namespace ZUI.Views
         private static readonly HttpClient _http = new()
         {
             Timeout = TimeSpan.FromSeconds(120),
-            DefaultRequestHeaders = { { "User-Agent", "ZapretGUI" } }
+            DefaultRequestHeaders = { { "User-Agent", "ZUI" } }
         };
 
         private int _currentStep = 1;
@@ -31,7 +32,7 @@ namespace ZUI.Views
         // Шаги: панели и точки
         private StackPanel[] _panels = null!;
         private Border[]     _dots   = null!;
-        private Rectangle[]  _lines  = null!;
+        private Microsoft.UI.Xaml.Shapes.Rectangle[]  _lines  = null!;
 
         public SetupWizardPage()
         {
@@ -137,6 +138,7 @@ namespace ZUI.Views
             WizardStepLabel.Text      = $"Шаг {_currentStep} из 5";
             WizardBackButton.Visibility = _currentStep > 1 ? Visibility.Visible : Visibility.Collapsed;
             WizardNextButton.Content  = _currentStep == 5 ? "Готово" : "Далее →";
+            WizardSkipButton.Visibility = _currentStep == 5 ? Visibility.Collapsed : Visibility.Visible;
 
             // Инициализация отдельных шагов
             if (_currentStep == 3) LoadStrategies();
@@ -359,6 +361,24 @@ namespace ZUI.Views
         }
 
         // ── Вспомогательное ──────────────────────────────────────────────
+
+        private async void WizardSkip_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new ContentDialog
+            {
+                Title             = "Пропустить настройку?",
+                Content           = "Вы сможете запустить мастер настройки позже с главной страницы.\nБез установки zapret защита не будет работать.",
+                PrimaryButtonText = "Пропустить",
+                CloseButtonText   = "Отмена",
+                XamlRoot          = this.XamlRoot
+            };
+            if (await dialog.ShowAsync().AsTask() == ContentDialogResult.Primary)
+            {
+                AppSettings.SetupCompleted = true;
+                AppSettings.Save();
+                MainWindow.Instance?.CompleteSetup();
+            }
+        }
 
         private async void ShowStepError(string message)
         {

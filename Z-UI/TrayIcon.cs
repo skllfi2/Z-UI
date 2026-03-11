@@ -144,7 +144,7 @@ namespace ZUI
 
         public void UpdateStatus(bool isRunning)
         {
-            _nid.szTip = isRunning ? "ZapretGUI — Запущено ✓" : "ZapretGUI — Остановлено";
+            _nid.szTip = isRunning ? "ZUI — Запущено ✓" : "ZUI — Остановлено";
             _nid.uFlags = NIF_TIP | NIF_ICON;
             Shell_NotifyIcon(NIM_MODIFY, ref _nid);
         }

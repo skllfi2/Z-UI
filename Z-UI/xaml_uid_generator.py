@@ -10,7 +10,7 @@ xaml_uid_generator.py
      (не перезаписывает уже существующие ключи)
 
 Запуск (минимальный):
-    python xaml_uid_generator.py --root F:\\Dev\\ZapretGUI\\ZapretGUI
+    python xaml_uid_generator.py --root F:\\Dev\\ZUI\\ZUI
 
 Все параметры:
     --root      Корень проекта (.xaml ищутся рекурсивно)
@@ -328,7 +328,7 @@ def translate_ollama(
         "Rules:\n"
         "- Short and natural for a desktop app UI\n"
         "- Preserve special characters (arrows, emoji) exactly as-is\n"
-        "- Do NOT translate: ZapretGUI, zapret, WinDivert, Windows\n"
+        "- Do NOT translate: ZUI, zapret, WinDivert, Windows\n"
         "- Return ONLY a numbered list in the exact same format, nothing else\n\n"
         f"Strings:\n{numbered}"
     )

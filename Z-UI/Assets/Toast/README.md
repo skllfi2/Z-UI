@@ -1,6 +1,6 @@
 # Toast Notification Icons
 
-This directory contains icons used for toast notifications in ZapretGUI.
+This directory contains icons used for toast notifications in ZUI.
 
 ## Icon Files
 

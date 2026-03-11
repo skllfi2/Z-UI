@@ -10,7 +10,16 @@
       "Bash(dotnet build:*)",
       "Bash(dir Assets)",
       "Bash(dotnet run:*)",
-      "Bash(pwsh -Command \"Start-Process -FilePath ''bin/Debug/net10.0-windows10.0.19041.0/ZapretGUI.exe'' -Verb RunAs\")"
+      "Bash(pwsh -Command \"Start-Process -FilePath ''bin/Debug/net10.0-windows10.0.19041.0/ZapretGUI.exe'' -Verb RunAs\")",
+      "Bash(dotnet --version)",
+      "Bash(taskkill /F /IM \"Z-UI.exe\")",
+      "Bash(taskkill /F /IM Z-UI.exe)",
+      "Bash(taskkill /F /IM dotnet.exe)",
+      "Bash(python xaml_uid_generator.py)",
+      "Read(//c/Users/SKLLFI.DESKTOP-PJ6BFTT/Downloads/fluent-icons/fluent-icons/**)",
+      "Bash(dotnet clean:*)",
+      "Bash(Z-UI.exe)",
+      "Bash(grep -E \"\\\\.\\(exe|dll|manifest\\)$\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\SKLLFI.DESKTOP-PJ6BFTT\\Downloads\\fluent-icons-tools\\fluent-icons-tools\\icons"

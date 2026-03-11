@@ -1,6 +1,7 @@
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media.Animation;
 using ZUI.Animations;
 using static ZUI.Animations.NavigationIconAnimator;
 using ZUI.Services;
@@ -41,10 +42,10 @@ namespace ZUI
             AppWindow.Move(new Windows.Graphics.PointInt32(x, y));
 
             // Показываем мастер настройки при первом запуске или отсутствии zapret
-            if (!AppSettings.SetupCompleted || !System.IO.File.Exists(ZapretPaths.WinwsExe))
+            if (!AppSettings.SetupCompleted)
             {
                 ContentFrame.Navigate(typeof(SetupWizardPage));
-                NavigationViewControl.IsEnabled = false;
+                SetNavMenuEnabled(false);
                 PageHeader.Text = "Настройка";
             }
             else
@@ -111,7 +112,7 @@ namespace ZUI
                     PageHeader.Text = "Сервисы";
                     break;
                 case "setup":
-                    NavigationViewControl.IsEnabled = false;
+                    SetNavMenuEnabled(false);
                     ContentFrame.Navigate(typeof(SetupWizardPage));
                     PageHeader.Text = "Настройка";
                     break;
@@ -153,10 +154,40 @@ namespace ZUI
                     UpdatesBadge.Visibility = Visibility.Collapsed;
                     break;
             }
+
+            // Анимация иконки "Сервисы" при выборе страницы сервисов
+            var selectedItem = NavigationViewControl.SelectedItem as Microsoft.UI.Xaml.Controls.NavigationViewItem;
+            if (selectedItem?.Tag?.ToString() == "updates")
+            {
+                var icon = selectedItem.FindName("ServicesIconAnimated") as Microsoft.UI.Xaml.Controls.IconElement;
+                if (icon != null)
+                {
+                    var storyboard = icon.Resources["ServicesIconAnimation"] as Storyboard;
+                    storyboard?.Begin();
+                }
+            }
+            else
+            {
+                // Останавливаем анимацию при выборе других страниц
+                var icon = NavigationViewControl.FindName("ServicesIconAnimated") as Microsoft.UI.Xaml.Controls.IconElement;
+                if (icon != null)
+                {
+                    var storyboard = icon.Resources["ServicesIconAnimation"] as Storyboard;
+                    storyboard?.Stop();
+                }
+            }
         }
 
         public void ReloadSettings() => ContentFrame.Navigate(typeof(SettingsPage));
         public void ReloadAllPages() => ContentFrame.Navigate(typeof(SettingsPage));
+
+        private void SetNavMenuEnabled(bool enabled)
+        {
+            foreach (var item in NavigationViewControl.MenuItems)
+                if (item is NavigationViewItem nvi) nvi.IsEnabled = enabled;
+            if (NavigationViewControl.SettingsItem is NavigationViewItem s)
+                s.IsEnabled = enabled;
+        }
 
         public void ApplyAnimationSettings()
         {
@@ -165,7 +196,7 @@ namespace ZUI
 
         public void CompleteSetup()
         {
-            NavigationViewControl.IsEnabled = true;
+            SetNavMenuEnabled(true);
             NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems[0];
             ContentFrame.Navigate(typeof(DashboardPage));
             PageHeader.Text = "Главная";

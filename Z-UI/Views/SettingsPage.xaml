@@ -3,7 +3,7 @@
     x:Class="ZUI.Views.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ZapretGUI.Views"
+    xmlns:local="using:ZUI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -26,7 +26,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
                             <TextBlock x:Uid="AvtozapuskVmesteSWindows" Text="Автозапуск вместе с Windows" Style="{StaticResource BodyTextBlockStyle}"/>
-                            <TextBlock x:Uid="ZapuskatZapretguiPriVkhodeVSistemu" Text="Запускать ZapretGUI при входе в систему" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
+                            <TextBlock x:Uid="ZapuskatZUIPriVkhodeVSistemu" Text="Запускать ZUI при входе в систему" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
                         </StackPanel>
                         <ToggleSwitch x:Uid="AutostartToggle" x:Name="AutostartToggle" Grid.Column="1"
                                       OnContent="" OffContent="" VerticalAlignment="Center"
@@ -356,7 +356,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock x:Uid="Zapretgui1" Text="ZapretGUI" Style="{StaticResource BodyTextBlockStyle}"/>
+                        <TextBlock x:Uid="ZUI1" Text="ZUI" Style="{StaticResource BodyTextBlockStyle}"/>
                         <TextBlock x:Uid="AppVersionText1" x:Name="AppVersionText" Text="Версия..."
                                    Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
                     </StackPanel>

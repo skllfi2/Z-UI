@@ -1,9 +1,9 @@
 {
   "profiles": {
-    "ZapretGUI (Package)": {
+    "ZUI (Package)": {
       "commandName": "MsixPackage"
     },
-    "ZapretGUI (Unpackaged)": {
+    "ZUI (Unpackaged)": {
       "commandName": "Project"
     }
   }

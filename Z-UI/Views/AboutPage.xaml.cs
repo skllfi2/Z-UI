@@ -52,7 +52,7 @@ namespace ZUI.Views
             {
                 var dir = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                    "ZapretGUI");
+                    "ZUI");
                 Directory.CreateDirectory(dir);
                 Process.Start("explorer.exe", dir);
             }

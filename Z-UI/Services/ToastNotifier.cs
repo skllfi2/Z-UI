@@ -11,7 +11,7 @@ namespace ZUI.Services
     public static class ToastNotifier
     {
         // AppUserModelID required for desktop apps
-        private const string AppId = "ZapretGUI.DesktopApp";
+        private const string AppId = "ZUI.DesktopApp";
 
         // Toast notifier instance
         private static Windows.UI.Notifications.ToastNotifier? _notifier;
