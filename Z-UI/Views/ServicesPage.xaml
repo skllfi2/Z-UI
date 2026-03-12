@@ -119,15 +119,15 @@
                                     <StackPanel Spacing="4">
                                         <TextBlock x:Uid="FaylHosts" Text="Файл hosts"
                                                    Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                                        <TextBlock x:Name="HostsStatusText"
+                                        <TextBlock x:Uid="HostsStatusText" x:Name="HostsStatusText"
                                                    Text="Проверяет и обновляет системный файл hosts"
                                                    Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.6"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" Spacing="4" HorizontalAlignment="Right">
-                                        <TextBlock x:Name="HostsLastCheckText" Text=""
+                                        <TextBlock x:Uid="HostsLastCheckText" x:Name="HostsLastCheckText" Text=""
                                                    Style="{ThemeResource CaptionTextBlockStyle}"
                                                    Opacity="0.5" HorizontalAlignment="Center"/>
-                                        <Button x:Name="UpdateHostsButton"
+                                        <Button x:Uid="UpdateHostsButton" x:Name="UpdateHostsButton"
                                                 VerticalAlignment="Center" Click="UpdateHosts_Click">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal" Spacing="6">
@@ -135,7 +135,7 @@
                                                                Visibility="Collapsed"
                                                                Style="{ThemeResource AttentionIconInfoBadgeStyle}"
                                                                Width="16" Height="16"/>
-                                                    <TextBlock Text="Обновить hosts"/>
+                                                    <TextBlock x:Uid="ObnovitHosts" Text="Обновить hosts"/>
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
@@ -147,7 +147,7 @@
                                     <ProgressBar x:Name="HostsProgressBar"
                                                  IsIndeterminate="True"
                                                  HorizontalAlignment="Stretch"/>
-                                    <TextBlock x:Name="HostsProgressLabel"
+                                    <TextBlock x:Uid="HostsProgressLabel" x:Name="HostsProgressLabel"
                                                Text="Загружается..."
                                                Style="{ThemeResource CaptionTextBlockStyle}"
                                                Opacity="0.6"/>

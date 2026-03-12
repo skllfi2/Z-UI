@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+  <style>
+    .yt-bg { animation: yt-pulse 2.5s ease-in-out infinite; transform-origin: 12px 12px; }
+    .yt-play { animation: yt-play 2.5s ease-in-out infinite; transform-origin: 12px 12px; }
+    @keyframes yt-pulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.85; }
+    }
+    @keyframes yt-play {
+      0%,100% { transform: scale(1) translateX(0); }
+      40% { transform: scale(1.12) translateX(1px); }
+      55% { transform: scale(0.95) translateX(0); }
+    }
+  </style>
+  <path class="yt-bg" d="M22.54 6.42a2.78 2.78 0 0 0-1.945-1.965C18.88 4 12 4 12 4s-6.88 0-8.595.455A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.945 1.965C5.12 20 12 20 12 20s6.88 0 8.595-.455a2.78 2.78 0 0 0 1.945-1.965A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon class="yt-play" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

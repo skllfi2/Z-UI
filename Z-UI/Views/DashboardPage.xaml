@@ -62,9 +62,9 @@
                                            Style="{ThemeResource TitleTextBlockStyle}"
                                            FontSize="16"
                                            FontWeight="SemiBold"
-                                           Foreground="{ThemeResource SystemBaseHighColorBrush}"/>
+                                           Foreground="{ThemeResource TextFillColorPrimaryBrush}"/>
 
-                                <Border CornerRadius="8" Padding="16" Background="{ThemeResource SystemAccentFillColorAltHighBrush}">
+                                <Border CornerRadius="8" Padding="16" Background="{ThemeResource AccentFillColorSelectedTextBackgroundBrush}">
                                     <Grid ColumnSpacing="16">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -75,7 +75,7 @@
                                         <FontIcon Grid.Column="0" Glyph="&#xE8CB;" FontSize="20" VerticalAlignment="Center"/>
 
                                         <StackPanel Grid.Column="1" Spacing="4">
-                                            <TextBlock x:Name="StrategyText" Text="General"
+                                            <TextBlock x:Uid="StrategyText" x:Name="StrategyText" Text="General"
                                                        Style="{ThemeResource SubtitleTextBlockStyle}"
                                                        FontSize="14"
                                                        FontWeight="SemiBold"/>
@@ -182,7 +182,7 @@
                             </Grid.ColumnDefinitions>
                             <Border Width="36" Height="36" CornerRadius="8"
                                     Background="#1A5865F2" HorizontalAlignment="Left">
-                                <FontIcon Glyph="&#xE9EA;" FontSize="22" Foreground="{ThemeResource AccentFillColorDefaultBrush}"/>
+                                <Image Source="/Assets/ic_discord_animated.svg" Width="36" Height="36" Stretch="UniformToFill"/>
                             </Border>
                             <Ellipse x:Name="DiscordIndicator" Grid.Column="1"
                                      Width="8" Height="8"
@@ -209,7 +209,7 @@
                             </Grid.ColumnDefinitions>
                             <Border Width="36" Height="36" CornerRadius="8"
                                     Background="#1AFF0000" HorizontalAlignment="Left">
-                                <FontIcon Glyph="&#xEA14;" FontSize="22" Foreground="{ThemeResource SystemFillColorCriticalBrush}"/>
+                                <Image Source="/Assets/ic_youtube_animated.svg" Width="36" Height="36" Stretch="UniformToFill"/>
                             </Border>
                             <Ellipse x:Name="YoutubeIndicator" Grid.Column="1"
                                      Width="8" Height="8"
@@ -236,7 +236,7 @@
                             </Grid.ColumnDefinitions>
                             <Border Width="36" Height="36" CornerRadius="8"
                                     Background="#1A4285F4" HorizontalAlignment="Left">
-                                <FontIcon Glyph="&#xE774;" FontSize="22" Foreground="{ThemeResource AccentFillColorDefaultBrush}"/>
+                                <Image Source="/Assets/ic_google_animated.svg" Width="36" Height="36" Stretch="UniformToFill"/>
                             </Border>
                             <Ellipse x:Name="GoogleIndicator" Grid.Column="1"
                                      Width="8" Height="8"
@@ -260,7 +260,7 @@
                      Title="zapret не установлен"
                      Message="Для работы защиты необходимо установить zapret через мастер настройки.">
                 <InfoBar.ActionButton>
-                    <Button Content="Запустить мастер настройки"
+                    <Button x:Uid="ZapustitMasterNastroyki" Content="Запустить мастер настройки"
                             Style="{ThemeResource AccentButtonStyle}"
                             Click="OpenWizard_Click"/>
                 </InfoBar.ActionButton>

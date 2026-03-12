@@ -2,9 +2,10 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ZUI.Animations;
-using static ZapretGUI.Animations.NavigationIconAnimator;
+using static ZUI.Animations.NavigationIconAnimator;
 using ZUI.Services;
 using ZUI.Views;
+using System.Threading.Tasks; 
 
 namespace ZUI
 {

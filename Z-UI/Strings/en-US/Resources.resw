@@ -10,7 +10,7 @@
     <value>2.0</value>
   </resheader>
   <data name="ZUI.Text" xml:space="preserve">
-    <value>ZUI</value>
+    <value>Z-UI</value>
   </data>
   <data name="Glavnaya.Content" xml:space="preserve">
     <value>Home</value>
@@ -38,9 +38,6 @@
   </data>
   <data name="Google.Text" xml:space="preserve">
     <value>Google</value>
-  </data>
-  <data name="Izmenit.Content" xml:space="preserve">
-    <value>Change →</value>
   </data>
   <data name="OchistitLogi.Content" xml:space="preserve">
     <value>Clear logs</value>
@@ -488,5 +485,32 @@
   </data>
   <data name="WizardNextButton.Content" xml:space="preserve">
     <value>Next →</value>
+  </data>
+  <data name="AktivnayaStrategiya.Text" xml:space="preserve">
+    <value>Active strategy</value>
+  </data>
+  <data name="Control.Content" xml:space="preserve">
+    <value>→</value>
+  </data>
+  <data name="ZapustitMasterNastroyki.Content" xml:space="preserve">
+    <value>Launch settings wizard</value>
+  </data>
+  <data name="ObnovitHosts.Text" xml:space="preserve">
+    <value>Update hosts</value>
+  </data>
+  <data name="HostsProgressLabel.Text" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="AvtoobnovlenieHosts.Text" xml:space="preserve">
+    <value>Auto-update hosts</value>
+  </data>
+  <data name="PrimenyatObnovleniyaHostsAvtomaticheskiPriZapuskeT.Text" xml:space="preserve">
+    <value>Apply host updates automatically on startup (requires admin rights)</value>
+  </data>
+  <data name="WizardSkipButton.Content" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="Zui2.Text" xml:space="preserve">
+    <value>Z-UI</value>
   </data>
 </root>

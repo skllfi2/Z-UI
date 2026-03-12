@@ -312,7 +312,11 @@ function Invoke-DpiSuite {
 }
 
 function Test-ZapretServiceConflict {
-    return [bool](Get-Service -Name "zapret" -ErrorAction SilentlyContinue)
+    $service = Get-Service -Name "zapret" -ErrorAction SilentlyContinue
+    if ($service -and $service.Status -eq 'Running') {
+        return $true
+    }
+    return $false
 }
 
 # Check Admin
@@ -352,19 +356,20 @@ if ($originalIpsetStatus -ne "any") {
     Write-Host "[WARNING] It will be restored automatically on the next script run." -ForegroundColor Yellow
 }
 
-# Check if zapret service installed
+# Check if zapret service installed and running
 if (Test-ZapretServiceConflict) {
-    Write-Host "[ERROR] Windows service 'zapret' is installed" -ForegroundColor Red
-    Write-Host "         Remove the service before running tests" -ForegroundColor Yellow
-    Write-Host "         Open service.bat and choose 'Remove Services'" -ForegroundColor Yellow
-    $hasErrors = $true
+    Write-Host "[WARNING] Windows service 'zapret' is installed and running" -ForegroundColor Yellow
+    Write-Host "         Tests may be affected by active service" -ForegroundColor Gray
+    Write-Host "         Consider stopping service for accurate results" -ForegroundColor Gray
+    Write-Host "         Press Enter to continue or Ctrl+C to cancel" -ForegroundColor Gray
+    $continue = Read-Host
 }
 
 if ($hasErrors) {
     Write-Host ""
     Write-Host "Fix the errors above and rerun." -ForegroundColor Yellow
-    Write-Host "Press any key to exit..." -ForegroundColor Yellow
-    [void][System.Console]::ReadKey($true)
+    Write-Host "Press Enter to exit..." -ForegroundColor Yellow
+    Read-Host
     exit 1
 }
 

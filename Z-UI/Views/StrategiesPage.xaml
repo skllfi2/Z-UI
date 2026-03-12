@@ -41,7 +41,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0"
+            <TextBlock x:Uid="StrategyTitleText" Grid.Row="0"
                        x:Name="StrategyTitleText"
                        Text="Выберите стратегию"
                        Style="{ThemeResource TitleTextBlockStyle}"

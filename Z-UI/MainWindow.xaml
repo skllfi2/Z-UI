@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="ZUI">
+    Title="Z-UI">
 
     <Window.SystemBackdrop>
         <MicaBackdrop />
@@ -26,7 +26,7 @@
                     <Image Source="Assets/Z-UI-16x16.png"
                            Width="16" Height="16"
                            Margin="0,0,8,0"/>
-                    <TextBlock x:Uid="ZUI" Text="ZUI"
+                    <TextBlock x:Uid="ZUI" Text="Z-UI"
                                FontSize="12"
                                VerticalAlignment="Center"
                                Style="{StaticResource CaptionTextBlockStyle}"/>

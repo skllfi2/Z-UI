@@ -60,11 +60,11 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <TextBlock Text="Автообновление hosts" Style="{StaticResource BodyTextBlockStyle}"/>
-                            <TextBlock Text="Применять обновления hosts автоматически при запуске (требует прав администратора)"
+                            <TextBlock x:Uid="AvtoobnovlenieHosts" Text="Автообновление hosts" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock x:Uid="PrimenyatObnovleniyaHostsAvtomaticheskiPriZapuskeT" Text="Применять обновления hosts автоматически при запуске (требует прав администратора)"
                                        Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.6"/>
                         </StackPanel>
-                        <ToggleSwitch x:Name="HostsAutoUpdateToggle" Grid.Column="1"
+                        <ToggleSwitch x:Uid="HostsAutoUpdateToggle" x:Name="HostsAutoUpdateToggle" Grid.Column="1"
                                       OnContent="" OffContent="" VerticalAlignment="Center"
                                       HorizontalAlignment="Right" MinWidth="0" Margin="0" Padding="0"
                                       Toggled="HostsAutoUpdateToggle_Toggled"/>

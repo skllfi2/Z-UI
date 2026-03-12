@@ -1,5 +1,5 @@
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
@@ -178,9 +178,7 @@ namespace ZUI.Views
                 var idx   = clean.IndexOf("# ===== zapret hosts");
                 if (idx >= 0) clean = clean[..idx].TrimEnd();
 
-                await File.WriteAllTextAsync(hostsFile, clean + "
-
-" + block);
+                await File.WriteAllTextAsync(hostsFile, clean + Environment.NewLine + Environment.NewLine + block);
 
                 AppSettings.HostsHash        = hash;
                 AppSettings.HostsLastCheck   = DateTime.UtcNow;
@@ -441,6 +439,8 @@ namespace ZUI.Views
         {
             var reader     = proc.StandardOutput;
             var lineBuffer = new StringBuilder();
+            var promptBuffer = new StringBuilder();
+            var inPrompt = false;
 
             while (!proc.HasExited && !ct.IsCancellationRequested)
             {
@@ -450,8 +450,17 @@ namespace ZUI.Views
 
                 if (ch == '\n')
                 {
-                    AppendTest(lineBuffer.ToString().TrimEnd('\r'));
+                    var line = lineBuffer.ToString().TrimEnd('\r');
                     lineBuffer.Clear();
+
+                    if (inPrompt)
+                    {
+                        promptBuffer.AppendLine(line);
+                    }
+                    else
+                    {
+                        AppendTest(line);
+                    }
                 }
                 else if (ch == ':')
                 {
@@ -461,21 +470,74 @@ namespace ZUI.Views
                         var promptText = lineBuffer.ToString().Trim();
                         lineBuffer.Clear();
                         if (next == ' ') reader.Read();
-                        AppendTest(promptText + ":");
-                        var answer = await ShowPromptAsync(promptText, ct);
-                        if (!ct.IsCancellationRequested && _testStdin != null)
+
+                        // Проверяем, является ли это запросом
+                        if (IsPromptRequest(promptText))
                         {
-                            AppendTest($"> {answer}");
-                            await _testStdin.WriteLineAsync(answer);
-                            await _testStdin.FlushAsync();
+                            inPrompt = true;
+                            promptBuffer.Clear();
+                            promptBuffer.Append(promptText).AppendLine(":");
+                        }
+                        else
+                        {
+                            AppendTest(promptText + ":");
                         }
                     }
-                    else lineBuffer.Append((char)ch);
+                    else
+                    {
+                        lineBuffer.Append((char)ch);
+                    }
                 }
-                else lineBuffer.Append((char)ch);
+                else if (inPrompt && ch == '\r')
+                {
+                    // Игнорируем возврат каретки внутри запроса
+                }
+                else
+                {
+                    lineBuffer.Append((char)ch);
+                }
+
+                // Если мы в режиме запроса и получили пустую строку, завершаем запрос
+                if (inPrompt && lineBuffer.Length == 0 && promptBuffer.Length > 0)
+                {
+                    var fullPrompt = promptBuffer.ToString().Trim();
+                    promptBuffer.Clear();
+                    inPrompt = false;
+
+                    AppendTest(fullPrompt + ":");
+                    var answer = await ShowPromptAsync(fullPrompt, ct);
+                    if (!ct.IsCancellationRequested && _testStdin != null)
+                    {
+                        AppendTest($"> {answer}");
+                        await _testStdin.WriteLineAsync(answer);
+                        await _testStdin.FlushAsync();
+                    }
+                }
             }
 
             if (lineBuffer.Length > 0) AppendTest(lineBuffer.ToString());
+            if (promptBuffer.Length > 0) AppendTest(promptBuffer.ToString());
+        }
+
+        private bool IsPromptRequest(string text)
+        {
+            // Распознаем типичные запросы из PowerShell скрипта
+            var lower = text.ToLower();
+
+            // Запросы из Read-TestType
+            if (lower.Contains("select test type") && lower.Contains("enter 1 or 2")) return true;
+
+            // Запросы из Read-ModeSelection
+            if (lower.Contains("select test run mode") && lower.Contains("enter 1 or 2")) return true;
+
+            // Запросы из Read-ConfigSelection
+            if (lower.Contains("available configs") && lower.Contains("enter numbers")) return true;
+            if (lower.Contains("configs") && (lower.Contains("enter") || lower.Contains("numbers"))) return true;
+
+            // Простые числовые запросы
+            if (lower.Contains("enter") && (lower.Contains("1") || lower.Contains("2"))) return true;
+
+            return false;
         }
 
         private Task<string> ShowPromptAsync(string prompt, CancellationToken ct)
@@ -487,27 +549,52 @@ namespace ZUI.Views
                 InputButtonsList.Items.Clear();
                 FreeInputPanel.Visibility = Visibility.Collapsed;
 
-                if (prompt.Contains("Enter 1 or 2") && prompt.Contains("test type"))
+                // Определяем тип запроса
+                var isTestType = prompt.Contains("test type") && prompt.Contains("Enter 1 or 2");
+                var isMode = prompt.Contains("mode") && prompt.Contains("Enter 1 or 2");
+                var isSimpleChoice = prompt.Contains("Enter 1 or 2");
+                var isConfigSelection = prompt.Contains("configs") || prompt.Contains("numbers") || prompt.Contains("ranges");
+
+                if (isTestType)
                 {
                     AddInputButton("1", "Standard (HTTP/ping)");
                     AddInputButton("2", "DPI checkers (TCP 16-20)");
                 }
-                else if (prompt.Contains("Enter 1 or 2") && prompt.Contains("mode"))
+                else if (isMode)
                 {
                     AddInputButton("1", "Все стратегии");
                     AddInputButton("2", "Выбрать стратегии");
                 }
-                else if (prompt.Contains("Enter 1 or 2"))
+                else if (isSimpleChoice)
                 {
                     AddInputButton("1", "1");
                     AddInputButton("2", "2");
                 }
+                else if (isConfigSelection)
+                {
+                    // Показываем примеры ввода
+                    FreeInputPanel.Visibility = Visibility.Visible;
+                    FreeInputBox.Text = "1,3,5-7,10";
+                    FreeInputBox.Focus(FocusState.Programmatic);
+
+                    // Добавляем подсказку
+                    var helpText = new TextBlock
+                    {
+                        Text = "Примеры: 1,3,5-7,10 или 2-5 или 1 3 5",
+                        FontSize = 12,
+                        Foreground = new SolidColorBrush(Microsoft.UI.Colors.Gray),
+                        Margin = new Thickness(0, 4, 0, 0)
+                    };
+                    InputButtonsList.Items.Add(helpText);
+                }
                 else
                 {
+                    // Для других запросов показываем свободный ввод
                     FreeInputPanel.Visibility = Visibility.Visible;
-                    FreeInputBox.Text = "0";
+                    FreeInputBox.Text = "";
                     FreeInputBox.Focus(FocusState.Programmatic);
                 }
+
                 InputPanel.Visibility = Visibility.Visible;
             });
             ct.Register(() => _pendingInput?.TrySetResult("1"));
@@ -516,8 +603,19 @@ namespace ZUI.Views
 
         private void AddInputButton(string value, string label)
         {
-            var btn = new Button { Content = $"[{value}] {label}", Tag = value };
-            btn.Click += (s, e) => { HideInputPanel(); _pendingInput?.TrySetResult((s as Button)?.Tag?.ToString() ?? "1"); };
+            var btn = new Button
+            {
+                Content = $"[{value}] {label}",
+                Tag = value,
+                Margin = new Thickness(4),
+                Padding = new Thickness(8, 4, 8, 4),
+                MinWidth = 120
+            };
+            btn.Click += (s, e) =>
+            {
+                HideInputPanel();
+                _pendingInput?.TrySetResult((s as Button)?.Tag?.ToString() ?? "1");
+            };
             InputButtonsList.Items.Add(btn);
         }
 
@@ -529,10 +627,92 @@ namespace ZUI.Views
         private void SendFreeInput()
         {
             var val = FreeInputBox.Text.Trim();
+            if (string.IsNullOrEmpty(val))
+            {
+                FreeInputBox.Text = "0";
+                return;
+            }
+
+            if (val.Contains(",") || val.Contains("-") || val.Contains(" "))
+            {
+                // Это может быть диапазон или список
+                var parsed = ParseConfigSelection(val);
+                if (parsed != null)
+                {
+                    HideInputPanel();
+                    _pendingInput?.TrySetResult(string.Join(",", parsed));
+                }
+                else
+                {
+                    FreeInputBox.Text = "0";
+                }
+            }
+            else
+            {
+                HideInputPanel();
+                _pendingInput?.TrySetResult(val);
+            }
+        }
+
+        private List<int>? ParseConfigSelection(string input)
+        {
+            var parts = input.Split(new[] { ',', ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            var result = new List<int>();
+            var hasErrors = false;
+
+            foreach (var part in parts)
+            {
+                if (string.IsNullOrWhiteSpace(part)) continue;
+
+                if (part.Contains("-") && int.TryParse(part.Split('-')[0], out var start) && int.TryParse(part.Split('-')[1], out var end))
+                {
+                    if (start > end)
+                    {
+                        // Показываем предупреждение
+                        DispatcherQueue.TryEnqueue(() => FreeInputBox.Text = $"Ошибка: {part} (начало > конца)");
+                        hasErrors = true;
+                        continue;
+                    }
+
+                    for (int i = start; i <= end; i++) result.Add(i);
+                }
+                else if (int.TryParse(part, out var num))
+                {
+                    result.Add(num);
+                }
+                else
+                {
+                    // Показываем предупреждение
+                    DispatcherQueue.TryEnqueue(() => FreeInputBox.Text = $"Ошибка: {part} (не число)");
+                    hasErrors = true;
+                }
+            }
+
+            return hasErrors ? null : result;
+        }
+        private void HandleInputResult(string val)
+        {
             if (string.IsNullOrEmpty(val)) val = "0";
             HideInputPanel();
             _pendingInput?.TrySetResult(val);
         }
+        private static async Task SaveTextToFile(string text, string defaultFileName)
+        {
+            var picker = new FileSavePicker
+            {
+                SuggestedStartLocation = PickerLocationId.DocumentsLibrary,
+                SuggestedFileName = defaultFileName
+            };
+            picker.FileTypeChoices.Add("Текстовый файл", new List<string> { ".txt" });
+
+            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(Window.Current);
+            WinRT.Interop.InitializeWithWindow.Initialize(picker, hwnd);
+
+            StorageFile file = await picker.PickSaveFileAsync();
+            if (file != null)
+                await FileIO.WriteTextAsync(file, text);
+        }
+
         private void HideInputPanel()
         {
             DispatcherQueue.TryEnqueue(() =>
@@ -1033,26 +1213,6 @@ namespace ZUI.Views
             AppendUpdateLog("\nОбновление hosts...");
             await ApplyHostsAsync(silent: false);
             SetUpdateButtonsEnabled(true);
-        }
-
-        // ══════════════════════════════════════════════════════════════
-        // ОБЩЕЕ
-        // ══════════════════════════════════════════════════════════════
-
-        private async Task SaveTextToFile(string content, string suggestedName)
-        {
-            try
-            {
-                var picker = new FileSavePicker();
-                var hwnd   = WinRT.Interop.WindowNative.GetWindowHandle(MainWindow.Instance);
-                WinRT.Interop.InitializeWithWindow.Initialize(picker, hwnd);
-                picker.SuggestedStartLocation = PickerLocationId.Desktop;
-                picker.SuggestedFileName      = suggestedName;
-                picker.FileTypeChoices.Add("Текстовый файл", new List<string> { ".txt" });
-                var file = await picker.PickSaveFileAsync();
-                if (file != null) await FileIO.WriteTextAsync(file, content);
-            }
-            catch { }
         }
     }
 }
