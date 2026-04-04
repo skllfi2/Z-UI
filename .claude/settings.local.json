@@ -28,10 +28,14 @@
       "mcp__plugin_serena_serena__execute_shell_command",
       "Read(//f/Development/Winslop/**)",
       "Bash(dir /s /b *.sln)",
-      "Bash(dotnet new:*)"
+      "Bash(dotnet new:*)",
+      "Bash(dir \"F:\\\\Development\\\\WinUI3GUI\" /s /b)",
+      "Read(//f/Development/WinUI3GUI/**)"
     ],
     "additionalDirectories": [
-      "C:\\Users\\SKLLFI.DESKTOP-PJ6BFTT\\Downloads\\fluent-icons-tools\\fluent-icons-tools\\icons"
+      "C:\\Users\\SKLLFI.DESKTOP-PJ6BFTT\\Downloads\\fluent-icons-tools\\fluent-icons-tools\\icons",
+      "f:\\Development\\WinUI3GUI\\docs\\superpowers\\plans",
+      "f:\\Development\\WinUI3GUI\\docs\\superpowers"
     ]
   }
 }

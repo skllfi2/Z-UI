@@ -4,6 +4,7 @@ using System.Security;
 using Windows.UI.Notifications;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using ZUI;
 using ZUI.Services;
 
 namespace ZUI.Services

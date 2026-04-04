@@ -14,6 +14,8 @@ namespace ZUI
         public static string StrategiesDir => Path.Combine(ZapretDir, "strategies");
         public static string UtilsDir => Path.Combine(ZapretDir, "utils");
         public static string VersionFile => Path.Combine(ZapretDir, "version.txt");
+        public static string LocalVersionFile => VersionFile;
+        public static string RemoteVersionUrl => "https://raw.githubusercontent.com/bol-van/zapret-winws/refs/heads/master/version.txt";
 
         public static string LocalVersion
         {

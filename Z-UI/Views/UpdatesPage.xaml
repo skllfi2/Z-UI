@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="ZUI.Views.UpdatesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -7,105 +6,41 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="16" Padding="32,24">
+<ScrollViewer Padding="24">
+ <StackPanel Spacing="16" HorizontalAlignment="Stretch">
+ <InfoBar
+                IsOpen="{x:Bind ViewModel.UpdateAvailable, Mode=OneWay}"
+                IsClosable="True"
+                Severity="Warning"
+                Title="Доступно обновление"
+                Message="{x:Bind ViewModel.LatestVersion, Mode=OneWay}" />
 
-
-            <!-- Версия zapret -->
-            <Border CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+            <StackPanel Spacing="8">
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="16">
                     <StackPanel Spacing="4">
-                        <TextBlock x:Uid="VersiyaZapretDiscordYoutube" Text="Версия zapret-discord-youtube"
-                                   Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                        <TextBlock x:Uid="VersionStatusText" x:Name="VersionStatusText"
-                                   Text="Проверяется..."
-                                   Style="{ThemeResource CaptionTextBlockStyle}"
-                                   Opacity="0.6"/>
+                        <TextBlock Text="Локальная версия:" Style="{StaticResource CaptionTextBlockStyle}" />
+                        <TextBlock Text="{x:Bind ViewModel.LocalVersion, Mode=OneWay}"
+                                   Style="{StaticResource BodyStrongTextBlockStyle}" />
                     </StackPanel>
-                    <Button x:Uid="CheckVersionButton" x:Name="CheckVersionButton" Grid.Column="1"
-                            Content="Проверить"
-                            Style="{ThemeResource AccentButtonStyle}"
-                            VerticalAlignment="Center"
-                            Click="CheckVersion_Click"/>
-                </Grid>
-            </Border>
+                </Border>
 
-            <!-- IPSet -->
-            <Border CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="16">
                     <StackPanel Spacing="4">
-                        <TextBlock x:Uid="SpisokIpAdresovIpsetAllTxt" Text="Список IP-адресов (ipset-all.txt)"
-                                   Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                        <TextBlock x:Uid="IpsetStatusText1" x:Name="IpsetStatusText"
-                                   Text="Обновляет список заблокированных IP с GitHub"
-                                   Style="{ThemeResource CaptionTextBlockStyle}"
-                                   Opacity="0.6"/>
+                        <TextBlock Text="Последняя версия:" Style="{StaticResource CaptionTextBlockStyle}" />
+                        <TextBlock Text="{x:Bind ViewModel.LatestVersion, Mode=OneWay}"
+                                   Style="{StaticResource BodyStrongTextBlockStyle}" />
                     </StackPanel>
-                    <Button x:Uid="UpdateIpsetButton" x:Name="UpdateIpsetButton" Grid.Column="1"
-                            Content="Обновить"
-                            VerticalAlignment="Center"
-                            Click="UpdateIpset_Click"/>
-                </Grid>
-            </Border>
+                </Border>
+            </StackPanel>
 
-            <!-- Hosts -->
-            <Border CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Spacing="4">
-                        <TextBlock x:Uid="FaylHosts" Text="Файл hosts"
-                                   Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                        <TextBlock x:Uid="HostsStatusText" x:Name="HostsStatusText"
-                                   Text="Проверяет и обновляет системный файл hosts"
-                                   Style="{ThemeResource CaptionTextBlockStyle}"
-                                   Opacity="0.6"/>
-                    </StackPanel>
-                    <Button x:Uid="UpdateHostsButton" x:Name="UpdateHostsButton" Grid.Column="1"
-                            Content="Обновить"
-                            VerticalAlignment="Center"
-                            Click="UpdateHosts_Click"/>
-                </Grid>
-            </Border>
-
-            <!-- Лог -->
-            <Border CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1">
-                <StackPanel Spacing="8">
-                    <TextBlock x:Uid="LogOperatsiy" Text="Лог операций"
-                               Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                    <Border Background="{ThemeResource SystemFillColorSolidNeutralBackgroundBrush}"
-                            CornerRadius="6" Padding="12">
-                        <ScrollViewer x:Name="LogScrollViewer" MaxHeight="200">
-                            <TextBlock x:Uid="LogText" x:Name="LogText"
-                                       FontFamily="Consolas" FontSize="12"
-                                       TextWrapping="Wrap" Opacity="0.85"/>
-                        </ScrollViewer>
-                    </Border>
-                </StackPanel>
-            </Border>
-
+            <Button Content="Проверить обновления"
+                    Command="{x:Bind ViewModel.CheckCommand}"
+                    Style="{StaticResource AccentButtonStyle}"
+                    HorizontalAlignment="Left" />
         </StackPanel>
     </ScrollViewer>
 </Page>

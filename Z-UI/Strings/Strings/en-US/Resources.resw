@@ -1,0 +1,567 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:element name="root" ns1:IsDataSet="true" />
+  </xs:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <data name="ZUI.Text" xml:space="preserve">
+    <value>Z-UI</value>
+  </data>
+  <data name="Glavnaya.Content" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Strategii.Content" xml:space="preserve">
+    <value>Strategies</value>
+  </data>
+  <data name="StatusZaschity.Text" xml:space="preserve">
+    <value>Protection status</value>
+  </data>
+  <data name="StatusText.Text" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="StrategyText.Text" xml:space="preserve">
+    <value>Strategy not selected</value>
+  </data>
+  <data name="Control.Text" xml:space="preserve">
+    <value>🎮</value>
+  </data>
+  <data name="Discord.Text" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="Youtube.Text" xml:space="preserve">
+    <value>YouTube</value>
+  </data>
+  <data name="Google.Text" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="OchistitLogi.Content" xml:space="preserve">
+    <value>Clear logs</value>
+  </data>
+  <data name="Zapusk.Text" xml:space="preserve">
+    <value>Launch</value>
+  </data>
+  <data name="AvtozapuskVmesteSWindows.Text" xml:space="preserve">
+    <value>Auto-start with Windows</value>
+  </data>
+  <data name="ZapuskatZUIPriVkhodeVSistemu.Text" xml:space="preserve">
+    <value>Start ZUI on system login</value>
+  </data>
+  <data name="AvtostartZapret.Text" xml:space="preserve">
+    <value>Automatically start protection</value>
+  </data>
+  <data name="ZapuskatZaschituPriOtkrytiiPrilozheniya.Text" xml:space="preserve">
+    <value>Start protection when opening application</value>
+  </data>
+  <data name="MinimizatsiyaVTreyPriZapuske.Text" xml:space="preserve">
+    <value>Minimize to tray on launch</value>
+  </data>
+  <data name="SkryvatOknoPriStartePrilozheniya.Text" xml:space="preserve">
+    <value>Hide window on app startup</value>
+  </data>
+  <data name="VneshniyVid.Text" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="TemaPrilozheniya.Text" xml:space="preserve">
+    <value>App theme</value>
+  </data>
+  <data name="VyberiteSvetluyuTyomnuyuIliSistemnuyuTemu.Text" xml:space="preserve">
+    <value>Choose light, dark or system theme</value>
+  </data>
+  <data name="Svetlaya.Content" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Tyomnaya.Content" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Russkiy.Content" xml:space="preserve">
+    <value>Russian</value>
+  </data>
+  <data name="English.Content" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="VsplyvayuschieUvedomleniya.Text" xml:space="preserve">
+    <value>Pop-up notifications</value>
+  </data>
+  <data name="PokazyvatUvedomleniyaPriIzmeneniiStatusa.Text" xml:space="preserve">
+    <value>Show notifications on status change</value>
+  </data>
+  <data name="StrategyDescText.Text" xml:space="preserve">
+    <value>Select a strategy from the list on the left to view information.</value>
+  </data>
+  <data name="TipStrategii.Text" xml:space="preserve">
+    <value>Strategy type:</value>
+  </data>
+  <data name="Primenimost.Text" xml:space="preserve">
+    <value>Applicability:</value>
+  </data>
+  <data name="ApplyStrategyButton.Content" xml:space="preserve">
+    <value>Apply strategy</value>
+  </data>
+  <data name="SluzhbaWindows.Text" xml:space="preserve">
+    <value>Windows service</value>
+  </data>
+  <data name="Status.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SluzhbaZapret.Text" xml:space="preserve">
+    <value>Zapret service</value>
+  </data>
+  <data name="ServiceStatusText.Text" xml:space="preserve">
+    <value>Checking...</value>
+  </data>
+  <data name="Obnovit.Content" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="UstanovkaSluzhby.Text" xml:space="preserve">
+    <value>Install service</value>
+  </data>
+  <data name="VyberiteStrategiyuDlyaSluzhby.Text" xml:space="preserve">
+    <value>Select a strategy for the service</value>
+  </data>
+  <data name="SluzhbaBudetAvtomaticheskiZapuskatsyaVmesteSWindow.Text" xml:space="preserve">
+    <value>Service will automatically start with Windows</value>
+  </data>
+  <data name="InstallButton.Content" xml:space="preserve">
+    <value>Install service</value>
+  </data>
+  <data name="Upravlenie.Text" xml:space="preserve">
+    <value>Management</value>
+  </data>
+  <data name="UdalitSluzhby.Text" xml:space="preserve">
+    <value>Remove services</value>
+  </data>
+  <data name="UdalyaetZapretWindivertIZavershaetWinwsExe.Text" xml:space="preserve">
+    <value>Removes zapret, WinDivert and ends winws.exe</value>
+  </data>
+  <data name="Udalit.Content" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Vyvod.Text" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="UstanovitSluzhbu.Text" xml:space="preserve">
+    <value>Install service</value>
+  </data>
+  <data name="AvtozapuskSluzhbySWindowsBezZapuskaPrilozheniya.Text" xml:space="preserve">
+    <value>Auto-start service with Windows without launching application</value>
+  </data>
+  <data name="InstallServiceButton.Content" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="LogOperatsiy.Text" xml:space="preserve">
+    <value>Operation log</value>
+  </data>
+  <data name="ToggleButton.Content" xml:space="preserve">
+    <value>▶ Launch</value>
+  </data>
+  <data name="PereytiKObnovleniyam.Content" xml:space="preserve">
+    <value>Go to updates →</value>
+  </data>
+  <data name="RunTestButton.Content" xml:space="preserve">
+    <value>▶ Run test</value>
+  </data>
+  <data name="StopTestButton.Content" xml:space="preserve">
+    <value>⏹ Stop</value>
+  </data>
+  <data name="AvtoproverkaObnovleniy.Text" xml:space="preserve">
+    <value>Auto-update checks</value>
+  </data>
+  <data name="ProveryatNovyeVersiiZapretPriZapuskePrilozheniya.Text" xml:space="preserve">
+    <value>Check for new versions of zapret when launching the application</value>
+  </data>
+  <data name="GameFilter.Text" xml:space="preserve">
+    <value>Game Filter</value>
+  </data>
+  <data name="RasshiritObkhodDpiNaIgrovyePorty102465535.Text" xml:space="preserve">
+    <value>Extend DPI bypass to gaming ports (1024-65535)</value>
+  </data>
+  <data name="Otklyuchyon.Content" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="TcpIUdp.Content" xml:space="preserve">
+    <value>TCP and UDP</value>
+  </data>
+  <data name="TolkoTcp.Content" xml:space="preserve">
+    <value>Only TCP</value>
+  </data>
+  <data name="TolkoUdp.Content" xml:space="preserve">
+    <value>Only UDP</value>
+  </data>
+  <data name="IpsetFilter.Text" xml:space="preserve">
+    <value>IPSet Filter</value>
+  </data>
+  <data name="IpsetStatusText.Text" xml:space="preserve">
+    <value>IP list loaded</value>
+  </data>
+  <data name="LyuboyIpAny.Content" xml:space="preserve">
+    <value>Any IP (any)</value>
+  </data>
+  <data name="TolkoIzSpiskaLoaded.Content" xml:space="preserve">
+    <value>From list (loaded)</value>
+  </data>
+  <data name="NikakoyNone.Content" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Obnovleniya.Text" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="VersiyaZapretDiscordYoutube.Text" xml:space="preserve">
+    <value>Version of zapret-discord-youtube</value>
+  </data>
+  <data name="VersionStatusText.Text" xml:space="preserve">
+    <value>Checking...</value>
+  </data>
+  <data name="CheckVersionButton.Content" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="SpisokIpAdresovIpsetAllTxt.Text" xml:space="preserve">
+    <value>List of IP addresses (ipset-all.txt)</value>
+  </data>
+  <data name="UpdateIpsetButton.Content" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="FaylHosts.Text" xml:space="preserve">
+    <value>Hosts file</value>
+  </data>
+  <data name="HostsStatusText.Text" xml:space="preserve">
+    <value>Checks and updates the system hosts file</value>
+  </data>
+  <data name="UpdateHostsButton.Content" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="StrategyDescription.Text" xml:space="preserve">
+    <value>Standard protection for bypassing popular networks</value>
+  </data>
+  <data name="StrategyTitleText.Text" xml:space="preserve">
+    <value>Active strategy</value>
+  </data>
+  <data name="Servisy.Text" xml:space="preserve">
+    <value>SERVICES</value>
+  </data>
+  <data name="DiscordStatus.Text" xml:space="preserve">
+    <value>Protection disabled</value>
+  </data>
+  <data name="YoutubeStatus.Text" xml:space="preserve">
+    <value>Protection disabled</value>
+  </data>
+  <data name="GoogleStatus.Text" xml:space="preserve">
+    <value>Protection disabled</value>
+  </data>
+  <data name="Testirovanie.Text" xml:space="preserve">
+    <value>Testing</value>
+  </data>
+  <data name="Diagnostika.Text" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="Logi.Text" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="ProverkaKomponentovSistemyIKonfiguratsiiZapret.Text" xml:space="preserve">
+    <value>Checking system components and configuration</value>
+  </data>
+  <data name="UpdatesNavItem.Content" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="PageHeader.Text" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="AppVersionText.Text" xml:space="preserve">
+    <value>Version 1.0.0</value>
+  </data>
+  <data name="GraficheskiyInterfeysDlyaUpravleniyaInstrumentomOb.Text" xml:space="preserve">
+    <value>Graphical interface for managing DPI bypass tool zapret-discord-youtube</value>
+  </data>
+  <data name="Github.Content" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="SoobschitObOshibke.Content" xml:space="preserve">
+    <value>Report an issue</value>
+  </data>
+  <data name="OZapret.Text" xml:space="preserve">
+    <value>About ZAPRET</value>
+  </data>
+  <data name="ZapretDiscordYoutube.Text" xml:space="preserve">
+    <value>zapret-discord-youtube</value>
+  </data>
+  <data name="ZapretVersionText.Text" xml:space="preserve">
+    <value>Version not set</value>
+  </data>
+  <data name="OtkrytGithub.Content" xml:space="preserve">
+    <value>Open GitHub →</value>
+  </data>
+  <data name="LitsenziyaZapretMit.Text" xml:space="preserve">
+    <value>License: MIT</value>
+  </data>
+  <data name="AvtorFlowsealIKontribyutory.Text" xml:space="preserve">
+    <value>Author: Flowseal and contributors</value>
+  </data>
+  <data name="Komponenty.Text" xml:space="preserve">
+    <value>COMPONENTS</value>
+  </data>
+  <data name="Winui3WindowsAppSdk.Text" xml:space="preserve">
+    <value>WinUI 3 / Windows App SDK</value>
+  </data>
+  <data name="UiFreymvork.Text" xml:space="preserve">
+    <value>UI framework</value>
+  </data>
+  <data name="Microsoft.Text" xml:space="preserve">
+    <value>Microsoft</value>
+  </data>
+  <data name="Net10.Text" xml:space="preserve">
+    <value>NET 10</value>
+  </data>
+  <data name="Platforma.Text" xml:space="preserve">
+    <value>Platform</value>
+  </data>
+  <data name="Windivert.Text" xml:space="preserve">
+    <value>WinDivert</value>
+  </data>
+  <data name="PerekhvatSetevykhPaketov.Text" xml:space="preserve">
+    <value>Packet capture</value>
+  </data>
+  <data name="Basil00.Text" xml:space="preserve">
+    <value>basil00</value>
+  </data>
+  <data name="Sistema.Text" xml:space="preserve">
+    <value>SYSTEM</value>
+  </data>
+  <data name="VersiyaOs.Text" xml:space="preserve">
+    <value>OS version</value>
+  </data>
+  <data name="DirektoriyaPrilozheniya.Text" xml:space="preserve">
+    <value>Application directory</value>
+  </data>
+  <data name="AppDirButton.Content" xml:space="preserve">
+    <value>Open →</value>
+  </data>
+  <data name="DirektoriyaNastroek.Text" xml:space="preserve">
+    <value>Settings directory</value>
+  </data>
+  <data name="Otkryt.Content" xml:space="preserve">
+    <value>Open →</value>
+  </data>
+  <data name="ObkhodDpiNaIgrovyePorty102465535.Text" xml:space="preserve">
+    <value>DPI bypass for game ports (1024–65535)</value>
+  </data>
+  <data name="UpdateProgressLabel.Text" xml:space="preserve">
+    <value>Updating...</value>
+  </data>
+  <data name="OProgramme.Text" xml:space="preserve">
+    <value>About the program</value>
+  </data>
+  <data name="Podrobnee.Content" xml:space="preserve">
+    <value>Learn more →</value>
+  </data>
+  <data name="1.Text" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="2.Text" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="3.Text" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="4.Text" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="5.Text" xml:space="preserve">
+    <value>Z-UI</value>
+  </data>
+  <data name="DobroPozhalovatVZUI.Text" xml:space="preserve">
+    <value>Welcome to Z-UI</value>
+  </data>
+  <data name="MasterNastroykiPomozhetUstanovitInstrumentObkhodaD.Text" xml:space="preserve">
+    <value>The setup wizard will help you install the DPI bypass tool zapret and configure it according to your needs.</value>
+  </data>
+  <data name="SkachatZapret.Text" xml:space="preserve">
+    <value>Download zapret</value>
+  </data>
+  <data name="SkachivaemPoslednyuyuVersiyuZapretDiscordYoutubeSG.Text" xml:space="preserve">
+    <value>Downloading the latest version of zapret-discord-youtube from GitHub.</value>
+  </data>
+  <data name="WizardVersionText.Text" xml:space="preserve">
+    <value>Latest version from GitHub Releases</value>
+  </data>
+  <data name="WizardDownloadButton.Content" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="WizardProgressText.Text" xml:space="preserve">
+    <value>Preparing...</value>
+  </data>
+  <data name="VyborStrategii.Text" xml:space="preserve">
+    <value>Strategy selection</value>
+  </data>
+  <data name="StrategiyaOpredelyaetSposobObkhodaDpiRekomenduemNa.Text" xml:space="preserve">
+    <value>The strategy determines the method of DPI bypass. Start with General recommended.</value>
+  </data>
+  <data name="Strategiya.Text" xml:space="preserve">
+    <value>Strategy</value>
+  </data>
+  <data name="VyberiteIzDostupnykhBatFaylov.Text" xml:space="preserve">
+    <value>Choose from available .bat files</value>
+  </data>
+  <data name="DopolnitelnyeFiltry.Text" xml:space="preserve">
+    <value>Additional filters</value>
+  </data>
+  <data name="NastroyteFiltryPodVashiNuzhdyMozhnoIzmenitPozzheNa.Text" xml:space="preserve">
+    <value>Configure filters according to your needs. Can be changed later on the home page.</value>
+  </data>
+  <data name="FiltratsiyaPoSpiskamIpAdresov.Text" xml:space="preserve">
+    <value>IP address list filtering</value>
+  </data>
+  <data name="VsyoGotovo.Text" xml:space="preserve">
+    <value>All set!</value>
+  </data>
+  <data name="WizardBackButton.Content" xml:space="preserve">
+    <value>← Back</value>
+  </data>
+  <data name="WizardStepLabel.Text" xml:space="preserve">
+    <value>Step 1 of 5</value>
+  </data>
+  <data name="WizardNextButton.Content" xml:space="preserve">
+    <value>Next →</value>
+  </data>
+  <data name="AktivnayaStrategiya.Text" xml:space="preserve">
+    <value>Active strategy</value>
+  </data>
+  <data name="ZapustitMasterNastroyki.Content" xml:space="preserve">
+    <value>Launch settings wizard</value>
+  </data>
+  <data name="ObnovitHosts.Text" xml:space="preserve">
+    <value>Update hosts</value>
+  </data>
+  <data name="HostsProgressLabel.Text" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="AvtoobnovlenieHosts.Text" xml:space="preserve">
+    <value>Auto-update hosts</value>
+  </data>
+  <data name="PrimenyatObnovleniyaHostsAvtomaticheskiPriZapuskeT.Text" xml:space="preserve">
+    <value>Apply host updates automatically on startup (requires admin rights)</value>
+  </data>
+  <data name="WizardSkipButton.Content" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="SettingsNavItem.Content" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ControlLink.Content" xml:space="preserve">
+    <value>HTTP + Ping</value>
+  </data>
+  <data name="Rezhim.Text" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="ModeStandard.Content" xml:space="preserve">
+    <value>DPI 16-20 KB</value>
+  </data>
+  <data name="ModeDpi.Content" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="SelectedCountText.Text" xml:space="preserve">
+    <value>0 selected</value>
+  </data>
+  <data name="StrategiesDropDownLabel.Text" xml:space="preserve">
+    <value>Select strategies</value>
+  </data>
+  <data name="StrategiesBadgeText.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="SelectAllStrategiesBtn.Content" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ClearAllStrategiesBtn.Content" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="ZapustitTest.Text" xml:space="preserve">
+    <value>Run test</value>
+  </data>
+  <data name="Ostanovit.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="ProgressConfigText.Text" xml:space="preserve">
+    <value>Preparing...</value>
+  </data>
+  <data name="ApplyBestButton.Content" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="ProverkiKomponentov.Text" xml:space="preserve">
+    <value>Component checks</value>
+  </data>
+  <data name="DiagSubtitleText.Text" xml:space="preserve">
+    <value>Checking...</value>
+  </data>
+  <data name="DiagPassCount.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="DiagFailCount.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="DiagHintText.Text" xml:space="preserve">
+    <value>Checks for all necessary files and services</value>
+  </data>
+  <data name="ProveritSnova.Text" xml:space="preserve">
+    <value>Check again</value>
+  </data>
+  <data name="SistemnyyZhurnal.Text" xml:space="preserve">
+    <value>System log</value>
+  </data>
+  <data name="LogsLineCountText.Text" xml:space="preserve">
+    <value>0 lines</value>
+  </data>
+  <data name="LogsLastUpdatedText.Text" xml:space="preserve">
+    <value>Updates in real time</value>
+  </data>
+  <data name="Ochistit.Text" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Sokhranit.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Sistemno.Content" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="YazikPrilozheniya.Text" xml:space="preserve">
+    <value>Application language</value>
+  </data>
+  <data name="PerezapuskaetInterfeysDlyaSmenyYazika.Text" xml:space="preserve">
+    <value>Reboot interface to change language</value>
+  </data>
+  <data name="ZvukovyeEfekty.Text" xml:space="preserve">
+    <value>Sound effects</value>
+  </data>
+  <data name="VosproizvoditZvukPriIzmeneniiStatusa.Text" xml:space="preserve">
+    <value>Play sound on status change</value>
+  </data>
+  <data name="MasterUstanovki.Text" xml:space="preserve">
+    <value>Setup wizard</value>
+  </data>
+  <data name="ZapustitMasteraUstanovki.Text" xml:space="preserve">
+    <value>Run setup wizard</value>
+  </data>
+  <data name="PovtoritNastroyku.Text" xml:space="preserve">
+    <value>Repeat initial app setup</value>
+  </data>
+  <data name="SetupWizardButton.Content" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="StrategyCountText.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="VyberiteStrategiyu.Text" xml:space="preserve">
+    <value>Select a strategy</value>
+  </data>
+  <data name="NazhmiteNaLyubuyuStrategiyuVSpiskeSleva.Text" xml:space="preserve">
+    <value>Click any strategy in the left list</value>
+  </data>
+  <data name="ZuiAbout.Text" xml:space="preserve">
+    <value>ZUI</value>
+  </data>
+  <data name="ZUIopr.Text" xml:space="preserve">
+    <value>ZUI</value>
+  </data>
+</root>

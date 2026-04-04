@@ -1,166 +1,184 @@
 using System;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using System.Security;
-using Windows.UI.Notifications;
+using System.IO;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
+using ZUI.ViewModels;
 using ZUI.Services;
 
-namespace ZUI
+namespace ZUI;
+
+public partial class App : Application
 {
-    public partial class App : Application
+ public static IServiceProvider Services { get; } = ConfigureServices();
+
+ private Window? _window;
+ private IntPtr _hwnd;
+ private TrayIcon? _trayIcon;
+ private HotkeyService? _hotkeyService;
+
+ public static TrayIcon? TrayIcon { get; private set; }
+ public Window? MainWindow => _window;
+
+private static IServiceProvider ConfigureServices()
+{
+    var services = new ServiceCollection();
+
+    services.AddSingleton<WinwsService>();
+ services.AddSingleton<TestHistoryService>();
+ services.AddSingleton<UpdateService>();
+
+    services.AddSingleton<DashboardViewModel>();
+    services.AddSingleton<StrategiesViewModel>();
+    services.AddSingleton<ServicesViewModel>();
+    services.AddSingleton<SettingsViewModel>();
+    services.AddSingleton<SetupWizardViewModel>();
+    services.AddSingleton<DiagnosticsViewModel>();
+    services.AddSingleton<UpdatesViewModel>();
+    services.AddSingleton<ServiceViewModel>();
+    services.AddSingleton<AboutViewModel>();
+
+    return services.BuildServiceProvider();
+}
+
+protected override void OnLaunched(LaunchActivatedEventArgs args)
+	{
+		try
+		{
+			TestResultStore.TryLoadCache();
+
+			_window = new MainWindow();
+			_window.Activate();
+
+			_hwnd = WinRT.Interop.WindowNative.GetWindowHandle(_window);
+			_window.Closed += OnWindowClosed;
+
+			Microsoft.UI.Xaml.ElementSoundPlayer.State = Microsoft.UI.Xaml.ElementSoundPlayerState.On;
+			Microsoft.UI.Xaml.ElementSoundPlayer.SpatialAudioMode = Microsoft.UI.Xaml.ElementSpatialAudioMode.Off;
+
+			var winwsService = Services.GetRequiredService<WinwsService>();
+			winwsService.SetDispatcherQueue(_window.DispatcherQueue);
+
+			ToastNotifier.Initialize(_hwnd);
+
+			var iconPath = Path.Combine(AppContext.BaseDirectory, "Assets", "Z-UI.ico");
+			if (File.Exists(iconPath))
+			{
+				_trayIcon = new TrayIcon(_hwnd, iconPath, "Z-UI — Остановлено", onShow: ShowMainWindow, onExit: ExitApp);
+				TrayIcon = _trayIcon;
+			}
+
+			_hotkeyService = new HotkeyService(_hwnd);
+			_hotkeyService.ToggleRequested += () =>
+			{
+				var ws = Services.GetRequiredService<WinwsService>();
+				_window!.DispatcherQueue.TryEnqueue(() =>
+				{
+					if (ws.IsRunning)
+						ws.Stop();
+					else
+						_ = TryStartZapretAsync();
+				});
+			};
+			_hotkeyService.ShowRequested += ShowMainWindow;
+			_hotkeyService.RegisterHotkeys();
+
+			winwsService.StatusChanged += OnServiceStatusChanged;
+
+			if (AppSettings.AutoUpdateCheck)
+				_ = UpdateChecker.CheckAsync();
+
+			if (AppSettings.AutoStartZapret)
+				_ = TryAutoStartZapretAsync();
+		}
+		catch (Exception ex)
+		{
+			System.Diagnostics.Debug.WriteLine($"Launch error: {ex}");
+			throw;
+		}
+	}
+
+    private void OnServiceStatusChanged(bool isRunning)
     {
-        private Window? _window;
-        private IntPtr _hwnd;
-        private TrayIcon? _trayIcon;
+        _trayIcon?.UpdateStatus(isRunning);
 
-        public static TrayIcon? TrayIcon { get; private set; }
+        if (ToastNotifier.IsEnabled)
+            ToastNotifier.Show(
+                "Статус сервиса",
+                isRunning ? "Запущен" : "Остановлен",
+                isRunning ? ToastType.Success : ToastType.Informational);
+    }
 
-        /// <summary>Главное окно приложения (для FilePicker и т.п.).</summary>
-        public Window? MainWindow => _window;           // ← ДОБАВЛЕНО
+    private void OnWindowClosed(object sender, WindowEventArgs args)
+    {
+        args.Handled = true;
+        var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(_hwnd);
+        var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
+        appWindow.Hide();
+    }
 
-        public App()
+    private void ShowMainWindow()
+    {
+        if (_window == null) return;
+        _window.DispatcherQueue.TryEnqueue(() =>
         {
-            InitializeComponent();
-        }
-
-                protected override void OnLaunched(LaunchActivatedEventArgs args)
-        {
-            var log = System.IO.Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Z-UI-log.txt");
-
-            try
-            {
-                System.IO.File.WriteAllText(log, "Step 1: OnLaunched started\n");
-
-                _window = new MainWindow();
-                System.IO.File.AppendAllText(log, "Step 2: MainWindow created\n");
-
-                _window.Activate();
-                System.IO.File.AppendAllText(log, "Step 3: Activated\n");
-
-                _hwnd = WinRT.Interop.WindowNative.GetWindowHandle(_window);
-                _window.Closed += OnWindowClosed;
-                System.IO.File.AppendAllText(log, "Step 4: HWND obtained\n");
-
-                Microsoft.UI.Xaml.ElementSoundPlayer.State = Microsoft.UI.Xaml.ElementSoundPlayerState.On;
-                Microsoft.UI.Xaml.ElementSoundPlayer.SpatialAudioMode = Microsoft.UI.Xaml.ElementSpatialAudioMode.Off;
-                System.IO.File.AppendAllText(log, "Step 5: SoundPlayer set\n");
-
-                AppState.WinwsService.SetDispatcherQueue(_window.DispatcherQueue);
-                System.IO.File.AppendAllText(log, "Step 6: DispatcherQueue set\n");
-
-                Services.ToastNotifier.Initialize(_hwnd);
-                System.IO.File.AppendAllText(log, "Step 7: ToastNotifier initialized\n");
-
-                _trayIcon = new TrayIcon(_hwnd,
-                    System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "Z-UI.ico"),
-                    "Z-UI — Остановлено",
-                    onShow: ShowMainWindow,
-                    onExit: ExitApp);
-                TrayIcon = _trayIcon;
-                System.IO.File.AppendAllText(log, "Step 8: TrayIcon created\n");
-
-                AppState.WinwsService.StatusChanged += isRunning =>
-                {
-                    _trayIcon?.UpdateStatus(isRunning);
-                    if (Services.ToastNotifier.IsEnabled)
-                        Services.ToastNotifier.Show(
-                            "Статус сервиса",
-                            isRunning ? "Запущен" : "Остановлен",
-                            Services.ToastType.Success);
-                };
-                System.IO.File.AppendAllText(log, "Step 9: StatusChanged subscribed\n");
-
-                if (AppSettings.AutoUpdateCheck)
-                    _ = Task.Run(async () => await Services.UpdateChecker.CheckAsync());
-
-                if (AppSettings.AutoStartZapret)
-                    _ = TryAutoStartZapretAsync();
-
-                System.IO.File.AppendAllText(log, "Step 10: DONE\n");
-            }
-            catch (Exception ex)
-            {
-                var sb = new System.Text.StringBuilder();
-                sb.AppendLine("=== CRASH ===");
-                var current = ex;
-                int depth = 0;
-                while (current != null)
-                {
-                    sb.AppendLine($"[{depth}] {current.GetType().FullName}: {current.Message}");
-                    if (current.Data.Contains("RestrictedDescription"))
-                        sb.AppendLine($"    RestrictedDescription: {current.Data["RestrictedDescription"]}");
-                    sb.AppendLine($"    HResult: 0x{current.HResult:X8}");
-                    sb.AppendLine($"    Stack: {current.StackTrace}");
-                    current = current.InnerException;
-                    depth++;
-                }
-                System.IO.File.AppendAllText(log, sb.ToString());
-                throw;
-            }
-        }
-
-        
-        private void OnWindowClosed(object sender, WindowEventArgs args)
-        {
-            args.Handled = true;
             var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(_hwnd);
             var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
-            appWindow.Hide();
-        }
-
-        private void ShowMainWindow()
-        {
-            if (_window == null) return;
-            _window.DispatcherQueue.TryEnqueue(() =>
-            {
-                var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(_hwnd);
-                var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
-                appWindow.Show();
-                _window.Activate();
-            });
-        }
-
-        private async Task TryAutoStartZapretAsync()
-        {
-            if (!AppSettings.AutoStartZapret) return;
-
-            try
-            {
-                // Check if strategy is configured
-                var strategy = ServiceManager.GetInstalledStrategy();
-                if (string.IsNullOrEmpty(strategy))
-                {
-                    System.Diagnostics.Debug.WriteLine("Auto-start skipped: no strategy configured");
-                    return;
-                }
-
-                // Start service with current strategy
-                await AppState.WinwsService.StartAsync($"--discord-youtube={strategy}");
-
-                System.Diagnostics.Debug.WriteLine("Auto-start: Service started successfully");
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Auto-start failed: {ex.Message}");
-                // Show error toast if enabled
-                if (Services.ToastNotifier.IsEnabled)
-                {
-                    Services.ToastNotifier.Show(
-                        "Ошибка автозапуска",
-                        $"Не удалось запустить сервис: {ex.Message}",
-                        Services.ToastType.Error);
-                }
-            }
-        }
-
-        private void ExitApp()
-        {
-            AppState.WinwsService.Stop();
-            _trayIcon?.Dispose();
-            Application.Current.Exit();
-        }
+            appWindow.Show();
+            _window.Activate();
+        });
     }
+
+ private async Task TryAutoStartZapretAsync()
+ {
+ if (!AppSettings.AutoStartZapret) return;
+
+ try
+ {
+ var strategy = ServiceManager.GetInstalledStrategy();
+ if (string.IsNullOrEmpty(strategy)) return;
+
+ var winwsService = Services.GetRequiredService<WinwsService>();
+ await winwsService.StartAsync($"--discord-youtube={strategy}");
+ }
+ catch (Exception ex)
+ {
+ if (ToastNotifier.IsEnabled)
+ ToastNotifier.Show(
+ "Ошибка автозапуска",
+ $"Не удалось запустить сервис: {ex.Message}",
+ ToastType.Error);
+ }
+ }
+
+ private async Task TryStartZapretAsync()
+ {
+ try
+ {
+ var strategy = ServiceManager.GetInstalledStrategy();
+ if (string.IsNullOrEmpty(strategy))
+ {
+ if (ToastNotifier.IsEnabled)
+ ToastNotifier.Show("Ошибка", "Стратегия не установлена", ToastType.Error);
+ return;
+ }
+
+ var winwsService = Services.GetRequiredService<WinwsService>();
+ await winwsService.StartAsync($"--discord-youtube={strategy}");
+ }
+ catch (Exception ex)
+ {
+ if (ToastNotifier.IsEnabled)
+ ToastNotifier.Show("Ошибка запуска", ex.Message, ToastType.Error);
+ }
+ }
+
+ private void ExitApp()
+ {
+ var winwsService = Services.GetRequiredService<WinwsService>();
+ winwsService.StatusChanged -= OnServiceStatusChanged;
+ winwsService.Stop();
+ _trayIcon?.Dispose();
+ _hotkeyService?.Dispose();
+ Application.Current.Exit();
+ }
 }

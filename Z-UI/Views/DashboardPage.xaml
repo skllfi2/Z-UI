@@ -1,306 +1,232 @@
 <Page
-    x:Class="ZUI.Views.DashboardPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+ x:Class="ZUI.Views.DashboardPage"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:anim="using:ZUI.Services"
+ mc:Ignorable="d">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto"
-                  HorizontalScrollBarVisibility="Disabled">
-        <StackPanel Spacing="12" Padding="24,16,24,24">
-            <!-- Beta badge -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="6">
-                <TextBlock Text="БЕТА" Style="{ThemeResource CaptionTextBlockStyle}" FontSize="10" Foreground="{ThemeResource TextFillColorPrimaryBrush}" Opacity="0.8"/>
-                <Ellipse Width="8" Height="8" Fill="#FF8C00" VerticalAlignment="Center"/>
-            </StackPanel>
+ <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+ <StackPanel Spacing="16" Padding="24,16,24,24">
+ 
+ <!-- Admin indicator (right-aligned) -->
+ <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+		<StackPanel Orientation="Horizontal" Spacing="4" Visibility="{x:Bind ViewModel.IsAdmin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+ <FontIcon Glyph="&#xE7EF;" FontSize="12" Foreground="#FF0078D4" VerticalAlignment="Center"/>
+ <TextBlock Text="Администратор" Style="{ThemeResource CaptionTextBlockStyle}" FontSize="11" Foreground="#FF0078D4" VerticalAlignment="Center"/>
+ </StackPanel>
+ </StackPanel>
 
-            <!-- ── 1. Hero: статус + кнопка ── -->
-            <Border CornerRadius="12" Padding="20,18"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1">
-                <Grid ColumnSpacing="16">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+	<!-- 1. Hero: статус защиты (Windows 11 стиль) -->
+	<Border CornerRadius="12" Padding="16"
+		Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+		BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+		BorderThickness="1"
+		anim:AnimationHelper.EnableCardAnimations="True">
+		<Grid ColumnSpacing="16">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-                        <TextBlock x:Uid="StatusZaschity" Text="Статус защиты"
-                                   Style="{ThemeResource CaptionTextBlockStyle}"
-                                   Opacity="0.5"/>
-                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-                            <Ellipse x:Name="StatusIndicator" Width="10" Height="10"
-                                     Fill="Red" VerticalAlignment="Center"/>
-                            <TextBlock x:Uid="StatusText" x:Name="StatusText" Text="Остановлено"
-                                       Style="{ThemeResource SubtitleTextBlockStyle}"/>
-                        </StackPanel>
-                    </StackPanel>
+			<!-- Иконка щита -->
+			<Grid Grid.Column="0" Width="40" Height="40">
+				<Ellipse Width="40" Height="40">
+					<Ellipse.Fill>
+						<SolidColorBrush Color="{x:Bind ViewModel.IsServiceRunning, Mode=OneWay, Converter={StaticResource BoolToAccentMutedColorConverter}}"/>
+					</Ellipse.Fill>
+				</Ellipse>
+				<FontIcon Glyph="&#xE7B3;" FontSize="18" 
+					Foreground="White"
+					HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			</Grid>
 
-                    <Button x:Name="ToggleButton"
-                            Grid.Column="1"
-                            Style="{ThemeResource AccentButtonStyle}"
-                            Padding="24,12"
-                            MinWidth="148"
-                            VerticalAlignment="Center"
-                            Click="ToggleButton_Click">
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <FontIcon x:Name="ToggleButtonIcon" Glyph="&#xE768;" FontSize="13" VerticalAlignment="Center"/>
-                            <TextBlock x:Name="ToggleButtonText" Text="Запустить" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
-                </Grid>
-            </Border>
+			<!-- Контент -->
+			<StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center">
+				<TextBlock Text="{x:Bind ViewModel.StatusText, Mode=OneWay}" 
+					FontSize="18" FontWeight="SemiBold"/>
+				<StackPanel Orientation="Horizontal" Spacing="12">
+					<StackPanel Orientation="Horizontal" Spacing="4">
+						<FontIcon Glyph="&#xE896;" FontSize="11" Opacity="0.5" VerticalAlignment="Center"/>
+						<TextBlock Text="{x:Bind ViewModel.ZapretVersion, Mode=OneWay}" 
+							Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.6"/>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" Spacing="4">
+						<FontIcon Glyph="&#xE8CB;" FontSize="11" Opacity="0.5" VerticalAlignment="Center"/>
+						<TextBlock Text="{x:Bind ViewModel.CurrentStrategy, Mode=OneWay}" 
+							Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.6"/>
+					</StackPanel>
+				</StackPanel>
+			</StackPanel>
 
-            <!-- ── 2. Активная стратегия ── -->
-            <Border CornerRadius="12" Padding="16"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1">
-                <Grid ColumnSpacing="14">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+			<!-- Кнопка запуска/остановки -->
+			<Button Grid.Column="2" Command="{x:Bind ViewModel.ToggleServiceCommand}"
+				Style="{ThemeResource AccentButtonStyle}"
+				MinWidth="140" CornerRadius="8"
+				anim:AnimationHelper.EnableButtonAnimations="True">
+				<StackPanel Orientation="Horizontal" Spacing="8">
+					<FontIcon FontSize="14" VerticalAlignment="Center"
+						Glyph="{x:Bind ViewModel.IsServiceRunning, Mode=OneWay, Converter={StaticResource BoolToStopPlayGlyphConverter}}"/>
+					<TextBlock Text="{x:Bind ViewModel.IsServiceRunning, Mode=OneWay, Converter={StaticResource BoolToStartStopConverter}}"
+						FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center"/>
+				</StackPanel>
+			</Button>
+		</Grid>
+	</Border>
 
-                    <Border Grid.Column="0"
-                            Width="40" Height="40" CornerRadius="10"
-                            Background="{ThemeResource AccentFillColorSelectedTextBackgroundBrush}"
-                            VerticalAlignment="Center">
-                        <FontIcon Glyph="&#xE8CB;" FontSize="18"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"/>
-                    </Border>
+	<!-- 2. Быстрые действия -->
+	<TextBlock Text="БЫСТРЫЕ ДЕЙСТВИЯ" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.45" CharacterSpacing="80"/>
 
-                    <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
-                        <TextBlock x:Uid="AktivnayaStrategiya" Text="Активная стратегия"
-                                   Style="{ThemeResource CaptionTextBlockStyle}"
-                                   Opacity="0.5"/>
-                        <TextBlock x:Uid="StrategyText" x:Name="StrategyText" Text="General"
-                                   Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                        <TextBlock x:Uid="StrategyDescription"
-                                   Text="Стандартная протекция для обхода популярных сетей"
-                                   Style="{ThemeResource CaptionTextBlockStyle}"
-                                   Opacity="0.6"
-                                   TextWrapping="Wrap"/>
-                    </StackPanel>
+	<Grid ColumnSpacing="12">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
 
-                    <HyperlinkButton x:Uid="ControlLink" Grid.Column="2" Content="→"
-                                     FontSize="16"
-                                     VerticalAlignment="Center"
-                                     Click="ChangeStrategy_Click"/>
-                </Grid>
-            </Border>
+		<!-- Мастер настройки -->
+		<Border Grid.Column="0" CornerRadius="8" Padding="12"
+			Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+			BorderThickness="1"
+			anim:AnimationHelper.EnableCardAnimations="True">
+			<Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+				Background="Transparent" BorderThickness="0"
+				Command="{x:Bind ViewModel.OpenWizardCommand}">
+				<StackPanel Orientation="Horizontal" Spacing="10">
+					<Border Width="36" Height="36" CornerRadius="8" Background="{ThemeResource SubtleFillColorSecondaryBrush}">
+						<FontIcon Glyph="&#xE8CB;" FontSize="16"/>
+					</Border>
+					<StackPanel Spacing="2" VerticalAlignment="Center">
+						<TextBlock Text="Мастер настройки" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+						<TextBlock Text="Установка zapret" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
+					</StackPanel>
+				</StackPanel>
+			</Button>
+		</Border>
 
-            <!-- ── 3. Фильтры ── -->
-            <Grid ColumnSpacing="12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+		<!-- Проверка версии -->
+		<Border Grid.Column="1" CornerRadius="8" Padding="12"
+			Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+			BorderThickness="1"
+			anim:AnimationHelper.EnableCardAnimations="True">
+			<Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+				Background="Transparent" BorderThickness="0"
+				Command="{x:Bind ViewModel.CheckVersionCommand}"
+				IsEnabled="{x:Bind ViewModel.IsCheckingVersion, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
+				<Grid ColumnSpacing="10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Border Grid.Column="0" Width="36" Height="36" CornerRadius="8" Background="{ThemeResource SubtleFillColorSecondaryBrush}">
+						<FontIcon Glyph="&#xE895;" FontSize="16"/>
+					</Border>
+					<StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+						<TextBlock Text="zapret-discord-youtube" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+						<TextBlock Text="{x:Bind ViewModel.VersionStatus, Mode=OneWay}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5" TextTrimming="CharacterEllipsis"/>
+					</StackPanel>
+				</Grid>
+			</Button>
+		</Border>
+	</Grid>
 
-                <!-- Game Filter -->
-                <Border Grid.Column="0" CornerRadius="12" Padding="16"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1">
-                    <StackPanel Spacing="8">
-                        <StackPanel Spacing="2">
-                            <TextBlock x:Uid="GameFilter" Text="Игровой фильтр"
-                                       Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                            <TextBlock x:Uid="ObkhodDpiNaIgrovyePorty102465535"
-                                       Text="Обход DPI на игровые порты (1024–65535)"
-                                       Style="{ThemeResource CaptionTextBlockStyle}"
-                                       Opacity="0.5" TextWrapping="Wrap"/>
-                        </StackPanel>
-                        <ComboBox x:Name="GameFilterComboBox"
-                                  HorizontalAlignment="Stretch"
-                                  SelectionChanged="GameFilterComboBox_SelectionChanged">
-                            <ComboBoxItem x:Uid="Otklyuchyon" Content="Отключён"   Tag="disabled"/>
-                            <ComboBoxItem x:Uid="TcpIUdp"     Content="TCP и UDP"  Tag="all"/>
-                            <ComboBoxItem x:Uid="TolkoTcp"    Content="Только TCP" Tag="tcp"/>
-                            <ComboBoxItem x:Uid="TolkoUdp"    Content="Только UDP" Tag="udp"/>
-                        </ComboBox>
-                    </StackPanel>
-                </Border>
+ <!-- 3. Фильтры (свернутые) -->
+ <Expander Header="Расширенные настройки фильтров"
+ HorizontalAlignment="Stretch"
+ CornerRadius="8">
+ <Grid ColumnSpacing="12" Margin="0,8,0,0">
+ <Grid.ColumnDefinitions>
+ <ColumnDefinition Width="*"/>
+ <ColumnDefinition Width="*"/>
+ </Grid.ColumnDefinitions>
 
-                <!-- IPSet Filter -->
-                <Border Grid.Column="1" CornerRadius="12" Padding="16"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1">
-                    <StackPanel Spacing="8">
-                        <StackPanel Spacing="2">
-                            <TextBlock x:Uid="IpsetFilter" Text="IPSet фильтр"
-                                       Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                            <TextBlock x:Uid="IpsetStatusText" x:Name="IpsetStatusText"
-                                       Text="Любой IP адрес (any)"
-                                       Style="{ThemeResource CaptionTextBlockStyle}"
-                                       Opacity="0.5" TextWrapping="Wrap"/>
-                        </StackPanel>
-                        <ComboBox x:Name="IpsetFilterComboBox"
-                                  HorizontalAlignment="Stretch"
-                                  SelectionChanged="IpsetFilterComboBox_SelectionChanged">
-                            <ComboBoxItem x:Uid="LyuboyIpAny"        Content="Любой IP (any)"            Tag="any"/>
-                            <ComboBoxItem x:Uid="TolkoIzSpiskaLoaded" Content="Только из списка (loaded)" Tag="loaded"/>
-                            <ComboBoxItem x:Uid="NikakoyNone"         Content="Никакой (none)"             Tag="none"/>
-                        </ComboBox>
-                    </StackPanel>
-                </Border>
-            </Grid>
+ <!-- Game Filter -->
+ <Border Grid.Column="0" CornerRadius="8" Padding="12"
+ Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+ BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+ BorderThickness="1">
+ <StackPanel Spacing="8">
+ <TextBlock Text="Игровой фильтр" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+ <TextBlock Text="Обход DPI на игровые порты" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5" TextWrapping="Wrap"/>
+ <ComboBox SelectedIndex="{x:Bind ViewModel.GameFilterIndex, Mode=TwoWay}" HorizontalAlignment="Stretch">
+ <ComboBoxItem Content="Отключён"/>
+ <ComboBoxItem Content="TCP и UDP"/>
+ <ComboBoxItem Content="Только TCP"/>
+ <ComboBoxItem Content="Только UDP"/>
+ </ComboBox>
+ </StackPanel>
+ </Border>
 
-            <!-- ── 4. Сервисы ── -->
-            <TextBlock x:Uid="Servisy" Text="СЕРВИСЫ"
-                       Style="{ThemeResource CaptionTextBlockStyle}"
-                       Opacity="0.45" CharacterSpacing="80"
-                       Margin="2,4,0,0"/>
+ <!-- IPSet Filter -->
+ <Border Grid.Column="1" CornerRadius="8" Padding="12"
+ Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+ BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+ BorderThickness="1">
+ <StackPanel Spacing="8">
+ <TextBlock Text="IPSet фильтр" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+ <TextBlock Text="{x:Bind ViewModel.IpsetStatusText, Mode=OneWay}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5" TextWrapping="Wrap"/>
+ <ComboBox SelectedIndex="{x:Bind ViewModel.IpsetFilterIndex, Mode=TwoWay}" HorizontalAlignment="Stretch">
+ <ComboBoxItem Content="Любой IP (any)"/>
+ <ComboBoxItem Content="Только из списка"/>
+ <ComboBoxItem Content="Никакой (none)"/>
+ </ComboBox>
+ </StackPanel>
+ </Border>
+ </Grid>
+ </Expander>
 
-            <Grid ColumnSpacing="12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+ <!-- 4. Баннер: zapret не установлен -->
+ <InfoBar IsOpen="{x:Bind ViewModel.SetupRequired, Mode=OneWay}"
+ IsClosable="False"
+ Severity="Warning"
+ Title="zapret не установлен"
+ Message="Для работы защиты необходимо установить zapret через мастер настройки.">
+ <InfoBar.ActionButton>
+ <Button Content="Запустить мастер настройки"
+ Style="{ThemeResource AccentButtonStyle}"
+ Command="{x:Bind ViewModel.OpenWizardCommand}"/>
+ </InfoBar.ActionButton>
+ </InfoBar>
 
-                <!-- Discord -->
-                <Border Grid.Column="0" CornerRadius="12" Padding="16"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1">
-                    <StackPanel Spacing="10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Border Width="48" Height="48" CornerRadius="10"
-                                    Background="#1A5865F2" HorizontalAlignment="Left">
-                                <Viewbox Width="32" Height="32"
-                                         HorizontalAlignment="Center"
-                                         VerticalAlignment="Center">
-                                    <Canvas Width="24" Height="24">
-                                        <Path Fill="{ThemeResource TextFillColorPrimaryBrush}"
-                                              Data="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 3.9-3.46 7.7-3.1 11.46c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.05-.04.09c.32.61.68 1.19 1.07 1.74c.03.02.06.03.09.02c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.3-3.1-11.46c-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12z"/>
-                                    </Canvas>
-                                </Viewbox>
-                            </Border>
-                            <Ellipse x:Name="DiscordIndicator" Grid.Column="1"
-                                     Width="8" Height="8"
-                                     Fill="{ThemeResource SystemFillColorCriticalBrush}"
-                                     VerticalAlignment="Top"/>
-                        </Grid>
-                        <StackPanel Spacing="2">
-                            <TextBlock x:Uid="Discord" Text="Discord"
-                                       Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                            <TextBlock x:Uid="DiscordStatus" x:Name="DiscordStatus"
-                                       Text="Защита выключена"
-                                       Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
+ <!-- 5. InfoBar обновления -->
+ <InfoBar IsOpen="{x:Bind ViewModel.UpdateAvailable, Mode=OneWay}"
+ IsClosable="True"
+ Severity="Informational"
+ Title="Доступно обновление"
+ Message="{x:Bind ViewModel.UpdateVersion, Mode=OneWay}">
+ <InfoBar.ActionButton>
+ <Button Content="Обновить"
+ Style="{ThemeResource AccentButtonStyle}"
+ Command="{x:Bind ViewModel.StartUpdateCommand}"
+ Visibility="{x:Bind ViewModel.IsUpdating, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
+ </InfoBar.ActionButton>
+ </InfoBar>
 
-                <!-- YouTube -->
-                <Border Grid.Column="1" CornerRadius="12" Padding="16"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1">
-                    <StackPanel Spacing="10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Border Width="48" Height="48" CornerRadius="10"
-                                    Background="#1AFF0000" HorizontalAlignment="Left">
-                                <Viewbox Width="32" Height="32"
-                                         HorizontalAlignment="Center"
-                                         VerticalAlignment="Center">
-                                    <Canvas Width="24" Height="24">
-                                        <Path Fill="{ThemeResource TextFillColorPrimaryBrush}"
-                                              Data="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/>
-                                    </Canvas>
-                                </Viewbox>
-                            </Border>
-                            <Ellipse x:Name="YoutubeIndicator" Grid.Column="1"
-                                     Width="8" Height="8"
-                                     Fill="{ThemeResource SystemFillColorCriticalBrush}"
-                                     VerticalAlignment="Top"/>
-                        </Grid>
-                        <StackPanel Spacing="2">
-                            <TextBlock x:Uid="Youtube" Text="YouTube"
-                                       Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                            <TextBlock x:Uid="YoutubeStatus" x:Name="YoutubeStatus"
-                                       Text="Защита выключена"
-                                       Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
+ <!-- 6. Прогресс обновления -->
+ <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+ BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+ BorderThickness="1" CornerRadius="8" Padding="16,12"
+		Visibility="{x:Bind ViewModel.IsUpdating, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+ <StackPanel Spacing="8">
+ <TextBlock Text="{x:Bind ViewModel.UpdateStatusText, Mode=OneWay}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+ <ProgressBar Value="{x:Bind ViewModel.UpdateProgress, Mode=OneWay}" Maximum="100" ShowError="False" ShowPaused="False"/>
+ <TextBlock Text="{x:Bind ViewModel.UpdateProgress, Mode=OneWay, Converter={StaticResource ProgressToPercentConverter}}"
+ Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.6"/>
+ </StackPanel>
+ </Border>
 
-                <!-- Google -->
-                <Border Grid.Column="2" CornerRadius="12" Padding="16"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1">
-                    <StackPanel Spacing="10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Border Width="48" Height="48" CornerRadius="10"
-                                    Background="#1A4285F4" HorizontalAlignment="Left">
-                                <Viewbox Width="32" Height="32"
-                                         HorizontalAlignment="Center"
-                                         VerticalAlignment="Center">
-                                    <Canvas Width="24" Height="24">
-                                        <Path Fill="{ThemeResource TextFillColorPrimaryBrush}"
-                                              Data="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27c3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10c5.35 0 9.25-3.67 9.25-9.09c0-1.15-.15-1.81-.15-1.81z"/>
-                                    </Canvas>
-                                </Viewbox>
-                            </Border>
-                            <Ellipse x:Name="GoogleIndicator" Grid.Column="1"
-                                     Width="8" Height="8"
-                                     Fill="{ThemeResource SystemFillColorCriticalBrush}"
-                                     VerticalAlignment="Top"/>
-                        </Grid>
-                        <StackPanel Spacing="2">
-                            <TextBlock x:Uid="Google" Text="Google"
-                                       Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                            <TextBlock x:Uid="GoogleStatus" x:Name="GoogleStatus"
-                                       Text="Защита выключена"
-                                       Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-            </Grid>
-
-            <!-- ── 5. Баннер: zapret не установлен ── -->
-            <InfoBar x:Name="SetupRequiredBar"
-                     IsOpen="False"
-                     IsClosable="False"
-                     Severity="Warning"
-                     Title="zapret не установлен"
-                     Message="Для работы защиты необходимо установить zapret через мастер настройки.">
-                <InfoBar.ActionButton>
-                    <Button x:Uid="ZapustitMasterNastroyki" Content="Запустить мастер настройки"
-                            Style="{ThemeResource AccentButtonStyle}"
-                            Click="OpenWizard_Click"/>
-                </InfoBar.ActionButton>
-            </InfoBar>
-
-            <!-- ── 6. InfoBar обновления ── -->
-            <InfoBar x:Name="UpdateInfoBar"
-                     IsOpen="False" IsClosable="True"
-                     Severity="Informational"
-                     Title="Доступно обновление">
-                <InfoBar.ActionButton>
-                    <HyperlinkButton x:Uid="PereytiKObnovleniyam" Content="Перейти к обновлениям &#x2192;"
-                                     Click="UpdateBanner_Click"/>
-                </InfoBar.ActionButton>
-            </InfoBar>
-
-        </StackPanel>
-    </ScrollViewer>
+ <!-- 7. Changelog -->
+	<Expander Visibility="{x:Bind ViewModel.ChangelogVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+ Header="Список изменений"
+ IsExpanded="True"
+ CornerRadius="8">
+ <ScrollViewer MaxHeight="200" Padding="8">
+ <TextBlock Text="{x:Bind ViewModel.Changelog, Mode=OneWay}" TextWrapping="Wrap"/>
+ </ScrollViewer>
+ </Expander>
+ </StackPanel>
+ </ScrollViewer>
 </Page>

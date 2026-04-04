@@ -13,6 +13,7 @@
     <WindowsPackageType>None</WindowsPackageType>
     <EnableMsixTooling>false</EnableMsixTooling>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <PriGeneratorSuppressedWarnings>PRI263</PriGeneratorSuppressedWarnings>
   </PropertyGroup>
 
@@ -44,16 +45,21 @@
     <Content Include="zapret\strategies\*.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="zapret\version.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="zapret\utils\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.5" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1-RTM" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.0.0-experimental6" />
-    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.5" />
-    <PackageReference Include="MSTest.TestFramework" Version="4.1.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="4.1.0" />
-    <PackageReference Include="FluentAssertions" Version="8.8.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -84,78 +90,13 @@
     <Content Include="Assets\Z-UI-256x256.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Compile Update="Animations\AnimationType.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    
-    <Compile Update="TrayIcon.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    
-    <Content Update="zapret\strategies\bin\cygwin1.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    
-    <Content Update="zapret\strategies\bin\quic_initial_www_google_com.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    
-    <Content Update="zapret\strategies\bin\stun.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    
-    <Content Update="zapret\strategies\bin\tls_clienthello_4pda_to.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    
-    <Content Update="zapret\strategies\bin\tls_clienthello_max_ru.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    
-    <Content Update="zapret\strategies\bin\tls_clienthello_www_google_com.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    
-    <Content Update="zapret\strategies\bin\WinDivert.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    
-    <Content Update="zapret\strategies\bin\WinDivert64.sys">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    
-    <Content Update="zapret\strategies\bin\winws.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    
-    <Content Update="zapret\strategies\service.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    
-    <Content Update="zapret\version.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-
-    <!-- Стратегии покрыты wildcard Include выше -->
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="zapret\version.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Views\AboutPage.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
     <Page Update="Views\DashboardPage.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
-    <Page Update="Views\DiagnosticsPage.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
-    <Page Update="Views\ServicePage.xaml">
+    <Page Update="Views\StrategiesPage.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Update="Views\ServicesPage.xaml">
@@ -167,10 +108,19 @@
     <Page Update="Views\SetupWizardPage.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
-    <Page Update="Views\StrategiesPage.xaml">
+    <Page Update="Views\DiagnosticsPage.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Update="Views\UpdatesPage.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Views\ServicePage.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Views\AboutPage.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Windows\MainWindow.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
   </ItemGroup>
@@ -187,13 +137,7 @@
     <ApplicationIcon>Assets\Z-UI.ico</ApplicationIcon>
   </PropertyGroup>
 
-  <Target Name="CopyPriToPublish" AfterTargets="Publish">
-    <Copy SourceFiles="$(OutDir)Z-UI.pri"
-          DestinationFiles="$(PublishDir)resources.pri"
-          Condition="Exists('$(OutDir)Z-UI.pri')"/>
-  </Target>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="taskkill /F /IM winws.exe 2&gt;nul&#xD;&#xA;sc stop WinDivert 2&gt;nul&#xD;&#xA;sc stop WinDivert14 2&gt;nul&#xD;&#xA;sc delete WinDivert 2&gt;nul&#xD;&#xA;sc delete WinDivert14 2&gt;nul&#xD;&#xA;ping -n 2 127.0.0.1 &gt;nul&#xD;&#xA;exit 0" />
-  </Target>
+<Target Name="CopyPriToPublish" AfterTargets="Publish">
+	<Copy SourceFiles="$(OutDir)Z-UI.pri" DestinationFiles="$(PublishDir)resources.pri" Condition="Exists('$(OutDir)Z-UI.pri')" />
+</Target>
 </Project>

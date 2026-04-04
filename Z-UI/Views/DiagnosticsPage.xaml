@@ -6,29 +6,30 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="16" Padding="32,24">
+<ScrollViewer Padding="24">
+ <StackPanel Spacing="16" HorizontalAlignment="Stretch">
+ <StackPanel Orientation="Horizontal" Spacing="12">
+                <Button Content="Очистить лог"
+                        Command="{x:Bind ViewModel.ClearLogsCommand}"
+                        Style="{StaticResource AccentButtonStyle}" />
+            </StackPanel>
 
-
-            <TextBlock x:Uid="ProverkaKomponentovSistemyIKonfiguratsiiZapret" Text="Проверка компонентов системы и конфигурации zapret"
-                       Style="{ThemeResource CaptionTextBlockStyle}"
-                       Opacity="0.6"
-                       Margin="0,-8,0,0"/>
-
-            <!-- Список проверок -->
-            <Border CornerRadius="12" Padding="8"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1">
-                <StackPanel x:Name="ChecksList" Spacing="2"/>
+                    BorderThickness="1" CornerRadius="8" Padding="16">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Лог диагностики" Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <ListView ItemsSource="{x:Bind ViewModel.LogLines, Mode=OneWay}"
+                              MaxHeight="500"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <TextBlock Text="{x:Bind}" FontFamily="Consolas" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
             </Border>
-
-            <!-- Итог -->
-            <InfoBar x:Name="SummaryBar"
-                     IsOpen="False"
-                     IsClosable="False"
-                     Title=""/>
-
         </StackPanel>
     </ScrollViewer>
 </Page>
