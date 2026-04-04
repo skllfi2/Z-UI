@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using ZUI.Services;
 
 namespace ZUI
 {
@@ -142,12 +143,12 @@ namespace ZUI
             else if (cmd == 2) _onExit();
         }
 
-        public void UpdateStatus(bool isRunning)
-        {
-            _nid.szTip = isRunning ? "ZUI — Запущено ✓" : "ZUI — Остановлено";
-            _nid.uFlags = NIF_TIP | NIF_ICON;
-            Shell_NotifyIcon(NIM_MODIFY, ref _nid);
-        }
+    public void UpdateStatus(bool isRunning)
+    {
+        _nid.szTip = isRunning ? $"ZUI — {LocalizationService.Get("Running")} ✓" : $"ZUI — {LocalizationService.Get("Stopped")}";
+        _nid.uFlags = NIF_TIP | NIF_ICON;
+        Shell_NotifyIcon(NIM_MODIFY, ref _nid);
+    }
         public void Dispose()
 
         {

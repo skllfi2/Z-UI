@@ -4,13 +4,15 @@ using System.Text.Json;
 
 namespace ZUI
 {
- public static class AppSettings
- {
- private static readonly string _path = Path.Combine(
- Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
- "Z-UI", "settings.json");
+public static class AppSettings
+{
+private static readonly string _path = Path.Combine(
+Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+"Z-UI", "settings.json");
 
- public static bool AutoStartZapret { get; set; } = false;
+public static event Action? StrategyChanged;
+
+public static bool AutoStartZapret { get; set; } = false;
  public static bool AutoStartWithAdmin { get; set; } = false;
  public static bool MinimizeToTrayOnStart { get; set; } = false;
  public static bool SoundEffects { get; set; } = false;
@@ -29,9 +31,16 @@ namespace ZUI
  public static bool HotkeysEnabled { get; set; } = true;
  public static string HostsHash { get; set; } = "";
  public static DateTime HostsLastCheck { get; set; } = DateTime.MinValue;
- public static bool HostsAutoUpdate { get; set; } = false;
+        public static bool HostsAutoUpdate { get; set; } = false;
 
- static AppSettings() => Load();
+        public static void SetCurrentStrategy(string strategy)
+        {
+            CurrentStrategy = strategy;
+            Save();
+            StrategyChanged?.Invoke();
+        }
+
+        static AppSettings() => Load();
 
  public static void Load()
  {

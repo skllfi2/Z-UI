@@ -36,27 +36,27 @@ namespace ZUI.Services
 
         public static void LogStart(string strategy)
         {
-            Log("START", $"Запущена стратегия: {strategy}");
+            Log("START", $"{LocalizationService.Get("StrategyStarted")}: {strategy}");
         }
 
         public static void LogStop()
         {
-            Log("STOP", "Сервис остановлен");
+            Log("STOP", LocalizationService.Get("ServiceStopped"));
         }
 
         public static void LogStrategyApply(string strategy)
         {
-            Log("STRATEGY", $"Применена стратегия: {strategy}");
+            Log("STRATEGY", $"{LocalizationService.Get("StrategyApplied")}: {strategy}");
         }
 
         public static void LogTestRun(string mode, int count)
         {
-            Log("TEST", $"Запущено тестирование: {mode}, стратегий: {count}");
+            Log("TEST", $"{LocalizationService.Get("TestingStarted")}: {mode}, {LocalizationService.Get("StrategiesCount")}: {count}");
         }
 
         public static void LogTestComplete(string bestStrategy)
         {
-            Log("TEST_COMPLETE", $"Лучший конфиг: {bestStrategy}");
+            Log("TEST_COMPLETE", $"{LocalizationService.Get("BestConfig")}: {bestStrategy}");
         }
 
         public static void LogSettingsChange(string setting, string value)

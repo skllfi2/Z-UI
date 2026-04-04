@@ -7,6 +7,7 @@ using ZUI.ViewModels;
 using System;
 using System.Threading.Tasks;
 using System.Linq;
+using Windows.Globalization;
 
 namespace ZUI
 {
@@ -15,49 +16,80 @@ namespace ZUI
  public static MainWindow? Instance { get; private set; }
  private SettingsViewModel? _currentSettingsViewModel;
 
-public MainWindow()
-	{
-		this.InitializeComponent();
-		Instance = this;
+        public MainWindow()
+        {
+            this.InitializeComponent();
+            Instance = this;
 
-		ExtendsContentIntoTitleBar = true;
-		SetTitleBar(AppTitleBar);
+            ExtendsContentIntoTitleBar = true;
+            SetTitleBar(AppTitleBar);
 
-		AppWindow.TitleBar.ButtonBackgroundColor = Microsoft.UI.Colors.Transparent;
-		AppWindow.TitleBar.ButtonInactiveBackgroundColor = Microsoft.UI.Colors.Transparent;
+            AppWindow.TitleBar.ButtonBackgroundColor = Microsoft.UI.Colors.Transparent;
+            AppWindow.TitleBar.ButtonInactiveBackgroundColor = Microsoft.UI.Colors.Transparent;
 
-		AppWindow.Resize(new Windows.Graphics.SizeInt32(1080, 750));
+            AppWindow.Resize(new Windows.Graphics.SizeInt32(1080, 750));
 
-		var displayArea = Microsoft.UI.Windowing.DisplayArea.GetFromWindowId(AppWindow.Id, Microsoft.UI.Windowing.DisplayAreaFallback.Primary);
-		var workArea = displayArea.WorkArea;
-		AppWindow.Move(new Windows.Graphics.PointInt32(
-			workArea.X + (workArea.Width - 1080) / 2,
-			workArea.Y + (workArea.Height - 750) / 2
-		));
+            var displayArea = Microsoft.UI.Windowing.DisplayArea.GetFromWindowId(AppWindow.Id, Microsoft.UI.Windowing.DisplayAreaFallback.Primary);
+            var workArea = displayArea.WorkArea;
+            AppWindow.Move(new Windows.Graphics.PointInt32(
+            workArea.X + (workArea.Width - 1080) / 2,
+            workArea.Y + (workArea.Height - 750) / 2
+            ));
 
-		if (!AppSettings.SetupCompleted)
-		{
-			NavigateTo("setup");
-		}
-		else
-		{
-			NavigateTo("dashboard");
-			_ = CheckHostsInBackground();
-		}
+            if (!AppSettings.SetupCompleted)
+            {
+                NavigateTo("setup");
+            }
+            else
+            {
+                NavigateTo("dashboard");
+                _ = CheckHostsInBackground();
+            }
 
-		ContentFrame.Navigated += (_, _) =>
-		{
-			NavigationViewControl.IsBackEnabled = ContentFrame.CanGoBack;
-		};
+            ContentFrame.Navigated += (_, _) =>
+            {
+                NavigationViewControl.IsBackEnabled = ContentFrame.CanGoBack;
+            };
 
-		UpdateChecker.UpdateFound += version =>
-		{
-			DispatcherQueue.TryEnqueue(() => UpdatesBadge.Visibility = Visibility.Visible);
-		};
+            UpdateChecker.UpdateFound += version =>
+            {
+                DispatcherQueue.TryEnqueue(() => UpdatesBadge.Visibility = Visibility.Visible);
+            };
 
-		if (UpdateChecker.UpdateAvailable)
-			UpdatesBadge.Visibility = Visibility.Visible;
-	}
+            if (UpdateChecker.UpdateAvailable)
+            UpdatesBadge.Visibility = Visibility.Visible;
+
+            LocalizationService.LanguageChanged += OnLanguageChanged;
+        }
+
+    private void OnLanguageChanged()
+    {
+        DispatcherQueue.TryEnqueue(() =>
+        {
+            var current = NavigationViewControl.SelectedItem as NavigationViewItem;
+            if (current?.Tag != null)
+            {
+                var tag = current.Tag.ToString();
+                UpdatePageHeader(tag);
+            }
+            
+            ReloadAllPages();
+        });
+    }
+
+        private void UpdatePageHeader(string tag)
+        {
+            PageHeader.Text = tag switch
+            {
+                "dashboard" => LocalizationService.Get("NavDashboard"),
+                "strategies" => LocalizationService.Get("NavStrategies"),
+                "updates" => LocalizationService.Get("NavServices"),
+                "settings" => LocalizationService.Get("NavSettings"),
+                "about" => LocalizationService.Get("AboutTitle"),
+                "setup" => LocalizationService.Get("SetupWizard"),
+                _ => PageHeader.Text
+            };
+        }
 
  private void NavigationView_Loaded(object sender, RoutedEventArgs e)
  {
@@ -77,52 +109,51 @@ public MainWindow()
  }
  }
 
- public void ReloadAllPages()
- {
- var current = NavigationViewControl.SelectedItem as NavigationViewItem;
- if (current == null) return;
- var tag = current.Tag?.ToString()
- ?? (current == NavigationViewControl.SettingsItem as NavigationViewItem ? "settings" : "");
- if (!string.IsNullOrEmpty(tag))
- {
- ContentFrame.BackStack.Clear();
- NavigateTo(tag);
- }
- }
+    public void ReloadAllPages()
+    {
+        var currentPage = ContentFrame.Content?.GetType();
+        if (currentPage != null)
+        {
+            ContentFrame.BackStack.Clear();
+            ContentFrame.ForwardStack.Clear();
+            ContentFrame.Content = null;
+            ContentFrame.Navigate(currentPage, null, new Microsoft.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo());
+        }
+    }
 
- public void NavigateTo(string tag)
- {
- if (tag == "setup")
- {
- SetNavMenuEnabled(false);
- ContentFrame.Navigate(typeof(SetupWizardPage));
- PageHeader.Text = "Настройка";
- return;
- }
+        public void NavigateTo(string tag)
+        {
+            if (tag == "setup")
+            {
+                SetNavMenuEnabled(false);
+                ContentFrame.Navigate(typeof(SetupWizardPage));
+                PageHeader.Text = LocalizationService.Get("SetupWizard");
+                return;
+            }
 
- if (tag == "about")
- {
- ContentFrame.Navigate(typeof(AboutPage));
- PageHeader.Text = "О программе";
- return;
- }
+            if (tag == "about")
+            {
+                ContentFrame.Navigate(typeof(AboutPage));
+                PageHeader.Text = LocalizationService.Get("AboutTitle");
+                return;
+            }
 
- if (tag == "settings")
- {
- NavigationViewControl.SelectedItem = SettingsNavItem;
- return;
- }
+            if (tag == "settings")
+            {
+                NavigationViewControl.SelectedItem = SettingsNavItem;
+                return;
+            }
 
- var item = NavigationViewControl.MenuItems
- .OfType<NavigationViewItem>()
- .FirstOrDefault(i => i.Tag?.ToString() == tag);
+            var item = NavigationViewControl.MenuItems
+            .OfType<NavigationViewItem>()
+            .FirstOrDefault(i => i.Tag?.ToString() == tag);
 
- if (item != null)
- {
- NavigationViewControl.SelectedItem = item;
- ProcessNavigation(item);
- }
- }
+            if (item != null)
+            {
+                NavigationViewControl.SelectedItem = item;
+                ProcessNavigation(item);
+            }
+        }
 
  private void NavigationView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
  {
@@ -130,25 +161,25 @@ public MainWindow()
  ContentFrame.GoBack();
  }
 
-	private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
-	{
-		if (args.IsSettingsSelected)
-		{
-			PageHeader.Text = "Параметры";
-			ContentFrame.Navigate(typeof(SettingsPage));
-			return;
-		}
+        private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+            if (args.IsSettingsSelected)
+            {
+                PageHeader.Text = LocalizationService.Get("NavSettings");
+                ContentFrame.Navigate(typeof(SettingsPage));
+                return;
+            }
 
-		var item = args.SelectedItem as NavigationViewItem;
-		if (item?.Tag?.ToString() == "settings")
-		{
-			PageHeader.Text = "Параметры";
-			ContentFrame.Navigate(typeof(SettingsPage));
-			return;
-		}
+            var item = args.SelectedItem as NavigationViewItem;
+            if (item?.Tag?.ToString() == "settings")
+            {
+                PageHeader.Text = LocalizationService.Get("NavSettings");
+                ContentFrame.Navigate(typeof(SettingsPage));
+                return;
+            }
 
-		ProcessNavigation(item);
-	}
+            ProcessNavigation(item);
+        }
 
 	private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
 	{

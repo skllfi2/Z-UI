@@ -1,188 +1,195 @@
 <Page
-	x:Class="ZUI.Views.SetupWizardPage"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	mc:Ignorable="d">
+x:Class="ZUI.Views.SetupWizardPage"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:vm="using:ZUI.ViewModels"
+mc:Ignorable="d">
 
-	<Grid Padding="48,32">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="Auto"/>
-		</Grid.RowDefinitions>
+<Page.Resources>
+<vm:LocalizationViewModel x:Key="L"/>
+</Page.Resources>
 
-		<!-- Header -->
-		<StackPanel Grid.Row="0" Spacing="8" HorizontalAlignment="Center" MaxWidth="600">
-			<FontIcon Glyph="&#xE8CB;" FontSize="48" HorizontalAlignment="Center" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
-			<TextBlock Text="Добро пожаловать в Z-UI" Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
-			<TextBlock Text="Мастер поможет настроить обход DPI за несколько шагов"
-				Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Center" Opacity="0.7" TextAlignment="Center"/>
-		</StackPanel>
+<Grid Padding="48,32">
+<Grid.RowDefinitions>
+<RowDefinition Height="Auto"/>
+<RowDefinition Height="Auto"/>
+<RowDefinition Height="*"/>
+<RowDefinition Height="Auto"/>
+</Grid.RowDefinitions>
 
-		<!-- Progress Steps -->
-		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8" Margin="0,24,0,0">
-			<!-- Step 1 -->
-			<Border Width="32" Height="32" CornerRadius="16">
-				<Border.Background>
-					<SolidColorBrush Color="#FF0078D4"/>
-				</Border.Background>
-				<TextBlock Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold"
-					Foreground="White"/>
-			</Border>
-			<Rectangle Width="60" Height="2" VerticalAlignment="Center">
-				<Rectangle.Fill>
-					<SolidColorBrush Color="{x:Bind ViewModel.Step2Visible, Mode=OneWay, Converter={StaticResource BoolToAccentMutedColorConverter}}"/>
-				</Rectangle.Fill>
-			</Rectangle>
-			<!-- Step 2 -->
-			<Border Width="32" Height="32" CornerRadius="16">
-				<Border.Background>
-					<SolidColorBrush Color="{x:Bind ViewModel.Step2Visible, Mode=OneWay, Converter={StaticResource BoolToAccentMutedColorConverter}}"/>
-				</Border.Background>
-				<TextBlock Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold"
-					Foreground="White" Opacity="{x:Bind ViewModel.Step2Visible, Mode=OneWay, Converter={StaticResource BoolToOpacityConverter}}"/>
-			</Border>
-			<Rectangle Width="60" Height="2" VerticalAlignment="Center">
-				<Rectangle.Fill>
-					<SolidColorBrush Color="{x:Bind ViewModel.Step3Visible, Mode=OneWay, Converter={StaticResource BoolToAccentMutedColorConverter}}"/>
-				</Rectangle.Fill>
-			</Rectangle>
-			<!-- Step 3 -->
-			<Border Width="32" Height="32" CornerRadius="16">
-				<Border.Background>
-					<SolidColorBrush Color="{x:Bind ViewModel.Step3Visible, Mode=OneWay, Converter={StaticResource BoolToAccentMutedColorConverter}}"/>
-				</Border.Background>
-				<TextBlock Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold"
-					Foreground="White" Opacity="{x:Bind ViewModel.Step3Visible, Mode=OneWay, Converter={StaticResource BoolToOpacityConverter}}"/>
-			</Border>
-		</StackPanel>
+<!-- Header -->
+<StackPanel Grid.Row="0" Spacing="8" HorizontalAlignment="Center" MaxWidth="600">
+<FontIcon Glyph="&#xE8CB;" FontSize="48" HorizontalAlignment="Center" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+<TextBlock Text="{Binding SetupWizardTitle, Source={StaticResource L}}" Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
+<TextBlock Text="{Binding SetupWizardDesc, Source={StaticResource L}}"
+Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Center" Opacity="0.7" TextAlignment="Center"/>
+</StackPanel>
 
-		<!-- Content -->
-		<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="0,24,0,0">
-			<StackPanel Spacing="16" MaxWidth="600" HorizontalAlignment="Center">
+<!-- Progress Steps -->
+<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8" Margin="0,24,0,0">
+<!-- Step 1 -->
+<Border Width="32" Height="32" CornerRadius="16">
+<Border.Background>
+<SolidColorBrush Color="#FF0078D4"/>
+</Border.Background>
+<TextBlock Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold"
+Foreground="White"/>
+</Border>
+<Rectangle Width="60" Height="2" VerticalAlignment="Center">
+<Rectangle.Fill>
+<SolidColorBrush Color="{x:Bind ViewModel.Step2Visible, Mode=OneWay, Converter={StaticResource BoolToAccentMutedColorConverter}}"/>
+</Rectangle.Fill>
+</Rectangle>
+<!-- Step 2 -->
+<Border Width="32" Height="32" CornerRadius="16">
+<Border.Background>
+<SolidColorBrush Color="{x:Bind ViewModel.Step2Visible, Mode=OneWay, Converter={StaticResource BoolToAccentMutedColorConverter}}"/>
+</Border.Background>
+<TextBlock Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold"
+Foreground="White" Opacity="{x:Bind ViewModel.Step2Visible, Mode=OneWay, Converter={StaticResource BoolToOpacityConverter}}"/>
+</Border>
+<Rectangle Width="60" Height="2" VerticalAlignment="Center">
+<Rectangle.Fill>
+<SolidColorBrush Color="{x:Bind ViewModel.Step3Visible, Mode=OneWay, Converter={StaticResource BoolToAccentMutedColorConverter}}"/>
+</Rectangle.Fill>
+</Rectangle>
+<!-- Step 3 -->
+<Border Width="32" Height="32" CornerRadius="16">
+<Border.Background>
+<SolidColorBrush Color="{x:Bind ViewModel.Step3Visible, Mode=OneWay, Converter={StaticResource BoolToAccentMutedColorConverter}}"/>
+</Border.Background>
+<TextBlock Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold"
+Foreground="White" Opacity="{x:Bind ViewModel.Step3Visible, Mode=OneWay, Converter={StaticResource BoolToOpacityConverter}}"/>
+</Border>
+</StackPanel>
 
-				<!-- Step 1: Проверка файлов -->
-				<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-					BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-					BorderThickness="1" CornerRadius="12" Padding="24"
-					Visibility="{x:Bind ViewModel.Step1Visible, Mode=OneWay}">
-					<StackPanel Spacing="16">
-						<TextBlock Text="Проверка файлов" Style="{StaticResource SubtitleTextBlockStyle}"/>
+<!-- Content -->
+<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="0,24,0,0">
+<StackPanel Spacing="16" MaxWidth="600" HorizontalAlignment="Center">
 
-						<StackPanel Spacing="8">
-							<Grid Padding="12,10" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="8">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto"/>
-									<ColumnDefinition Width="*"/>
-									<ColumnDefinition Width="Auto"/>
-								</Grid.ColumnDefinitions>
-								<FontIcon Glyph="&#xE8E5;" FontSize="16" Margin="0,0,12,0" Opacity="0.7"/>
-								<TextBlock Text="winws.exe" VerticalAlignment="Center"/>
-								<FontIcon Grid.Column="2" Glyph="&#xE73E;" FontSize="16" Foreground="{ThemeResource SystemAccentColor}"/>
-							</Grid>
-							<Grid Padding="12,10" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="8">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto"/>
-									<ColumnDefinition Width="*"/>
-									<ColumnDefinition Width="Auto"/>
-								</Grid.ColumnDefinitions>
-								<FontIcon Glyph="&#xE8E5;" FontSize="16" Margin="0,0,12,0" Opacity="0.7"/>
-								<TextBlock Text="WinDivert.dll" VerticalAlignment="Center"/>
-								<FontIcon Grid.Column="2" Glyph="&#xE73E;" FontSize="16" Foreground="{ThemeResource SystemAccentColor}"/>
-							</Grid>
-							<Grid Padding="12,10" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="8">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto"/>
-									<ColumnDefinition Width="*"/>
-									<ColumnDefinition Width="Auto"/>
-								</Grid.ColumnDefinitions>
-								<FontIcon Glyph="&#xE8E5;" FontSize="16" Margin="0,0,12,0" Opacity="0.7"/>
-								<TextBlock Text="list-general.txt" VerticalAlignment="Center"/>
-								<FontIcon Grid.Column="2" Glyph="&#xE73E;" FontSize="16" Foreground="{ThemeResource SystemAccentColor}"/>
-							</Grid>
-						</StackPanel>
+<!-- Step 1: Проверка файлов -->
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1" CornerRadius="12" Padding="24"
+Visibility="{x:Bind ViewModel.Step1Visible, Mode=OneWay}">
+<StackPanel Spacing="16">
+<TextBlock Text="{Binding FileCheck, Source={StaticResource L}}" Style="{StaticResource SubtitleTextBlockStyle}"/>
 
-						<InfoBar Severity="Success" IsOpen="True" IsClosable="False">
-							<InfoBar.Content>
-								<TextBlock Text="Все необходимые файлы найдены"/>
-							</InfoBar.Content>
-						</InfoBar>
-					</StackPanel>
-				</Border>
+<StackPanel Spacing="8">
+<Grid Padding="12,10" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="8">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="Auto"/>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="Auto"/>
+</Grid.ColumnDefinitions>
+<FontIcon Glyph="&#xE8E5;" FontSize="16" Margin="0,0,12,0" Opacity="0.7"/>
+<TextBlock Text="winws.exe" VerticalAlignment="Center"/>
+<FontIcon Grid.Column="2" Glyph="&#xE73E;" FontSize="16" Foreground="{ThemeResource SystemAccentColor}"/>
+</Grid>
+<Grid Padding="12,10" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="8">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="Auto"/>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="Auto"/>
+</Grid.ColumnDefinitions>
+<FontIcon Glyph="&#xE8E5;" FontSize="16" Margin="0,0,12,0" Opacity="0.7"/>
+<TextBlock Text="WinDivert.dll" VerticalAlignment="Center"/>
+<FontIcon Grid.Column="2" Glyph="&#xE73E;" FontSize="16" Foreground="{ThemeResource SystemAccentColor}"/>
+</Grid>
+<Grid Padding="12,10" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="8">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="Auto"/>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="Auto"/>
+</Grid.ColumnDefinitions>
+<FontIcon Glyph="&#xE8E5;" FontSize="16" Margin="0,0,12,0" Opacity="0.7"/>
+<TextBlock Text="list-general.txt" VerticalAlignment="Center"/>
+<FontIcon Grid.Column="2" Glyph="&#xE73E;" FontSize="16" Foreground="{ThemeResource SystemAccentColor}"/>
+</Grid>
+</StackPanel>
 
-				<!-- Step 2: Выбор стратегии -->
-				<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-					BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-					BorderThickness="1" CornerRadius="12" Padding="24"
-					Visibility="{x:Bind ViewModel.Step2Visible, Mode=OneWay}">
-					<StackPanel Spacing="16">
-						<TextBlock Text="Выберите стратегию" Style="{StaticResource SubtitleTextBlockStyle}"/>
-						<TextBlock Text="Стратегия определяет, как будет обходиться DPI" Opacity="0.6"/>
+<InfoBar Severity="Success" IsOpen="True" IsClosable="False">
+<InfoBar.Content>
+<TextBlock Text="{Binding AllFilesFound, Source={StaticResource L}}"/>
+</InfoBar.Content>
+</InfoBar>
+</StackPanel>
+</Border>
 
-						<ComboBox Header="Стратегия по умолчанию"
-							SelectedItem="{x:Bind ViewModel.SelectedStrategy, Mode=TwoWay}"
-							HorizontalAlignment="Stretch" MinWidth="300"
-							ItemsSource="{x:Bind ViewModel.AvailableStrategies, Mode=OneWay}"/>
+<!-- Step 2: Выбор стратегии -->
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1" CornerRadius="12" Padding="24"
+Visibility="{x:Bind ViewModel.Step2Visible, Mode=OneWay}">
+<StackPanel Spacing="16">
+<TextBlock Text="{Binding SelectStrategyWizard, Source={StaticResource L}}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+<TextBlock Text="{Binding StrategyDeterminesDpi, Source={StaticResource L}}" Opacity="0.6"/>
 
-						<Border Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="8" Padding="12">
-							<StackPanel Spacing="4">
-								<TextBlock Text="Рекомендация" FontWeight="SemiBold"/>
-								<TextBlock Text="{x:Bind ViewModel.StrategyDescription, Mode=OneWay}" TextWrapping="Wrap" Opacity="0.8"/>
-							</StackPanel>
-						</Border>
-					</StackPanel>
-				</Border>
+<ComboBox Header="{Binding DefaultStrategy, Source={StaticResource L}}"
+SelectedItem="{x:Bind ViewModel.SelectedStrategy, Mode=TwoWay}"
+HorizontalAlignment="Stretch" MinWidth="300"
+ItemsSource="{x:Bind ViewModel.AvailableStrategies, Mode=OneWay}"/>
 
-				<!-- Step 3: Автозапуск -->
-				<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-					BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-					BorderThickness="1" CornerRadius="12" Padding="24"
-					Visibility="{x:Bind ViewModel.Step3Visible, Mode=OneWay}">
-					<StackPanel Spacing="16">
-						<TextBlock Text="Настройки запуска" Style="{StaticResource SubtitleTextBlockStyle}"/>
+<Border Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="8" Padding="12">
+<StackPanel Spacing="4">
+<TextBlock Text="{Binding Recommendation, Source={StaticResource L}}" FontWeight="SemiBold"/>
+<TextBlock Text="{x:Bind ViewModel.StrategyDescription, Mode=OneWay}" TextWrapping="Wrap" Opacity="0.8"/>
+</StackPanel>
+</Border>
+</StackPanel>
+</Border>
 
-						<Grid HorizontalAlignment="Stretch">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="*"/>
-								<ColumnDefinition Width="Auto"/>
-							</Grid.ColumnDefinitions>
-							<StackPanel Spacing="2">
-								<TextBlock Text="Запускать защиту при старте"/>
-								<TextBlock Text="Z-UI автоматически запустит выбранную стратегию" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
-							</StackPanel>
-							<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.AutoStart, Mode=TwoWay}" Margin="0"/>
-						</Grid>
+<!-- Step 3: Автозапуск -->
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1" CornerRadius="12" Padding="24"
+Visibility="{x:Bind ViewModel.Step3Visible, Mode=OneWay}">
+<StackPanel Spacing="16">
+<TextBlock Text="{Binding LaunchSettings, Source={StaticResource L}}" Style="{StaticResource SubtitleTextBlockStyle}"/>
 
-						<Grid HorizontalAlignment="Stretch">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="*"/>
-								<ColumnDefinition Width="Auto"/>
-							</Grid.ColumnDefinitions>
-							<StackPanel Spacing="2">
-								<TextBlock Text="Автозапуск с правами администратора"/>
-								<TextBlock Text="Запускать с повышенными правами без UAC-запроса" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
-							</StackPanel>
-							<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.AutoStartWithAdmin, Mode=TwoWay}" Margin="0"/>
-						</Grid>
-					</StackPanel>
-				</Border>
+<Grid HorizontalAlignment="Stretch">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="Auto"/>
+</Grid.ColumnDefinitions>
+<StackPanel Spacing="2">
+<TextBlock Text="{Binding StartProtectionOnLaunch, Source={StaticResource L}}"/>
+<TextBlock Text="{Binding AutoStartDesc, Source={StaticResource L}}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
+</StackPanel>
+                <ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.AutoStart, Mode=TwoWay}" Margin="0"
+                    OnContent="{Binding On, Source={StaticResource L}}" OffContent="{Binding Off, Source={StaticResource L}}"/>
+            </Grid>
 
-			</StackPanel>
-		</ScrollViewer>
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="2">
+                    <TextBlock Text="{Binding AutoStartAdminWizard, Source={StaticResource L}}"/>
+                    <TextBlock Text="{Binding AutoStartAdminWizardDesc, Source={StaticResource L}}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
+                </StackPanel>
+                <ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.AutoStartWithAdmin, Mode=TwoWay}" Margin="0"
+                    OnContent="{Binding On, Source={StaticResource L}}" OffContent="{Binding Off, Source={StaticResource L}}"/>
+</Grid>
+</StackPanel>
+</Border>
 
-		<!-- Footer Buttons -->
-		<StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="12" Margin="0,24,0,0">
-			<Button Content="Назад" Command="{x:Bind ViewModel.PrevStepCommand}" MinWidth="100"
-				Visibility="{x:Bind ViewModel.BackButtonVisible, Mode=OneWay}"/>
-			<Button Content="Далее" Command="{x:Bind ViewModel.NextStepCommand}"
-				Style="{StaticResource AccentButtonStyle}" MinWidth="100"
-				Visibility="{x:Bind ViewModel.NextButtonVisible, Mode=OneWay}"/>
-			<Button Content="Завершить" Command="{x:Bind ViewModel.CompleteCommand}"
-				Style="{StaticResource AccentButtonStyle}" MinWidth="100"
-				Visibility="{x:Bind ViewModel.CompleteButtonVisible, Mode=OneWay}"/>
-		</StackPanel>
-	</Grid>
+</StackPanel>
+</ScrollViewer>
+
+<!-- Footer Buttons -->
+<StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="12" Margin="0,24,0,0">
+<Button Content="{Binding Back, Source={StaticResource L}}" Command="{x:Bind ViewModel.PrevStepCommand}" MinWidth="100"
+Visibility="{x:Bind ViewModel.BackButtonVisible, Mode=OneWay}"/>
+<Button Content="{Binding Next, Source={StaticResource L}}" Command="{x:Bind ViewModel.NextStepCommand}"
+Style="{StaticResource AccentButtonStyle}" MinWidth="100"
+Visibility="{x:Bind ViewModel.NextButtonVisible, Mode=OneWay}"/>
+<Button Content="{Binding Finish, Source={StaticResource L}}" Command="{x:Bind ViewModel.CompleteCommand}"
+Style="{StaticResource AccentButtonStyle}" MinWidth="100"
+Visibility="{x:Bind ViewModel.CompleteButtonVisible, Mode=OneWay}"/>
+</StackPanel>
+</Grid>
 </Page>

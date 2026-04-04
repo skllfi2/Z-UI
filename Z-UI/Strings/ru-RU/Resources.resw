@@ -563,7 +563,58 @@
   <data name="ZuiAbout.Text" xml:space="preserve">
     <value>Z-UI</value>
   </data>
-  <data name="ZUIopr.Text" xml:space="preserve">
-    <value>Z-UI</value>
-  </data>
+	<data name="ZUIopr.Text" xml:space="preserve">
+		<value>Z-UI</value>
+	</data>
+	<data name="BystryeDeystviya.Text" xml:space="preserve">
+		<value>БЫСТРЫЕ ДЕЙСТВИЯ</value>
+	</data>
+	<data name="MasterNastroykiTitle.Text" xml:space="preserve">
+		<value>Мастер настройки</value>
+	</data>
+	<data name="UstanovkaZapret.Text" xml:space="preserve">
+		<value>Установка zapret</value>
+	</data>
+	<data name="RasshirennyeNastroykiFiltrov.Text" xml:space="preserve">
+		<value>Расширенные настройки фильтров</value>
+	</data>
+	<data name="ObkhodDpiNaIgrovyePorty.Text" xml:space="preserve">
+		<value>Обход DPI на игровые порты</value>
+	</data>
+	<data name="ZapretNeUstanovlen.Title" xml:space="preserve">
+		<value>zapret не установлен</value>
+	</data>
+	<data name="ZapretNeUstanovlen.Message" xml:space="preserve">
+		<value>Для работы защиты необходимо установить zapret через мастер настройки.</value>
+	</data>
+	<data name="ZapustitMasteraNastroyki.Content" xml:space="preserve">
+		<value>Запустить мастер настройки</value>
+	</data>
+	<data name="DostupnoObnovlenie.Title" xml:space="preserve">
+		<value>Доступно обновление</value>
+	</data>
+	<data name="SpisokIzmeneniy.Text" xml:space="preserve">
+		<value>Список изменений</value>
+	</data>
+	<data name="Administrator.Text" xml:space="preserve">
+		<value>Администратор</value>
+	</data>
+	<data name="Zapustit.Content" xml:space="preserve">
+		<value>Запустить</value>
+	</data>
+	<data name="Ostanovit.Content" xml:space="preserve">
+		<value>Остановить</value>
+	</data>
+	<data name="Obnovit.Content" xml:space="preserve">
+		<value>Обновить</value>
+	</data>
+	<data name="TolkoIzSpiska.Content" xml:space="preserve">
+		<value>Только из списка</value>
+	</data>
+	<data name="StrategiyaNeVybrana.Text" xml:space="preserve">
+		<value>Стратегия не выбрана</value>
+	</data>
+	<data name="VersiyaNeUstanovlena.Text" xml:space="preserve">
+		<value>Версия не установлена</value>
+	</data>
 </root>

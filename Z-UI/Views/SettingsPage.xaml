@@ -1,323 +1,309 @@
 <Page
- x:Class="ZUI.Views.SettingsPage"
- xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
- xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
- xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
- xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
- xmlns:anim="using:ZUI.Services"
- mc:Ignorable="d">
+x:Class="ZUI.Views.SettingsPage"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:vm="using:ZUI.ViewModels"
+mc:Ignorable="d">
 
 <Page.Resources>
-	<Style x:Key="MicaExpanderStyle" TargetType="Expander">
-		<Setter Property="Background" Value="{ThemeResource LayerFillColorDefaultBrush}"/>
-		<Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}"/>
-		<Setter Property="BorderThickness" Value="1"/>
-		<Setter Property="CornerRadius" Value="8"/>
-	</Style>
-	<Style x:Key="CompactToggleSwitchStyle" TargetType="ToggleSwitch">
+<vm:LocalizationViewModel x:Key="L"/>
+<Style x:Key="MicaExpanderStyle" TargetType="Expander">
+<Setter Property="Background" Value="{ThemeResource LayerFillColorDefaultBrush}"/>
+<Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}"/>
+<Setter Property="BorderThickness" Value="1"/>
+<Setter Property="CornerRadius" Value="8"/>
+</Style>
+<Style x:Key="CompactToggleSwitchStyle" TargetType="ToggleSwitch">
 		<Setter Property="Margin" Value="0"/>
 		<Setter Property="Padding" Value="0"/>
-	</Style>
+		<Setter Property="OnContent" Value="{Binding On, Source={StaticResource L}}"/>
+		<Setter Property="OffContent" Value="{Binding Off, Source={StaticResource L}}"/>
+		<Setter Property="MinWidth" Value="80"/>
+		</Style>
 </Page.Resources>
 
 <ScrollViewer Padding="24,16,24,24">
-	<StackPanel Spacing="12">
+<StackPanel Spacing="12">
 
-	<!-- Кнопка сворачивания/разворачивания -->
-	<Button HorizontalAlignment="Left" Margin="0,0,0,4" Command="{x:Bind ViewModel.ToggleAllGroupsCommand}">
-		<StackPanel Orientation="Horizontal" Spacing="8">
-			<FontIcon Glyph="{x:Bind ViewModel.AllExpanded, Mode=OneWay, Converter={StaticResource BoolToCollapseExpandGlyphConverter}}" FontSize="12"/>
-			<TextBlock Text="{x:Bind ViewModel.AllExpanded, Mode=OneWay, Converter={StaticResource BoolToCollapseExpandTextConverter}}"/>
-		</StackPanel>
-	</Button>
+<!-- Кнопка сворачивания/разворачивания -->
+<Button HorizontalAlignment="Left" Margin="0,0,0,4" Command="{x:Bind ViewModel.ToggleAllGroupsCommand}">
+<StackPanel Orientation="Horizontal" Spacing="8">
+<FontIcon Glyph="{x:Bind ViewModel.AllExpanded, Mode=OneWay, Converter={StaticResource BoolToCollapseExpandGlyphConverter}}" FontSize="12"/>
+<TextBlock Text="{x:Bind ViewModel.AllExpanded, Mode=OneWay, Converter={StaticResource BoolToCollapseExpandTextConverter}}"/>
+</StackPanel>
+</Button>
 
-	<!-- Основные -->
-	<Expander Header="Основные" IsExpanded="{x:Bind ViewModel.ExpandedMain, Mode=TwoWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" CornerRadius="8" Style="{StaticResource MicaExpanderStyle}">
- <StackPanel Spacing="8" Margin="0,8,0,0">
-	<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-		BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-		BorderThickness="1" CornerRadius="8" Padding="16,12"
-		anim:AnimationHelper.EnableCardAnimations="True">
-		<Grid HorizontalAlignment="Stretch">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="Auto"/>
-			</Grid.ColumnDefinitions>
-			<StackPanel Spacing="2">
-				<TextBlock Text="Автозапуск zapret" VerticalAlignment="Center"/>
-				<TextBlock Text="Запускать приложение при входе в Windows"
-					Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
-			</StackPanel>
-			<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AutoStartZapret, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}"/>
-		</Grid>
-	</Border>
+<!-- Основные -->
+<Expander Header="{Binding Main, Source={StaticResource L}}" IsExpanded="{x:Bind ViewModel.ExpandedMain, Mode=TwoWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" CornerRadius="8" Style="{StaticResource MicaExpanderStyle}">
+<StackPanel Spacing="8" Margin="0,8,0,0">
+        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1" CornerRadius="8" Padding="16,12">
+<Grid HorizontalAlignment="Stretch" ColumnSpacing="12">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Spacing="2">
+							<TextBlock Text="{Binding AutoStartWithWindows, Source={StaticResource L}}" VerticalAlignment="Center"/>
+							<TextBlock Text="{Binding AutoStartWithWindowsDesc, Source={StaticResource L}}"
+								Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
+							</StackPanel>
+						<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AutoStartZapret, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}" HorizontalAlignment="Right"/>
+						</Grid>
+        </Border>
 
-		<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-			BorderThickness="1" CornerRadius="8" Padding="16,12"
-			anim:AnimationHelper.EnableCardAnimations="True">
-			<Grid HorizontalAlignment="Stretch">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<StackPanel Spacing="2">
-					<TextBlock Text="Автозапуск с правами администратора" VerticalAlignment="Center"/>
-					<TextBlock Text="Запускать с повышенными правами без UAC-запроса"
-						Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5" TextWrapping="Wrap"/>
-				</StackPanel>
-				<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AutoStartWithAdmin, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}"/>
-			</Grid>
-		</Border>
+        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1" CornerRadius="8" Padding="16,12">
+        <Grid HorizontalAlignment="Stretch" ColumnSpacing="12">
+<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<StackPanel Spacing="2">
+								<TextBlock Text="{Binding AutoStartAdmin, Source={StaticResource L}}" VerticalAlignment="Center"/>
+								<TextBlock Text="{Binding AutoStartAdminDesc, Source={StaticResource L}}"
+									Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5" TextWrapping="Wrap"/>
+							</StackPanel>
+							<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AutoStartWithAdmin, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}" HorizontalAlignment="Right"/>
+        </Grid>
+        </Border>
 
-		<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-			BorderThickness="1" CornerRadius="8" Padding="16,12"
-			anim:AnimationHelper.EnableCardAnimations="True">
-			<Grid HorizontalAlignment="Stretch">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<TextBlock Text="Сворачивать в трей при запуске" VerticalAlignment="Center"/>
-				<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.MinimizeToTrayOnStart, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}"/>
-			</Grid>
-		</Border>
+        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1" CornerRadius="8" Padding="16,12">
+        <Grid HorizontalAlignment="Stretch" ColumnSpacing="12">
+<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="{Binding MinimizeToTray, Source={StaticResource L}}" VerticalAlignment="Center"/>
+							<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.MinimizeToTrayOnStart, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}" HorizontalAlignment="Right"/>
+        </Grid>
+        </Border>
 
-		<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-			BorderThickness="1" CornerRadius="8" Padding="16,12"
-			anim:AnimationHelper.EnableCardAnimations="True">
-			<Grid HorizontalAlignment="Stretch">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<TextBlock Text="Звуковые эффекты" VerticalAlignment="Center"/>
-				<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.SoundEffects, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}"/>
-			</Grid>
-		</Border>
+        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1" CornerRadius="8" Padding="16,12">
+        <Grid HorizontalAlignment="Stretch" ColumnSpacing="12">
+<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="{Binding SoundEffects, Source={StaticResource L}}" VerticalAlignment="Center"/>
+							<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.SoundEffects, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}" HorizontalAlignment="Right"/>
+        </Grid>
+        </Border>
 
-		<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-			BorderThickness="1" CornerRadius="8" Padding="16,12"
-			anim:AnimationHelper.EnableCardAnimations="True">
-			<Grid HorizontalAlignment="Stretch">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<TextBlock Text="Toast-уведомления" VerticalAlignment="Center"/>
-				<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.ToastNotifications, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}"/>
-			</Grid>
- </Border>
- </StackPanel>
- </Expander>
+        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1" CornerRadius="8" Padding="16,12">
+        <Grid HorizontalAlignment="Stretch" ColumnSpacing="12">
+<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="{Binding ToastNotifications, Source={StaticResource L}}" VerticalAlignment="Center"/>
+							<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.ToastNotifications, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}" HorizontalAlignment="Right"/>
+        </Grid>
+        </Border>
+</StackPanel>
+</Expander>
 
-	<!-- Внешний вид -->
-	<Expander Header="Внешний вид" IsExpanded="{x:Bind ViewModel.ExpandedAppearance, Mode=TwoWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" CornerRadius="8" Style="{StaticResource MicaExpanderStyle}">
- <StackPanel Spacing="8" Margin="0,8,0,0">
-	<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-		BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-		BorderThickness="1" CornerRadius="8" Padding="16,12"
-		anim:AnimationHelper.EnableCardAnimations="True">
-		<Grid HorizontalAlignment="Stretch">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="Auto"/>
-			</Grid.ColumnDefinitions>
-			<TextBlock Text="Тема" VerticalAlignment="Center"/>
-			<ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.ThemeIndex, Mode=TwoWay}" MinWidth="140">
-				<ComboBoxItem Content="Системная"/>
-				<ComboBoxItem Content="Светлая"/>
-				<ComboBoxItem Content="Тёмная"/>
-			</ComboBox>
-		</Grid>
-	</Border>
+<!-- Внешний вид -->
+<Expander Header="{Binding Appearance, Source={StaticResource L}}" IsExpanded="{x:Bind ViewModel.ExpandedAppearance, Mode=TwoWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" CornerRadius="8" Style="{StaticResource MicaExpanderStyle}">
+<StackPanel Spacing="8" Margin="0,8,0,0">
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+    BorderThickness="1" CornerRadius="8" Padding="16,12">
+    <Grid HorizontalAlignment="Stretch" ColumnSpacing="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="140"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="{Binding Theme, Source={StaticResource L}}" VerticalAlignment="Center"/>
+        <ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.ThemeIndex, Mode=TwoWay}" HorizontalAlignment="Stretch">
+            <ComboBoxItem Content="{Binding System, Source={StaticResource L}}"/>
+            <ComboBoxItem Content="{Binding Light, Source={StaticResource L}}"/>
+            <ComboBoxItem Content="{Binding Dark, Source={StaticResource L}}"/>
+        </ComboBox>
+    </Grid>
+</Border>
 
-	<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-		BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-		BorderThickness="1" CornerRadius="8" Padding="16,12"
-		anim:AnimationHelper.EnableCardAnimations="True">
-		<Grid HorizontalAlignment="Stretch">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="Auto"/>
-			</Grid.ColumnDefinitions>
-			<TextBlock Text="Язык интерфейса" VerticalAlignment="Center"/>
-			<ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.LanguageIndex, Mode=TwoWay}" MinWidth="140">
-				<ComboBoxItem Content="Русский"/>
-				<ComboBoxItem Content="English"/>
-			</ComboBox>
-		</Grid>
-	</Border>
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+    BorderThickness="1" CornerRadius="8" Padding="16,12">
+    <Grid HorizontalAlignment="Stretch" ColumnSpacing="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="140"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="{Binding Language, Source={StaticResource L}}" VerticalAlignment="Center"/>
+        <ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.LanguageIndex, Mode=TwoWay}" HorizontalAlignment="Stretch">
+            <ComboBoxItem Content="{Binding Russian, Source={StaticResource L}}"/>
+            <ComboBoxItem Content="{Binding English, Source={StaticResource L}}"/>
+        </ComboBox>
+    </Grid>
+</Border>
 
-	<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-		BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-		BorderThickness="1" CornerRadius="8" Padding="16,12"
-		anim:AnimationHelper.EnableCardAnimations="True">
-		<Grid HorizontalAlignment="Stretch">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="Auto"/>
-			</Grid.ColumnDefinitions>
-			<TextBlock Text="Анимация иконок навигации" VerticalAlignment="Center"/>
-			<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AnimNavIcons, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}"/>
-			</Grid>
-		</Border>
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+    BorderThickness="1" CornerRadius="8" Padding="16,12">
+    <Grid HorizontalAlignment="Stretch" ColumnSpacing="12">
+<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="{Binding AnimNavIcons, Source={StaticResource L}}" VerticalAlignment="Center"/>
+							<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AnimNavIcons, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}" HorizontalAlignment="Right"/>
+    </Grid>
+</Border>
 
-		<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-			BorderThickness="1" CornerRadius="8" Padding="16,12"
-			anim:AnimationHelper.EnableCardAnimations="True">
-			<Grid HorizontalAlignment="Stretch">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<TextBlock Text="Анимация кнопок" VerticalAlignment="Center"/>
-				<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AnimButtons, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}"/>
-			</Grid>
-		</Border>
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+    BorderThickness="1" CornerRadius="8" Padding="16,12">
+    <Grid HorizontalAlignment="Stretch" ColumnSpacing="12">
+<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="{Binding AnimButtons, Source={StaticResource L}}" VerticalAlignment="Center"/>
+							<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AnimButtons, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}" HorizontalAlignment="Right"/>
+    </Grid>
+</Border>
 
-		<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-			BorderThickness="1" CornerRadius="8" Padding="16,12"
-			anim:AnimationHelper.EnableCardAnimations="True">
-			<Grid HorizontalAlignment="Stretch">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<TextBlock Text="Анимация карточек" VerticalAlignment="Center"/>
-				<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AnimCards, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}"/>
-			</Grid>
-		</Border>
- </StackPanel>
- </Expander>
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+    BorderThickness="1" CornerRadius="8" Padding="16,12">
+    <Grid HorizontalAlignment="Stretch" ColumnSpacing="12">
+<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="{Binding AnimCards, Source={StaticResource L}}" VerticalAlignment="Center"/>
+							<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AnimCards, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}" HorizontalAlignment="Right"/>
+    </Grid>
+</Border>
+</StackPanel>
+</Expander>
 
-	<!-- Обновления -->
-	<Expander Header="Обновления" IsExpanded="{x:Bind ViewModel.ExpandedUpdates, Mode=TwoWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" CornerRadius="8" Style="{StaticResource MicaExpanderStyle}">
- <StackPanel Spacing="8" Margin="0,8,0,0">
-	<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-			BorderThickness="1" CornerRadius="8" Padding="16,12"
-			anim:AnimationHelper.EnableCardAnimations="True">
-			<Grid HorizontalAlignment="Stretch">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<TextBlock Text="Автопроверка обновлений" VerticalAlignment="Center"/>
-				<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AutoUpdateCheck, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}"/>
-			</Grid>
-		</Border>
+<!-- Обновления -->
+<Expander Header="{Binding Updates, Source={StaticResource L}}" IsExpanded="{x:Bind ViewModel.ExpandedUpdates, Mode=TwoWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" CornerRadius="8" Style="{StaticResource MicaExpanderStyle}">
+<StackPanel Spacing="8" Margin="0,8,0,0">
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+    BorderThickness="1" CornerRadius="8" Padding="16,12">
+    <Grid HorizontalAlignment="Stretch" ColumnSpacing="12">
+<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="{Binding AutoUpdateCheck, Source={StaticResource L}}" VerticalAlignment="Center"/>
+							<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AutoUpdateCheck, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}" HorizontalAlignment="Right"/>
+    </Grid>
+</Border>
 
-		<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-			BorderThickness="1" CornerRadius="8" Padding="16,12"
-			anim:AnimationHelper.EnableCardAnimations="True">
-			<Grid HorizontalAlignment="Stretch">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<StackPanel Spacing="2">
-					<TextBlock Text="Автоматическое обновление" VerticalAlignment="Center"/>
-					<TextBlock Text="Скачивать и устанавливать обновления автоматически"
-						Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
-				</StackPanel>
-				<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AutoUpdateDownload, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}"/>
-			</Grid>
-		</Border>
- </StackPanel>
- </Expander>
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1" CornerRadius="8" Padding="16,12">
+<Grid HorizontalAlignment="Stretch">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="Auto"/>
+</Grid.ColumnDefinitions>
+<StackPanel Spacing="2">
+<TextBlock Text="{Binding AutoUpdateDownload, Source={StaticResource L}}" VerticalAlignment="Center"/>
+<TextBlock Text="{Binding AutoUpdateDownloadDesc, Source={StaticResource L}}"
+Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
+</StackPanel>
+<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.AutoUpdateDownload, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}" HorizontalAlignment="Right"/>
+</Grid>
+</Border>
+</StackPanel>
+</Expander>
 
-	<!-- Горячие клавиши -->
-	<Expander Header="Горячие клавиши" IsExpanded="{x:Bind ViewModel.ExpandedHotkeys, Mode=TwoWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" CornerRadius="8" Style="{StaticResource MicaExpanderStyle}">
- <StackPanel Spacing="8" Margin="0,8,0,0">
- <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
- BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
- BorderThickness="1" CornerRadius="8" Padding="16,12"
- anim:AnimationHelper.EnableCardAnimations="True">
- <Grid HorizontalAlignment="Stretch">
- <Grid.ColumnDefinitions>
- <ColumnDefinition Width="*"/>
- <ColumnDefinition Width="Auto"/>
- </Grid.ColumnDefinitions>
- <StackPanel Spacing="2">
- <TextBlock Text="Включить горячие клавиши" VerticalAlignment="Center"/>
- <TextBlock Text="Ctrl+Shift+T — переключить, Ctrl+Alt+Z — показать"
- Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
- </StackPanel>
- <ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.HotkeysEnabled, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}"/>
- </Grid>
- </Border>
- </StackPanel>
- </Expander>
+<!-- Горячие клавиши -->
+<Expander Header="{Binding Hotkeys, Source={StaticResource L}}" IsExpanded="{x:Bind ViewModel.ExpandedHotkeys, Mode=TwoWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" CornerRadius="8" Style="{StaticResource MicaExpanderStyle}">
+<StackPanel Spacing="8" Margin="0,8,0,0">
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1" CornerRadius="8" Padding="16,12">
+<Grid HorizontalAlignment="Stretch">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="Auto"/>
+</Grid.ColumnDefinitions>
+<StackPanel Spacing="2">
+<TextBlock Text="{Binding EnableHotkeys, Source={StaticResource L}}" VerticalAlignment="Center"/>
+<TextBlock Text="{Binding HotkeysDesc, Source={StaticResource L}}"
+Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
+</StackPanel>
+<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.HotkeysEnabled, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}" HorizontalAlignment="Right"/>
+</Grid>
+</Border>
+</StackPanel>
+</Expander>
 
-	<!-- Фильтры -->
-	<Expander Header="Фильтры (расширенные)" IsExpanded="{x:Bind ViewModel.ExpandedFilters, Mode=TwoWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" CornerRadius="8" Style="{StaticResource MicaExpanderStyle}">
- <StackPanel Spacing="8" Margin="0,8,0,0">
- <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
- BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
- BorderThickness="1" CornerRadius="8" Padding="16,12"
- anim:AnimationHelper.EnableCardAnimations="True">
- <Grid HorizontalAlignment="Stretch">
- <Grid.ColumnDefinitions>
- <ColumnDefinition Width="*"/>
- <ColumnDefinition Width="280"/>
- </Grid.ColumnDefinitions>
- <TextBlock Text="Фильтр игр" VerticalAlignment="Center"/>
- <TextBox Grid.Column="1" HorizontalAlignment="Right"
- Text="{x:Bind ViewModel.GameFilter, Mode=TwoWay}" PlaceholderText="gamefilter.txt" MinWidth="280"/>
- </Grid>
- </Border>
+<!-- Фильтры -->
+<Expander Header="{Binding Filters, Source={StaticResource L}}" IsExpanded="{x:Bind ViewModel.ExpandedFilters, Mode=TwoWay}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" CornerRadius="8" Style="{StaticResource MicaExpanderStyle}">
+<StackPanel Spacing="8" Margin="0,8,0,0">
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1" CornerRadius="8" Padding="16,12">
+<Grid HorizontalAlignment="Stretch">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="280"/>
+</Grid.ColumnDefinitions>
+<TextBlock Text="{Binding GameFilterLabel, Source={StaticResource L}}" VerticalAlignment="Center"/>
+<TextBox Grid.Column="1" HorizontalAlignment="Right"
+Text="{x:Bind ViewModel.GameFilter, Mode=TwoWay}" PlaceholderText="gamefilter.txt" MinWidth="280"/>
+</Grid>
+</Border>
 
- <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
- BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
- BorderThickness="1" CornerRadius="8" Padding="16,12"
- anim:AnimationHelper.EnableCardAnimations="True">
- <Grid HorizontalAlignment="Stretch">
- <Grid.ColumnDefinitions>
- <ColumnDefinition Width="*"/>
- <ColumnDefinition Width="280"/>
- </Grid.ColumnDefinitions>
- <TextBlock Text="Фильтр ipset" VerticalAlignment="Center"/>
- <TextBox Grid.Column="1" HorizontalAlignment="Right"
- Text="{x:Bind ViewModel.IpsetFilter, Mode=TwoWay}" PlaceholderText="ipset-*.txt" MinWidth="280"/>
- </Grid>
- </Border>
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1" CornerRadius="8" Padding="16,12">
+<Grid HorizontalAlignment="Stretch">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="280"/>
+</Grid.ColumnDefinitions>
+<TextBlock Text="{Binding IpsetFilterLabel, Source={StaticResource L}}" VerticalAlignment="Center"/>
+<TextBox Grid.Column="1" HorizontalAlignment="Right"
+Text="{x:Bind ViewModel.IpsetFilter, Mode=TwoWay}" PlaceholderText="ipset-*.txt" MinWidth="280"/>
+</Grid>
+</Border>
 
-	<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-			BorderThickness="1" CornerRadius="8" Padding="16,12"
-			anim:AnimationHelper.EnableCardAnimations="True">
-			<Grid HorizontalAlignment="Stretch">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<TextBlock Text="Автообновление hosts" VerticalAlignment="Center"/>
-				<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.HostsAutoUpdate, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}"/>
-			</Grid>
-		</Border>
-	</StackPanel>
-	</Expander>
+<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1" CornerRadius="8" Padding="16,12">
+<Grid HorizontalAlignment="Stretch">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="Auto"/>
+</Grid.ColumnDefinitions>
+<TextBlock Text="{Binding HostsAutoUpdate, Source={StaticResource L}}" VerticalAlignment="Center"/>
+<ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsOn="{x:Bind ViewModel.HostsAutoUpdate, Mode=TwoWay}" Style="{StaticResource CompactToggleSwitchStyle}" HorizontalAlignment="Right"/>
+</Grid>
+</Border>
+</StackPanel>
+</Expander>
 
-	<!-- Кнопки экспорта/импорта -->
-	<StackPanel Orientation="Horizontal" Spacing="8" Margin="0,12,0,0">
-		<Button Content="Экспорт"
-			Command="{x:Bind ViewModel.ExportSettingsCommand}"
-			Style="{StaticResource DefaultButtonStyle}"
-			anim:AnimationHelper.EnableButtonAnimations="True"/>
+<!-- Кнопки экспорта/импорта -->
+<StackPanel Orientation="Horizontal" Spacing="8" Margin="0,12,0,0">
+<Button Content="{Binding Export, Source={StaticResource L}}"
+Command="{x:Bind ViewModel.ExportSettingsCommand}"
+Style="{StaticResource DefaultButtonStyle}"/>
 
- <Button Content="Импорт"
- Command="{x:Bind ViewModel.ImportSettingsCommand}"
- Style="{StaticResource DefaultButtonStyle}"
- anim:AnimationHelper.EnableButtonAnimations="True"/>
- </StackPanel>
+<Button Content="{Binding Import, Source={StaticResource L}}"
+Command="{x:Bind ViewModel.ImportSettingsCommand}"
+Style="{StaticResource DefaultButtonStyle}"/>
+</StackPanel>
 
- </StackPanel>
- </ScrollViewer>
+</StackPanel>
+</ScrollViewer>
 </Page>

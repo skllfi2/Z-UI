@@ -7,121 +7,125 @@ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 xmlns:vm="using:ZUI.ViewModels"
 mc:Ignorable="d">
 
+<Page.Resources>
+<vm:LocalizationViewModel x:Key="L"/>
+</Page.Resources>
+
 <Grid Margin="24,16,24,24">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+<Grid.RowDefinitions>
+<RowDefinition Height="Auto"/>
+<RowDefinition Height="*"/>
+</Grid.RowDefinitions>
 
-        <Pivot Grid.Row="1" x:Name="MainPivot" SelectedIndex="{x:Bind ViewModel.SelectedPivotIndex, Mode=TwoWay}">
+<Pivot Grid.Row="1" x:Name="MainPivot" SelectedIndex="{x:Bind ViewModel.SelectedPivotIndex, Mode=TwoWay}">
 
-            <!-- Обновления -->
-            <PivotItem>
-                <PivotItem.Header>
-                    <StackPanel Orientation="Horizontal" Spacing="7" VerticalAlignment="Center">
-                        <FontIcon Glyph="&#xE895;" FontSize="13" VerticalAlignment="Center" Opacity="0.75"/>
-                        <TextBlock Text="Обновления" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </PivotItem.Header>
+<!-- Обновления -->
+<PivotItem>
+<PivotItem.Header>
+<StackPanel Orientation="Horizontal" Spacing="7" VerticalAlignment="Center">
+<FontIcon Glyph="&#xE895;" FontSize="13" VerticalAlignment="Center" Opacity="0.75"/>
+<TextBlock Text="{Binding UpdateTab, Source={StaticResource L}}" VerticalAlignment="Center"/>
+</StackPanel>
+</PivotItem.Header>
 
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Spacing="10" Padding="0,10,0,28">
+<ScrollViewer VerticalScrollBarVisibility="Auto">
+<StackPanel Spacing="10" Padding="0,10,0,28">
 
-                        <!-- Версия zapret -->
-                        <Border CornerRadius="12" Padding="20,18"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            BorderThickness="1">
-                            <Grid VerticalAlignment="Center">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Spacing="3" VerticalAlignment="Center">
-                                    <TextBlock Text="zapret-discord-youtube" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                                    <TextBlock Text="{x:Bind ViewModel.VersionStatus, Mode=OneWay}"
-                                        Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55"/>
-                                </StackPanel>
-<Button Grid.Column="1" Content="Проверить"
+<!-- Версия zapret -->
+<Border CornerRadius="12" Padding="20,18"
+Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1">
+<Grid VerticalAlignment="Center">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="Auto"/>
+</Grid.ColumnDefinitions>
+<StackPanel Spacing="3" VerticalAlignment="Center">
+<TextBlock Text="zapret-discord-youtube" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+<TextBlock Text="{x:Bind ViewModel.VersionStatus, Mode=OneWay}"
+Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55"/>
+</StackPanel>
+<Button Grid.Column="1" Content="{Binding Check, Source={StaticResource L}}"
 Style="{ThemeResource AccentButtonStyle}"
 VerticalAlignment="Center"
 Command="{x:Bind ViewModel.CheckVersionCommand}"
 IsEnabled="{Binding ViewModel.IsCheckingVersion, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"/>
-                            </Grid>
-                        </Border>
+</Grid>
+</Border>
 
-                        <!-- IPSet -->
-                        <Border CornerRadius="12" Padding="20,18"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            BorderThickness="1">
-                            <Grid VerticalAlignment="Center">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Spacing="3" VerticalAlignment="Center">
-                                    <TextBlock Text="ipset-all.txt" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                                    <TextBlock Text="{x:Bind ViewModel.IpsetStatus, Mode=OneWay}"
-                                        Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55"/>
-                                </StackPanel>
-<Button Grid.Column="1" Content="Обновить"
+<!-- IPSet -->
+<Border CornerRadius="12" Padding="20,18"
+Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1">
+<Grid VerticalAlignment="Center">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="Auto"/>
+</Grid.ColumnDefinitions>
+<StackPanel Spacing="3" VerticalAlignment="Center">
+<TextBlock Text="ipset-all.txt" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+<TextBlock Text="{x:Bind ViewModel.IpsetStatus, Mode=OneWay}"
+Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55"/>
+</StackPanel>
+<Button Grid.Column="1" Content="{Binding Update, Source={StaticResource L}}"
 VerticalAlignment="Center"
 Command="{x:Bind ViewModel.UpdateIpsetCommand}"
 IsEnabled="{Binding ViewModel.IsUpdatingIpset, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"/>
-                            </Grid>
-                        </Border>
+</Grid>
+</Border>
 
-                        <!-- Hosts -->
-                        <Border CornerRadius="12" Padding="20,18"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            BorderThickness="1">
-                            <StackPanel Spacing="14">
-                                <Grid VerticalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Spacing="3" VerticalAlignment="Center">
-                                        <TextBlock Text="Файл hosts" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                                        <TextBlock Text="{x:Bind ViewModel.HostsStatus, Mode=OneWay}"
-                                            Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55"/>
-                                    </StackPanel>
-                                    <StackPanel Grid.Column="1" Spacing="4" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                        <TextBlock Text="{x:Bind ViewModel.HostsLastCheck, Mode=OneWay}"
-                                            Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.45" HorizontalAlignment="Center"/>
+<!-- Hosts -->
+<Border CornerRadius="12" Padding="20,18"
+Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1">
+<StackPanel Spacing="14">
+<Grid VerticalAlignment="Center">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="Auto"/>
+</Grid.ColumnDefinitions>
+<StackPanel Spacing="3" VerticalAlignment="Center">
+<TextBlock Text="{Binding HostsFile, Source={StaticResource L}}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+<TextBlock Text="{x:Bind ViewModel.HostsStatus, Mode=OneWay}"
+Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55"/>
+</StackPanel>
+<StackPanel Grid.Column="1" Spacing="4" HorizontalAlignment="Right" VerticalAlignment="Center">
+<TextBlock Text="{x:Bind ViewModel.HostsLastCheck, Mode=OneWay}"
+Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.45" HorizontalAlignment="Center"/>
 <Button VerticalAlignment="Center"
 Command="{x:Bind ViewModel.UpdateHostsCommand}"
 IsEnabled="{Binding ViewModel.IsUpdatingHosts, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
 <StackPanel Orientation="Horizontal" Spacing="6">
 <InfoBadge Visibility="{Binding ViewModel.HostsUpdateAvailable, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
 Style="{ThemeResource AttentionIconInfoBadgeStyle}" Width="15" Height="15"/>
-<TextBlock Text="Обновить hosts"/>
+<TextBlock Text="{Binding UpdateHosts, Source={StaticResource L}}"/>
 </StackPanel>
 </Button>
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </Border>
+</StackPanel>
+</Grid>
+</StackPanel>
+</Border>
 
-                        <!-- Лог операций -->
-                        <Border CornerRadius="12" Padding="20,18"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            BorderThickness="1">
-                            <StackPanel Spacing="10">
-                                <TextBlock Text="Лог операций" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                                <Border Background="{ThemeResource SystemFillColorSolidNeutralBackgroundBrush}"
-                                    CornerRadius="8" Padding="14,10">
-                                    <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
-                                        <TextBlock Text="{x:Bind ViewModel.UpdateLog, Mode=OneWay}"
-                                            FontFamily="Cascadia Mono, Consolas, monospace" FontSize="12"
-                                            TextWrapping="Wrap" Opacity="0.8" LineHeight="19"/>
-                                    </ScrollViewer>
-                                </Border>
-                            </StackPanel>
-                        </Border>
+<!-- Лог операций -->
+<Border CornerRadius="12" Padding="20,18"
+Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1">
+<StackPanel Spacing="10">
+<TextBlock Text="{Binding OperationLog, Source={StaticResource L}}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+<Border Background="{ThemeResource SystemFillColorSolidNeutralBackgroundBrush}"
+CornerRadius="8" Padding="14,10">
+<ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+<TextBlock Text="{x:Bind ViewModel.UpdateLog, Mode=OneWay}"
+FontFamily="Cascadia Mono, Consolas, monospace" FontSize="12"
+TextWrapping="Wrap" Opacity="0.8" LineHeight="19"/>
+</ScrollViewer>
+</Border>
+</StackPanel>
+</Border>
 
 </StackPanel>
 </ScrollViewer>
@@ -132,7 +136,7 @@ Style="{ThemeResource AttentionIconInfoBadgeStyle}" Width="15" Height="15"/>
 <PivotItem.Header>
 <StackPanel Orientation="Horizontal" Spacing="7" VerticalAlignment="Center">
 <FontIcon Glyph="&#xE773;" FontSize="13" VerticalAlignment="Center" Opacity="0.75"/>
-<TextBlock Text="Тестирование" VerticalAlignment="Center"/>
+<TextBlock Text="{Binding TestingTab, Source={StaticResource L}}" VerticalAlignment="Center"/>
 </StackPanel>
 </PivotItem.Header>
 
@@ -157,25 +161,25 @@ BorderThickness="1">
 
 <!-- Режим -->
 <StackPanel Grid.Column="0" Spacing="6" VerticalAlignment="Center" Margin="0,0,18,0">
-<TextBlock Text="Режим" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55" FontWeight="SemiBold"/>
+<TextBlock Text="{Binding Mode, Source={StaticResource L}}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55" FontWeight="SemiBold"/>
 <StackPanel Orientation="Horizontal" Spacing="12">
-<RadioButton Content="HTTP + Ping" IsChecked="{x:Bind ViewModel.IsStandardMode, Mode=TwoWay}"/>
-<RadioButton Content="DPI 16-20 KB" IsChecked="{x:Bind ViewModel.IsDpiMode, Mode=TwoWay}"/>
+<RadioButton Content="{Binding StandardMode, Source={StaticResource L}}" IsChecked="{x:Bind ViewModel.IsStandardMode, Mode=TwoWay}"/>
+<RadioButton Content="{Binding DpiMode, Source={StaticResource L}}" IsChecked="{x:Bind ViewModel.IsDpiMode, Mode=TwoWay}"/>
 </StackPanel>
 </StackPanel>
 
 <!-- Стратегии -->
 <StackPanel Grid.Column="1" Spacing="6" VerticalAlignment="Center" Margin="0,0,18,0">
 <StackPanel Orientation="Horizontal" Spacing="8">
-<TextBlock Text="Стратегии" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55" FontWeight="SemiBold" VerticalAlignment="Center"/>
+<TextBlock Text="{Binding StrategiesLabel, Source={StaticResource L}}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.55" FontWeight="SemiBold" VerticalAlignment="Center"/>
 <TextBlock Text="{x:Bind ViewModel.SelectedStrategiesCount, Mode=OneWay}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.4" VerticalAlignment="Center"/>
-<TextBlock Text="выбрано" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.4" VerticalAlignment="Center"/>
+<TextBlock Text="{Binding StrategiesSelected, Source={StaticResource L}}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.4" VerticalAlignment="Center"/>
 </StackPanel>
 <DropDownButton MinWidth="200">
 <DropDownButton.Content>
 <StackPanel Orientation="Horizontal" Spacing="8">
 <FontIcon Glyph="&#xE71D;" FontSize="13" VerticalAlignment="Center" Opacity="0.7"/>
-<TextBlock Text="Выбрать стратегии" VerticalAlignment="Center"/>
+<TextBlock Text="{Binding SelectStrategies, Source={StaticResource L}}" VerticalAlignment="Center"/>
 </StackPanel>
 </DropDownButton.Content>
 <DropDownButton.Flyout>
@@ -193,10 +197,10 @@ BorderThickness="1">
 <ColumnDefinition Width="*"/>
 <ColumnDefinition Width="Auto"/>
 </Grid.ColumnDefinitions>
-<TextBlock Text="Стратегии" FontWeight="SemiBold" VerticalAlignment="Center"/>
+<TextBlock Text="{Binding StrategiesLabel, Source={StaticResource L}}" FontWeight="SemiBold" VerticalAlignment="Center"/>
 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4">
-<Button Content="Все" FontSize="11" Padding="10,4" Command="{x:Bind ViewModel.SelectAllStrategiesCommand}"/>
-<Button Content="Сбросить" FontSize="11" Padding="10,4" Command="{x:Bind ViewModel.ClearAllStrategiesCommand}"/>
+<Button Content="{Binding All, Source={StaticResource L}}" FontSize="11" Padding="10,4" Command="{x:Bind ViewModel.SelectAllStrategiesCommand}"/>
+<Button Content="{Binding Reset, Source={StaticResource L}}" FontSize="11" Padding="10,4" Command="{x:Bind ViewModel.ClearAllStrategiesCommand}"/>
 </StackPanel>
 </Grid>
 <MenuFlyoutSeparator/>
@@ -215,17 +219,17 @@ BorderThickness="1">
 </DropDownButton>
 </StackPanel>
 
- <!-- Кнопка запуска/остановки -->
- <Button Grid.Column="2" Style="{ThemeResource AccentButtonStyle}" Height="36" CornerRadius="8" MinWidth="140"
- Command="{x:Bind ViewModel.RunTestCommand}"
- IsEnabled="{Binding ViewModel.IsTestRunning, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
- <StackPanel Orientation="Horizontal" Spacing="8">
- <FontIcon Glyph="&#xE768;" FontSize="14" VerticalAlignment="Center"/>
- <TextBlock Text="Запустить тест" VerticalAlignment="Center"/>
- </StackPanel>
- </Button>
- </Grid>
- </Border>
+<!-- Кнопка запуска/остановки -->
+<Button Grid.Column="2" Style="{ThemeResource AccentButtonStyle}" Height="36" CornerRadius="8" MinWidth="140"
+Command="{x:Bind ViewModel.RunTestCommand}"
+IsEnabled="{Binding ViewModel.IsTestRunning, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
+<StackPanel Orientation="Horizontal" Spacing="8">
+<FontIcon Glyph="&#xE768;" FontSize="14" VerticalAlignment="Center"/>
+<TextBlock Text="{Binding RunTest, Source={StaticResource L}}" VerticalAlignment="Center"/>
+</StackPanel>
+</Button>
+</Grid>
+</Border>
 
 <!-- Прогресс -->
 <Border Grid.Row="1" CornerRadius="12" Padding="18,12"
@@ -240,7 +244,7 @@ Visibility="{Binding ViewModel.IsTestRunning, Mode=OneWay, Converter={StaticReso
 <ColumnDefinition Width="Auto"/>
 </Grid.ColumnDefinitions>
 
- <ProgressRing Width="20" Height="20" IsActive="{x:Bind ViewModel.IsTestRunning, Mode=OneWay}" VerticalAlignment="Center"/>
+<ProgressRing Width="20" Height="20" IsActive="{x:Bind ViewModel.IsTestRunning, Mode=OneWay}" VerticalAlignment="Center"/>
 
 <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
 <TextBlock Text="{x:Bind ViewModel.TestProgressConfig, Mode=OneWay}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
@@ -272,7 +276,7 @@ BorderThickness="1">
 <Grid Grid.Row="0" Padding="16,11,12,11">
 <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
 <FontIcon Glyph="&#xE8A5;" FontSize="12" Opacity="0.5" VerticalAlignment="Center"/>
-<TextBlock Text="Лог тестирования" Style="{ThemeResource BodyStrongTextBlockStyle}" VerticalAlignment="Center"/>
+<TextBlock Text="{Binding TestLog, Source={StaticResource L}}" Style="{ThemeResource BodyStrongTextBlockStyle}" VerticalAlignment="Center"/>
 </StackPanel>
 </Grid>
 
@@ -291,61 +295,61 @@ BorderThickness="1">
 </PivotItem>
 
 <!-- Диагностика -->
-            <PivotItem>
-                <PivotItem.Header>
-                    <StackPanel Orientation="Horizontal" Spacing="7" VerticalAlignment="Center">
-                        <FontIcon Glyph="&#xE9D9;" FontSize="13" VerticalAlignment="Center" Opacity="0.75"/>
-                        <TextBlock Text="Диагностика" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </PivotItem.Header>
+<PivotItem>
+<PivotItem.Header>
+<StackPanel Orientation="Horizontal" Spacing="7" VerticalAlignment="Center">
+<FontIcon Glyph="&#xE9D9;" FontSize="13" VerticalAlignment="Center" Opacity="0.75"/>
+<TextBlock Text="{Binding DiagnosticsTab, Source={StaticResource L}}" VerticalAlignment="Center"/>
+</StackPanel>
+</PivotItem.Header>
 
-                <Grid RowSpacing="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+<Grid RowSpacing="10">
+<Grid.RowDefinitions>
+<RowDefinition Height="Auto"/>
+<RowDefinition Height="*"/>
+<RowDefinition Height="Auto"/>
+</Grid.RowDefinitions>
 
-                    <!-- Список проверок -->
-                    <Border Grid.Row="1" CornerRadius="12"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+<!-- Список проверок -->
+<Border Grid.Row="1" CornerRadius="12"
+Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1">
+<Grid>
+<Grid.RowDefinitions>
+<RowDefinition Height="Auto"/>
+<RowDefinition Height="*"/>
+</Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0" Padding="18,14,18,12">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Spacing="1">
-                                    <TextBlock Text="Проверки компонентов" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-                                    <TextBlock Text="{x:Bind ViewModel.DiagSubtitle, Mode=OneWay}"
-                                        Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
-                                    <StackPanel Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
-                                        <FontIcon Glyph="&#xE73E;" FontSize="12"
-                                            Foreground="{ThemeResource SystemFillColorSuccessBrush}" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind ViewModel.DiagPassCount, Mode=OneWay}"
-                                            Style="{ThemeResource CaptionTextBlockStyle}"
-                                            Foreground="{ThemeResource SystemFillColorSuccessBrush}" FontWeight="SemiBold"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
-                                        <FontIcon Glyph="&#xE783;" FontSize="12"
-                                            Foreground="{ThemeResource SystemFillColorCriticalBrush}" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind ViewModel.DiagFailCount, Mode=OneWay}"
-                                            Style="{ThemeResource CaptionTextBlockStyle}"
-                                            Foreground="{ThemeResource SystemFillColorCriticalBrush}" FontWeight="SemiBold"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </Grid>
+<Grid Grid.Row="0" Padding="18,14,18,12">
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="Auto"/>
+</Grid.ColumnDefinitions>
+<StackPanel Spacing="1">
+<TextBlock Text="{Binding ComponentChecks, Source={StaticResource L}}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+<TextBlock Text="{x:Bind ViewModel.DiagSubtitle, Mode=OneWay}"
+Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
+</StackPanel>
+<StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+<StackPanel Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+<FontIcon Glyph="&#xE73E;" FontSize="12"
+Foreground="{ThemeResource SystemFillColorSuccessBrush}" VerticalAlignment="Center"/>
+<TextBlock Text="{x:Bind ViewModel.DiagPassCount, Mode=OneWay}"
+Style="{ThemeResource CaptionTextBlockStyle}"
+Foreground="{ThemeResource SystemFillColorSuccessBrush}" FontWeight="SemiBold"/>
+</StackPanel>
+<StackPanel Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+<FontIcon Glyph="&#xE783;" FontSize="12"
+Foreground="{ThemeResource SystemFillColorCriticalBrush}" VerticalAlignment="Center"/>
+<TextBlock Text="{x:Bind ViewModel.DiagFailCount, Mode=OneWay}"
+Style="{ThemeResource CaptionTextBlockStyle}"
+Foreground="{ThemeResource SystemFillColorCriticalBrush}" FontWeight="SemiBold"/>
+</StackPanel>
+</StackPanel>
+</Grid>
 
-                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
 <ItemsControl ItemsSource="{x:Bind ViewModel.CheckResults, Mode=OneWay}" Padding="0,4,0,8">
 <ItemsControl.ItemTemplate>
 <DataTemplate x:DataType="vm:CheckResultItem">
@@ -366,119 +370,35 @@ Foreground="{Binding Ok, Mode=OneWay, Converter={StaticResource BoolToGreenRedCo
 </DataTemplate>
 </ItemsControl.ItemTemplate>
 </ItemsControl>
-                            </ScrollViewer>
-                        </Grid>
-                    </Border>
+</ScrollViewer>
+</Grid>
+</Border>
 
-                    <!-- Панель действий -->
-                    <Border Grid.Row="2"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1" CornerRadius="10" Padding="14,10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="Проверяет наличие всех необходимых файлов и служб"
-                                Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5" VerticalAlignment="Center"/>
+<!-- Панель действий -->
+<Border Grid.Row="2"
+Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+BorderThickness="1" CornerRadius="10" Padding="14,10">
+<Grid>
+<Grid.ColumnDefinitions>
+<ColumnDefinition Width="*"/>
+<ColumnDefinition Width="Auto"/>
+</Grid.ColumnDefinitions>
+<TextBlock Text="{Binding CheckDesc, Source={StaticResource L}}"
+Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5" VerticalAlignment="Center"/>
 <Button Grid.Column="1" VerticalAlignment="Center"
 Command="{x:Bind ViewModel.RunDiagnosticsCommand}"
 IsEnabled="{Binding ViewModel.IsRunningDiagnostics, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <FontIcon Glyph="&#xE72C;" FontSize="13" VerticalAlignment="Center"/>
-                                    <TextBlock Text="Проверить снова" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Button>
-                        </Grid>
-                    </Border>
-                </Grid>
-            </PivotItem>
+<StackPanel Orientation="Horizontal" Spacing="8">
+<FontIcon Glyph="&#xE72C;" FontSize="13" VerticalAlignment="Center"/>
+<TextBlock Text="{Binding CheckAgain, Source={StaticResource L}}" VerticalAlignment="Center"/>
+</StackPanel>
+</Button>
+</Grid>
+</Border>
+</Grid>
+</PivotItem>
 
-            <!-- Логи -->
-            <PivotItem>
-                <PivotItem.Header>
-                    <StackPanel Orientation="Horizontal" Spacing="7" VerticalAlignment="Center">
-                        <FontIcon Glyph="&#xE7C3;" FontSize="13" VerticalAlignment="Center" Opacity="0.75"/>
-                        <TextBlock Text="Логи" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </PivotItem.Header>
-
-                <Grid RowSpacing="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <!-- Карточка с логом -->
-                    <Border Grid.Row="0" CornerRadius="12"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <!-- Toolbar -->
-                            <Grid Grid.Row="0" Padding="16,11,12,11">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
-                                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
-                                        <FontIcon Glyph="&#xE7C3;" FontSize="12" Opacity="0.5" VerticalAlignment="Center"/>
-                                        <TextBlock Text="Системный журнал" Style="{ThemeResource BodyStrongTextBlockStyle}" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                    <Border CornerRadius="4" Padding="7,2"
-                                        Background="{ThemeResource SystemFillColorSolidNeutralBackgroundBrush}">
-                                        <TextBlock Text="{x:Bind ViewModel.LogLineCount, Mode=OneWay}"
-                                            Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.6"
-                                            FontFamily="Cascadia Mono, Consolas, monospace"/>
-                                    </Border>
-                                </StackPanel>
-
-                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
-                                    <Button ToolTipService.ToolTip="Копировать всё"
-                                        Command="{x:Bind ViewModel.CopyLogCommand}"
-                                        Width="32" Height="32" Padding="0" CornerRadius="6">
-                                        <FontIcon Glyph="&#xE8C8;" FontSize="13"/>
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
-
-<!-- Лог-текст -->
-<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-<TextBox Text="{Binding ViewModel.LogLines, Mode=OneWay, Converter={StaticResource StringCollectionConverter}}"
-FontFamily="Cascadia Mono, Consolas, monospace" FontSize="12"
-TextWrapping="{Binding ViewModel.TextWrap, Mode=OneWay, Converter={StaticResource BoolToTextWrappingConverter}}"
-IsReadOnly="True" AcceptsReturn="True"
-Background="Transparent" BorderThickness="0" Padding="16,12"/>
-</ScrollViewer>
-                        </Grid>
-                    </Border>
-
-                    <!-- Панель действий -->
-                    <Border Grid.Row="1"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1" CornerRadius="10" Padding="14,10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="Обновляется в реальном времени"
-                                Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.45" VerticalAlignment="Center"/>
-                            <Button Grid.Column="1" Content="Очистить лог"
-                                Command="{x:Bind ViewModel.ClearLogCommand}" VerticalAlignment="Center"/>
-                        </Grid>
-                    </Border>
-                </Grid>
-            </PivotItem>
-
-        </Pivot>
-    </Grid>
+</Pivot>
+</Grid>
 </Page>

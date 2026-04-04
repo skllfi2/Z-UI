@@ -6,81 +6,68 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;                          // ← ДОБАВЛЕНО: SelectMany, Count и т.д.
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace ZUI.Services
 {
-    // ── Rating ────────────────────────────────────────────────────────────────
-
     public enum StrategyRating
     {
-        Unknown,        // ещё не тестировалась  → серый  «Требуется тестирование»
-        Recommended,    // лучший конфиг или OK ≥ 80%  → зелёный «Рекомендуется»
-        Acceptable,     // OK ≥ 50%  → жёлтый «Приемлемо»
-        NotRecommended  // OK < 50%  → красный «Не рекомендуется»
+        Unknown,
+        Recommended,
+        Acceptable,
+        NotRecommended
     }
-
-    // ── Per-strategy snapshot ─────────────────────────────────────────────────
 
     public class StrategyTestSnapshot
     {
-        public string        ConfigName   { get; set; } = "";
-        public StrategyRating Rating      { get; set; } = StrategyRating.Unknown;
-        public bool          IsBest       { get; set; }
-        public int           HttpOk       { get; set; }
-        public int           HttpErr      { get; set; }
-        public int           HttpUnsup    { get; set; }
-        public int           PingOk       { get; set; }
-        public int           DpiOk        { get; set; }
-        public int           DpiBlocked   { get; set; }
-        public TestMode      Mode         { get; set; }
-        public DateTime      TestedAt     { get; set; }
+        public string ConfigName { get; set; } = "";
+        public StrategyRating Rating { get; set; } = StrategyRating.Unknown;
+        public bool IsBest { get; set; }
+        public int HttpOk { get; set; }
+        public int HttpErr { get; set; }
+        public int HttpUnsup { get; set; }
+        public int PingOk { get; set; }
+        public int DpiOk { get; set; }
+        public int DpiBlocked { get; set; }
+        public TestMode Mode { get; set; }
+        public DateTime TestedAt { get; set; }
 
         [JsonIgnore]
         public string RatingLabel => Rating switch
         {
-            StrategyRating.Recommended    => "Рекомендуется",
-            StrategyRating.Acceptable     => "Приемлемо",
+            StrategyRating.Recommended => "Рекомендуется",
+            StrategyRating.Acceptable => "Приемлемо",
             StrategyRating.NotRecommended => "Не рекомендуется",
-            _                             => "Требуется тестирование"
+            _ => "Требуется тестирование"
         };
 
         [JsonIgnore]
         public string RatingEmoji => Rating switch
         {
-            StrategyRating.Recommended    => "✓",
-            StrategyRating.Acceptable     => "~",
+            StrategyRating.Recommended => "✓",
+            StrategyRating.Acceptable => "~",
             StrategyRating.NotRecommended => "✗",
-            _                             => "?"
+            _ => "?"
         };
 
-        /// <summary>Short summary line for StrategiesPage tooltip.</summary>
         [JsonIgnore]
         public string Summary => Mode == TestMode.Standard
-            ? $"OK {HttpOk}  ERR {HttpErr}  Ping {PingOk}  —  {TestedAt:dd.MM HH:mm}"
-            : $"DPI OK {DpiOk}  BLOCKED {DpiBlocked}  —  {TestedAt:dd.MM HH:mm}";
+            ? $"OK {HttpOk} ERR {HttpErr} Ping {PingOk} — {TestedAt:dd.MM HH:mm}"
+            : $"DPI OK {DpiOk} BLOCKED {DpiBlocked} — {TestedAt:dd.MM HH:mm}";
     }
-
-    // ── Store ─────────────────────────────────────────────────────────────────
 
     public static class TestResultStore
     {
-        // Fired on UI thread when results are updated
         public static event Action? ResultsUpdated;
 
         private static readonly Dictionary<string, StrategyTestSnapshot> _results = new();
         private static readonly object _lock = new();
 
-        private static string CachePath =>
-            Path.Combine(ZapretPaths.UtilsDir, "test_results_cache.json");
+        private static string CachePath => Path.Combine(ZapretPaths.UtilsDir, "test_results_cache.json");
 
-        // ── Write (called from ServicesPage.Testing after RunAsync) ───────────
-
-        public static void Publish(
-            IReadOnlyList<ConfigResult> results,
-            TestMode mode)
+        public static void Publish(IReadOnlyList<ConfigResult> results, TestMode mode)
         {
             if (results.Count == 0) return;
 
@@ -97,7 +84,15 @@ namespace ZUI.Services
 
                     double ratio = total == 0 ? 0 : (double)ok / total;
 
-                    var rating = r.ConfigName == best?.ConfigName
+                    var configName = r.ConfigName;
+                    if (configName.EndsWith(".bat", StringComparison.OrdinalIgnoreCase))
+                        configName = configName.Substring(0, configName.Length - 4);
+
+                    var bestName = best?.ConfigName;
+                    if (bestName != null && bestName.EndsWith(".bat", StringComparison.OrdinalIgnoreCase))
+                        bestName = bestName.Substring(0, bestName.Length - 4);
+
+                    var rating = configName == bestName
                         ? StrategyRating.Recommended
                         : ratio >= 0.8
                             ? StrategyRating.Recommended
@@ -105,19 +100,19 @@ namespace ZUI.Services
                                 ? StrategyRating.Acceptable
                                 : StrategyRating.NotRecommended;
 
-                    _results[r.ConfigName] = new StrategyTestSnapshot
+                    _results[configName] = new StrategyTestSnapshot
                     {
-                        ConfigName  = r.ConfigName,
-                        Rating      = rating,
-                        IsBest      = r.ConfigName == best?.ConfigName,
-                        HttpOk      = r.HttpOk,
-                        HttpErr     = r.HttpErr,
-                        HttpUnsup   = r.HttpUnsup,
-                        PingOk      = r.PingOk,
-                        DpiOk       = r.DpiOk,
-                        DpiBlocked  = r.DpiBlocked,
-                        Mode        = mode,
-                        TestedAt    = DateTime.Now
+                        ConfigName = configName,
+                        Rating = rating,
+                        IsBest = configName == bestName,
+                        HttpOk = r.HttpOk,
+                        HttpErr = r.HttpErr,
+                        HttpUnsup = r.HttpUnsup,
+                        PingOk = r.PingOk,
+                        DpiOk = r.DpiOk,
+                        DpiBlocked = r.DpiBlocked,
+                        Mode = mode,
+                        TestedAt = DateTime.Now
                     };
                 }
             }
@@ -126,9 +121,6 @@ namespace ZUI.Services
             ResultsUpdated?.Invoke();
         }
 
-        // ── Read (called from StrategiesPage) ─────────────────────────────────
-
-        /// <returns>null if this strategy was never tested.</returns>
         public static StrategyTestSnapshot? Get(string configName)
         {
             lock (_lock)
@@ -147,8 +139,6 @@ namespace ZUI.Services
         {
             lock (_lock) { return _results.Count > 0; }
         }
-
-        // ── Persistence (survives app restart) ───────────────────────────────
 
         public static void TryLoadCache()
         {
@@ -173,8 +163,7 @@ namespace ZUI.Services
             {
                 List<StrategyTestSnapshot> list;
                 lock (_lock) { list = new List<StrategyTestSnapshot>(_results.Values); }
-                var json = JsonSerializer.Serialize(list,
-                    new JsonSerializerOptions { WriteIndented = false });
+                var json = JsonSerializer.Serialize(list, new JsonSerializerOptions { WriteIndented = false });
                 File.WriteAllText(CachePath, json);
             }
             catch { }

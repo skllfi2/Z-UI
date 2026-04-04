@@ -9,15 +9,15 @@ namespace ZUI;
 
 public partial class App : Application
 {
- public static IServiceProvider Services { get; } = ConfigureServices();
+	public static IServiceProvider Services { get; } = ConfigureServices();
 
- private Window? _window;
- private IntPtr _hwnd;
- private TrayIcon? _trayIcon;
- private HotkeyService? _hotkeyService;
+	private Window? _window;
+	private IntPtr _hwnd;
+	private TrayIcon? _trayIcon;
+	private HotkeyService? _hotkeyService;
 
- public static TrayIcon? TrayIcon { get; private set; }
- public Window? MainWindow => _window;
+	public static TrayIcon? TrayIcon { get; private set; }
+	public Window? MainWindow => _window;
 
 private static IServiceProvider ConfigureServices()
 {
@@ -40,10 +40,13 @@ private static IServiceProvider ConfigureServices()
     return services.BuildServiceProvider();
 }
 
-protected override void OnLaunched(LaunchActivatedEventArgs args)
+	protected override void OnLaunched(LaunchActivatedEventArgs args)
 	{
 		try
 		{
+			// Initialize localization
+			LocalizationService.Initialize();
+
 			TestResultStore.TryLoadCache();
 
 			_window = new MainWindow();
@@ -60,12 +63,12 @@ protected override void OnLaunched(LaunchActivatedEventArgs args)
 
 			ToastNotifier.Initialize(_hwnd);
 
-			var iconPath = Path.Combine(AppContext.BaseDirectory, "Assets", "Z-UI.ico");
-			if (File.Exists(iconPath))
-			{
-				_trayIcon = new TrayIcon(_hwnd, iconPath, "Z-UI — Остановлено", onShow: ShowMainWindow, onExit: ExitApp);
-				TrayIcon = _trayIcon;
-			}
+        var iconPath = Path.Combine(AppContext.BaseDirectory, "Assets", "Z-UI.ico");
+        if (File.Exists(iconPath))
+        {
+            _trayIcon = new TrayIcon(_hwnd, iconPath, $"Z-UI — {LocalizationService.Get("Stopped")}", onShow: ShowMainWindow, onExit: ExitApp);
+            TrayIcon = _trayIcon;
+        }
 
 			_hotkeyService = new HotkeyService(_hwnd);
 			_hotkeyService.ToggleRequested += () =>
@@ -102,10 +105,10 @@ protected override void OnLaunched(LaunchActivatedEventArgs args)
         _trayIcon?.UpdateStatus(isRunning);
 
         if (ToastNotifier.IsEnabled)
-            ToastNotifier.Show(
-                "Статус сервиса",
-                isRunning ? "Запущен" : "Остановлен",
-                isRunning ? ToastType.Success : ToastType.Informational);
+        ToastNotifier.Show(
+            LocalizationService.Get("ServiceStatus"),
+            isRunning ? LocalizationService.Get("StartedMale") : LocalizationService.Get("StoppedMale"),
+            isRunning ? ToastType.Success : ToastType.Informational);
     }
 
     private void OnWindowClosed(object sender, WindowEventArgs args)

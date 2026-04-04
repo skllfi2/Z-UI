@@ -72,14 +72,14 @@ namespace ZUI.Services
                 // or manual XML if toolkit not available
                 var toastXml = CreateToastXml(title, message, toastType, expiration);
 
-                var toast = new ToastNotification(toastXml)
-                {
-                    Tag = tag,
-                    Group = group
-                };
+		var toast = new ToastNotification(toastXml);
+		if (!string.IsNullOrEmpty(tag))
+			toast.Tag = tag;
+		if (!string.IsNullOrEmpty(group))
+			toast.Group = group;
 
-                // Set expiration if provided (default: 7 seconds)
-                toast.ExpirationTime = expiration != null ? DateTimeOffset.Now.AddSeconds(expiration.Value.TotalSeconds) : DateTimeOffset.Now.AddSeconds(7);
+		// Set expiration if provided (default: 7 seconds)
+		toast.ExpirationTime = expiration != null ? DateTimeOffset.Now.AddSeconds(expiration.Value.TotalSeconds) : DateTimeOffset.Now.AddSeconds(7);
 
                 // Show the toast
                 _notifier.Show(toast);

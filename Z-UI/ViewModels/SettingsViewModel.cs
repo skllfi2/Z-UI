@@ -196,6 +196,8 @@ public partial class SettingsViewModel : ViewModelBase
 		var lang = value == 1 ? "en" : "ru";
 		AppSettings.Language = lang;
 		AppSettings.Save();
+		
+		LocalizationService.CurrentLanguage = lang;
 	}
 
 	partial void OnGameFilterChanged(string value)
@@ -261,14 +263,19 @@ public partial class SettingsViewModel : ViewModelBase
 
 	public static void ApplyTheme(string theme)
 	{
-		if (App.Current is App app)
+		var window = (App.Current as App)?.MainWindow;
+		if (window == null) return;
+
+		var elementTheme = theme switch
 		{
-			app.RequestedTheme = theme switch
-			{
-				"Light" => ApplicationTheme.Light,
-				"Dark" => ApplicationTheme.Dark,
-				_ => ApplicationTheme.Dark
-			};
+			"Light" => ElementTheme.Light,
+			"Dark" => ElementTheme.Dark,
+			_ => ElementTheme.Default
+		};
+
+		if (window.Content is FrameworkElement rootElement)
+		{
+			rootElement.RequestedTheme = elementTheme;
 		}
 	}
 

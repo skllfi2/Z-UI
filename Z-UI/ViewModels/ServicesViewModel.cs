@@ -17,11 +17,13 @@ namespace ZUI.ViewModels;
 public partial class ServicesViewModel : ViewModelBase, IDisposable
 {
     private static readonly HttpClient _http = new() { Timeout = TimeSpan.FromSeconds(60) };
-    
+
     private const string VersionUrl = "https://raw.githubusercontent.com/Flowseal/zapret-discord-youtube/main/.service/version.txt";
     private const string IpsetUrl = "https://raw.githubusercontent.com/Flowseal/zapret-discord-youtube/refs/heads/main/.service/ipset-service.txt";
     private const string HostsUrl = "https://raw.githubusercontent.com/Flowseal/zapret-discord-youtube/refs/heads/main/.service/hosts";
     private const string FlowsealApiUrl = "https://api.github.com/repos/Flowseal/zapret-discord-youtube/commits?path=.service/hosts&per_page=1";
+
+    public event Action<string>? TestCompleted;
 
     [ObservableProperty]
     private int _selectedPivotIndex;
@@ -53,19 +55,10 @@ public partial class ServicesViewModel : ViewModelBase, IDisposable
     [ObservableProperty]
     private string _updateLog = "";
 
-    [ObservableProperty]
-    private ObservableCollection<string> _logLines = [];
+[ObservableProperty]
+	private bool _autoScroll = true;
 
-    [ObservableProperty]
-    private int _logLineCount;
-
-    [ObservableProperty]
-    private bool _autoScroll = true;
-
-    [ObservableProperty]
-    private bool _textWrap = true;
-
-    [ObservableProperty]
+	[ObservableProperty]
     private int _diagPassCount;
 
     [ObservableProperty]
@@ -123,18 +116,13 @@ private CancellationTokenSource? _testCts;
 
  public ServicesViewModel(WinwsService winwsService, TestHistoryService historyService)
  {
- _winwsService = winwsService;
- _historyService = historyService;
- _winwsService.LogReceived += OnLogReceived;
+_winwsService = winwsService;
+		_historyService = historyService;
 
- foreach (var entry in _historyService.History)
- TestHistory.Add(entry);
+foreach (var entry in _historyService.History)
+			TestHistory.Add(entry);
 
-foreach (var line in AppState.Logs)
-LogLines.Add(line);
-LogLineCount = LogLines.Count;
-
-if (UpdateChecker.UpdateAvailable)
+		if (UpdateChecker.UpdateAvailable)
 HostsUpdateAvailable = true;
 
 UpdateChecker.UpdateFound += _ => HostsUpdateAvailable = true;
@@ -147,18 +135,24 @@ private void LoadAvailableStrategies()
     AvailableStrategies.Clear();
     if (!Directory.Exists(ZapretPaths.StrategiesDir)) return;
 
-    var excludedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-    {
-        "service", "install", "uninstall", "run-as-service", "run-as-admin"
-    };
+        var excludedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "service", "install", "uninstall", "run-as-service", "run-as-admin"
+        };
 
-    foreach (var file in Directory.GetFiles(ZapretPaths.StrategiesDir, "*.bat"))
-    {
-        var name = Path.GetFileNameWithoutExtension(file);
-        if (!excludedFiles.Contains(name))
-            AvailableStrategies.Add(new StrategyCheckItem { Name = name, IsChecked = true });
-    }
-    UpdateSelectedCount();
+        var files = Directory.GetFiles(ZapretPaths.StrategiesDir, "*.bat")
+            .Select(f => Path.GetFileNameWithoutExtension(f))
+            .Where(n => !excludedFiles.Contains(n))
+            .OrderBy(n => n, NaturalStringComparer.Default)
+            .ToList();
+
+        foreach (var name in files)
+        {
+            var item = new StrategyCheckItem { Name = name, IsChecked = true };
+            item.CheckedChanged += UpdateSelectedCount;
+            AvailableStrategies.Add(item);
+        }
+        UpdateSelectedCount();
 }
 
 partial void OnIsDpiModeChanged(bool value)
@@ -230,15 +224,18 @@ AppendTestLog($"[ОШИБКА] {err}");
 return;
 }
 
-foreach (var w in preflight.Warnings)
-AppendTestLog($"[ПРЕДУПРЕЖДЕНИЕ] {w}");
+            foreach (var w in preflight.Warnings)
+                AppendTestLog($"[ПРЕДУПРЕЖДЕНИЕ] {w}");
 
-IsTestRunning = true;
-TestLogLines.Clear();
-TestProgressValue = 0;
-TestProgressTotal = selectedConfigs.Count;
+            RunOnUIThread(() =>
+            {
+                IsTestRunning = true;
+                TestLogLines.Clear();
+                TestProgressValue = 0;
+                TestProgressTotal = selectedConfigs.Count;
+            });
 
-AppendTestLog($" Запуск тестирования {DateTime.Now:HH:mm:ss}");
+            AppendTestLog($" Запуск тестирования {DateTime.Now:HH:mm:ss}");
 AppendTestLog($" Режим: {(mode == TestMode.Standard ? "Standard — HTTP + Ping" : "DPI — TCP 16-20 KB freeze")}");
 AppendTestLog($" Стратегий: {selectedConfigs.Count}");
 AppendTestLog("─────────────────────────────────────────");
@@ -260,31 +257,33 @@ var results = await _testRunner.RunAsync(mode, selectedConfigs, targets, suite, 
  _testRunner.SaveResults(results, mode,
  Path.Combine(ZapretPaths.UtilsDir, "test results"));
 
- if (best != null)
- {
- AppendTestLog($"\\n★ Лучший конфиг: {best.ConfigName}");
+            if (best != null)
+            {
+                AppendTestLog($"\\n★ {LocalizationService.Get("BestConfig")}: {best.ConfigName}");
 
- var snapshot = TestResultStore.Get(best.ConfigName);
- var entry = new TestHistoryEntry
- {
- Timestamp = DateTime.Now,
- StrategyName = best.ConfigName,
- TestMode = mode.ToString(),
- Rating = snapshot?.Rating ?? StrategyRating.Unknown,
- RatingLabel = snapshot?.RatingLabel ?? "Неизвестно",
- PassCount = results.Count(r => TestResultStore.Get(r.ConfigName)?.Rating == StrategyRating.Recommended),
- FailCount = results.Count(r => TestResultStore.Get(r.ConfigName)?.Rating == StrategyRating.NotRecommended),
- TotalTargets = results.Count,
- BestStrategy = best.ConfigName
- };
- _historyService.AddEntry(entry);
- RunOnUIThread(() =>
- {
- TestHistory.Insert(0, entry);
- if (TestHistory.Count > 50)
- TestHistory.RemoveAt(TestHistory.Count - 1);
- });
- }
+                var snapshot = TestResultStore.Get(best.ConfigName);
+                var entry = new TestHistoryEntry
+                {
+                    Timestamp = DateTime.Now,
+                    StrategyName = best.ConfigName,
+                    TestMode = mode.ToString(),
+                    Rating = snapshot?.Rating ?? StrategyRating.Unknown,
+                    RatingLabel = snapshot?.RatingLabel ?? LocalizationService.Get("Unknown"),
+                    PassCount = results.Count(r => TestResultStore.Get(r.ConfigName)?.Rating == StrategyRating.Recommended),
+                    FailCount = results.Count(r => TestResultStore.Get(r.ConfigName)?.Rating == StrategyRating.NotRecommended),
+                    TotalTargets = results.Count,
+                    BestStrategy = best.ConfigName
+                };
+                _historyService.AddEntry(entry);
+                RunOnUIThread(() =>
+                {
+                    TestHistory.Insert(0, entry);
+                    if (TestHistory.Count > 50)
+                        TestHistory.RemoveAt(TestHistory.Count - 1);
+                });
+
+                RunOnUIThread(() => TestCompleted?.Invoke(best.ConfigName));
+            }
  }
 }
 catch (OperationCanceledException)
@@ -295,12 +294,12 @@ catch (Exception ex)
 {
 AppendTestLog($"[ОШИБКА] {ex.Message}");
 }
-finally
-{
-IsTestRunning = false;
-_testCts?.Dispose();
-_testCts = null;
-}
+        finally
+        {
+            RunOnUIThread(() => IsTestRunning = false);
+            _testCts?.Dispose();
+            _testCts = null;
+        }
 }
 
 [RelayCommand]
@@ -322,21 +321,20 @@ _testCts?.Cancel();
  TestHistory.Clear();
  }
 
-private void AppendTestLog(string msg)
-{
-TestLogLines.Add(msg);
-}
-
-    private void OnLogReceived(string message)
+    private void AppendTestLog(string msg)
     {
-        LogLines.Add(message);
-        LogLineCount = LogLines.Count;
+        RunOnUIThread(() => TestLogLines.Add(msg));
     }
 
-[RelayCommand]
-private async Task CheckVersionAsync()
+private void AppendUpdateLog(string line)
 {
-    if (IsCheckingVersion) return;
+		UpdateLog += line + "\n";
+	}
+
+	[RelayCommand]
+	private async Task CheckVersionAsync()
+	{
+		if (IsCheckingVersion) return;
     RunOnUIThread(() => IsCheckingVersion = true);
 
     try
@@ -542,44 +540,33 @@ private async Task RunDiagnosticsAsync()
             File.Exists(path) ? "OK" : $"Не найден: {path}"));
     }
 
-    private static int CountLines(string path)
-    {
-        try { return File.ReadAllLines(path).Length; }
-        catch { return 0; }
-    }
+private static int CountLines(string path)
+	{
+		try { return File.ReadAllLines(path).Length; }
+		catch { return 0; }
+	}
 
-    [RelayCommand]
-    private void ClearLog()
-    {
-        AppState.Logs.Clear();
-        LogLines.Clear();
-        LogLineCount = 0;
-    }
-
-[RelayCommand]
-private void CopyLog()
-{
-var text = string.Join("\n", LogLines);
-var package = new Windows.ApplicationModel.DataTransfer.DataPackage();
-package.SetText(text);
-Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(package);
-}
-
-    private void AppendUpdateLog(string line)
-    {
-        UpdateLog += line + "\n";
-    }
-
-public void Dispose()
-{
-_winwsService.LogReceived -= OnLogReceived;
-}
+	public void Dispose()
+	{
+	}
 }
 
 public partial class StrategyCheckItem : ObservableObject
 {
-public string Name { get; init; } = "";
-public bool IsChecked { get; set => SetProperty(ref field, value); }
+    public string Name { get; init; } = "";
+    
+    private bool _isChecked = true;
+    public bool IsChecked
+    {
+        get => _isChecked;
+        set
+        {
+            if (SetProperty(ref _isChecked, value))
+                CheckedChanged?.Invoke();
+        }
+    }
+    
+    public event Action? CheckedChanged;
 }
 
 public partial class CheckResultItem : ObservableObject

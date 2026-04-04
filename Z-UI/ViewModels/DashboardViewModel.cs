@@ -24,8 +24,8 @@ public partial class DashboardViewModel : ViewModelBase, IDisposable
  [ObservableProperty]
  private bool _isServiceRunning;
 
- [ObservableProperty]
- private string _statusText = "Остановлено";
+    [ObservableProperty]
+    private string _statusText = "";
 
  [ObservableProperty]
  private string _currentStrategy = AppSettings.CurrentStrategy;
@@ -86,22 +86,29 @@ public partial class DashboardViewModel : ViewModelBase, IDisposable
  public event Action? NavigateToUpdates;
  public event Action? NavigateToSettings;
 
- public DashboardViewModel(WinwsService winwsService, UpdateService updateService)
- {
- _winwsService = winwsService ?? throw new ArgumentNullException(nameof(winwsService));
- _updateService = updateService ?? throw new ArgumentNullException(nameof(updateService));
- 
- _winwsService.StatusChanged += OnStatusChanged;
- IsServiceRunning = _winwsService.IsRunning;
- CheckAdmin();
- CheckSetupRequired();
- LoadFilters();
- UpdateStatus();
+public DashboardViewModel(WinwsService winwsService, UpdateService updateService)
+{
+_winwsService = winwsService ?? throw new ArgumentNullException(nameof(winwsService));
+_updateService = updateService ?? throw new ArgumentNullException(nameof(updateService));
 
- _updateService.DownloadProgress += progress =>
- {
- RunOnUIThread(() => UpdateProgress = progress);
- };
+_winwsService.StatusChanged += OnStatusChanged;
+IsServiceRunning = _winwsService.IsRunning;
+CheckAdmin();
+CheckSetupRequired();
+LoadFilters();
+UpdateStatus();
+
+LocalizationService.LanguageChanged += () => RunOnUIThread(UpdateStatus);
+AppSettings.StrategyChanged += () => RunOnUIThread(() =>
+{
+CurrentStrategy = AppSettings.CurrentStrategy;
+UpdateStatus();
+});
+
+_updateService.DownloadProgress += progress =>
+{
+RunOnUIThread(() => UpdateProgress = progress);
+};
 
  _updateService.StatusChanged += status =>
  {
@@ -173,23 +180,23 @@ public partial class DashboardViewModel : ViewModelBase, IDisposable
  UpdateStatus();
  }
 
- private void UpdateStatus()
- {
- StatusText = IsServiceRunning ? "Запущено" : "Остановлено";
- CurrentStrategy = AppSettings.CurrentStrategy;
- ServiceStatus = IsServiceRunning ? "Обход DPI активен" : "Защита выключена";
- StrategyDescription = GetStrategyDescription(CurrentStrategy);
- }
+    private void UpdateStatus()
+    {
+        StatusText = IsServiceRunning ? LocalizationService.Get("Running") : LocalizationService.Get("Stopped");
+        CurrentStrategy = AppSettings.CurrentStrategy;
+        ServiceStatus = IsServiceRunning ? LocalizationService.Get("DpiBypassActive") : LocalizationService.Get("ProtectionOff");
+        StrategyDescription = GetStrategyDescription(CurrentStrategy);
+    }
 
- private static string GetStrategyDescription(string strategy) => strategy switch
- {
- "General" => "Стандартная протекция для обхода популярных сетей",
- "Discord" => "Оптимизировано для Discord и голосовых сервисов",
- "YouTube" => "Оптимизировано для YouTube и видеостриминга",
- "Russia" => "Специализировано для российских провайдеров",
- "Gaming" => "Оптимизировано для игровых сервисов",
- _ => "Пользовательская стратегия"
- };
+    private static string GetStrategyDescription(string strategy) => strategy switch
+    {
+        "General" => LocalizationService.Get("StrategyDescGeneral"),
+        "Discord" => LocalizationService.Get("StrategyDescDiscord"),
+        "YouTube" => LocalizationService.Get("StrategyDescYouTube"),
+        "Russia" => LocalizationService.Get("StrategyDescRussia"),
+        "Gaming" => LocalizationService.Get("StrategyDescGaming"),
+        _ => LocalizationService.Get("StrategyDescCustom")
+    };
 
  private void CheckAdmin()
  {

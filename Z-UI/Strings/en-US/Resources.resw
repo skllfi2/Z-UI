@@ -561,7 +561,58 @@
   <data name="ZuiAbout.Text" xml:space="preserve">
     <value>ZUI</value>
   </data>
-  <data name="ZUIopr.Text" xml:space="preserve">
-    <value>ZUI</value>
-  </data>
+	<data name="ZUIopr.Text" xml:space="preserve">
+		<value>ZUI</value>
+	</data>
+	<data name="BystryeDeystviya.Text" xml:space="preserve">
+		<value>QUICK ACTIONS</value>
+	</data>
+	<data name="MasterNastroykiTitle.Text" xml:space="preserve">
+		<value>Setup wizard</value>
+	</data>
+	<data name="UstanovkaZapret.Text" xml:space="preserve">
+		<value>Install zapret</value>
+	</data>
+	<data name="RasshirennyeNastroykiFiltrov.Text" xml:space="preserve">
+		<value>Advanced filter settings</value>
+	</data>
+	<data name="ObkhodDpiNaIgrovyePorty.Text" xml:space="preserve">
+		<value>DPI bypass for game ports</value>
+	</data>
+	<data name="ZapretNeUstanovlen.Title" xml:space="preserve">
+		<value>zapret not installed</value>
+	</data>
+	<data name="ZapretNeUstanovlen.Message" xml:space="preserve">
+		<value>To enable protection, install zapret via the setup wizard.</value>
+	</data>
+	<data name="ZapustitMasteraNastroyki.Content" xml:space="preserve">
+		<value>Launch setup wizard</value>
+	</data>
+	<data name="DostupnoObnovlenie.Title" xml:space="preserve">
+		<value>Update available</value>
+	</data>
+	<data name="SpisokIzmeneniy.Text" xml:space="preserve">
+		<value>Changelog</value>
+	</data>
+	<data name="Administrator.Text" xml:space="preserve">
+		<value>Administrator</value>
+	</data>
+	<data name="Zapustit.Content" xml:space="preserve">
+		<value>Launch</value>
+	</data>
+	<data name="Ostanovit.Content" xml:space="preserve">
+		<value>Stop</value>
+	</data>
+	<data name="Obnovit.Content" xml:space="preserve">
+		<value>Update</value>
+	</data>
+	<data name="TolkoIzSpiska.Content" xml:space="preserve">
+		<value>From list only</value>
+	</data>
+	<data name="StrategiyaNeVybrana.Text" xml:space="preserve">
+		<value>Strategy not selected</value>
+	</data>
+	<data name="VersiyaNeUstanovlena.Text" xml:space="preserve">
+		<value>Version not installed</value>
+	</data>
 </root>

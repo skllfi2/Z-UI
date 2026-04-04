@@ -37,54 +37,42 @@ namespace ZUI.Services
             }
         }
 
-        private static void Border_PointerEntered(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            if (sender is not Border border) return;
-            if (!AppSettings.AnimCards) return;
+	private static void Border_PointerEntered(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+	{
+		if (sender is not Border border) return;
+		if (!AppSettings.AnimCards) return;
 
-            var element = border as FrameworkElement;
-            if (element == null) return;
+		var element = border as FrameworkElement;
+		if (element == null) return;
 
-            var visual = ElementCompositionPreview.GetElementVisual(element);
-            var compositor = visual.Compositor;
+		var visual = ElementCompositionPreview.GetElementVisual(element);
+		visual.CenterPoint = new Vector3((float)element.ActualWidth / 2, (float)element.ActualHeight / 2, 0f);
+		var compositor = visual.Compositor;
 
-            var scaleAnimation = compositor.CreateVector3KeyFrameAnimation();
-            scaleAnimation.InsertKeyFrame(0f, new Vector3(1.0f, 1.0f, 1.0f));
-            scaleAnimation.InsertKeyFrame(1f, new Vector3(1.02f, 1.02f, 1.0f));
-            scaleAnimation.Duration = TimeSpan.FromMilliseconds(150);
+		var scaleAnimation = compositor.CreateVector3KeyFrameAnimation();
+		scaleAnimation.InsertKeyFrame(1f, new Vector3(1.01f, 1.01f, 1.0f));
+		scaleAnimation.Duration = TimeSpan.FromMilliseconds(100);
 
-            var shadowAnimation = compositor.CreateScalarKeyFrameAnimation();
-            shadowAnimation.InsertKeyFrame(0f, 0);
-            shadowAnimation.InsertKeyFrame(1f, 16);
-            shadowAnimation.Duration = TimeSpan.FromMilliseconds(150);
+		visual.StartAnimation("Scale", scaleAnimation);
+	}
 
-            visual.StartAnimation("Scale", scaleAnimation);
-            
-            var shadow = ElementCompositionPreview.GetElementVisual(element);
-            if (shadow != null)
-            {
-                shadow.StartAnimation("ShadowBlurRadius", shadowAnimation);
-            }
-        }
+	private static void Border_PointerExited(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+	{
+		if (sender is not Border border) return;
+		if (!AppSettings.AnimCards) return;
 
-        private static void Border_PointerExited(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            if (sender is not Border border) return;
-            if (!AppSettings.AnimCards) return;
+		var element = border as FrameworkElement;
+		if (element == null) return;
 
-            var element = border as FrameworkElement;
-            if (element == null) return;
+		var visual = ElementCompositionPreview.GetElementVisual(element);
+		var compositor = visual.Compositor;
 
-            var visual = ElementCompositionPreview.GetElementVisual(element);
-            var compositor = visual.Compositor;
+		var scaleAnimation = compositor.CreateVector3KeyFrameAnimation();
+		scaleAnimation.InsertKeyFrame(1f, new Vector3(1.0f, 1.0f, 1.0f));
+		scaleAnimation.Duration = TimeSpan.FromMilliseconds(100);
 
-            var scaleAnimation = compositor.CreateVector3KeyFrameAnimation();
-            scaleAnimation.InsertKeyFrame(0f, new Vector3(1.02f, 1.02f, 1.0f));
-            scaleAnimation.InsertKeyFrame(1f, new Vector3(1.0f, 1.0f, 1.0f));
-            scaleAnimation.Duration = TimeSpan.FromMilliseconds(150);
-
-            visual.StartAnimation("Scale", scaleAnimation);
-        }
+		visual.StartAnimation("Scale", scaleAnimation);
+	}
 
         public static readonly DependencyProperty EnableButtonAnimationsProperty =
             DependencyProperty.RegisterAttached(
@@ -119,64 +107,66 @@ namespace ZUI.Services
             }
         }
 
-        private static void Button_PointerEntered(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            if (sender is not Button button) return;
-            if (!AppSettings.AnimButtons) return;
+	private static void Button_PointerEntered(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+	{
+		if (sender is not Button button) return;
+		if (!AppSettings.AnimButtons) return;
 
-            var visual = ElementCompositionPreview.GetElementVisual(button);
-            var compositor = visual.Compositor;
+		var visual = ElementCompositionPreview.GetElementVisual(button);
+		visual.CenterPoint = new Vector3((float)button.ActualWidth / 2, (float)button.ActualHeight / 2, 0f);
+		var compositor = visual.Compositor;
 
-            var scaleAnimation = compositor.CreateVector3KeyFrameAnimation();
-            scaleAnimation.InsertKeyFrame(1f, new Vector3(1.05f, 1.05f, 1.0f));
-            scaleAnimation.Duration = TimeSpan.FromMilliseconds(100);
+		var scaleAnimation = compositor.CreateVector3KeyFrameAnimation();
+		scaleAnimation.InsertKeyFrame(1f, new Vector3(1.02f, 1.02f, 1.0f));
+		scaleAnimation.Duration = TimeSpan.FromMilliseconds(100);
 
-            visual.StartAnimation("Scale", scaleAnimation);
-        }
+		visual.StartAnimation("Scale", scaleAnimation);
+	}
 
-        private static void Button_PointerExited(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            if (sender is not Button button) return;
-            if (!AppSettings.AnimButtons) return;
+	private static void Button_PointerExited(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+	{
+		if (sender is not Button button) return;
+		if (!AppSettings.AnimButtons) return;
 
-            var visual = ElementCompositionPreview.GetElementVisual(button);
-            var compositor = visual.Compositor;
+		var visual = ElementCompositionPreview.GetElementVisual(button);
+		var compositor = visual.Compositor;
 
-            var scaleAnimation = compositor.CreateVector3KeyFrameAnimation();
-            scaleAnimation.InsertKeyFrame(1f, new Vector3(1.0f, 1.0f, 1.0f));
-            scaleAnimation.Duration = TimeSpan.FromMilliseconds(100);
+		var scaleAnimation = compositor.CreateVector3KeyFrameAnimation();
+		scaleAnimation.InsertKeyFrame(1f, new Vector3(1.0f, 1.0f, 1.0f));
+		scaleAnimation.Duration = TimeSpan.FromMilliseconds(100);
 
-            visual.StartAnimation("Scale", scaleAnimation);
-        }
+		visual.StartAnimation("Scale", scaleAnimation);
+	}
 
-        private static void Button_PointerPressed(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            if (sender is not Button button) return;
-            if (!AppSettings.AnimButtons) return;
+	private static void Button_PointerPressed(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+	{
+		if (sender is not Button button) return;
+		if (!AppSettings.AnimButtons) return;
 
-            var visual = ElementCompositionPreview.GetElementVisual(button);
-            var compositor = visual.Compositor;
+		var visual = ElementCompositionPreview.GetElementVisual(button);
+		visual.CenterPoint = new Vector3((float)button.ActualWidth / 2, (float)button.ActualHeight / 2, 0f);
+		var compositor = visual.Compositor;
 
-            var scaleAnimation = compositor.CreateVector3KeyFrameAnimation();
-            scaleAnimation.InsertKeyFrame(1f, new Vector3(0.95f, 0.95f, 1.0f));
-            scaleAnimation.Duration = TimeSpan.FromMilliseconds(50);
+		var scaleAnimation = compositor.CreateVector3KeyFrameAnimation();
+		scaleAnimation.InsertKeyFrame(1f, new Vector3(0.98f, 0.98f, 1.0f));
+		scaleAnimation.Duration = TimeSpan.FromMilliseconds(50);
 
-            visual.StartAnimation("Scale", scaleAnimation);
-        }
+		visual.StartAnimation("Scale", scaleAnimation);
+	}
 
-        private static void Button_PointerReleased(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            if (sender is not Button button) return;
-            if (!AppSettings.AnimButtons) return;
+	private static void Button_PointerReleased(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+	{
+		if (sender is not Button button) return;
+		if (!AppSettings.AnimButtons) return;
 
-            var visual = ElementCompositionPreview.GetElementVisual(button);
-            var compositor = visual.Compositor;
+		var visual = ElementCompositionPreview.GetElementVisual(button);
+		var compositor = visual.Compositor;
 
-            var scaleAnimation = compositor.CreateVector3KeyFrameAnimation();
-            scaleAnimation.InsertKeyFrame(1f, new Vector3(1.05f, 1.05f, 1.0f));
-            scaleAnimation.Duration = TimeSpan.FromMilliseconds(100);
+		var scaleAnimation = compositor.CreateVector3KeyFrameAnimation();
+		scaleAnimation.InsertKeyFrame(1f, new Vector3(1.02f, 1.02f, 1.0f));
+		scaleAnimation.Duration = TimeSpan.FromMilliseconds(100);
 
-            visual.StartAnimation("Scale", scaleAnimation);
-        }
+		visual.StartAnimation("Scale", scaleAnimation);
+	}
     }
 }

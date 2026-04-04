@@ -58,14 +58,26 @@ public partial class StrategiesViewModel : ViewModelBase, IDisposable
  [ObservableProperty]
  private string _selectedStrategyDescription = "";
 
- [ObservableProperty]
- private string _selectedStrategyRecommendedFor = "";
+    [ObservableProperty]
+    private string _selectedStrategyRecommendedFor = "";
 
- [ObservableProperty]
- private string _selectedStrategyRating = "";
+    [ObservableProperty]
+    private string _selectedStrategyRating = "";
 
- [ObservableProperty]
- private string _selectedStrategyIconGlyph = "";
+    [ObservableProperty]
+    private string _selectedStrategyRatingEmoji = "";
+
+    [ObservableProperty]
+    private string _selectedStrategyRatingShortLabel = "";
+
+    [ObservableProperty]
+    private string _selectedStrategyRatingForeground = "#FF80808C";
+
+    [ObservableProperty]
+    private bool _selectedStrategyHasRating;
+
+    [ObservableProperty]
+    private string _selectedStrategyIconGlyph = "";
 
  [ObservableProperty]
  private string _selectedStrategyIconColor = "#FF0078D4";
@@ -73,66 +85,82 @@ public partial class StrategiesViewModel : ViewModelBase, IDisposable
  [ObservableProperty]
  private bool _selectedStrategyIsActive;
 
-    public StrategiesViewModel()
-    {
-        LoadStrategies();
-        TestResultStore.ResultsUpdated += LoadStrategies;
-    }
-
-private void LoadStrategies()
+public StrategiesViewModel()
 {
-    Strategies.Clear();
-    var dir = ZapretPaths.StrategiesDir;
-    if (!Directory.Exists(dir)) return;
+    LoadStrategies();
+    TestResultStore.ResultsUpdated += () => RunOnUIThread(LoadStrategies);
+}
 
-    var excludedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    private void LoadStrategies()
     {
-        "service", "install", "uninstall", "run-as-service", "run-as-admin"
-    };
+        var dir = ZapretPaths.StrategiesDir;
+        if (!Directory.Exists(dir)) return;
 
-    var files = Directory.GetFiles(dir, "*.bat")
-        .Select(f => new FileInfo(f))
-        .Where(f => !excludedFiles.Contains(Path.GetFileNameWithoutExtension(f.Name)))
-        .OrderBy(f => f.Name);
-
-    foreach (var file in files)
-    {
-        var name = Path.GetFileNameWithoutExtension(file.Name);
-        var snapshot = TestResultStore.Get(name);
-        var item = new StrategyItem
+        var excludedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            ConfigName = name,
-            DisplayName = name,
-            FilePath = file.FullName
+            "service", "install", "uninstall", "run-as-service", "run-as-admin"
         };
-        item.ApplySnapshot(snapshot);
-        Strategies.Add(item);
-    }
 
-    StrategyCount = Strategies.Count;
+        var files = Directory.GetFiles(dir, "*.bat")
+            .Select(f => new FileInfo(f))
+            .Where(f => !excludedFiles.Contains(Path.GetFileNameWithoutExtension(f.Name)))
+            .OrderBy(f => Path.GetFileNameWithoutExtension(f.Name), NaturalStringComparer.Default);
 
-        if (Strategies.Count > 0)
+        foreach (var file in files)
+        {
+            var name = Path.GetFileNameWithoutExtension(file.Name);
+            var snapshot = TestResultStore.Get(name);
+            var existing = Strategies.FirstOrDefault(s => s.ConfigName == name);
+            if (existing != null)
+            {
+                existing.ApplySnapshot(snapshot);
+            }
+            else
+            {
+                var item = new StrategyItem
+                {
+                    ConfigName = name,
+                    DisplayName = name,
+                    FilePath = file.FullName
+                };
+                item.ApplySnapshot(snapshot);
+                Strategies.Add(item);
+            }
+        }
+
+        StrategyCount = Strategies.Count;
+
+        if (Strategies.Count > 0 && SelectedStrategy == null)
         {
             var current = AppSettings.CurrentStrategy;
             SelectedStrategy = Strategies.FirstOrDefault(s => s.ConfigName == current) ?? Strategies[0];
         }
     }
 
- partial void OnSelectedStrategyChanged(StrategyItem? value)
- {
- HasSelection = value != null;
- if (value == null) return;
+    public void ReloadStrategies()
+    {
+        LoadStrategies();
+    }
 
- SelectedStrategyName = value.DisplayName;
- SelectedStrategyIsActive = value.ConfigName == AppSettings.CurrentStrategy;
- SelectedStrategyRating = value.RatingLabel;
- SelectedStrategyType = GetStrategyType(value.ConfigName);
- SelectedStrategyUsage = GetStrategyUsage(value.ConfigName);
- SelectedStrategyDescription = value.Description;
- SelectedStrategyRecommendedFor = value.RecommendedFor;
- SelectedStrategyIconGlyph = value.IconGlyph;
- SelectedStrategyIconColor = value.IconColor;
- }
+partial void OnSelectedStrategyChanged(StrategyItem? value)
+{
+    HasSelection = value != null;
+    if (value == null) return;
+
+    SelectedStrategyName = value.DisplayName;
+    SelectedStrategyIsActive = value.ConfigName == AppSettings.CurrentStrategy;
+    SelectedStrategyRating = value.RatingLabel;
+    SelectedStrategyRatingEmoji = value.RatingEmoji;
+    SelectedStrategyRatingShortLabel = value.RatingShortLabel;
+    SelectedStrategyRatingForeground = value.RatingForeground.Color.ToString();
+    SelectedStrategyHasRating = value.Rating != StrategyRating.Unknown;
+    SelectedStrategyType = GetStrategyType(value.ConfigName);
+    SelectedStrategyUsage = GetStrategyUsage(value.ConfigName);
+    SelectedStrategyDescription = value.Description;
+    SelectedStrategyRecommendedFor = value.RecommendedFor;
+    SelectedStrategyIconGlyph = value.IconGlyph;
+    SelectedStrategyIconColor = value.IconColor;
+}
 
     private static string GetStrategyType(string name) => name.ToLowerInvariant() switch
     {
@@ -161,18 +189,17 @@ private void LoadStrategies()
             LogLines.RemoveAt(0);
     }
 
- [RelayCommand]
- private void ApplyStrategy()
- {
- if (SelectedStrategy == null) return;
- AppSettings.CurrentStrategy = SelectedStrategy.ConfigName;
- AppSettings.Save();
- SelectedStrategyIsActive = true;
- ActionLogger.LogStrategyApply(SelectedStrategy.ConfigName);
+    [RelayCommand]
+    private void ApplyStrategy()
+    {
+        if (SelectedStrategy == null) return;
+        AppSettings.SetCurrentStrategy(SelectedStrategy.ConfigName);
+        SelectedStrategyIsActive = true;
+        ActionLogger.LogStrategyApply(SelectedStrategy.ConfigName);
 
- foreach (var s in Strategies)
- s.ApplySnapshot(TestResultStore.Get(s.ConfigName));
- }
+        foreach (var s in Strategies)
+            s.ApplySnapshot(TestResultStore.Get(s.ConfigName));
+    }
 
  [RelayCommand]
  private void ClearRatings()

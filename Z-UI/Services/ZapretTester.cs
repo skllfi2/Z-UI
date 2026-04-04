@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Security;
+using System.Runtime.InteropServices;
 using System.Security.Authentication;
-using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -141,24 +142,53 @@ namespace ZUI.Services
     // ── Winws Process Controller ──────────────────────────────────────────────
     // Без WMI / System.Management — восстановление через AppState.CurrentStrategy
 
-    public class WinwsController(string rootDir)
+public class WinwsController(string rootDir)
+{
+    [DllImport("user32.dll", SetLastError = true)]
+    private static extern IntPtr FindWindow(string? lpClassName, string? lpWindowName);
+    
+    [DllImport("user32.dll", SetLastError = true)]
+    private static extern bool PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+    
+    private const uint WM_CLOSE = 0x0010;
+
+    public void StopAll()
     {
-        public void StopAll()
+        for (int i = 0; i < 5; i++)
         {
             foreach (var p in Process.GetProcessesByName("winws"))
-                try { p.Kill(entireProcessTree: true); } catch { }
-        }
-
-        public Process? StartConfig(string batFilePath)
-        {
-            var psi = new ProcessStartInfo("cmd.exe", $"/c \"{batFilePath}\"")
             {
-                WorkingDirectory = rootDir,
-                WindowStyle      = ProcessWindowStyle.Minimized,
-                UseShellExecute  = true
-            };
-            return Process.Start(psi);
+                try { p.Kill(true); } catch { }
+            }
+            
+            foreach (var p in Process.GetProcessesByName("cmd"))
+            {
+                try { p.Kill(true); } catch { }
+            }
+            
+            try
+            {
+                var hwnd = FindWindow(null, "zapret: general (ALT)");
+                if (hwnd != IntPtr.Zero)
+                    PostMessage(hwnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+            }
+            catch { }
+            
+            Thread.Sleep(300);
         }
+    }
+
+    public Process? StartConfig(string batFilePath)
+    {
+        var psi = new ProcessStartInfo("cmd.exe", $"/c \"{batFilePath}\"")
+        {
+            WorkingDirectory = rootDir,
+            WindowStyle = ProcessWindowStyle.Hidden,
+            UseShellExecute = true,
+            CreateNoWindow = true
+        };
+        return Process.Start(psi);
+    }
 
         /// <summary>
         /// Перезапускает текущую активную стратегию из AppState.CurrentStrategy.
@@ -642,15 +672,28 @@ namespace ZUI.Services
                         result = new ConfigResult(cfg.Name, [], []);
                     }
 
-                    results.Add(result);
-                    _winws.StopAll();
-                    if (proc is not null && !proc.HasExited)
-                        try { proc.Kill(true); } catch { }
-                }
-
-                Emit("\n✓ Все тесты завершены");
-                LogAnalytics(results, mode);
+            results.Add(result);
+            _winws.StopAll();
+            
+            if (proc is not null)
+            {
+                try 
+                { 
+                    if (!proc.HasExited)
+                    {
+                        proc.Kill(true);
+                        proc.WaitForExit(3000);
+                    }
+                } 
+                catch { }
             }
+        }
+
+        Emit("\n✓ Все тесты завершены");
+        LogAnalytics(results, mode);
+        
+        _winws.StopAll();
+    }
             catch (OperationCanceledException) when (ct.IsCancellationRequested)
             {
                 Emit("[INFO] Тестирование остановлено пользователем");
@@ -659,19 +702,20 @@ namespace ZUI.Services
             {
                 Emit($"[ОШИБКА] Неожиданная отмена: {ex.Message}");
             }
-            finally
+        finally
+        {
+            _winws.StopAll();
+            
+            // Даём время на закрытие окон
+            Thread.Sleep(1000);
+            _winws.StopAll();
+
+            if (origStatus != IpsetManager.IpsetStatus.Any)
             {
-                _winws.StopAll();
-
-                // Восстанавливаем активную стратегию — без WMI, через AppState
-                _winws.RestoreCurrentStrategy(_strategiesDir);
-
-                if (origStatus != IpsetManager.IpsetStatus.Any)
-                {
-                    _ipset.Restore();
-                    Emit("[INFO] ipset восстановлен");
-                }
+                _ipset.Restore();
+                Emit("[INFO] ipset восстановлен");
             }
+        }
 
             return results;
         }
