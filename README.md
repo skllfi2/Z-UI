@@ -1,69 +1,20 @@
 # Z-UI
 
-[English](#english) | [Русский](#русский)
+> **Graphical shell for DPI bypass based on zapret**
 
----
+[![Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-blue?logo=windows)](https://www.microsoft.com/windows)
+[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com)
+[![WinUI](https://img.shields.io/badge/WinUI-3.0-0078D4?logo=microsoft)](https://docs.microsoft.com/windows/apps/winui)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
+[![GitHub Release](https://img.shields.io/github/v/release/your-repo/Z-UI?include_prereleases)](https://github.com/your-repo/Z-UI/releases)
 
-<a name="русский"></a>
-## Русский
+**English** | [Русский](README.ru.md)
 
-Z-UI — графическая оболочка для управления обходом DPI на базе [zapret-discord-youtube](https://github.com/Flowseal/zapret-discord-youtube). Современный интерфейс в стиле Fluent Design для Windows 10/11.
+## Description
 
-### Возможности
+Z-UI is a modern graphical shell for managing DPI bypass based on [zapret-discord-youtube](https://github.com/Flowseal/zapret-discord-youtube). Intuitive Fluent Design interface for Windows 10/11.
 
-- **Управление стратегиями** — выбор и тестирование стратегий обхода DPI
-- **Автоматический выбор** — тестирование с выбором лучшей стратегии
-- **Рейтинговая система** — отслеживание успешности стратегий
-- **Локализация** — русский и английский языки
-- **Темы** — светлая, тёмная, следование системе
-- **Автозапуск** — запуск при входе в Windows
-- **Админ-права** — опциональный запуск от имени администратора
-- **Сворачивание в трей** — работа в фоновом режиме
-- **Обновление списков** — hosts и ipset с GitHub
-- **Диагностика** — проверка компонентов zapret
-- **Экспорт/импорт настроек**
-
-### Системные требования
-
-- **ОС:** Windows 10 (19041+) / Windows 11, x64
-- **Права:** Администратор (для работы с WinDivert)
-
-### Установка
-
-Скачайте инсталлятор из [Releases](https://github.com/your-repo/Z-UI/releases).
-
-### Сборка из исходников
-
-```powershell
-# Требования: .NET 10 SDK, Visual Studio 2022 с WinUI 3
-dotnet build -c Release
-```
-
-### Скриншоты
-
-| Главная | Стратегии | Настройки |
-|---------|-----------|-----------|
-| Dashboard | Strategies | Settings |
-
-### Технологии
-
-- C# 14, .NET 10
-- WinUI 3, Windows App SDK
-- CommunityToolkit.Mvvm
-- MVVM архитектура
-
-### Лицензия
-
-[MIT License](LICENSE)
-
----
-
-<a name="english"></a>
-## English
-
-Z-UI is a graphical shell for managing DPI bypass based on [zapret-discord-youtube](https://github.com/Flowseal/zapret-discord-youtube). Modern Fluent Design interface for Windows 10/11.
-
-### Features
+## Features
 
 - **Strategy management** — select and test DPI bypass strategies
 - **Automatic selection** — testing with best strategy selection
@@ -71,39 +22,82 @@ Z-UI is a graphical shell for managing DPI bypass based on [zapret-discord-youtu
 - **Localization** — Russian and English languages
 - **Themes** — light, dark, follow system
 - **Autostart** — launch on Windows startup
-- **Admin rights** — optional run as administrator
 - **Tray minimize** — background operation
 - **List updates** — hosts and ipset from GitHub
-- **Diagnostics** — zapret components check
-- **Settings export/import**
+
+## Screenshots
+
+| Main | Strategies | Settings |
+|------|------------|----------|
+| Dashboard | Strategy selection | Parameters |
+
+## Installation
+
+### Download Installer
+
+⬇️ [Download latest release](https://github.com/your-repo/Z-UI/releases/latest)
 
 ### System Requirements
 
 - **OS:** Windows 10 (19041+) / Windows 11, x64
 - **Rights:** Administrator (for WinDivert)
 
-### Installation
-
-Download installer from [Releases](https://github.com/your-repo/Z-UI/releases).
-
 ### Build from Source
 
 ```powershell
-# Requirements: .NET 10 SDK, Visual Studio 2022 with WinUI 3
+# Clone repository
+git clone https://github.com/your-repo/Z-UI.git
+cd Z-UI
+
+# Build
 dotnet build -c Release
+
+# Or create installer
+.\build.ps1
 ```
+
+## Usage
+
+1. Launch Z-UI
+2. Select a strategy on the "Strategies" tab
+3. Click "Start" on the main page
+4. The app will minimize to tray and run in background
+
+## Development
 
 ### Technologies
 
-- C# 14, .NET 10
-- WinUI 3, Windows App SDK
-- CommunityToolkit.Mvvm
-- MVVM architecture
+| Component | Technology |
+|-----------|------------|
+| Language | C# 14 |
+| Framework | .NET 10, WinUI 3 |
+| UI | Windows App SDK |
+| Architecture | MVVM |
+| DI | Microsoft.Extensions.DependencyInjection |
 
-### License
+### Project Structure
+
+```
+Z-UI/
+├── Z-UI/                  # Main project
+│   ├── Views/             # XAML pages
+│   ├── ViewModels/        # View models
+│   ├── Services/          # Business logic
+│   └── Windows/           # Main window
+├── installer/             # Installer
+├── build.ps1              # Build script
+└── setup.iss              # Inno Setup
+```
+
+## License
 
 [MIT License](LICENSE)
 
+## Acknowledgments
+
+- [Flowseal/zapret-discord-youtube](https://github.com/Flowseal/zapret-discord-youtube) — DPI bypass core
+- [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) — MVVM toolkit
+
 ---
 
-*Last updated: 2026-04-04*
+**⭐ Star this repo if it's useful!**
