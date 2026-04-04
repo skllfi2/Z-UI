@@ -90,7 +90,7 @@ Z-UI/
 
 ## Лицензия
 
-[MIT License](LICENSE)
+[MIT License](LICENSE) | [Правовая информация](DISCLAIMER.md)
 
 ## Благодарности
 

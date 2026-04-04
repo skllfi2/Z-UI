@@ -91,7 +91,7 @@ Z-UI/
 
 ## License
 
-[MIT License](LICENSE)
+[MIT License](LICENSE) | [Disclaimer](DISCLAIMER.md)
 
 ## Acknowledgments
 
