@@ -30,18 +30,25 @@
 
             <!-- Status Card -->
             <Border CornerRadius="12" Padding="24"
-              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+              Background="Transparent"
               BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
               BorderThickness="1">
-              <StackPanel Spacing="8">
-                <TextBlock Text="{x:Bind ViewModel.StatusText, Mode=OneWay}"
-                  FontSize="16" FontWeight="SemiBold"/>
-                <TextBlock FontSize="12"
-                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                  x:Name="StatusSubtext"
-                  Text="{x:Bind ViewModel.Servers.Count, Mode=OneWay, FallbackValue='0 servers'}"/>
+              <Grid>
+                <controls:SystemBackdropElement CornerRadius="12">
+                  <controls:SystemBackdropElement.SystemBackdrop>
+                    <MicaBackdrop Kind="Base"/>
+                  </controls:SystemBackdropElement.SystemBackdrop>
+                </controls:SystemBackdropElement>
+                <StackPanel Spacing="8">
+                  <TextBlock Text="{x:Bind ViewModel.StatusText, Mode=OneWay}"
+                    FontSize="16" FontWeight="SemiBold"/>
+                  <TextBlock FontSize="12"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    x:Name="StatusSubtext"
+                    Text="{x:Bind ViewModel.Servers.Count, Mode=OneWay, FallbackValue='0 servers'}"/>
 
-              </StackPanel>
+                </StackPanel>
+              </Grid>
             </Border>
 
             <!-- Add Server Button -->

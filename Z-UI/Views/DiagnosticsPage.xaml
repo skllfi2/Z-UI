@@ -31,10 +31,16 @@ xmlns:helpers="using:ZUI.Helpers">
 
                 <!-- Quick Status Card -->
                 <Border x:Name="SectionSummary" CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1">
-                    <StackPanel Spacing="12">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="12">
                         <StackPanel Orientation="Horizontal" Spacing="10">
                             <FontIcon Glyph="&#xE90F;" FontSize="24" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
                             <TextBlock x:Uid="Diagnostics_SystemState" Text="Состояние системы" FontSize="18" FontWeight="SemiBold"/>
@@ -51,14 +57,21 @@ xmlns:helpers="using:ZUI.Helpers">
                         <TextBlock Text="{x:Bind ViewModel.SummaryText, Mode=OneWay}"
                             TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
                     </StackPanel>
+                    </Grid>
                 </Border>
 
     <!-- Admin Check Card -->
             <Border x:Name="SectionAdmin" CornerRadius="12" Padding="24"
-                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                Background="Transparent"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1">
-                <StackPanel Spacing="12">
+                <Grid>
+                    <controls:SystemBackdropElement CornerRadius="12">
+                        <controls:SystemBackdropElement.SystemBackdrop>
+                            <MicaBackdrop Kind="Base"/>
+                        </controls:SystemBackdropElement.SystemBackdrop>
+                    </controls:SystemBackdropElement>
+                    <StackPanel Spacing="12">
                         <TextBlock x:Uid="Diagnostics_AdminTitle" Text="Права администратора" FontSize="16" FontWeight="SemiBold"/>
 
                     <StackPanel Orientation="Horizontal" Spacing="8">
@@ -75,14 +88,21 @@ xmlns:helpers="using:ZUI.Helpers">
                         Visibility="{x:Bind ViewModel.AdminFixAction, Mode=OneWay, Converter={StaticResource StringToVisConverter}}"
                         Style="{ThemeResource AccentButtonStyle}"/>
                 </StackPanel>
+                    </Grid>
             </Border>
 
                 <!-- Worker IPC Check Card -->
                 <Border x:Name="SectionWorker" CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1">
-                    <StackPanel Spacing="12">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="12">
                         <TextBlock x:Uid="Diagnostics_WorkerTitle" Text="Worker Service (IPC)" FontSize="16" FontWeight="SemiBold"/>
 
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -99,14 +119,21 @@ xmlns:helpers="using:ZUI.Helpers">
                         Visibility="{x:Bind ViewModel.WorkerFixAction, Mode=OneWay, Converter={StaticResource StringToVisConverter}}"
                         Style="{ThemeResource AccentButtonStyle}"/>
                 </StackPanel>
+                    </Grid>
             </Border>
 
             <!-- WinDivert Check Card -->
                 <Border x:Name="SectionWinDivert" CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1">
-                    <StackPanel Spacing="12">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="12">
                         <TextBlock x:Uid="Diagnostics_WinDivertTitle" Text="WinDivert драйвер" FontSize="16" FontWeight="SemiBold"/>
 
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -123,14 +150,21 @@ xmlns:helpers="using:ZUI.Helpers">
                         Visibility="{x:Bind ViewModel.WinDivertFixAction, Mode=OneWay, Converter={StaticResource StringToVisConverter}}"
                         Style="{ThemeResource AccentButtonStyle}"/>
                 </StackPanel>
+                    </Grid>
             </Border>
 
             <!-- Domain Lists Check Card -->
                 <Border x:Name="SectionDomainLists" CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1">
-                    <StackPanel Spacing="12">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="12">
                         <TextBlock x:Uid="Diagnostics_DomainListsTitle" Text="Списки доменов" FontSize="16" FontWeight="SemiBold"/>
 
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -147,14 +181,21 @@ xmlns:helpers="using:ZUI.Helpers">
                         Visibility="{x:Bind ViewModel.DomainListsFixAction, Mode=OneWay, Converter={StaticResource StringToVisConverter}}"
                         Style="{ThemeResource AccentButtonStyle}"/>
                 </StackPanel>
+                    </Grid>
             </Border>
 
             <!-- Binary Files Check Card -->
                 <Border x:Name="SectionBinaries" CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1">
-                    <StackPanel Spacing="12">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="12">
                         <TextBlock x:Uid="Diagnostics_BinaryFilesTitle" Text="Бинарные файлы" FontSize="16" FontWeight="SemiBold"/>
 
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -171,14 +212,21 @@ xmlns:helpers="using:ZUI.Helpers">
                         Visibility="{x:Bind ViewModel.BinaryFilesFixAction, Mode=OneWay, Converter={StaticResource StringToVisConverter}}"
                         Style="{ThemeResource AccentButtonStyle}"/>
                 </StackPanel>
+                    </Grid>
             </Border>
 
             <!-- Network Check Card -->
                 <Border x:Name="SectionNetwork" CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1">
-                    <StackPanel Spacing="12">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="12">
                         <TextBlock x:Uid="Diagnostics_NetworkTitle" Text="Сетевое подключение" FontSize="16" FontWeight="SemiBold"/>
 
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -195,15 +243,22 @@ xmlns:helpers="using:ZUI.Helpers">
                         Visibility="{x:Bind ViewModel.NetworkFixAction, Mode=OneWay, Converter={StaticResource StringToVisConverter}}"
                         Style="{ThemeResource AccentButtonStyle}"/>
                 </StackPanel>
+                    </Grid>
             </Border>
 
                 <!-- Detailed Results -->
                 <Border x:Name="SectionResults" CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     Visibility="{x:Bind ViewModel.HasResults, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}">
-                    <StackPanel Spacing="12">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="12">
                         <TextBlock x:Uid="Diagnostics_DetailedResults" Text="Подробные результаты" FontSize="16" FontWeight="SemiBold"/>
                         <ListView ItemsSource="{x:Bind ViewModel.DiagnosticResults, Mode=OneWay}"
                             SelectionMode="None"
@@ -230,6 +285,7 @@ xmlns:helpers="using:ZUI.Helpers">
                             </ListView.ItemTemplate>
                         </ListView>
                     </StackPanel>
+                    </Grid>
                 </Border>
 
     <!-- Run Diagnostics Button -->

@@ -3,21 +3,22 @@
 x:Class="ZUI.Controls.PageHeader"
 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-xmlns:local="using:ZUI.Controls">
+xmlns:local="using:ZUI.Controls"
+xmlns:controls="using:ZUI.Controls">
 
 <Grid x:Name="RootGrid">
     <VisualStateManager.VisualStateGroups>
         <VisualStateGroup x:Name="StickyStates">
             <VisualState x:Name="NormalState">
                 <VisualState.Setters>
-                    <Setter Target="StickyBackground.Opacity" Value="0"/>
-                    <Setter Target="StickyDivider.Opacity" Value="0"/>
+                    <Setter TargetName="StickyBackground.Opacity" Value="0"/>
+                    <Setter TargetName="StickyDivider.Opacity" Value="0"/>
                 </VisualState.Setters>
             </VisualState>
             <VisualState x:Name="StickyState">
                 <VisualState.Setters>
-                    <Setter Target="StickyBackground.Opacity" Value="1"/>
-                    <Setter Target="StickyDivider.Opacity" Value="1"/>
+                    <Setter TargetName="StickyBackground.Opacity" Value="1"/>
+                    <Setter TargetName="StickyDivider.Opacity" Value="1"/>
                 </VisualState.Setters>
             </VisualState>
         </VisualStateGroup>
@@ -25,9 +26,15 @@ xmlns:local="using:ZUI.Controls">
 
     <!-- Sticky background — Mica-like layer when pinned to top -->
     <Border x:Name="StickyBackground"
-        Background="{ThemeResource LayerFillColorDefaultBrush}"
         Opacity="0"
-        IsHitTestVisible="False"/>
+        IsHitTestVisible="False"
+        Background="Transparent">
+        <controls:SystemBackdropElement>
+            <controls:SystemBackdropElement.SystemBackdrop>
+                <MicaBackdrop Kind="Base"/>
+            </controls:SystemBackdropElement.SystemBackdrop>
+        </controls:SystemBackdropElement>
+    </Border>
 
     <Grid Padding="32,8,32,0">
         <Grid.RowDefinitions>

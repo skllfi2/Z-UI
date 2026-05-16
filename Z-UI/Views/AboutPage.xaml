@@ -22,10 +22,16 @@
 
                 <!-- App Info Card -->
                 <Border CornerRadius="12" Padding="32"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1" HorizontalAlignment="Center" MaxWidth="500">
-                    <StackPanel Spacing="16" HorizontalAlignment="Center">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="16" HorizontalAlignment="Center">
                         <!-- App Icon -->
                         <Image Source="Assets/Z-UI-48x48.png" Width="64" Height="64" HorizontalAlignment="Center"/>
 
@@ -44,14 +50,21 @@
                             </StackPanel>
                         </Border>
                     </StackPanel>
+                    </Grid>
                 </Border>
 
                 <!-- Version Info -->
                 <Border CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1">
-                    <StackPanel Spacing="12">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="12">
                         <TextBlock Text="{Binding VersionsTitle}" FontSize="16" FontWeight="SemiBold"/>
 
                         <Grid ColumnSpacing="16">
@@ -74,80 +87,49 @@
                                 VerticalAlignment="Center"/>
                             <TextBlock Grid.Column="1" Text="{Binding WorkerVersion, Mode=OneWay}" FontSize="14"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                        </Grid>
+</Grid>
                     </StackPanel>
-                </Border>
-
-                <!-- Links -->
-                <Border CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1">
-                    <StackPanel Spacing="16">
-                        <TextBlock Text="{Binding LinksTitle}" FontSize="16" FontWeight="SemiBold"/>
-
-                        <!-- GitHub -->
-                        <Grid ColumnSpacing="16">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <FontIcon Grid.Column="0" Glyph="&#xE774;" FontSize="20"
-                                Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding GitHubLabel}" FontSize="14" FontWeight="SemiBold"/>
-                                <TextBlock Text="{Binding GitHubDesc}" FontSize="12"
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                            </StackPanel>
-                            <Button Grid.Column="2" Content="{Binding OpenLabel}"
-                                Command="{Binding OpenGitHubCommand}" Padding="16,6"/>
-                        </Grid>
-
-                        <!-- Zapret -->
-                        <Grid ColumnSpacing="16">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <FontIcon Grid.Column="0" Glyph="&#xE8A7;" FontSize="20"
-                                Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding ZapretProjectLabel}" FontSize="14" FontWeight="SemiBold"/>
-                                <TextBlock Text="{Binding ZapretProjectDesc}" FontSize="12"
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                            </StackPanel>
-                            <Button Grid.Column="2" Content="{Binding OpenLabel}"
-                                Command="{Binding OpenZapretCommand}" Padding="16,6"/>
-                        </Grid>
-                    </StackPanel>
+                    </Grid>
                 </Border>
 
                 <!-- Dependencies -->
                 <Border CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1">
-                    <StackPanel Spacing="8">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="8">
                         <TextBlock Text="{Binding DependenciesTitle}" FontSize="16" FontWeight="SemiBold"/>
                         <TextBlock Text="{Binding DependenciesInfo}" FontSize="13"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap"/>
                     </StackPanel>
+                    </Grid>
                 </Border>
 
                 <!-- License + Copyright -->
                 <Border CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1">
-                    <StackPanel Spacing="8">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="8">
                         <TextBlock Text="{Binding LicenseLabel}" FontSize="14" FontWeight="SemiBold"/>
                         <TextBlock Text="{Binding LicenseInfo}" FontSize="13"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
                         <TextBlock Text="{Binding Copyright}" FontSize="12"
                             Foreground="{ThemeResource TextFillColorTertiaryBrush}" Margin="0,8,0,0"/>
                     </StackPanel>
+                    </Grid>
                 </Border>
             </StackPanel>
         </ScrollViewer>

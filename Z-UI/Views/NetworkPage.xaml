@@ -30,36 +30,49 @@ xmlns:local="using:ZUI.Views"
 
           <!-- DNS Mode Selection -->
           <Border CornerRadius="12" Padding="24"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            Background="Transparent"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1">
-            <StackPanel Spacing="16">
-              <Grid ColumnSpacing="16">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-                  <TextBlock x:Uid="Network_DnsModeLabel" Text="Выберите режим DNS" FontSize="14" FontWeight="SemiBold"/>
-                  <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
-                    DNS over HTTPS — шифрование DNS запросов через Windows. DNS Proxy — split routing: заблокированные через dns.malw.link, остальные через Cloudflare.
-                  </TextBlock>
-                </StackPanel>
-                <ComboBox Grid.Column="1" MinWidth="250" VerticalAlignment="Center"
-                  ItemsSource="{Binding DnsModes, Mode=OneWay}"
-                  SelectedIndex="{Binding SelectedDnsMode, Mode=TwoWay}"
-                  PlaceholderText="Выберите режим" x:Uid="Network_DnsModePlaceholder"/>
-              </Grid>
-            </StackPanel>
+            <Grid>
+              <controls:SystemBackdropElement CornerRadius="12">
+                <controls:SystemBackdropElement.SystemBackdrop>
+                  <MicaBackdrop Kind="Base"/>
+                </controls:SystemBackdropElement.SystemBackdrop>
+              </controls:SystemBackdropElement>
+              <StackPanel Spacing="16">
+                <Grid ColumnSpacing="16">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                    <TextBlock x:Uid="Network_DnsModeLabel" Text="Выберите режим DNS" FontSize="14" FontWeight="SemiBold"/>
+                    <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                      DNS over HTTPS — шифрование DNS запросов через Windows. DNS Proxy — split routing: заблокированные через dns.malw.link, остальные через Cloudflare.
+                    </TextBlock>
+                  </StackPanel>
+                  <ComboBox Grid.Column="1" MinWidth="250" VerticalAlignment="Center"
+                    ItemsSource="{Binding DnsModes, Mode=OneWay}"
+                    SelectedIndex="{Binding SelectedDnsMode, Mode=TwoWay}"
+                    PlaceholderText="Выберите режим" x:Uid="Network_DnsModePlaceholder"/>
+                </Grid>
+              </StackPanel>
+            </Grid>
           </Border>
 
           <!-- DNS Proxy Section -->
           <Border CornerRadius="12" Padding="24"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            Background="Transparent"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             Visibility="{Binding SelectedDnsMode, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter=1, Mode=OneWay}">
-            <StackPanel Spacing="16">
+            <Grid>
+              <controls:SystemBackdropElement CornerRadius="12">
+                <controls:SystemBackdropElement.SystemBackdrop>
+                  <MicaBackdrop Kind="Base"/>
+                </controls:SystemBackdropElement.SystemBackdrop>
+              </controls:SystemBackdropElement>
+              <StackPanel Spacing="16">
               <StackPanel Orientation="Horizontal" Spacing="10">
                 <FontIcon Glyph="&#xE774;" FontSize="24" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
                 <TextBlock x:Uid="Network_DnsProxyTitle" Text="DNS Proxy (Встроенный)" FontSize="18" FontWeight="SemiBold"/>
@@ -127,15 +140,22 @@ xmlns:local="using:ZUI.Views"
               <ProgressBar IsIndeterminate="True"
                 Visibility="{Binding IsDnsProxyApplying, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
             </StackPanel>
+            </Grid>
           </Border>
 
           <!-- DNS over HTTPS Section (Windows 10/11) -->
           <Border CornerRadius="12" Padding="24"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            Background="Transparent"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             Visibility="{Binding SelectedDnsMode, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter=0, Mode=OneWay}">
-            <StackPanel Spacing="16">
+            <Grid>
+              <controls:SystemBackdropElement CornerRadius="12">
+                <controls:SystemBackdropElement.SystemBackdrop>
+                  <MicaBackdrop Kind="Base"/>
+                </controls:SystemBackdropElement.SystemBackdrop>
+              </controls:SystemBackdropElement>
+              <StackPanel Spacing="16">
               <StackPanel Orientation="Horizontal" Spacing="10">
                 <FontIcon Glyph="&#xE774;" FontSize="24" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
                 <TextBlock x:Uid="Network_DohTitle" Text="DNS over HTTPS (Windows)" FontSize="18" FontWeight="SemiBold"/>
@@ -205,6 +225,7 @@ xmlns:local="using:ZUI.Views"
               <ProgressBar IsIndeterminate="True"
                 Visibility="{Binding IsApplying, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
             </StackPanel>
+            </Grid>
           </Border>
 
           <!-- DNS Refresh Button -->
@@ -226,10 +247,16 @@ xmlns:local="using:ZUI.Views"
 
           <!-- Main Control Card -->
           <Border CornerRadius="12" Padding="24"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            Background="Transparent"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1">
-            <StackPanel Spacing="16">
+            <Grid>
+              <controls:SystemBackdropElement CornerRadius="12">
+                <controls:SystemBackdropElement.SystemBackdrop>
+                  <MicaBackdrop Kind="Base"/>
+                </controls:SystemBackdropElement.SystemBackdrop>
+              </controls:SystemBackdropElement>
+              <StackPanel Spacing="16">
               <StackPanel Orientation="Horizontal" Spacing="10">
                 <FontIcon Glyph="&#xE77B;" FontSize="24" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
                 <TextBlock x:Uid="Network_Management" Text="Управление" FontSize="18" FontWeight="SemiBold"/>
@@ -257,14 +284,21 @@ xmlns:local="using:ZUI.Views"
               <ProgressBar IsIndeterminate="True"
                 Visibility="{Binding IsToggling, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
             </StackPanel>
+            </Grid>
           </Border>
 
           <!-- Stats Card -->
           <Border CornerRadius="12" Padding="24"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            Background="Transparent"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1">
-            <StackPanel Spacing="16">
+            <Grid>
+              <controls:SystemBackdropElement CornerRadius="12">
+                <controls:SystemBackdropElement.SystemBackdrop>
+                  <MicaBackdrop Kind="Base"/>
+                </controls:SystemBackdropElement.SystemBackdrop>
+              </controls:SystemBackdropElement>
+              <StackPanel Spacing="16">
               <StackPanel Orientation="Horizontal" Spacing="10">
                 <FontIcon Glyph="&#xE9D9;" FontSize="24" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
                 <TextBlock x:Uid="Network_Statistics" Text="Статистика" FontSize="18" FontWeight="SemiBold"/>
@@ -306,6 +340,7 @@ xmlns:local="using:ZUI.Views"
                 </StackPanel>
               </Grid>
             </StackPanel>
+            </Grid>
           </Border>
 
           <!-- How it works Card -->
@@ -351,10 +386,16 @@ xmlns:local="using:ZUI.Views"
 
           <!-- SOCKS5→WebSocket Proxy Card -->
           <Border CornerRadius="12" Padding="24"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            Background="Transparent"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1">
-            <StackPanel Spacing="16">
+            <Grid>
+              <controls:SystemBackdropElement CornerRadius="12">
+                <controls:SystemBackdropElement.SystemBackdrop>
+                  <MicaBackdrop Kind="Base"/>
+                </controls:SystemBackdropElement.SystemBackdrop>
+              </controls:SystemBackdropElement>
+              <StackPanel Spacing="16">
               <StackPanel Orientation="Horizontal" Spacing="10">
                 <FontIcon Glyph="&#xE708;" FontSize="24" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
                 <TextBlock x:Uid="Network_Socks5Title" Text="SOCKS5 → WebSocket" FontSize="18" FontWeight="SemiBold"/>
@@ -419,14 +460,21 @@ xmlns:local="using:ZUI.Views"
               <ProgressBar IsIndeterminate="True"
                 Visibility="{Binding IsSocks5Toggling, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
             </StackPanel>
+            </Grid>
           </Border>
 
           <!-- MTProxy Card -->
           <Border CornerRadius="12" Padding="24"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            Background="Transparent"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1">
-            <StackPanel Spacing="16">
+            <Grid>
+              <controls:SystemBackdropElement CornerRadius="12">
+                <controls:SystemBackdropElement.SystemBackdrop>
+                  <MicaBackdrop Kind="Base"/>
+                </controls:SystemBackdropElement.SystemBackdrop>
+              </controls:SystemBackdropElement>
+              <StackPanel Spacing="16">
               <StackPanel Orientation="Horizontal" Spacing="10">
                 <FontIcon Glyph="&#xE8BD;" FontSize="24" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
                 <TextBlock x:Uid="Network_MtProxyTitle" Text="MTProxy" FontSize="18" FontWeight="SemiBold"/>
@@ -479,15 +527,22 @@ xmlns:local="using:ZUI.Views"
               <ProgressBar IsIndeterminate="True"
                 Visibility="{Binding IsMtProxyToggling, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
             </StackPanel>
+            </Grid>
           </Border>
 
           <!-- Proxy Link Card -->
           <Border CornerRadius="12" Padding="24"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            Background="Transparent"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             Visibility="{Binding ProxyLink, Converter={StaticResource StringToVisibilityConverter}, Mode=OneWay}">
-            <StackPanel Spacing="12">
+            <Grid>
+              <controls:SystemBackdropElement CornerRadius="12">
+                <controls:SystemBackdropElement.SystemBackdrop>
+                  <MicaBackdrop Kind="Base"/>
+                </controls:SystemBackdropElement.SystemBackdrop>
+              </controls:SystemBackdropElement>
+              <StackPanel Spacing="12">
               <StackPanel Orientation="Horizontal" Spacing="10">
                 <FontIcon Glyph="&#xE71B;" FontSize="24" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
                 <TextBlock Text="Ссылка для подключения" FontSize="18" FontWeight="SemiBold"/>
@@ -506,6 +561,7 @@ xmlns:local="using:ZUI.Views"
                 <Button Content="QR-код" IsEnabled="False" ToolTipService.ToolTip="QR-код будет добавлен в будущей версии"/>
               </StackPanel>
             </StackPanel>
+            </Grid>
           </Border>
 
           <!-- Actions -->

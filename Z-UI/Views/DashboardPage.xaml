@@ -23,13 +23,19 @@
 
         <!-- Compact Protection Hero -->
         <Border x:Name="HeroSection" Grid.Row="0" CornerRadius="12" Padding="20"
-                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1" Translation="0,0,8">
+                BorderThickness="1" Translation="0,0,8"
+                Background="Transparent">
             <Border.Shadow>
                 <ThemeShadow/>
             </Border.Shadow>
-            <Grid ColumnSpacing="16">
+            <Grid>
+                <controls:SystemBackdropElement CornerRadius="12">
+                    <controls:SystemBackdropElement.SystemBackdrop>
+                        <MicaBackdrop Kind="Base"/>
+                    </controls:SystemBackdropElement.SystemBackdrop>
+                </controls:SystemBackdropElement>
+                <Grid ColumnSpacing="16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -90,15 +96,22 @@
                     </Button.RenderTransform>
                 </Button>
             </Grid>
+            </Grid>
         </Border>
 
     <!-- Worker Service Section -->
     <Border x:Name="WorkerSection" Grid.Row="1" CornerRadius="12" Padding="20" Margin="0,8,0,0"
-      Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
       BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
-      Translation="0,0,8">
+      Translation="0,0,8"
+      Background="Transparent">
       <Border.Shadow><ThemeShadow/></Border.Shadow>
-      <Grid ColumnSpacing="16">
+      <Grid>
+        <controls:SystemBackdropElement CornerRadius="12">
+                    <controls:SystemBackdropElement.SystemBackdrop>
+                        <MicaBackdrop Kind="Base"/>
+                    </controls:SystemBackdropElement.SystemBackdrop>
+                </controls:SystemBackdropElement>
+        <Grid ColumnSpacing="16">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*"/>
           <ColumnDefinition Width="Auto"/>
@@ -165,6 +178,7 @@
           Width="24" Height="24" VerticalAlignment="Center"
           Visibility="{Binding IsWorkerInstalling, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
       </Grid>
+      </Grid>
     </Border>
 
     <!-- Admin Warning & Progress -->
@@ -192,199 +206,241 @@
             <!-- Card: Стратегии -->
             <Border x:Name="CardStrategies" Grid.Row="0" Grid.Column="0"
                     CornerRadius="12" Padding="16"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
                     PointerEntered="Card_PointerEntered" PointerExited="Card_PointerExited"
                     PointerPressed="GoToGenerator"
-                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8">
+                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8"
+                    Background="Transparent">
                 <Border.Shadow><ThemeShadow/></Border.Shadow>
                 <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
-                <StackPanel Spacing="8" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <Border Width="36" Height="36" CornerRadius="8"
-                                Background="{ThemeResource LayerFillColorDefaultBrush}">
-                            <FontIcon Glyph="&#xE710;" FontSize="18"
-                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <TextBlock x:Uid="Dashboard_StrategiesCard" Text="Стратегии" FontSize="16" FontWeight="SemiBold"
-                                   VerticalAlignment="Center"/>
+                <Grid>
+                    <controls:SystemBackdropElement CornerRadius="12">
+                    <controls:SystemBackdropElement.SystemBackdrop>
+                        <MicaBackdrop Kind="Base"/>
+                    </controls:SystemBackdropElement.SystemBackdrop>
+                </controls:SystemBackdropElement>
+                    <StackPanel Spacing="8" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Border Width="36" Height="36" CornerRadius="8"
+                                    Background="{ThemeResource LayerFillColorDefaultBrush}">
+                                <FontIcon Glyph="&#xE710;" FontSize="18"
+                                          Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock x:Uid="Dashboard_StrategiesCard" Text="Стратегии" FontSize="16" FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock x:Uid="Dashboard_StrategiesDesc" Text="Готовые и кастомные стратегии обхода DPI"
+                                   FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="Wrap" MaxLines="2"/>
+                        <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,0,0">
+                            <Ellipse Width="6" Height="6" VerticalAlignment="Center"
+                                     Fill="{Binding IsProtected, Converter={StaticResource BoolToColorConverter}, Mode=OneWay}"/>
+                            <TextBlock Text="{Binding CurrentStrategyName, Mode=OneWay}" FontSize="11"
+                                       Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                       TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
                     </StackPanel>
-                    <TextBlock x:Uid="Dashboard_StrategiesDesc" Text="Готовые и кастомные стратегии обхода DPI"
-                               FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="Wrap" MaxLines="2"/>
-                    <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,0,0">
-                        <Ellipse Width="6" Height="6" VerticalAlignment="Center"
-                                 Fill="{Binding IsProtected, Converter={StaticResource BoolToColorConverter}, Mode=OneWay}"/>
-                        <TextBlock Text="{Binding CurrentStrategyName, Mode=OneWay}" FontSize="11"
-                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}"
-                                   TextTrimming="CharacterEllipsis"/>
-                    </StackPanel>
-                </StackPanel>
+                </Grid>
             </Border>
 
             <!-- Card: Проксификатор -->
             <Border x:Name="CardProxifier" Grid.Row="0" Grid.Column="1"
               CornerRadius="12" Padding="16"
-              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
               BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
               PointerEntered="Card_PointerEntered" PointerExited="Card_PointerExited"
               PointerPressed="GoToProxifier"
-              RenderTransformOrigin="0.5,0.5" Translation="0,0,8">
+              RenderTransformOrigin="0.5,0.5" Translation="0,0,8"
+              Background="Transparent">
               <Border.Shadow><ThemeShadow/></Border.Shadow>
               <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
-              <StackPanel Spacing="8" VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal" Spacing="10">
-                  <Border Width="36" Height="36" CornerRadius="8"
-                    Background="{ThemeResource LayerFillColorDefaultBrush}">
-                    <FontIcon Glyph="&#xE774;" FontSize="18"
-                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                  </Border>
-                  <TextBlock x:Uid="Dashboard_ProxifierCard" Text="Проксификатор" FontSize="16" FontWeight="SemiBold"
-                    VerticalAlignment="Center"/>
+              <Grid>
+                <controls:SystemBackdropElement CornerRadius="12">
+                    <controls:SystemBackdropElement.SystemBackdrop>
+                        <MicaBackdrop Kind="Base"/>
+                    </controls:SystemBackdropElement.SystemBackdrop>
+                </controls:SystemBackdropElement>
+                <StackPanel Spacing="8" VerticalAlignment="Center">
+                  <StackPanel Orientation="Horizontal" Spacing="10">
+                    <Border Width="36" Height="36" CornerRadius="8"
+                      Background="{ThemeResource LayerFillColorDefaultBrush}">
+                      <FontIcon Glyph="&#xE774;" FontSize="18"
+                        Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock x:Uid="Dashboard_ProxifierCard" Text="Проксификатор" FontSize="16" FontWeight="SemiBold"
+                      VerticalAlignment="Center"/>
+                  </StackPanel>
+                  <TextBlock x:Uid="Dashboard_ProxifierDesc" Text="Маршрутизация трафика через прокси-серверы"
+                    FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    TextWrapping="Wrap" MaxLines="2"/>
+                  <TextBlock x:Uid="Dashboard_ProxifierSub" Text="Per-app прокси, правила, цепочки"
+                    FontSize="11" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
                 </StackPanel>
-                <TextBlock x:Uid="Dashboard_ProxifierDesc" Text="Маршрутизация трафика через прокси-серверы"
-                  FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                  TextWrapping="Wrap" MaxLines="2"/>
-                <TextBlock x:Uid="Dashboard_ProxifierSub" Text="Per-app прокси, правила, цепочки"
-                  FontSize="11" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
-              </StackPanel>
+              </Grid>
             </Border>
 
             <!-- Card: Сеть -->
             <Border x:Name="CardNetwork" Grid.Row="0" Grid.Column="2"
                     CornerRadius="12" Padding="16"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
                     PointerEntered="Card_PointerEntered" PointerExited="Card_PointerExited"
                     PointerPressed="GoToNetwork"
-                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8">
+                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8"
+                    Background="Transparent">
                 <Border.Shadow><ThemeShadow/></Border.Shadow>
                 <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
-                <StackPanel Spacing="8" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <Border Width="36" Height="36" CornerRadius="8"
-                                Background="{ThemeResource LayerFillColorDefaultBrush}">
-                            <FontIcon Glyph="&#xE774;" FontSize="18"
-                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <TextBlock x:Uid="Dashboard_NetworkCard" Text="Сеть" FontSize="16" FontWeight="SemiBold"
-                                   VerticalAlignment="Center"/>
+                <Grid>
+                    <controls:SystemBackdropElement CornerRadius="12">
+                    <controls:SystemBackdropElement.SystemBackdrop>
+                        <MicaBackdrop Kind="Base"/>
+                    </controls:SystemBackdropElement.SystemBackdrop>
+                </controls:SystemBackdropElement>
+                    <StackPanel Spacing="8" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Border Width="36" Height="36" CornerRadius="8"
+                                    Background="{ThemeResource LayerFillColorDefaultBrush}">
+                                <FontIcon Glyph="&#xE774;" FontSize="18"
+                                          Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock x:Uid="Dashboard_NetworkCard" Text="Сеть" FontSize="16" FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock x:Uid="Dashboard_NetworkDesc" Text="Настройки DNS, прокси и маршрутизации"
+                                   FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="Wrap" MaxLines="2"/>
+                        <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,0,0">
+                            <Ellipse Width="6" Height="6" VerticalAlignment="Center"
+                                     Fill="{Binding IsSecureDnsEnabled, Converter={StaticResource BoolToColorConverter}, Mode=OneWay}"/>
+                            <TextBlock FontSize="11" VerticalAlignment="Center"
+                                       Foreground="{ThemeResource TextFillColorTertiaryBrush}">
+                                <Run Text="DNS"/><Run Text=" · "/><Run Text="{Binding DnsPrimaryServer, Mode=OneWay}"/>
+                            </TextBlock>
+                        </StackPanel>
                     </StackPanel>
-                    <TextBlock x:Uid="Dashboard_NetworkDesc" Text="Настройки DNS, прокси и маршрутизации"
-                               FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="Wrap" MaxLines="2"/>
-                    <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,0,0">
-                        <Ellipse Width="6" Height="6" VerticalAlignment="Center"
-                                 Fill="{Binding IsSecureDnsEnabled, Converter={StaticResource BoolToColorConverter}, Mode=OneWay}"/>
-                        <TextBlock FontSize="11" VerticalAlignment="Center"
-                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}">
-                            <Run Text="DNS"/><Run Text=" · "/><Run Text="{Binding DnsPrimaryServer, Mode=OneWay}"/>
-                        </TextBlock>
-                    </StackPanel>
-                </StackPanel>
+                </Grid>
             </Border>
 
             <!-- Card: Диагностика -->
             <Border x:Name="CardDiagnostics" Grid.Row="1" Grid.Column="0"
                     CornerRadius="12" Padding="16"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
                     PointerEntered="Card_PointerEntered" PointerExited="Card_PointerExited"
                     PointerPressed="GoToDiagnostics"
-                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8">
+                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8"
+                    Background="Transparent">
                 <Border.Shadow><ThemeShadow/></Border.Shadow>
                 <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
-                <StackPanel Spacing="8" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <Border Width="36" Height="36" CornerRadius="8"
-                                Background="{ThemeResource LayerFillColorDefaultBrush}">
-                            <FontIcon Glyph="&#xE90F;" FontSize="18"
-                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <TextBlock x:Uid="Dashboard_DiagnosticsCard" Text="Диагностика" FontSize="16" FontWeight="SemiBold"
-                                   VerticalAlignment="Center"/>
-                    </StackPanel>
-                    <TextBlock x:Uid="Dashboard_DiagnosticsDesc" Text="Проверка системы: права, WinDivert, сеть"
-                               FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="Wrap" MaxLines="2"/>
-                    <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,0,0">
-                        <Ellipse Width="6" Height="6" VerticalAlignment="Center"
-                                 Fill="{StaticResource SuccessBrush}"
-                                 Visibility="{Binding HasCriticalIssues, Converter={StaticResource BoolToVisibilityNegationConverter}, Mode=OneWay}"/>
-                        <Ellipse Width="6" Height="6" VerticalAlignment="Center"
-                                 Fill="{StaticResource WarningBrush}"
-                                 Visibility="{Binding HasCriticalIssues, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
-                        <TextBlock FontSize="11" VerticalAlignment="Center"
-                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}">
-                            <Run Text="{Binding PassedChecks, Mode=OneWay}"/><Run Text="/"/><Run Text="{Binding TotalChecks, Mode=OneWay}"/>
+                <Grid>
+                    <controls:SystemBackdropElement CornerRadius="12">
+                    <controls:SystemBackdropElement.SystemBackdrop>
+                        <MicaBackdrop Kind="Base"/>
+                    </controls:SystemBackdropElement.SystemBackdrop>
+                </controls:SystemBackdropElement>
+                    <StackPanel Spacing="8" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Border Width="36" Height="36" CornerRadius="8"
+                                    Background="{ThemeResource LayerFillColorDefaultBrush}">
+                                <FontIcon Glyph="&#xE90F;" FontSize="18"
+                                          Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock x:Uid="Dashboard_DiagnosticsCard" Text="Диагностика" FontSize="16" FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock x:Uid="Dashboard_DiagnosticsDesc" Text="Проверка системы: права, WinDivert, сеть"
+                                   FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="Wrap" MaxLines="2"/>
+                        <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,0,0">
+                            <Ellipse Width="6" Height="6" VerticalAlignment="Center"
+                                     Fill="{StaticResource SuccessBrush}"
+                                     Visibility="{Binding HasCriticalIssues, Converter={StaticResource BoolToVisibilityNegationConverter}, Mode=OneWay}"/>
+                            <Ellipse Width="6" Height="6" VerticalAlignment="Center"
+                                     Fill="{StaticResource WarningBrush}"
+                                     Visibility="{Binding HasCriticalIssues, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
+                            <TextBlock FontSize="11" VerticalAlignment="Center"
+                                       Foreground="{ThemeResource TextFillColorTertiaryBrush}">
+                                <Run Text="{Binding PassedChecks, Mode=OneWay}"/><Run Text="/"/><Run Text="{Binding TotalChecks, Mode=OneWay}"/>
                             <Run Text=" · "/><Run Text="{Binding IspName, Mode=OneWay}"/>
                         </TextBlock>
                     </StackPanel>
                 </StackPanel>
+                </Grid>
             </Border>
 
             <!-- Card: Настройки -->
             <Border x:Name="CardSettings" Grid.Row="1" Grid.Column="1"
                     CornerRadius="12" Padding="16"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
                     PointerEntered="Card_PointerEntered" PointerExited="Card_PointerExited"
                     PointerPressed="GoToSettings"
-                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8">
+                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8"
+                    Background="Transparent">
                 <Border.Shadow><ThemeShadow/></Border.Shadow>
                 <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
-                <StackPanel Spacing="8" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <Border Width="36" Height="36" CornerRadius="8"
-                                Background="{ThemeResource LayerFillColorDefaultBrush}">
-                            <FontIcon Glyph="&#xE713;" FontSize="18"
-                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <TextBlock x:Uid="Dashboard_SettingsCard" Text="Настройки" FontSize="16" FontWeight="SemiBold"
-                                   VerticalAlignment="Center"/>
+                <Grid>
+                    <controls:SystemBackdropElement CornerRadius="12">
+                    <controls:SystemBackdropElement.SystemBackdrop>
+                        <MicaBackdrop Kind="Base"/>
+                    </controls:SystemBackdropElement.SystemBackdrop>
+                </controls:SystemBackdropElement>
+                    <StackPanel Spacing="8" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Border Width="36" Height="36" CornerRadius="8"
+                                    Background="{ThemeResource LayerFillColorDefaultBrush}">
+                                <FontIcon Glyph="&#xE713;" FontSize="18"
+                                          Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock x:Uid="Dashboard_SettingsCard" Text="Настройки" FontSize="16" FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock x:Uid="Dashboard_SettingsDesc" Text="Тема, автозапуск, язык и параметры"
+                                   FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="Wrap" MaxLines="2"/>
+                        <TextBlock Text="{Binding SettingsInfoText, Mode=OneWay}" FontSize="11"
+                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                   TextTrimming="CharacterEllipsis"/>
                     </StackPanel>
-                    <TextBlock x:Uid="Dashboard_SettingsDesc" Text="Тема, автозапуск, язык и параметры"
-                               FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="Wrap" MaxLines="2"/>
-                    <TextBlock Text="{Binding SettingsInfoText, Mode=OneWay}" FontSize="11"
-                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"
-                               TextTrimming="CharacterEllipsis"/>
-                </StackPanel>
+                </Grid>
             </Border>
 
             <!-- Card: О приложении -->
             <Border x:Name="CardAbout" Grid.Row="1" Grid.Column="2"
                     CornerRadius="12" Padding="16"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
                     PointerEntered="Card_PointerEntered" PointerExited="Card_PointerExited"
                     PointerPressed="GoToAbout"
-                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8">
+                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8"
+                    Background="Transparent">
                 <Border.Shadow><ThemeShadow/></Border.Shadow>
                 <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
-                <StackPanel Spacing="8" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <Border Width="36" Height="36" CornerRadius="8"
-                                Background="{ThemeResource LayerFillColorDefaultBrush}">
-                            <FontIcon Glyph="&#xE946;" FontSize="18"
-                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <TextBlock x:Uid="Dashboard_AboutCard" Text="О приложении" FontSize="16" FontWeight="SemiBold"
-                                   VerticalAlignment="Center"/>
+                <Grid>
+                    <controls:SystemBackdropElement CornerRadius="12">
+                    <controls:SystemBackdropElement.SystemBackdrop>
+                        <MicaBackdrop Kind="Base"/>
+                    </controls:SystemBackdropElement.SystemBackdrop>
+                </controls:SystemBackdropElement>
+                    <StackPanel Spacing="8" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Border Width="36" Height="36" CornerRadius="8"
+                                    Background="{ThemeResource LayerFillColorDefaultBrush}">
+                                <FontIcon Glyph="&#xE946;" FontSize="18"
+                                          Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock x:Uid="Dashboard_AboutCard" Text="О приложении" FontSize="16" FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock x:Uid="Dashboard_AboutDesc" Text="Версия, лицензия и ссылки"
+                                   FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="Wrap" MaxLines="2"/>
+                        <TextBlock Text="{Binding AppVersion, Mode=OneWay}" FontSize="11"
+                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                   TextTrimming="CharacterEllipsis"/>
                     </StackPanel>
-                    <TextBlock x:Uid="Dashboard_AboutDesc" Text="Версия, лицензия и ссылки"
-                               FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               TextWrapping="Wrap" MaxLines="2"/>
-                    <TextBlock Text="{Binding AppVersion, Mode=OneWay}" FontSize="11"
-                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"
-                               TextTrimming="CharacterEllipsis"/>
-                </StackPanel>
+                </Grid>
             </Border>
 
         </Grid>

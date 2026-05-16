@@ -26,54 +26,75 @@ xmlns:helpers="using:ZUI.Helpers">
 			<TextBlock x:Uid="Settings_ProtectionSection" Text="Защита" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_AutoProtect" Text="Автозапуск защиты" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_AutoProtectDesc" Text="Автоматически запускать обход DPI при старте приложения" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.AutoProtect, Mode=TwoWay}" VerticalAlignment="Center"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_AutoProtect" Text="Автозапуск защиты" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_AutoProtectDesc" Text="Автоматически запускать обход DPI при старте приложения" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.AutoProtect, Mode=TwoWay}" VerticalAlignment="Center"/>
+					</Grid>
 				</Grid>
 			</Border>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_DefaultStrategy" Text="Стратегия по умолчанию" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_DefaultStrategyDesc" Text="Стратегия для автозапуска защиты" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.SelectedStrategyIndex, Mode=TwoWay}" MinWidth="200" VerticalAlignment="Center"
-						ItemsSource="{x:Bind ViewModel.AvailableStrategies}" DisplayMemberPath="Name"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_DefaultStrategy" Text="Стратегия по умолчанию" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_DefaultStrategyDesc" Text="Стратегия для автозапуска защиты" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.SelectedStrategyIndex, Mode=TwoWay}" MinWidth="200" VerticalAlignment="Center"
+							ItemsSource="{x:Bind ViewModel.AvailableStrategies}" DisplayMemberPath="Name"/>
+					</Grid>
 				</Grid>
 			</Border>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_NoUac" Text="Запуск без UAC" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_NoUacDesc" Text="Автоматический запуск с правами администратора через планировщик задач" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.RunAsAdmin, Mode=TwoWay}" VerticalAlignment="Center"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_NoUac" Text="Запуск без UAC" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_NoUacDesc" Text="Автоматический запуск с правами администратора через планировщик задач" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.RunAsAdmin, Mode=TwoWay}" VerticalAlignment="Center"/>
+					</Grid>
 				</Grid>
 			</Border>
 
@@ -81,23 +102,30 @@ xmlns:helpers="using:ZUI.Helpers">
 			<TextBlock x:Uid="Settings_DnsSection" Text="DNS" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_DefaultDnsMode" Text="Режим DNS по умолчанию" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_DefaultDnsModeDesc" Text="DNS режим при автозапуске защиты" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.SelectedDnsModeIndex, Mode=TwoWay}" MinWidth="200" VerticalAlignment="Center">
-						<ComboBoxItem x:Uid="Settings_DnsProxyRecommended" Content="DNS Proxy (Рекомендуется)"/>
-						<ComboBoxItem x:Uid="Settings_DnsOverHttps" Content="DNS over HTTPS"/>
-						<ComboBoxItem x:Uid="Settings_DnsDisabled" Content="Выключен"/>
-					</ComboBox>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_DefaultDnsMode" Text="Режим DNS по умолчанию" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_DefaultDnsModeDesc" Text="DNS режим при автозапуске защиты" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.SelectedDnsModeIndex, Mode=TwoWay}" MinWidth="200" VerticalAlignment="Center">
+							<ComboBoxItem x:Uid="Settings_DnsProxyRecommended" Content="DNS Proxy (Рекомендуется)"/>
+							<ComboBoxItem x:Uid="Settings_DnsOverHttps" Content="DNS over HTTPS"/>
+							<ComboBoxItem x:Uid="Settings_DnsDisabled" Content="Выключен"/>
+						</ComboBox>
+					</Grid>
 				</Grid>
 			</Border>
 
@@ -105,70 +133,98 @@ xmlns:helpers="using:ZUI.Helpers">
 			<TextBlock x:Uid="Settings_NotificationsSection" Text="Уведомления" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_WindowsNotifications" Text="Уведомления Windows" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_WindowsNotificationsDesc" Text="Показывать уведомления о статусе защиты и ошибках" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.NotificationsEnabled, Mode=TwoWay}" VerticalAlignment="Center"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_WindowsNotifications" Text="Уведомления Windows" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_WindowsNotificationsDesc" Text="Показывать уведомления о статусе защиты и ошибках" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.NotificationsEnabled, Mode=TwoWay}" VerticalAlignment="Center"/>
+					</Grid>
 				</Grid>
 			</Border>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_NotifyOnStart" Text="Уведомление при запуске защиты" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_NotifyOnStartDesc" Text="Показывать уведомление когда защита активирована" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.NotifyOnStart, Mode=TwoWay}" VerticalAlignment="Center"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_NotifyOnStart" Text="Уведомление при запуске защиты" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_NotifyOnStartDesc" Text="Показывать уведомление когда защита активирована" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.NotifyOnStart, Mode=TwoWay}" VerticalAlignment="Center"/>
+					</Grid>
 				</Grid>
 			</Border>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_NotifyOnStop" Text="Уведомление при остановке" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_NotifyOnStopDesc" Text="Показывать уведомление когда защита остановлена" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.NotifyOnStop, Mode=TwoWay}" VerticalAlignment="Center"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_NotifyOnStop" Text="Уведомление при остановке" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_NotifyOnStopDesc" Text="Показывать уведомление когда защита остановлена" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.NotifyOnStop, Mode=TwoWay}" VerticalAlignment="Center"/>
+					</Grid>
 				</Grid>
 			</Border>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_NotifyOnErrors" Text="Уведомление об ошибках" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_NotifyOnErrorsDesc" Text="Показывать уведомление при ошибках защиты" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.NotifyOnErrors, Mode=TwoWay}" VerticalAlignment="Center"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_NotifyOnErrors" Text="Уведомление об ошибках" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_NotifyOnErrorsDesc" Text="Показывать уведомление при ошибках защиты" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.NotifyOnErrors, Mode=TwoWay}" VerticalAlignment="Center"/>
+					</Grid>
 				</Grid>
 			</Border>
 
@@ -176,59 +232,80 @@ xmlns:helpers="using:ZUI.Helpers">
 			<TextBlock x:Uid="Settings_AppearanceSection" Text="Внешний вид" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_AppTheme" Text="Тема приложения" FontSize="14" FontWeight="SemiBold"/>
-					</StackPanel>
-					<ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.SelectedThemeIndex, Mode=TwoWay}" MinWidth="200" VerticalAlignment="Center">
-						<ComboBoxItem x:Uid="Settings_LightTheme" Content="Светлая"/>
-						<ComboBoxItem x:Uid="Settings_DarkTheme" Content="Тёмная"/>
-						<ComboBoxItem x:Uid="Settings_SystemTheme" Content="Как в системе"/>
-					</ComboBox>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_AppTheme" Text="Тема приложения" FontSize="14" FontWeight="SemiBold"/>
+						</StackPanel>
+						<ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.SelectedThemeIndex, Mode=TwoWay}" MinWidth="200" VerticalAlignment="Center">
+							<ComboBoxItem x:Uid="Settings_LightTheme" Content="Светлая"/>
+							<ComboBoxItem x:Uid="Settings_DarkTheme" Content="Тёмная"/>
+							<ComboBoxItem x:Uid="Settings_SystemTheme" Content="Как в системе"/>
+						</ComboBox>
+					</Grid>
 				</Grid>
 			</Border>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_Language" Text="Язык интерфейса" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_LanguageDesc" Text="Язык приложения (требуется перезапуск)" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.SelectedLanguageIndex, Mode=TwoWay}" MinWidth="200" VerticalAlignment="Center">
-						<ComboBoxItem Content="Русский"/>
-						<ComboBoxItem Content="English"/>
-					</ComboBox>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_Language" Text="Язык интерфейса" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_LanguageDesc" Text="Язык приложения (требуется перезапуск)" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.SelectedLanguageIndex, Mode=TwoWay}" MinWidth="200" VerticalAlignment="Center">
+							<ComboBoxItem Content="Русский"/>
+							<ComboBoxItem Content="English"/>
+						</ComboBox>
+					</Grid>
 				</Grid>
 			</Border>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_Animations" Text="Анимации интерфейса" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_AnimationsDesc" Text="Плавные переходы и эффекты при наведении" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.AnimationsEnabled, Mode=TwoWay}" VerticalAlignment="Center"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_Animations" Text="Анимации интерфейса" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_AnimationsDesc" Text="Плавные переходы и эффекты при наведении" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.AnimationsEnabled, Mode=TwoWay}" VerticalAlignment="Center"/>
+					</Grid>
 				</Grid>
 			</Border>
 
@@ -236,53 +313,74 @@ xmlns:helpers="using:ZUI.Helpers">
 			<TextBlock x:Uid="Settings_TraySection" Text="Системный трей" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_MinimizeToTray" Text="Минимизировать в трей" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_MinimizeToTrayDesc" Text="Сворачивать приложение в системный трей вместо панели задач" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.MinimizeToTray, Mode=TwoWay}" VerticalAlignment="Center"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_MinimizeToTray" Text="Минимизировать в трей" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_MinimizeToTrayDesc" Text="Сворачивать приложение в системный трей вместо панели задач" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.MinimizeToTray, Mode=TwoWay}" VerticalAlignment="Center"/>
+					</Grid>
 				</Grid>
 			</Border>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_StartMinimized" Text="Запускать свернутым" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_StartMinimizedDesc" Text="При автозапуске открывать сразу в трее" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.StartInTray, Mode=TwoWay}" VerticalAlignment="Center"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_StartMinimized" Text="Запускать свернутым" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_StartMinimizedDesc" Text="При автозапуске открывать сразу в трее" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.StartInTray, Mode=TwoWay}" VerticalAlignment="Center"/>
+					</Grid>
 				</Grid>
 			</Border>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_ShowTrayIcon" Text="Показывать значок в трее" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_ShowTrayIconDesc" Text="Отображать иконку приложения в системном трее" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.ShowTrayIcon, Mode=TwoWay}" VerticalAlignment="Center"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_ShowTrayIcon" Text="Показывать значок в трее" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_ShowTrayIconDesc" Text="Отображать иконку приложения в системном трее" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.ShowTrayIcon, Mode=TwoWay}" VerticalAlignment="Center"/>
+					</Grid>
 				</Grid>
 			</Border>
 
@@ -290,19 +388,26 @@ xmlns:helpers="using:ZUI.Helpers">
 			<TextBlock x:Uid="Settings_SoundSection" Text="Звуки" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_SoundEffects" Text="Звуковые эффекты" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_SoundEffectsDesc" Text="Звуки при нажатии кнопок и действиях" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.SoundEffects, Mode=TwoWay}" VerticalAlignment="Center"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_SoundEffects" Text="Звуковые эффекты" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_SoundEffectsDesc" Text="Звуки при нажатии кнопок и действиях" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.SoundEffects, Mode=TwoWay}" VerticalAlignment="Center"/>
+					</Grid>
 				</Grid>
 			</Border>
 
@@ -310,76 +415,104 @@ xmlns:helpers="using:ZUI.Helpers">
 			<TextBlock x:Uid="Settings_LogLevel" Text="Логирование" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_LogLevel" Text="Уровень логирования" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_LogLevelDesc" Text="Подробность записи логов приложения" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-					</StackPanel>
-					<ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.SelectedLogLevelIndex, Mode=TwoWay}" MinWidth="200" VerticalAlignment="Center">
-						<ComboBoxItem x:Uid="Settings_LogDebug" Content="Подробно (Debug)"/>
-						<ComboBoxItem x:Uid="Settings_LogInfo" Content="Нормально (Information)"/>
-						<ComboBoxItem x:Uid="Settings_LogError" Content="Только ошибки"/>
-						<ComboBoxItem x:Uid="Settings_LogNone" Content="Отключить"/>
-					</ComboBox>
-				</Grid>
-			</Border>
-
-			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Button x:Uid="Settings_OpenLogs" Content="Открыть папку логов" Command="{x:Bind ViewModel.OpenLogsFolderCommand}" HorizontalAlignment="Left"/>
-			</Border>
-
-			<!-- Startup Section -->
-			<TextBlock x:Uid="Settings_AutostartSection" Text="Запуск Windows" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
-
-			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<StackPanel Spacing="12">
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
 					<Grid ColumnSpacing="16">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*"/>
 							<ColumnDefinition Width="Auto"/>
 						</Grid.ColumnDefinitions>
 						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-							<TextBlock x:Uid="Settings_Autostart" Text="Автозапуск" FontSize="14" FontWeight="SemiBold"/>
-							<TextBlock x:Uid="Settings_AutostartDesc" Text="Запускать при входе в Windows (реестр HKCU\Run)" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+							<TextBlock x:Uid="Settings_LogLevel" Text="Уровень логирования" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_LogLevelDesc" Text="Подробность записи логов приложения" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
 						</StackPanel>
-						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.Autostart, Mode=TwoWay}" VerticalAlignment="Center"/>
+						<ComboBox Grid.Column="1" SelectedIndex="{x:Bind ViewModel.SelectedLogLevelIndex, Mode=TwoWay}" MinWidth="200" VerticalAlignment="Center">
+							<ComboBoxItem x:Uid="Settings_LogDebug" Content="Подробно (Debug)"/>
+							<ComboBoxItem x:Uid="Settings_LogInfo" Content="Нормально (Information)"/>
+							<ComboBoxItem x:Uid="Settings_LogError" Content="Только ошибки"/>
+							<ComboBoxItem x:Uid="Settings_LogNone" Content="Отключить"/>
+						</ComboBox>
 					</Grid>
-
-					<!-- Autostart Registry Error InfoBar -->
-					<InfoBar Severity="Error"
-						Message="{x:Bind ViewModel.AutostartError, Mode=OneWay}"
-						IsOpen="{x:Bind ViewModel.HasAutostartError, Mode=OneWay}"
-						IsClosable="True"/>
-				</StackPanel>
+				</Grid>
 			</Border>
 
 			<Border CornerRadius="12" Padding="24"
-				Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1">
-				<Grid ColumnSpacing="16">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-						<TextBlock x:Uid="Settings_StartMinimized" Text="Сворачивать при запуске" FontSize="14" FontWeight="SemiBold"/>
-						<TextBlock x:Uid="Settings_StartMinimizedDesc" Text="Скрывать окно и работать в фоне" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Button x:Uid="Settings_OpenLogs" Content="Открыть папку логов" Command="{x:Bind ViewModel.OpenLogsFolderCommand}" HorizontalAlignment="Left"/>
+				</Grid>
+			</Border>
+
+			<!-- Startup Section -->
+			<TextBlock x:Uid="Settings_AutostartSection" Text="Запуск Windows" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
+
+			<Border CornerRadius="12" Padding="24"
+				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<StackPanel Spacing="12">
+						<Grid ColumnSpacing="16">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+								<TextBlock x:Uid="Settings_Autostart" Text="Автозапуск" FontSize="14" FontWeight="SemiBold"/>
+								<TextBlock x:Uid="Settings_AutostartDesc" Text="Запускать при входе в Windows (реестр HKCU\Run)" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+							</StackPanel>
+							<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.Autostart, Mode=TwoWay}" VerticalAlignment="Center"/>
+						</Grid>
+
+						<!-- Autostart Registry Error InfoBar -->
+						<InfoBar Severity="Error"
+							Message="{x:Bind ViewModel.AutostartError, Mode=OneWay}"
+							IsOpen="{x:Bind ViewModel.HasAutostartError, Mode=OneWay}"
+							IsClosable="True"/>
 					</StackPanel>
-					<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.StartMinimized, Mode=TwoWay}" VerticalAlignment="Center"/>
+				</Grid>
+			</Border>
+
+			<Border CornerRadius="12" Padding="24"
+				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<Grid ColumnSpacing="16">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+							<TextBlock x:Uid="Settings_StartMinimized" Text="Сворачивать при запуске" FontSize="14" FontWeight="SemiBold"/>
+							<TextBlock x:Uid="Settings_StartMinimizedDesc" Text="Скрывать окно и работать в фоне" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+						</StackPanel>
+						<ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.StartMinimized, Mode=TwoWay}" VerticalAlignment="Center"/>
+					</Grid>
 				</Grid>
 			</Border>
 
@@ -387,10 +520,16 @@ xmlns:helpers="using:ZUI.Helpers">
 			<TextBlock x:Uid="Settings_UpdatesSection" Text="Обновления" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
 
                 <Border x:Name="SectionUpdates" CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1">
-                    <StackPanel Spacing="12">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="12">
 			<Grid ColumnSpacing="16">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
@@ -436,16 +575,23 @@ xmlns:helpers="using:ZUI.Helpers">
                     Visibility="{x:Bind ViewModel.WorkerVersion, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}"/>
             </StackPanel>
                     </StackPanel>
+                    </Grid>
                 </Border>
 
 <!-- About Section -->
 <TextBlock x:Uid="AboutTitle" Text="О приложении" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
 
                 <Border x:Name="SectionAbout" CornerRadius="12" Padding="24"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    Background="Transparent"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1">
-                    <StackPanel Spacing="12">
+                    <Grid>
+                        <controls:SystemBackdropElement CornerRadius="12">
+                            <controls:SystemBackdropElement.SystemBackdrop>
+                                <MicaBackdrop Kind="Base"/>
+                            </controls:SystemBackdropElement.SystemBackdrop>
+                        </controls:SystemBackdropElement>
+                        <StackPanel Spacing="12">
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border Width="48" Height="48" CornerRadius="8" Background="{ThemeResource AccentFillColorDefaultBrush}">
                                 <FontIcon Glyph="&#xE9E9;" FontSize="24" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -470,6 +616,7 @@ xmlns:helpers="using:ZUI.Helpers">
                             <Button Content="Сбросить настройки" Command="{x:Bind ViewModel.ResetSettingsCommand}" HorizontalAlignment="Left"/>
                         </StackPanel>
         </StackPanel>
+        </Grid>
         </Border>
 
       </StackPanel>

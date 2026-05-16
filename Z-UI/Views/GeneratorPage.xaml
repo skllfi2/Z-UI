@@ -34,23 +34,36 @@
 
                         <!-- Current Strategy -->
                         <Border CornerRadius="12" Padding="24"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Background="Transparent"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1">
-                            <StackPanel Spacing="8">
+                            <Grid>
+                                <controls:SystemBackdropElement CornerRadius="12">
+                                    <controls:SystemBackdropElement.SystemBackdrop>
+                                        <MicaBackdrop Kind="Base"/>
+                                    </controls:SystemBackdropElement.SystemBackdrop>
+                                </controls:SystemBackdropElement>
+                                <StackPanel Spacing="8">
                                 <TextBlock x:Uid="Generator_CurrentStrategy" Text="Текущая стратегия" FontSize="13"
                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
                                 <TextBlock Text="{Binding CurrentStrategyName, Mode=OneWay}"
                                     FontSize="18" FontWeight="SemiBold"/>
                             </StackPanel>
+                            </Grid>
                         </Border>
 
                         <!-- Strategy Selection -->
                         <Border CornerRadius="12" Padding="24"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Background="Transparent"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1">
-          <StackPanel Spacing="12">
+                            <Grid>
+                                <controls:SystemBackdropElement CornerRadius="12">
+                                    <controls:SystemBackdropElement.SystemBackdrop>
+                                        <MicaBackdrop Kind="Base"/>
+                                    </controls:SystemBackdropElement.SystemBackdrop>
+                                </controls:SystemBackdropElement>
+                                <StackPanel Spacing="12">
             <TextBlock x:Uid="Generator_SelectStrategy" Text="Выбор стратегии" FontSize="16" FontWeight="SemiBold"/>
 
             <Grid ColumnSpacing="16">
@@ -75,14 +88,21 @@
               </StackPanel>
             </Grid>
           </StackPanel>
+                            </Grid>
                         </Border>
 
                         <!-- Test -->
                         <Border CornerRadius="12" Padding="24"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Background="Transparent"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1">
-                            <StackPanel Spacing="12">
+                            <Grid>
+                                <controls:SystemBackdropElement CornerRadius="12">
+                                    <controls:SystemBackdropElement.SystemBackdrop>
+                                        <MicaBackdrop Kind="Base"/>
+                                    </controls:SystemBackdropElement.SystemBackdrop>
+                                </controls:SystemBackdropElement>
+                                <StackPanel Spacing="12">
                                 <TextBlock x:Uid="Generator_Testing" Text="Тестирование" FontSize="16" FontWeight="SemiBold"/>
 
                                 <Button Height="40" FontSize="14" HorizontalAlignment="Stretch"
@@ -103,6 +123,7 @@
                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                     Visibility="{Binding TestResult, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}"/>
                             </StackPanel>
+                            </Grid>
                         </Border>
 
                     </StackPanel>
@@ -119,10 +140,16 @@
 
                         <!-- Step 1: Service Selection -->
                         <Border CornerRadius="12" Padding="24"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Background="Transparent"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1">
-                            <StackPanel Spacing="16">
+                            <Grid>
+                                <controls:SystemBackdropElement CornerRadius="12">
+                                    <controls:SystemBackdropElement.SystemBackdrop>
+                                        <MicaBackdrop Kind="Base"/>
+                                    </controls:SystemBackdropElement.SystemBackdrop>
+                                </controls:SystemBackdropElement>
+                                <StackPanel Spacing="16">
                                 <StackPanel Orientation="Horizontal" Spacing="12">
                                     <Border Width="28" Height="28" CornerRadius="14"
                                         Background="{ThemeResource AccentFillColorDefaultBrush}">
@@ -215,14 +242,21 @@
                                     </ItemsControl>
                                 </StackPanel>
                             </StackPanel>
+                            </Grid>
                         </Border>
 
                         <!-- Step 2: DPI Method Selection -->
                         <Border CornerRadius="12" Padding="24"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Background="Transparent"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1">
-                            <StackPanel Spacing="16">
+                            <Grid>
+                                <controls:SystemBackdropElement CornerRadius="12">
+                                    <controls:SystemBackdropElement.SystemBackdrop>
+                                        <MicaBackdrop Kind="Base"/>
+                                    </controls:SystemBackdropElement.SystemBackdrop>
+                                </controls:SystemBackdropElement>
+                                <StackPanel Spacing="16">
                                 <StackPanel Orientation="Horizontal" Spacing="12">
                                     <Border Width="28" Height="28" CornerRadius="14"
                                         Background="{ThemeResource AccentFillColorDefaultBrush}">
@@ -383,14 +417,21 @@
                 OffContent="" OnContent=""/>
             </Grid>
                             </StackPanel>
+                            </Grid>
                         </Border>
 
                         <!-- Step 3: ISP Detection -->
                         <Border CornerRadius="12" Padding="24"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Background="Transparent"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1">
-                            <StackPanel Spacing="16">
+                            <Grid>
+                                <controls:SystemBackdropElement CornerRadius="12">
+                                    <controls:SystemBackdropElement.SystemBackdrop>
+                                        <MicaBackdrop Kind="Base"/>
+                                    </controls:SystemBackdropElement.SystemBackdrop>
+                                </controls:SystemBackdropElement>
+                                <StackPanel Spacing="16">
                                 <StackPanel Orientation="Horizontal" Spacing="12">
                                     <Border Width="28" Height="28" CornerRadius="14"
                                         Background="{ThemeResource AccentFillColorDefaultBrush}">
@@ -428,14 +469,21 @@
                                     </Button>
                                 </Grid>
                             </StackPanel>
+                            </Grid>
                         </Border>
 
-                        <!-- Step 4: Test Mode -->
+<!-- Step 4: Test Mode -->
                         <Border CornerRadius="12" Padding="24"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Background="Transparent"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1">
-                            <StackPanel Spacing="16">
+                            <Grid>
+                                <controls:SystemBackdropElement CornerRadius="12">
+                                    <controls:SystemBackdropElement.SystemBackdrop>
+                                        <MicaBackdrop Kind="Base"/>
+                                    </controls:SystemBackdropElement.SystemBackdrop>
+                                </controls:SystemBackdropElement>
+                                <StackPanel Spacing="16">
                                 <StackPanel Orientation="Horizontal" Spacing="12">
                                     <Border Width="28" Height="28" CornerRadius="14"
                                         Background="{ThemeResource AccentFillColorDefaultBrush}">
@@ -470,17 +518,24 @@
                   <ComboBoxItem.Tag>None</ComboBoxItem.Tag>
                 </ComboBoxItem>
               </ComboBox>
-            </Grid>
+             </Grid>
                             </StackPanel>
+                            </Grid>
                         </Border>
 
                         <!-- Step 5: Results -->
                         <Border CornerRadius="12" Padding="24"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Background="Transparent"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             Visibility="{Binding HasTestResults, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
-                            <StackPanel Spacing="16">
+                            <Grid>
+                                <controls:SystemBackdropElement CornerRadius="12">
+                                    <controls:SystemBackdropElement.SystemBackdrop>
+                                        <MicaBackdrop Kind="Base"/>
+                                    </controls:SystemBackdropElement.SystemBackdrop>
+                                </controls:SystemBackdropElement>
+                                <StackPanel Spacing="16">
                                 <StackPanel Orientation="Horizontal" Spacing="12">
                                     <Border Width="28" Height="28" CornerRadius="14"
                                         Background="{ThemeResource AccentFillColorDefaultBrush}">
@@ -517,17 +572,24 @@
                                             </Grid>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
-                                </ListView>
+                                 </ListView>
                             </StackPanel>
+                            </Grid>
                         </Border>
 
                         <!-- Winws Arguments Preview -->
                         <Border CornerRadius="12" Padding="24"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Background="Transparent"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             Visibility="{Binding GeneratedWinwsArgs, Converter={StaticResource NullToVisibilityConverter}, Mode=OneWay}">
-                            <Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                            <Grid>
+                                <controls:SystemBackdropElement CornerRadius="12">
+                                    <controls:SystemBackdropElement.SystemBackdrop>
+                                        <MicaBackdrop Kind="Base"/>
+                                    </controls:SystemBackdropElement.SystemBackdrop>
+                                </controls:SystemBackdropElement>
+                                <Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                                 <Expander.Header>
                                     <StackPanel Orientation="Horizontal" Spacing="10">
                                         <FontIcon Glyph="&#xE943;" FontSize="16" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
@@ -541,7 +603,8 @@
                                         FontSize="12" IsTextSelectionEnabled="True"
                                         TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
                                 </Border>
-                            </Expander>
+                             </Expander>
+                            </Grid>
                         </Border>
 
                         <!-- Action Buttons -->
