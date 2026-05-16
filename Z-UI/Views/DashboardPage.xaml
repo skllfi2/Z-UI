@@ -439,9 +439,10 @@
                         <TextBlock Text="{Binding AppVersion, Mode=OneWay}" FontSize="11"
                                    Foreground="{ThemeResource TextFillColorTertiaryBrush}"
                                    TextTrimming="CharacterEllipsis"/>
-                    </StackPanel>
-                 </Grid>
-            </Border>
+                     </StackPanel>
+                  </Grid>
+             </Border>
 
         </Grid>
+    </Grid>
 </local:BasePage>
