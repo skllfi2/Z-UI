@@ -11,14 +11,14 @@ xmlns:controls="using:ZUI.Controls">
         <VisualStateGroup x:Name="StickyStates">
             <VisualState x:Name="NormalState">
                 <VisualState.Setters>
-                    <Setter TargetName="StickyBackground.Opacity" Value="0"/>
-                    <Setter TargetName="StickyDivider.Opacity" Value="0"/>
+                    <Setter Target="StickyBackground.Opacity" Value="0"/>
+                    <Setter Target="StickyDivider.Opacity" Value="0"/>
                 </VisualState.Setters>
             </VisualState>
             <VisualState x:Name="StickyState">
                 <VisualState.Setters>
-                    <Setter TargetName="StickyBackground.Opacity" Value="1"/>
-                    <Setter TargetName="StickyDivider.Opacity" Value="1"/>
+                    <Setter Target="StickyBackground.Opacity" Value="1"/>
+                    <Setter Target="StickyDivider.Opacity" Value="1"/>
                 </VisualState.Setters>
             </VisualState>
         </VisualStateGroup>
