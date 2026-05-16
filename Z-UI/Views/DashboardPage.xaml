@@ -440,10 +440,8 @@
                                    Foreground="{ThemeResource TextFillColorTertiaryBrush}"
                                    TextTrimming="CharacterEllipsis"/>
                     </StackPanel>
-                </Grid>
+                 </Grid>
             </Border>
 
         </Grid>
-
-    </Grid>
 </local:BasePage>
