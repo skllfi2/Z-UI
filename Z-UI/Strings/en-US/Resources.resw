@@ -1650,4 +1650,16 @@
   <data name="Proxifier.RuleDomainPlaceholder" xml:space="preserve">
     <value>example.com</value>
   </data>
+  <data name="Proxifier_AddServerDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Proxifier_AddServerDialog.CloseButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Proxifier_AddRuleDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Proxifier_AddRuleDialog.CloseButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>

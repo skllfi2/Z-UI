@@ -190,8 +190,7 @@
 
     <!-- Server Dialog -->
   <ContentDialog x:Name="AddServerDialog"
-    PrimaryButtonText="Add" x:Uid="Proxifier_Add"
-    CloseButtonText="Cancel" x:Uid="Proxifier_Cancel"
+    x:Uid="Proxifier_AddServerDialog"
       DefaultButton="Primary"
       PrimaryButtonClick="AddServerDialog_PrimaryButtonClick">
       <StackPanel Spacing="12" MinWidth="400">
@@ -219,8 +218,7 @@
 
     <!-- Rule Dialog -->
   <ContentDialog x:Name="AddRuleDialog"
-    PrimaryButtonText="Add" x:Uid="Proxifier_Add"
-    CloseButtonText="Cancel" x:Uid="Proxifier_Cancel"
+    x:Uid="Proxifier_AddRuleDialog"
       DefaultButton="Primary"
       PrimaryButtonClick="AddRuleDialog_PrimaryButtonClick">
       <StackPanel Spacing="12" MinWidth="400">
