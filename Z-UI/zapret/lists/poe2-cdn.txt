@@ -1,0 +1,16 @@
+# Path of Exile 2 - CDN for Patches
+# High-throughput strategy
+
+patch.pathofexile.com
+cdn.pathofexile.com
+update.pathofexile.com
+download.pathofexile.com
+content.pathofexile.com
+resources.pathofexile.com
+static.pathofexile.com
+
+# CDN providers
+*.cloudfront.net
+*.amazonaws.com
+*.fastly.net
+*.akamai.net

@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z-UI", "Z-UI\Z-UI.csproj", "{C6F74713-5675-4D2A-91D1-30E5A1F67FC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUI.Core", "ZUI.Core\ZUI.Core.csproj", "{B2C53C9C-AC13-49EC-A770-513DA394F626}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUI.Ipc", "ZUI.Ipc\ZUI.Ipc.csproj", "{5E927D42-5703-4175-83AD-BC747848F96F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUI.Worker", "ZUI.Worker\ZUI.Worker.csproj", "{19DB2A2D-2170-4496-B0F3-529AA6C560EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUI.Proxy", "ZUI.Proxy\ZUI.Proxy.csproj", "{844F9392-07EC-4F8F-984C-17D34FE87A67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUI.Telegram", "ZUI.Telegram\ZUI.Telegram.csproj", "{52BCAC9D-A2CB-4E8E-AA45-BE2E6DB695C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUI.Tests", "ZUI.Tests\ZUI.Tests.csproj", "{C0199747-A257-4913-A1B1-1455C7F8B7E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6F74713-5675-4D2A-91D1-30E5A1F67FC7}.Debug|x64.ActiveCfg = Debug|x64
+		{C6F74713-5675-4D2A-91D1-30E5A1F67FC7}.Debug|x64.Build.0 = Debug|x64
+		{C6F74713-5675-4D2A-91D1-30E5A1F67FC7}.Release|x64.ActiveCfg = Release|x64
+		{C6F74713-5675-4D2A-91D1-30E5A1F67FC7}.Release|x64.Build.0 = Release|x64
+		{B2C53C9C-AC13-49EC-A770-513DA394F626}.Debug|x64.ActiveCfg = Debug|x64
+		{B2C53C9C-AC13-49EC-A770-513DA394F626}.Debug|x64.Build.0 = Debug|x64
+		{B2C53C9C-AC13-49EC-A770-513DA394F626}.Release|x64.ActiveCfg = Release|x64
+		{B2C53C9C-AC13-49EC-A770-513DA394F626}.Release|x64.Build.0 = Release|x64
+		{5E927D42-5703-4175-83AD-BC747848F96F}.Debug|x64.ActiveCfg = Debug|x64
+		{5E927D42-5703-4175-83AD-BC747848F96F}.Debug|x64.Build.0 = Debug|x64
+		{5E927D42-5703-4175-83AD-BC747848F96F}.Release|x64.ActiveCfg = Release|x64
+		{5E927D42-5703-4175-83AD-BC747848F96F}.Release|x64.Build.0 = Release|x64
+		{19DB2A2D-2170-4496-B0F3-529AA6C560EF}.Debug|x64.ActiveCfg = Debug|x64
+		{19DB2A2D-2170-4496-B0F3-529AA6C560EF}.Debug|x64.Build.0 = Debug|x64
+		{19DB2A2D-2170-4496-B0F3-529AA6C560EF}.Release|x64.ActiveCfg = Release|x64
+		{19DB2A2D-2170-4496-B0F3-529AA6C560EF}.Release|x64.Build.0 = Release|x64
+		{844F9392-07EC-4F8F-984C-17D34FE87A67}.Debug|x64.ActiveCfg = Debug|x64
+		{844F9392-07EC-4F8F-984C-17D34FE87A67}.Debug|x64.Build.0 = Debug|x64
+		{844F9392-07EC-4F8F-984C-17D34FE87A67}.Release|x64.ActiveCfg = Release|x64
+		{844F9392-07EC-4F8F-984C-17D34FE87A67}.Release|x64.Build.0 = Release|x64
+		{52BCAC9D-A2CB-4E8E-AA45-BE2E6DB695C6}.Debug|x64.ActiveCfg = Debug|x64
+		{52BCAC9D-A2CB-4E8E-AA45-BE2E6DB695C6}.Debug|x64.Build.0 = Debug|x64
+		{52BCAC9D-A2CB-4E8E-AA45-BE2E6DB695C6}.Release|x64.ActiveCfg = Release|x64
+		{52BCAC9D-A2CB-4E8E-AA45-BE2E6DB695C6}.Release|x64.Build.0 = Release|x64
+		{C0199747-A257-4913-A1B1-1455C7F8B7E5}.Debug|x64.ActiveCfg = Debug|x64
+		{C0199747-A257-4913-A1B1-1455C7F8B7E5}.Debug|x64.Build.0 = Debug|x64
+		{C0199747-A257-4913-A1B1-1455C7F8B7E5}.Release|x64.ActiveCfg = Release|x64
+		{C0199747-A257-4913-A1B1-1455C7F8B7E5}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

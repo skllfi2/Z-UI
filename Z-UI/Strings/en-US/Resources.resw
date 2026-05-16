@@ -612,7 +612,1042 @@
 	<data name="StrategiyaNeVybrana.Text" xml:space="preserve">
 		<value>Strategy not selected</value>
 	</data>
-	<data name="VersiyaNeUstanovlena.Text" xml:space="preserve">
-		<value>Version not installed</value>
+  <data name="VersiyaNeUstanovlena.Text" xml:space="preserve">
+    <value>Version not installed</value>
+  </data>
+
+  <!-- DNS Page -->
+  <data name="DnsPage.Title" xml:space="preserve">
+    <value>DNS Settings</value>
+  </data>
+  <data name="DnsPage.Description" xml:space="preserve">
+    <value>Configure DNS servers to bypass IP blocks</value>
+  </data>
+  <data name="DnsStatus.Applied" xml:space="preserve">
+    <value>DNS applied</value>
+  </data>
+  <data name="DnsStatus.NotApplied" xml:space="preserve">
+    <value>Using system DNS</value>
+  </data>
+  <data name="Dns.Apply" xml:space="preserve">
+    <value>Apply DNS</value>
+  </data>
+  <data name="Dns.ResetToDhcp" xml:space="preserve">
+    <value>Reset to DHCP</value>
+  </data>
+  <data name="Dns.RestoreBackup" xml:space="preserve">
+    <value>Restore Backup</value>
+  </data>
+  <data name="Dns.TestAll" xml:space="preserve">
+    <value>Test All Servers</value>
+  </data>
+  <data name="Dns.TestSelected" xml:space="preserve">
+    <value>Test Selected</value>
+  </data>
+  <data name="Dns.CancelTest" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Dns.CheckUpdates" xml:space="preserve">
+    <value>Check for Updates</value>
+  </data>
+	<data name="Dns.AutoApplyLabel" xml:space="preserve">
+		<value>Apply DNS when starting zapret</value>
 	</data>
+	<data name="Dns.AutoApplyDesc" xml:space="preserve">
+		<value>Automatically apply selected DNS when zapret starts</value>
+	</data>
+	<data name="Dns.AutoRestoreLabel" xml:space="preserve">
+		<value>Restore DNS when stopping zapret</value>
+	</data>
+	<data name="Dns.AutoRestoreDesc" xml:space="preserve">
+		<value>Automatically restore previous DNS when zapret stops</value>
+	</data>
+	<data name="Dns.AutoUpdateLabel" xml:space="preserve">
+		<value>Auto-update DNS config</value>
+	</data>
+	<data name="Dns.AutoUpdateDesc" xml:space="preserve">
+		<value>Automatically check for updated DNS server IPs from remote</value>
+	</data>
+  <data name="Dns.LastCheck" xml:space="preserve">
+    <value>Last check</value>
+  </data>
+  <data name="Dns.CheckNow" xml:space="preserve">
+    <value>Check Now</value>
+  </data>
+  <data name="Dns.NetworkAdapter" xml:space="preserve">
+    <value>Network Adapter</value>
+  </data>
+  <data name="Dns.CurrentDns" xml:space="preserve">
+    <value>Current DNS</value>
+  </data>
+  <data name="Dns.Dhcp" xml:space="preserve">
+    <value>DHCP (System)</value>
+  </data>
+	<data name="Dns.AboutTitle" xml:space="preserve">
+		<value>About DNS</value>
+	</data>
+	<data name="Dns.AboutDesc" xml:space="preserve">
+		<value>DNS (Domain Name System) translates domain names to IP addresses. dns.malw.link helps bypass IP blocks by self-hosted services (Discord, YouTube, etc.). Zapret (winws) bypasses DPI/SNI blocks by Russian authorities. Together they provide the best access experience.</value>
+	</data>
+  <data name="Dns.Server.Recommended" xml:space="preserve">
+    <value>Recommended</value>
+  </data>
+  <data name="Dns.Server.RussianOptimized" xml:space="preserve">
+    <value>Optimized for Russia</value>
+  </data>
+  <data name="Dns.Test.Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="Dns.Test.Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="Dns.Test.ResponseTime" xml:space="preserve">
+    <value>Response time</value>
+  </data>
+  <data name="Dns.Status.Applying" xml:space="preserve">
+    <value>Applying DNS...</value>
+  </data>
+  <data name="Dns.Status.AppliedSuccess" xml:space="preserve">
+    <value>DNS applied successfully</value>
+  </data>
+  <data name="Dns.Status.ResetSuccess" xml:space="preserve">
+    <value>DNS reset to system default</value>
+  </data>
+  <data name="Dns.Status.Restored" xml:space="preserve">
+    <value>DNS restored from backup</value>
+  </data>
+  <data name="Dns.Status.NoBackup" xml:space="preserve">
+    <value>No DNS backup found</value>
+  </data>
+  <data name="Dns.Status.UpdateAvailable" xml:space="preserve">
+    <value>DNS config updated from remote</value>
+  </data>
+  <data name="Dns.Status.UpToDate" xml:space="preserve">
+    <value>DNS config is up to date</value>
+  </data>
+  <data name="Dns.Custom.Primary" xml:space="preserve">
+    <value>Primary DNS</value>
+  </data>
+  <data name="Dns.Custom.Secondary" xml:space="preserve">
+    <value>Secondary DNS (optional)</value>
+  </data>
+  <data name="Dns.Custom.Header" xml:space="preserve">
+    <value>Custom DNS Servers</value>
+  </data>
+  <data name="NavDns" xml:space="preserve">
+    <value>DNS</value>
+  </data>
+  <data name="DnsTest" xml:space="preserve">
+    <value>DNS Test</value>
+  </data>
+  <data name="CurrentStatus" xml:space="preserve">
+    <value>Current Status</value>
+  </data>
+  <data name="AutoSettings" xml:space="preserve">
+    <value>Auto Settings</value>
+  </data>
+  <data name="AutoDnsSetup" xml:space="preserve">
+    <value>Auto DNS Setup</value>
+  </data>
+  <data name="DnsConfigured" xml:space="preserve">
+    <value>DNS configured</value>
+  </data>
+  <data name="DnsNotConfigured" xml:space="preserve">
+    <value>DNS not configured</value>
+  </data>
+  <data name="DnsConfiguring" xml:space="preserve">
+    <value>Configuring DNS...</value>
+  </data>
+  <data name="UsingSystemDns" xml:space="preserve">
+    <value>Using system DNS</value>
+  </data>
+  <data name="SystemDhcp" xml:space="preserve">
+    <value>System (DHCP)</value>
+  </data>
+
+  <!-- ═══ TgProxy ═══ -->
+  <data name="ErrorF" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="TgSocks5Off" xml:space="preserve">
+    <value>SOCKS5 proxy off</value>
+  </data>
+  <data name="TgSocks5Stopped" xml:space="preserve">
+    <value>SOCKS5 proxy stopped</value>
+  </data>
+  <data name="TgSocks5Active" xml:space="preserve">
+    <value>SOCKS5 proxy active (port {0})</value>
+  </data>
+  <data name="TgSpecifyWsUrl" xml:space="preserve">
+    <value>Specify WebSocket URL</value>
+  </data>
+  <data name="TgMtProxyOff" xml:space="preserve">
+    <value>MTProxy off</value>
+  </data>
+  <data name="TgMtProxyStopped" xml:space="preserve">
+    <value>MTProxy stopped</value>
+  </data>
+  <data name="TgMtProxyActive" xml:space="preserve">
+    <value>MTProxy active (port {0})</value>
+  </data>
+  <data name="TgSpecifyMtSecret" xml:space="preserve">
+    <value>Specify MTProxy secret</value>
+  </data>
+  <data name="TgPartialError" xml:space="preserve">
+    <value>Partial error</value>
+  </data>
+  <data name="TgSocks5WsTitle" xml:space="preserve">
+    <value>SOCKS5 → WebSocket</value>
+  </data>
+  <data name="TgSocks5WsDesc" xml:space="preserve">
+    <value>Proxy for bypassing Telegram blocks via WebSocket</value>
+  </data>
+  <data name="TgMtProxyTitle" xml:space="preserve">
+    <value>MTProxy</value>
+  </data>
+  <data name="TgMtProxyDesc" xml:space="preserve">
+    <value>Native MTProxy protocol for Telegram</value>
+  </data>
+  <data name="TgPort" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="TgWsUrl" xml:space="preserve">
+    <value>WebSocket URL</value>
+  </data>
+  <data name="TgSecret" xml:space="preserve">
+    <value>Secret</value>
+  </data>
+  <data name="TgStart" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="TgStop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="TgStopAll" xml:space="preserve">
+    <value>Stop All</value>
+  </data>
+  <data name="TgRefresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="TgCopyLink" xml:space="preserve">
+    <value>Copy Link</value>
+  </data>
+  <data name="TgProxyLink" xml:space="preserve">
+    <value>Connection link</value>
+  </data>
+  <data name="TgActiveConnections" xml:space="preserve">
+    <value>Active connections</value>
+  </data>
+
+  <!-- ═══ About ═══ -->
+  <data name="AboutTitle" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AboutSubtitle" xml:space="preserve">
+    <value>Version and license information</value>
+  </data>
+  <data name="AboutVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="AboutDescription" xml:space="preserve">
+    <value>Z-UI — graphical shell for DPI bypass based on zapret-discord-youtube. Modern interface for Windows 10/11.</value>
+  </data>
+  <data name="AboutLicense" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="AboutLicenseInfo" xml:space="preserve">
+    <value>MIT License</value>
+  </data>
+  <data name="AboutGitHub" xml:space="preserve">
+    <value>GitHub Repository</value>
+  </data>
+  <data name="AboutGitHubDesc" xml:space="preserve">
+    <value>Source code, issues and updates</value>
+  </data>
+  <data name="AboutZapret" xml:space="preserve">
+    <value>zapret Project</value>
+  </data>
+  <data name="AboutZapretDesc" xml:space="preserve">
+    <value>Original DPI bypass project</value>
+  </data>
+  <data name="AboutDependencies" xml:space="preserve">
+    <value>Dependencies</value>
+  </data>
+  <data name="AboutDepsInfo" xml:space="preserve">
+    <value>WinUI 3, .NET 10, CommunityToolkit.Mvvm, WinDivert</value>
+  </data>
+  <data name="AboutCopyright" xml:space="preserve">
+    <value>© 2026 Z-UI. MIT License.</value>
+  </data>
+  <data name="WorkerLabel" xml:space="preserve">
+    <value>Worker</value>
+  </data>
+  <data name="OpenLabel" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+
+  <!-- ═══ Dashboard Page ═══ -->
+  <data name="Dashboard.WorkerServiceTitle" xml:space="preserve">
+    <value>Worker Service</value>
+  </data>
+  <data name="Dashboard.InstallWorker" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="Dashboard.StartWorker" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Dashboard.StopWorker" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Dashboard.ReinstallWorker" xml:space="preserve">
+    <value>Reinstall</value>
+  </data>
+  <data name="Dashboard.AdminRequired" xml:space="preserve">
+    <value>Administrator rights required</value>
+  </data>
+  <data name="Dashboard.StrategiesCard" xml:space="preserve">
+    <value>Strategies</value>
+  </data>
+  <data name="Dashboard.StrategiesDesc" xml:space="preserve">
+    <value>Ready-made and custom DPI bypass strategies</value>
+  </data>
+  <data name="Dashboard.ProxifierCard" xml:space="preserve">
+    <value>Proxifier</value>
+  </data>
+  <data name="Dashboard.ProxifierDesc" xml:space="preserve">
+    <value>Traffic routing through proxy servers</value>
+  </data>
+  <data name="Dashboard.ProxifierSub" xml:space="preserve">
+    <value>Per-app proxy, rules, chains</value>
+  </data>
+  <data name="Dashboard.NetworkCard" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="Dashboard.NetworkDesc" xml:space="preserve">
+    <value>DNS, proxy and traffic routing settings</value>
+  </data>
+  <data name="Dashboard.DiagnosticsCard" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="Dashboard.DiagnosticsDesc" xml:space="preserve">
+    <value>System check: privileges, WinDivert, network</value>
+  </data>
+  <data name="Dashboard.SettingsCard" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Dashboard.SettingsDesc" xml:space="preserve">
+    <value>Theme, autostart, language and parameters</value>
+  </data>
+  <data name="Dashboard.AboutCard" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Dashboard.AboutDesc" xml:space="preserve">
+    <value>Version, license and links</value>
+  </data>
+  <data name="Dashboard.DnsLabel" xml:space="preserve">
+    <value>DNS</value>
+  </data>
+
+  <!-- ═══ Settings Page ═══ -->
+  <data name="Settings.Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings.Subtitle" xml:space="preserve">
+    <value>Application and protection parameters</value>
+  </data>
+  <data name="Settings.ProtectionSection" xml:space="preserve">
+    <value>Protection</value>
+  </data>
+  <data name="Settings.AutoProtect" xml:space="preserve">
+    <value>Auto-start protection</value>
+  </data>
+  <data name="Settings.AutoProtectDesc" xml:space="preserve">
+    <value>Automatically start DPI bypass on app startup</value>
+  </data>
+  <data name="Settings.DefaultStrategy" xml:space="preserve">
+    <value>Default strategy</value>
+  </data>
+  <data name="Settings.DefaultStrategyDesc" xml:space="preserve">
+    <value>Strategy for auto-start protection</value>
+  </data>
+  <data name="Settings.NoUac" xml:space="preserve">
+    <value>Run without UAC</value>
+  </data>
+  <data name="Settings.NoUacDesc" xml:space="preserve">
+    <value>Auto-start with admin rights via Task Scheduler</value>
+  </data>
+  <data name="Settings.DnsSection" xml:space="preserve">
+    <value>DNS</value>
+  </data>
+  <data name="Settings.DefaultDnsMode" xml:space="preserve">
+    <value>Default DNS mode</value>
+  </data>
+  <data name="Settings.DefaultDnsModeDesc" xml:space="preserve">
+    <value>DNS mode when auto-starting protection</value>
+  </data>
+  <data name="Settings.DnsProxyRecommended" xml:space="preserve">
+    <value>DNS Proxy (Recommended)</value>
+  </data>
+  <data name="Settings.DnsOverHttps" xml:space="preserve">
+    <value>DNS over HTTPS</value>
+  </data>
+  <data name="Settings.DnsDisabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="Settings.NotificationsSection" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="Settings.WindowsNotifications" xml:space="preserve">
+    <value>Windows Notifications</value>
+  </data>
+  <data name="Settings.WindowsNotificationsDesc" xml:space="preserve">
+    <value>Show notifications for protection status and errors</value>
+  </data>
+  <data name="Settings.NotifyOnStart" xml:space="preserve">
+    <value>Notify on protection start</value>
+  </data>
+  <data name="Settings.NotifyOnStartDesc" xml:space="preserve">
+    <value>Show notification when protection is activated</value>
+  </data>
+  <data name="Settings.NotifyOnStop" xml:space="preserve">
+    <value>Notify on protection stop</value>
+  </data>
+  <data name="Settings.NotifyOnStopDesc" xml:space="preserve">
+    <value>Show notification when protection is stopped</value>
+  </data>
+  <data name="Settings.NotifyOnErrors" xml:space="preserve">
+    <value>Notify on errors</value>
+  </data>
+  <data name="Settings.NotifyOnErrorsDesc" xml:space="preserve">
+    <value>Show notification on protection errors</value>
+  </data>
+  <data name="Settings.AppearanceSection" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="Settings.AppTheme" xml:space="preserve">
+    <value>App theme</value>
+  </data>
+  <data name="Settings.Language" xml:space="preserve">
+    <value>Interface language</value>
+  </data>
+  <data name="Settings.LanguageDesc" xml:space="preserve">
+    <value>App language (requires restart)</value>
+  </data>
+  <data name="Settings.Animations" xml:space="preserve">
+    <value>Interface animations</value>
+  </data>
+  <data name="Settings.AnimationsDesc" xml:space="preserve">
+    <value>Smooth transitions and hover effects</value>
+  </data>
+  <data name="Settings.TraySection" xml:space="preserve">
+    <value>System tray</value>
+  </data>
+  <data name="Settings.MinimizeToTray" xml:space="preserve">
+    <value>Minimize to tray</value>
+  </data>
+  <data name="Settings.MinimizeToTrayDesc" xml:space="preserve">
+    <value>Hide window to tray when minimizing</value>
+  </data>
+  <data name="Settings.StartInTray" xml:space="preserve">
+    <value>Start in tray</value>
+  </data>
+  <data name="Settings.StartInTrayDesc" xml:space="preserve">
+    <value>Launch application minimized to tray</value>
+  </data>
+  <data name="Settings.ShowTrayIcon" xml:space="preserve">
+    <value>Show tray icon</value>
+  </data>
+  <data name="Settings.ShowTrayIconDesc" xml:space="preserve">
+    <value>Display Z-UI icon in system tray</value>
+  </data>
+  <data name="Settings.SoundSection" xml:space="preserve">
+    <value>Sounds</value>
+  </data>
+  <data name="Settings.SoundEffects" xml:space="preserve">
+    <value>Sound effects</value>
+  </data>
+  <data name="Settings.SoundEffectsDesc" xml:space="preserve">
+    <value>Play sounds on interaction</value>
+  </data>
+  <data name="Settings.UpdatesSection" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="Settings.AutoUpdateCheck" xml:space="preserve">
+    <value>Auto-check for updates</value>
+  </data>
+  <data name="Settings.AutoUpdateCheckDesc" xml:space="preserve">
+    <value>Check for updates on startup</value>
+  </data>
+  <data name="Settings.AutoUpdateDownload" xml:space="preserve">
+    <value>Auto-download updates</value>
+  </data>
+  <data name="Settings.AutoUpdateDownloadDesc" xml:space="preserve">
+    <value>Download updates automatically</value>
+  </data>
+  <data name="Settings.DataSection" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Settings.ExportSettings" xml:space="preserve">
+    <value>Export settings</value>
+  </data>
+  <data name="Settings.ExportSettingsDesc" xml:space="preserve">
+    <value>Save all settings to file</value>
+  </data>
+  <data name="Settings.ImportSettings" xml:space="preserve">
+    <value>Import settings</value>
+  </data>
+  <data name="Settings.ImportSettingsDesc" xml:space="preserve">
+    <value>Load settings from file</value>
+  </data>
+  <data name="Settings.ResetSettings" xml:space="preserve">
+    <value>Reset settings</value>
+  </data>
+  <data name="Settings.ResetSettingsDesc" xml:space="preserve">
+    <value>Restore all settings to defaults</value>
+  </data>
+  <data name="Settings.OpenLogs" xml:space="preserve">
+    <value>Open logs folder</value>
+  </data>
+  <data name="Settings.OpenLogsDesc" xml:space="preserve">
+    <value>Open folder with log files</value>
+  </data>
+  <data name="Settings.CheckUpdates" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="Settings.DownloadUpdate" xml:space="preserve">
+    <value>Download update</value>
+  </data>
+  <data name="Settings.VersionSection" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Settings.Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Settings.Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Settings.Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Settings.LightTheme" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Settings.DarkTheme" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Settings.SystemTheme" xml:space="preserve">
+    <value>Follow system</value>
+  </data>
+  <data name="Settings.RussianLang" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="Settings.EnglishLang" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Settings.LogLevel" xml:space="preserve">
+    <value>Log level</value>
+  </data>
+  <data name="Settings.LogLevelDesc" xml:space="preserve">
+    <value>Log detail level</value>
+  </data>
+  <data name="Settings.LogDebug" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="Settings.LogInfo" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Settings.LogWarning" xml:space="preserve">
+    <value>Warnings</value>
+  </data>
+  <data name="Settings.LogError" xml:space="preserve">
+    <value>Errors</value>
+  </data>
+  <data name="Settings.LogNone" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="Settings.AutostartSection" xml:space="preserve">
+    <value>Autostart</value>
+  </data>
+  <data name="Settings.Autostart" xml:space="preserve">
+    <value>Start with Windows</value>
+  </data>
+  <data name="Settings.AutostartDesc" xml:space="preserve">
+    <value>Launch Z-UI on system login</value>
+  </data>
+  <data name="Settings.StartMinimized" xml:space="preserve">
+    <value>Minimize to tray on launch</value>
+  </data>
+  <data name="Settings.StartMinimizedDesc" xml:space="preserve">
+    <value>Hide window on app startup</value>
+  </data>
+  <data name="Settings.SoundEffectsDesc" xml:space="preserve">
+    <value>Play sounds on button clicks and actions</value>
+  </data>
+  <data name="Settings.LogLevelTitle" xml:space="preserve">
+    <value>Logging</value>
+  </data>
+  <data name="Settings.LogLevelDetail" xml:space="preserve">
+    <value>Application log detail level</value>
+  </data>
+  <data name="Settings.OpenLogsFolder" xml:space="preserve">
+    <value>Open logs folder</value>
+  </data>
+  <data name="Settings.StartupWindows" xml:space="preserve">
+    <value>Windows Startup</value>
+  </data>
+  <data name="Settings.StartMinimizedLabel" xml:space="preserve">
+    <value>Minimize on launch</value>
+  </data>
+  <data name="Settings.StartMinimizedLabelDesc" xml:space="preserve">
+    <value>Hide window and run in background</value>
+  </data>
+  <data name="Settings.CheckUpdatesLabel" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="Settings.CheckUpdatesLabelDesc" xml:space="preserve">
+    <value>Automatically check for new versions</value>
+  </data>
+  <data name="Settings.CheckOnStart" xml:space="preserve">
+    <value>Check on startup</value>
+  </data>
+  <data name="Settings.CheckOnStartDesc" xml:space="preserve">
+    <value>Check for updates when app starts</value>
+  </data>
+  <data name="Settings.CheckUpdatesBtn" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="Settings.DownloadUpdateBtn" xml:space="preserve">
+    <value>Download update</value>
+  </data>
+  <data name="AboutDescriptionFull" xml:space="preserve">
+    <value>Based on zapret-discord-youtube by Flowseal. Supports Discord, YouTube and other services.</value>
+  </data>
+  <data name="AboutReportIssue" xml:space="preserve">
+    <value>Report an issue</value>
+  </data>
+  <data name="AboutLicense" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="Settings.MinimizeToTrayDesc2" xml:space="preserve">
+    <value>Minimize app to system tray instead of taskbar</value>
+  </data>
+
+  <!-- ═══ Diagnostics Page ═══ -->
+  <data name="Diagnostics.Title" xml:space="preserve">
+    <value>System Diagnostics</value>
+  </data>
+  <data name="Diagnostics.Subtitle" xml:space="preserve">
+    <value>Check system readiness for DPI bypass</value>
+  </data>
+  <data name="Diagnostics.SystemState" xml:space="preserve">
+    <value>System State</value>
+  </data>
+  <data name="Diagnostics.PassedChecks" xml:space="preserve">
+    <value>Checks passed:</value>
+  </data>
+  <data name="Diagnostics.AdminTitle" xml:space="preserve">
+    <value>Administrator Rights</value>
+  </data>
+  <data name="Diagnostics.WorkerTitle" xml:space="preserve">
+    <value>Worker Service (IPC)</value>
+  </data>
+  <data name="Diagnostics.WinDivertTitle" xml:space="preserve">
+    <value>WinDivert Driver</value>
+  </data>
+  <data name="Diagnostics.DomainListsTitle" xml:space="preserve">
+    <value>Domain Lists</value>
+  </data>
+  <data name="Diagnostics.BinaryFilesTitle" xml:space="preserve">
+    <value>Binary Files</value>
+  </data>
+  <data name="Diagnostics.NetworkTitle" xml:space="preserve">
+    <value>Network Connection</value>
+  </data>
+  <data name="Diagnostics.DetailedResults" xml:space="preserve">
+    <value>Detailed Results</value>
+  </data>
+  <data name="Diagnostics.RunCheck" xml:space="preserve">
+    <value>Run Check</value>
+  </data>
+  <data name="Diagnostics.QuickCheck" xml:space="preserve">
+    <value>Quick Check</value>
+  </data>
+  <data name="Diagnostics.ExportReport" xml:space="preserve">
+    <value>Export Report</value>
+  </data>
+  <data name="Diagnostics.FixAdmin" xml:space="preserve">
+    <value>Run as Admin</value>
+  </data>
+  <data name="Diagnostics.FixWorker" xml:space="preserve">
+    <value>Install Worker</value>
+  </data>
+  <data name="Diagnostics.FixWinDivert" xml:space="preserve">
+    <value>Install WinDivert</value>
+  </data>
+  <data name="Diagnostics.FixDomainLists" xml:space="preserve">
+    <value>Download Lists</value>
+  </data>
+  <data name="Diagnostics.FixBinaryFiles" xml:space="preserve">
+    <value>Download Files</value>
+  </data>
+  <data name="Diagnostics.FixNetwork" xml:space="preserve">
+    <value>Network Diagnostics</value>
+  </data>
+  <data name="Diagnostics.ClearLogs" xml:space="preserve">
+    <value>Clear Logs</value>
+  </data>
+
+  <!-- ═══ Generator Page ═══ -->
+  <data name="Generator.Title" xml:space="preserve">
+    <value>Strategy Generator</value>
+  </data>
+  <data name="Generator.Subtitle" xml:space="preserve">
+    <value>Select a ready strategy or create your own</value>
+  </data>
+  <data name="Generator.TabReady" xml:space="preserve">
+    <value>Ready Strategies</value>
+  </data>
+  <data name="Generator.TabCreate" xml:space="preserve">
+    <value>Create Strategy</value>
+  </data>
+  <data name="Generator.CurrentStrategy" xml:space="preserve">
+    <value>Current Strategy</value>
+  </data>
+  <data name="Generator.SelectStrategy" xml:space="preserve">
+    <value>Select Strategy</value>
+  </data>
+  <data name="Generator.StrategyLabel" xml:space="preserve">
+    <value>Strategy</value>
+  </data>
+  <data name="Generator.StrategyDesc" xml:space="preserve">
+    <value>Select a ready-made DPI bypass strategy</value>
+  </data>
+  <data name="Generator.SelectStrategyPlaceholder" xml:space="preserve">
+    <value>Select a strategy</value>
+  </data>
+  <data name="Generator.Testing" xml:space="preserve">
+    <value>Testing</value>
+  </data>
+  <data name="Generator.Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="Generator.SelectServices" xml:space="preserve">
+    <value>Select Services</value>
+  </data>
+  <data name="Generator.SelectServicesDesc" xml:space="preserve">
+    <value>Check the services that should work:</value>
+  </data>
+  <data name="Generator.OrAddDomains" xml:space="preserve">
+    <value>Or add your own domains:</value>
+  </data>
+  <data name="Generator.DomainPlaceholder" xml:space="preserve">
+    <value>example.com, another-site.org</value>
+  </data>
+  <data name="Generator.Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Generator.BypassMethod" xml:space="preserve">
+    <value>Bypass Method</value>
+  </data>
+  <data name="Generator.BypassMethodDesc" xml:space="preserve">
+    <value>Select DPI bypass method and configure parameters:</value>
+  </data>
+  <data name="Generator.BypassMethodLabel" xml:space="preserve">
+    <value>Bypass method</value>
+  </data>
+  <data name="Generator.SelectMethod" xml:space="preserve">
+    <value>Select method</value>
+  </data>
+  <data name="Generator.FoolingMode" xml:space="preserve">
+    <value>Fooling mode</value>
+  </data>
+  <data name="Generator.RepeatCount" xml:space="preserve">
+    <value>Repeat count</value>
+  </data>
+  <data name="Generator.SplitParams" xml:space="preserve">
+    <value>Split parameters</value>
+  </data>
+  <data name="Generator.Seqovl" xml:space="preserve">
+    <value>Seqovl</value>
+  </data>
+  <data name="Generator.SplitPos" xml:space="preserve">
+    <value>Split pos</value>
+  </data>
+  <data name="Generator.FakedsplitPattern" xml:space="preserve">
+    <value>Fakedsplit pattern</value>
+  </data>
+  <data name="Generator.HostfakesplitModifier" xml:space="preserve">
+    <value>Hostfakesplit modifier</value>
+  </data>
+  <data name="Generator.CombineMultidisorder" xml:space="preserve">
+    <value>Combine with multidisorder</value>
+  </data>
+  <data name="Generator.CombineMultidisorderDesc" xml:space="preserve">
+    <value>Off: syndata only · On: syndata + multidisorder</value>
+  </data>
+  <data name="Generator.DetectProvider" xml:space="preserve">
+    <value>Provider Detection</value>
+  </data>
+  <data name="Generator.Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="Generator.TestMode" xml:space="preserve">
+    <value>Test Mode</value>
+  </data>
+  <data name="Generator.TestModeDesc" xml:space="preserve">
+    <value>Select strategy testing mode</value>
+  </data>
+  <data name="Generator.QuickTest" xml:space="preserve">
+    <value>Quick test</value>
+  </data>
+  <data name="Generator.FullTest" xml:space="preserve">
+    <value>Full test</value>
+  </data>
+  <data name="Generator.NoTest" xml:space="preserve">
+    <value>No test</value>
+  </data>
+  <data name="Generator.RunTest" xml:space="preserve">
+    <value>Run Test</value>
+  </data>
+  <data name="Generator.ApplyStrategy" xml:space="preserve">
+    <value>Apply Strategy</value>
+  </data>
+  <data name="Generator.GeneratedArgs" xml:space="preserve">
+    <value>Generated Arguments</value>
+  </data>
+  <data name="Generator.CopyArgs" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Generator.TestModeLabel" xml:space="preserve">
+    <value>Test Mode</value>
+  </data>
+  <data name="Generator.ResultsTitle" xml:space="preserve">
+    <value>Test Results</value>
+  </data>
+  <data name="Generator.RunTestBtn" xml:space="preserve">
+    <value>Run Test</value>
+  </data>
+  <data name="Generator.GeneratedArgsLabel" xml:space="preserve">
+    <value>Generated Arguments</value>
+  </data>
+  <data name="Generator.FakedsplitPlaceholder" xml:space="preserve">
+    <value>0x00</value>
+  </data>
+
+  <!-- ═══ Network Page ═══ -->
+  <data name="Network.Title" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="Network.Subtitle" xml:space="preserve">
+    <value>DNS, proxy and traffic routing settings</value>
+  </data>
+  <data name="Network.TabDns" xml:space="preserve">
+    <value>DNS</value>
+  </data>
+  <data name="Network.TabProxifier" xml:space="preserve">
+    <value>Proxifier</value>
+  </data>
+  <data name="Network.TabTelegram" xml:space="preserve">
+    <value>Telegram Proxy</value>
+  </data>
+  <data name="Network.DnsModeLabel" xml:space="preserve">
+    <value>Select DNS Mode</value>
+  </data>
+  <data name="Network.DnsModePlaceholder" xml:space="preserve">
+    <value>Select mode</value>
+  </data>
+  <data name="Network.DnsProxyTitle" xml:space="preserve">
+    <value>DNS Proxy (Built-in)</value>
+  </data>
+  <data name="Network.DnsProxyPort" xml:space="preserve">
+    <value>DNS Proxy Port</value>
+  </data>
+  <data name="Network.HowItWorks" xml:space="preserve">
+    <value>How it works:</value>
+  </data>
+  <data name="Network.DnsProxyPoint1" xml:space="preserve">
+    <value>DNS Proxy runs on port 5353</value>
+  </data>
+  <data name="Network.DnsProxyPoint2" xml:space="preserve">
+    <value>Blocked sites → dns.malw.link (bypass blocks)</value>
+  </data>
+  <data name="Network.DnsProxyPoint3" xml:space="preserve">
+    <value>Other sites → Cloudflare 1.1.1.1 (fast and private)</value>
+  </data>
+  <data name="Network.DnsProxyPoint4" xml:space="preserve">
+    <value>No third-party software required</value>
+  </data>
+  <data name="Network.DohTitle" xml:space="preserve">
+    <value>DNS over HTTPS (Windows)</value>
+  </data>
+  <data name="Network.DnsProvider" xml:space="preserve">
+    <value>Provider:</value>
+  </data>
+  <data name="Network.DohInfo" xml:space="preserve">
+    <value>DNS over HTTPS (DoH) is available on Windows 10 1903+ and Windows 11</value>
+  </data>
+  <data name="Network.SelectProvider" xml:space="preserve">
+    <value>Select DNS Provider</value>
+  </data>
+  <data name="Network.SelectProviderPlaceholder" xml:space="preserve">
+    <value>Select provider</value>
+  </data>
+  <data name="Network.Management" xml:space="preserve">
+    <value>Management</value>
+  </data>
+  <data name="Network.Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="Network.ActiveRules" xml:space="preserve">
+    <value>Active rules</value>
+  </data>
+  <data name="Network.ActiveConnections" xml:space="preserve">
+    <value>Active connections</value>
+  </data>
+  <data name="Network.TrafficSent" xml:space="preserve">
+    <value>Sent</value>
+  </data>
+  <data name="Network.TrafficReceived" xml:space="preserve">
+    <value>Received</value>
+  </data>
+  <data name="Network.ProxifierPoint1" xml:space="preserve">
+    <value>Intercepts TCP connections of selected apps</value>
+  </data>
+  <data name="Network.ProxifierPoint2" xml:space="preserve">
+    <value>Routes traffic through configured proxy</value>
+  </data>
+  <data name="Network.ProxifierPoint3" xml:space="preserve">
+    <value>Uses WinDivert for kernel-level interception</value>
+  </data>
+  <data name="Network.ProxifierPoint4" xml:space="preserve">
+    <value>Works transparently for applications</value>
+  </data>
+  <data name="Network.ProxifierNote" xml:space="preserve">
+    <value>Proxifier rules are configured in Worker Service. UI management will be available in future versions.</value>
+  </data>
+  <data name="Network.Socks5Title" xml:space="preserve">
+    <value>SOCKS5 → WebSocket</value>
+  </data>
+  <data name="Network.Socks5Port" xml:space="preserve">
+    <value>SOCKS5 Port</value>
+  </data>
+  <data name="Network.WsUrl" xml:space="preserve">
+    <value>WebSocket URL</value>
+  </data>
+  <data name="Network.WsSecret" xml:space="preserve">
+    <value>Secret</value>
+  </data>
+  <data name="Network.MtProxyTitle" xml:space="preserve">
+    <value>MTProxy</value>
+  </data>
+  <data name="Network.MtProxyPort" xml:space="preserve">
+    <value>MTProxy Port</value>
+  </data>
+  <data name="Network.MtProxySecret" xml:space="preserve">
+    <value>MTProxy Secret</value>
+  </data>
+  <data name="Network.ProxyLink" xml:space="preserve">
+    <value>Connection link</value>
+  </data>
+  <data name="Network.CopyLink" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Network.Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Network.Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Network.StopAll" xml:space="preserve">
+    <value>Stop All</value>
+  </data>
+  <data name="Network.Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Network.ApplyDns" xml:space="preserve">
+    <value>Apply DNS</value>
+  </data>
+  <data name="Network.ResetDns" xml:space="preserve">
+    <value>Reset DNS</value>
+  </data>
+  <data name="Network.RestoreDns" xml:space="preserve">
+    <value>Restore DNS</value>
+  </data>
+  <data name="Network.StartProxifier" xml:space="preserve">
+    <value>Start Proxifier</value>
+  </data>
+  <data name="Network.StopProxifier" xml:space="preserve">
+    <value>Stop Proxifier</value>
+  </data>
+
+  <!-- ═══ Proxifier Page ═══ -->
+  <data name="Proxifier.Title" xml:space="preserve">
+    <value>Proxifier</value>
+  </data>
+  <data name="Proxifier.Subtitle" xml:space="preserve">
+    <value>Proxy routing configuration</value>
+  </data>
+  <data name="Proxifier.TabServers" xml:space="preserve">
+    <value>Servers</value>
+  </data>
+  <data name="Proxifier.TabRules" xml:space="preserve">
+    <value>Rules</value>
+  </data>
+  <data name="Proxifier.TabChains" xml:space="preserve">
+    <value>Chains</value>
+  </data>
+  <data name="Proxifier.AddServer" xml:space="preserve">
+    <value>Add Server</value>
+  </data>
+  <data name="Proxifier.AddRule" xml:space="preserve">
+    <value>Add Rule</value>
+  </data>
+  <data name="Proxifier.Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Proxifier.ChainsComingSoon" xml:space="preserve">
+    <value>Proxy chains will be available in a future update</value>
+  </data>
+  <data name="Proxifier.Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Proxifier.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Proxifier.ServerName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Proxifier.ServerHost" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="Proxifier.ServerNamePlaceholder" xml:space="preserve">
+    <value>My Server</value>
+  </data>
+  <data name="Proxifier.ServerHostPlaceholder" xml:space="preserve">
+    <value>127.0.0.1</value>
+  </data>
+  <data name="Proxifier.RuleName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Proxifier.RuleProcessName" xml:space="preserve">
+    <value>Process Name (optional)</value>
+  </data>
+  <data name="Proxifier.RuleDomain" xml:space="preserve">
+    <value>Destination Domain (optional)</value>
+  </data>
+  <data name="Proxifier.RuleNamePlaceholder" xml:space="preserve">
+    <value>My Rule</value>
+  </data>
+  <data name="Proxifier.RuleProcessPlaceholder" xml:space="preserve">
+    <value>chrome.exe</value>
+  </data>
+  <data name="Proxifier.RuleDomainPlaceholder" xml:space="preserve">
+    <value>example.com</value>
+  </data>
 </root>

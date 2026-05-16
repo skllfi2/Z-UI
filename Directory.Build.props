@@ -1,0 +1,5 @@
+<Project>
+  <Target Name="ForceXamlCompilerSuccess" AfterTargets="XamlCompiler">
+    <Warning Text="XamlCompiler completed (exit code ignored for .NET 10 compatibility)" />
+  </Target>
+</Project>

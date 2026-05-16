@@ -1,117 +1,124 @@
-using System;
+// HotkeyService.cs - Global hotkey registration via Win32 RegisterHotKey API
 using System.Runtime.InteropServices;
-using Microsoft.UI.Xaml;
 
-namespace ZUI.Services
+namespace ZUI.Services;
+
+/// <summary>
+/// Manages global hotkeys for Z-UI via Win32 RegisterHotKey API.
+/// Registers Ctrl+Alt+T (toggle DPI bypass) and Ctrl+Alt+S (show window).
+/// </summary>
+public sealed class HotkeyService : IDisposable
 {
-    public class HotkeyService : IDisposable
+    private readonly IntPtr _hwnd;
+    private bool _disposed;
+
+    // Hotkey IDs
+    private const int HOTKEY_TOGGLE = 1;
+    private const int HOTKEY_SHOW = 2;
+
+    // Modifier flags
+    private const uint MOD_ALT = 0x0001;
+    private const uint MOD_CONTROL = 0x0002;
+
+    // Virtual key codes
+    private const uint VK_T = 0x54;
+    private const uint VK_S = 0x53;
+
+    // P/Invoke declarations
+    [DllImport("user32.dll", SetLastError = true)]
+    private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+    /// <summary>
+    /// Fired when the toggle hotkey (Ctrl+Alt+T) is pressed.
+    /// </summary>
+    public event Action? ToggleRequested;
+
+    /// <summary>
+    /// Fired when the show hotkey (Ctrl+Alt+S) is pressed.
+    /// </summary>
+    public event Action? ShowRequested;
+
+    /// <summary>
+    /// Creates a new HotkeyService for the specified window handle.
+    /// </summary>
+    /// <param name="hwnd">Window handle to receive WM_HOTKEY messages.</param>
+    public HotkeyService(IntPtr hwnd)
     {
-        private const int WM_HOTKEY = 0x0312;
-        private const int HOTKEY_START = 1;
-        private const int HOTKEY_STOP = 2;
-        private const int HOTKEY_TOGGLE = 3;
-        private const int HOTKEY_SHOW = 4;
+        _hwnd = hwnd;
+        System.Diagnostics.Debug.WriteLine("[Z-UI] HotkeyService: Created");
+    }
 
-        private const int MOD_CONTROL = 0x0002;
-        private const int MOD_SHIFT = 0x0004;
-        private const int MOD_ALT = 0x0001;
+    /// <summary>
+    /// Registers global hotkeys: Ctrl+Alt+T (toggle) and Ctrl+Alt+S (show).
+    /// Logs errors but does not throw on failure (e.g. hotkey already registered by another app).
+    /// </summary>
+    public void RegisterHotkeys()
+    {
+        uint modifiers = MOD_ALT | MOD_CONTROL;
 
-        [DllImport("user32.dll")]
-        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
-
-        [DllImport("user32.dll")]
-        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr CallWindowProc(IntPtr lpPrevWndFunc, IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
-
-        private delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
-
-        private readonly IntPtr _hwnd;
-        private readonly Action? _onStart;
-        private readonly Action? _onStop;
-        private readonly Action? _onToggle;
-        private readonly Action? _onShow;
-        private IntPtr _prevWndProc;
-        private WndProcDelegate? _wndProcDelegate;
-        private bool _disposed;
-
-        public event Action? StartRequested;
-        public event Action? StopRequested;
-        public event Action? ToggleRequested;
-        public event Action? ShowRequested;
-
-        public HotkeyService(IntPtr hwnd)
+        if (RegisterHotKey(_hwnd, HOTKEY_TOGGLE, modifiers, VK_T))
         {
-            _hwnd = hwnd;
+            System.Diagnostics.Debug.WriteLine("[Z-UI] HotkeyService: Registered Ctrl+Alt+T (toggle)");
+        }
+        else
+        {
+            System.Diagnostics.Debug.WriteLine($"[Z-UI] HotkeyService: Failed to register Ctrl+Alt+T, error={Marshal.GetLastWin32Error()}");
         }
 
-        public void RegisterHotkeys(
-            bool enableToggle = true,
-            bool enableShow = true,
-            bool enableStartStop = false)
+        if (RegisterHotKey(_hwnd, HOTKEY_SHOW, modifiers, VK_S))
         {
-            _wndProcDelegate = WndProc;
-            var ptr = Marshal.GetFunctionPointerForDelegate(_wndProcDelegate);
-            _prevWndProc = SetWindowLongPtr(_hwnd, -4, ptr);
+            System.Diagnostics.Debug.WriteLine("[Z-UI] HotkeyService: Registered Ctrl+Alt+S (show)");
+        }
+        else
+        {
+            System.Diagnostics.Debug.WriteLine($"[Z-UI] HotkeyService: Failed to register Ctrl+Alt+S, error={Marshal.GetLastWin32Error()}");
+        }
+    }
 
-            if (enableToggle)
-            {
-                RegisterHotKey(_hwnd, HOTKEY_TOGGLE, MOD_CONTROL | MOD_SHIFT, 0x54);
-            }
+    /// <summary>
+    /// Processes a WM_HOTKEY message. Call from WindowSubclass when WM_HOTKEY is received.
+    /// </summary>
+    /// <param name="wParam">The wParam from WM_HOTKEY (contains hotkey ID in low word).</param>
+    /// <returns>True if the hotkey was recognized and handled; false otherwise.</returns>
+    public bool ProcessHotkeyMessage(IntPtr wParam)
+    {
+        int hotkeyId = (int)wParam & 0xFFFF;
 
-            if (enableShow)
-            {
-                RegisterHotKey(_hwnd, HOTKEY_SHOW, MOD_CONTROL | MOD_ALT, 0x5A);
-            }
+        switch (hotkeyId)
+        {
+            case HOTKEY_TOGGLE:
+                ToggleRequested?.Invoke();
+                return true;
 
-            if (enableStartStop)
-            {
-                RegisterHotKey(_hwnd, HOTKEY_START, MOD_CONTROL | MOD_ALT, 0x53);
-                RegisterHotKey(_hwnd, HOTKEY_STOP, MOD_CONTROL | MOD_ALT, 0x58);
-            }
+            case HOTKEY_SHOW:
+                ShowRequested?.Invoke();
+                return true;
         }
 
-        public void UnregisterHotkeys()
+        return false;
+    }
+
+    /// <summary>
+    /// Unregisters all global hotkeys and releases resources.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed) return;
+        _disposed = true;
+
+        if (!UnregisterHotKey(_hwnd, HOTKEY_TOGGLE))
         {
-            UnregisterHotKey(_hwnd, HOTKEY_TOGGLE);
-            UnregisterHotKey(_hwnd, HOTKEY_SHOW);
-            UnregisterHotKey(_hwnd, HOTKEY_START);
-            UnregisterHotKey(_hwnd, HOTKEY_STOP);
+            System.Diagnostics.Debug.WriteLine($"[Z-UI] HotkeyService: Failed to unregister toggle hotkey, error={Marshal.GetLastWin32Error()}");
         }
 
-        private IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
+        if (!UnregisterHotKey(_hwnd, HOTKEY_SHOW))
         {
-            if (msg == WM_HOTKEY)
-            {
-                var id = wParam.ToInt32();
-                switch (id)
-                {
-                    case HOTKEY_START:
-                        StartRequested?.Invoke();
-                        break;
-                    case HOTKEY_STOP:
-                        StopRequested?.Invoke();
-                        break;
-                    case HOTKEY_TOGGLE:
-                        ToggleRequested?.Invoke();
-                        break;
-                    case HOTKEY_SHOW:
-                        ShowRequested?.Invoke();
-                        break;
-                }
-            }
-            return CallWindowProc(_prevWndProc, hWnd, msg, wParam, lParam);
+            System.Diagnostics.Debug.WriteLine($"[Z-UI] HotkeyService: Failed to unregister show hotkey, error={Marshal.GetLastWin32Error()}");
         }
 
-        public void Dispose()
-        {
-            if (_disposed) return;
-            _disposed = true;
-            UnregisterHotkeys();
-        }
+        System.Diagnostics.Debug.WriteLine("[Z-UI] HotkeyService: Disposed");
     }
 }

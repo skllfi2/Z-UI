@@ -1,140 +1,83 @@
-using System;
-using System.IO;
-using System.Text.Json;
+// AppSettings.cs - Static bridge for application settings
+// Provides quick access to settings from ViewModels and code-behind
+// without requiring DI resolution of IAppSettingsService.
+namespace ZUI;
 
-namespace ZUI
-{
+/// <summary>
+/// Static bridge for application settings. Used by ViewModels and App.xaml.cs
+/// for quick access without DI. Will be bridged to IAppSettingsService in a future iteration.
+/// </summary>
 public static class AppSettings
 {
-private static readonly string _path = Path.Combine(
-Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-"Z-UI", "settings.json");
+    private static string _currentStrategy = "General";
+    private static string _gameFilter = "disabled";
+    private static string _ipsetFilter = "any";
+    private static bool _autoUpdateCheck = true;
+    private static bool _autoUpdateDownload;
+    private static bool _autoStartZapret;
 
-public static event Action? StrategyChanged;
+    /// <summary>
+    /// Delegate bridge to IAppSettingsService.Save().
+    /// Set during App startup to connect static AppSettings to the DI-registered service.
+    /// </summary>
+    public static Func<bool>? SaveDelegate { get; set; }
 
-public static bool AutoStartZapret { get; set; } = false;
- public static bool AutoStartWithAdmin { get; set; } = false;
- public static bool MinimizeToTrayOnStart { get; set; } = false;
- public static bool SoundEffects { get; set; } = false;
- public static bool ToastNotifications { get; set; } = true;
- public static bool AutoUpdateCheck { get; set; } = true;
- public static bool AutoUpdateDownload { get; set; } = false;
- public static string Theme { get; set; } = "Default";
- public static string Language { get; set; } = GetSystemLanguage();
- public static string GameFilter { get; set; } = "disabled";
- public static string IpsetFilter { get; set; } = "any";
- public static bool SetupCompleted { get; set; } = false;
- public static string CurrentStrategy { get; set; } = "General";
- public static bool AnimNavIcons { get; set; } = true;
- public static bool AnimButtons { get; set; } = true;
- public static bool AnimCards { get; set; } = true;
- public static bool HotkeysEnabled { get; set; } = true;
- public static string HostsHash { get; set; } = "";
- public static DateTime HostsLastCheck { get; set; } = DateTime.MinValue;
-        public static bool HostsAutoUpdate { get; set; } = false;
+    /// <summary>Raised when CurrentStrategy changes.</summary>
+    public static event Action? StrategyChanged;
 
-        public static void SetCurrentStrategy(string strategy)
+    public static string CurrentStrategy
+    {
+        get => _currentStrategy;
+        set
         {
-            CurrentStrategy = strategy;
-            Save();
-            StrategyChanged?.Invoke();
+            if (_currentStrategy != value)
+            {
+                _currentStrategy = value;
+                StrategyChanged?.Invoke();
+            }
         }
+    }
 
-        static AppSettings() => Load();
+    public static string GameFilter
+    {
+        get => _gameFilter;
+        set => _gameFilter = value;
+    }
 
- public static void Load()
- {
- try
- {
- if (!File.Exists(_path)) return;
- var json = File.ReadAllText(_path);
- var data = JsonSerializer.Deserialize<SettingsData>(json);
- if (data == null) return;
- AutoStartZapret = data.AutoStartZapret;
- AutoStartWithAdmin = data.AutoStartWithAdmin;
- MinimizeToTrayOnStart = data.MinimizeToTrayOnStart;
- SoundEffects = data.SoundEffects;
- ToastNotifications = data.ToastNotifications;
- AutoUpdateCheck = data.AutoUpdateCheck;
- AutoUpdateDownload = data.AutoUpdateDownload;
- Theme = data.Theme ?? "Default";
- Language = data.Language ?? GetSystemLanguage();
- GameFilter = data.GameFilter ?? "disabled";
- IpsetFilter = data.IpsetFilter ?? "any";
- SetupCompleted = data.SetupCompleted;
- CurrentStrategy = data.CurrentStrategy ?? "General";
- AnimNavIcons = data.AnimNavIcons;
- AnimButtons = data.AnimButtons;
- AnimCards = data.AnimCards;
- HotkeysEnabled = data.HotkeysEnabled;
- HostsHash = data.HostsHash ?? "";
- HostsLastCheck = data.HostsLastCheck;
- HostsAutoUpdate = data.HostsAutoUpdate;
- }
- catch { }
- }
+    public static string IpsetFilter
+    {
+        get => _ipsetFilter;
+        set => _ipsetFilter = value;
+    }
 
- public static void Save()
- {
- try
- {
- Directory.CreateDirectory(Path.GetDirectoryName(_path)!);
- var data = new SettingsData
- {
- AutoStartZapret = AutoStartZapret,
- AutoStartWithAdmin = AutoStartWithAdmin,
- MinimizeToTrayOnStart = MinimizeToTrayOnStart,
- SoundEffects = SoundEffects,
- ToastNotifications = ToastNotifications,
- AutoUpdateCheck = AutoUpdateCheck,
- AutoUpdateDownload = AutoUpdateDownload,
- Theme = Theme,
- Language = Language,
- GameFilter = GameFilter,
- IpsetFilter = IpsetFilter,
- SetupCompleted = SetupCompleted,
- CurrentStrategy = CurrentStrategy,
- AnimNavIcons = AnimNavIcons,
- AnimButtons = AnimButtons,
- AnimCards = AnimCards,
- HotkeysEnabled = HotkeysEnabled,
- HostsHash = HostsHash,
- HostsLastCheck = HostsLastCheck,
- HostsAutoUpdate = HostsAutoUpdate
- };
- File.WriteAllText(_path, JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true }));
- }
- catch { }
- }
+    public static bool AutoUpdateCheck
+    {
+        get => _autoUpdateCheck;
+        set => _autoUpdateCheck = value;
+    }
 
- private class SettingsData
- {
- public bool AutoStartZapret { get; set; }
- public bool AutoStartWithAdmin { get; set; }
- public bool MinimizeToTrayOnStart { get; set; }
- public bool SoundEffects { get; set; }
- public bool ToastNotifications { get; set; }
- public bool AutoUpdateCheck { get; set; } = true;
- public bool AutoUpdateDownload { get; set; } = false;
- public string? Theme { get; set; }
- public string? Language { get; set; }
- public string? GameFilter { get; set; }
- public string? IpsetFilter { get; set; }
- public bool SetupCompleted { get; set; }
- public string? CurrentStrategy { get; set; } = "General";
- public bool AnimNavIcons { get; set; } = true;
- public bool AnimButtons { get; set; } = true;
- public bool AnimCards { get; set; } = true;
- public bool HotkeysEnabled { get; set; } = true;
- public string? HostsHash { get; set; } = "";
- public DateTime HostsLastCheck { get; set; } = DateTime.MinValue;
- public bool HostsAutoUpdate { get; set; } = false;
- }
+    public static bool AutoUpdateDownload
+    {
+        get => _autoUpdateDownload;
+        set => _autoUpdateDownload = value;
+    }
 
- public static string GetSystemLanguage()
- {
- var lang = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
- return lang == "ru" ? "ru" : "en";
- }
- }
+    public static bool AutoStartZapret
+    {
+        get => _autoStartZapret;
+        set => _autoStartZapret = value;
+    }
+
+    /// <summary>
+    /// Save settings to persistent storage via IAppSettingsService bridge.
+    /// Falls back to debug logging if SaveDelegate is not configured.
+    /// </summary>
+    public static bool Save()
+    {
+        if (SaveDelegate is not null)
+            return SaveDelegate.Invoke();
+
+        System.Diagnostics.Debug.WriteLine($"[Z-UI] AppSettings.Save() (no delegate): Strategy={CurrentStrategy}, GameFilter={GameFilter}, IpsetFilter={IpsetFilter}");
+        return false;
+    }
 }

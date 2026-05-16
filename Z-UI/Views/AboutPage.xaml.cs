@@ -1,16 +1,20 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.UI.Xaml.Controls;
+// AboutPage.xaml.cs - Thin code-behind for About page
+using Microsoft.UI.Xaml.Navigation;
 using ZUI.ViewModels;
 
 namespace ZUI.Views;
 
-public sealed partial class AboutPage : Page
+/// <summary>
+/// About page — version info, license, links.
+/// </summary>
+public sealed partial class AboutPage : BasePage
 {
     public AboutViewModel ViewModel { get; }
 
     public AboutPage()
     {
+        InitializeComponent();
         ViewModel = App.Services.GetRequiredService<AboutViewModel>();
-        this.InitializeComponent();
+        DataContext = ViewModel;
     }
 }

@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "components": [
+    "Microsoft.VisualStudio.Component.CoreEditor",
+    "Microsoft.VisualStudio.Workload.ManagedDesktop",
+    "Microsoft.VisualStudio.Workload.Universal",
+    "Microsoft.VisualStudio.Component.Windows10SDK.19041",
+    "Microsoft.VisualStudio.Component.ManagedDesktop.Prerequisites",
+    "Microsoft.VisualStudio.Component.NetCore.DesktopTools",
+    "Microsoft.NetCore.Component.Runtime.10.0",
+    "Microsoft.NetCore.Component.SDK.10.0"
+  ],
+  "minimumVersion": "18.0"
+}

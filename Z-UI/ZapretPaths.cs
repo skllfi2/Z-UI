@@ -26,7 +26,8 @@ namespace ZUI
                     if (File.Exists(VersionFile))
                         return File.ReadAllText(VersionFile).Trim();
                 }
-                catch { }
+                catch (IOException) { }
+    catch (UnauthorizedAccessException) { }
                 return "неизвестно";
             }
         }

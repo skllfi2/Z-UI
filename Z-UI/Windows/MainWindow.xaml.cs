@@ -1,26 +1,28 @@
+// MainWindow.xaml.cs - Frame-based navigation with INavigationService
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ZUI.Services;
 using ZUI.Views;
-using ZUI.ViewModels;
-using System;
-using System.Threading.Tasks;
-using System.Linq;
-using Windows.Globalization;
 
-namespace ZUI
+namespace ZUI;
+
+public sealed partial class MainWindow : Window
 {
- public sealed partial class MainWindow : Window
- {
- public static MainWindow? Instance { get; private set; }
- private SettingsViewModel? _currentSettingsViewModel;
+    public static MainWindow? Instance { get; private set; }
+    public INavigationService? NavigationService { get; private set; }
 
-        public MainWindow()
+    // Tracks current visibility state to avoid redundant storyboard triggers (prevents flash)
+    private bool _isFloatingBackButtonVisible;
+
+    public MainWindow()
+    {
+        InitializeComponent();
+
+        Instance = this;
+
+        try
         {
-            this.InitializeComponent();
-            Instance = this;
-
             ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
 
@@ -29,250 +31,176 @@ namespace ZUI
 
             AppWindow.Resize(new Windows.Graphics.SizeInt32(1080, 750));
 
-            var displayArea = Microsoft.UI.Windowing.DisplayArea.GetFromWindowId(AppWindow.Id, Microsoft.UI.Windowing.DisplayAreaFallback.Primary);
+            var displayArea = DisplayArea.GetFromWindowId(AppWindow.Id, DisplayAreaFallback.Primary);
             var workArea = displayArea.WorkArea;
             AppWindow.Move(new Windows.Graphics.PointInt32(
-            workArea.X + (workArea.Width - 1080) / 2,
-            workArea.Y + (workArea.Height - 750) / 2
+                workArea.X + (workArea.Width - 1080) / 2,
+                workArea.Y + (workArea.Height - 750) / 2
             ));
-
-            if (!AppSettings.SetupCompleted)
-            {
-                NavigateTo("setup");
-            }
-            else
-            {
-                NavigateTo("dashboard");
-                _ = CheckHostsInBackground();
-            }
-
-            ContentFrame.Navigated += (_, _) =>
-            {
-                NavigationViewControl.IsBackEnabled = ContentFrame.CanGoBack;
-            };
-
-            UpdateChecker.UpdateFound += version =>
-            {
-                DispatcherQueue.TryEnqueue(() => UpdatesBadge.Visibility = Visibility.Visible);
-            };
-
-            if (UpdateChecker.UpdateAvailable)
-            UpdatesBadge.Visibility = Visibility.Visible;
-
-            LocalizationService.LanguageChanged += OnLanguageChanged;
+        }
+        catch (System.Runtime.InteropServices.COMException ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"[Z-UI] MainWindow: TitleBar/sizing FAILED: {ex}");
+        }
+        catch (InvalidOperationException ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"[Z-UI] MainWindow: TitleBar/sizing FAILED: {ex}");
         }
 
-    private void OnLanguageChanged()
-    {
-        DispatcherQueue.TryEnqueue(() =>
+        try
         {
-            var current = NavigationViewControl.SelectedItem as NavigationViewItem;
-            if (current?.Tag != null)
+            // Инициализация Frame-навигации
+            var navigationService = App.Services.GetService(typeof(INavigationService)) as NavigationService;
+            if (navigationService != null)
             {
-                var tag = current.Tag.ToString();
-                UpdatePageHeader(tag);
+                navigationService.Initialize(RootFrame);
+                NavigationService = navigationService;
+
+                // Reset floating back button when navigating to a new page.
+                // Use immediate (no animation) hide to prevent flash —
+                // the From=1 in HideBackButtonStoryboard would briefly show
+                // the button even if already at Opacity=0.
+                RootFrame.Navigated += (s, e) =>
+                {
+                    // Restore PageHeader back button/title on the page we're leaving
+                    // (cached pages may have hidden these via StickyHeaderHelper on scroll)
+                    if (e.Content is Page newPage)
+                    {
+                        var header = FindChildOfType<ZUI.Controls.PageHeader>(newPage);
+                        if (header != null)
+                        {
+                            header.SetBackButtonVisibility(true);
+                            header.SetTitleVisibility(true);
+                            header.IsSticky = false;
+                        }
+                    }
+
+                    // Immediately hide floating back button in TitleBar without animation.
+                    // StickyHeaderHelper will re-show it on scroll if appropriate.
+                    HideFloatingBackButtonImmediate();
+                };
+
+                NavigationService.NavigateTo(typeof(DashboardPage));
             }
-            
-            ReloadAllPages();
-        });
-    }
-
-        private void UpdatePageHeader(string tag)
-        {
-            PageHeader.Text = tag switch
-            {
-                "dashboard" => LocalizationService.Get("NavDashboard"),
-                "strategies" => LocalizationService.Get("NavStrategies"),
-                "updates" => LocalizationService.Get("NavServices"),
-                "settings" => LocalizationService.Get("NavSettings"),
-                "about" => LocalizationService.Get("AboutTitle"),
-                "setup" => LocalizationService.Get("SetupWizard"),
-                _ => PageHeader.Text
-            };
         }
-
- private void NavigationView_Loaded(object sender, RoutedEventArgs e)
- {
- ClearAllTooltips();
- }
-
- private void ClearAllTooltips()
- {
- var allItems = NavigationViewControl.MenuItems
- .OfType<NavigationViewItem>()
- .Concat(NavigationViewControl.FooterMenuItems.OfType<NavigationViewItem>());
-
- foreach (var item in allItems)
- {
- ToolTipService.SetToolTip(item, null);
- item.Loaded += (s, _) => ToolTipService.SetToolTip(s as DependencyObject, null);
- }
- }
-
-    public void ReloadAllPages()
-    {
-        var currentPage = ContentFrame.Content?.GetType();
-        if (currentPage != null)
+        catch (InvalidOperationException ex)
         {
-            ContentFrame.BackStack.Clear();
-            ContentFrame.ForwardStack.Clear();
-            ContentFrame.Content = null;
-            ContentFrame.Navigate(currentPage, null, new Microsoft.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo());
+            System.Diagnostics.Debug.WriteLine($"[Z-UI] MainWindow: Navigation FAILED: {ex}");
+        }
+        catch (System.Runtime.InteropServices.COMException ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"[Z-UI] MainWindow: Navigation FAILED: {ex}");
         }
     }
 
-        public void NavigateTo(string tag)
+    // ─── Floating Back Button Logic ───
+
+    /// <summary>
+    /// Shows or hides the floating back button in the TitleBar with smooth animation.
+    /// Also shows/hides the page title alongside the back button.
+    /// Skips animation if the button is already in the target state (prevents flash on navigation).
+    /// </summary>
+    public void SetFloatingBackButtonVisible(bool visible, string? pageTitle = null)
+    {
+        if (TitleBarBackButton == null || PageTitleText == null) return;
+
+        // Skip if already in target state — prevents storyboard re-trigger causing flash
+        if (_isFloatingBackButtonVisible == visible) return;
+        _isFloatingBackButtonVisible = visible;
+
+        if (visible)
         {
-            if (tag == "setup")
+            // Update page title text only when showing
+            if (!string.IsNullOrEmpty(pageTitle))
             {
-                SetNavMenuEnabled(false);
-                ContentFrame.Navigate(typeof(SetupWizardPage));
-                PageHeader.Text = LocalizationService.Get("SetupWizard");
-                return;
+                PageTitleText.Text = pageTitle;
             }
 
-            if (tag == "about")
-            {
-                ContentFrame.Navigate(typeof(AboutPage));
-                PageHeader.Text = LocalizationService.Get("AboutTitle");
-                return;
-            }
-
-            if (tag == "settings")
-            {
-                NavigationViewControl.SelectedItem = SettingsNavItem;
-                return;
-            }
-
-            var item = NavigationViewControl.MenuItems
-            .OfType<NavigationViewItem>()
-            .FirstOrDefault(i => i.Tag?.ToString() == tag);
-
-            if (item != null)
-            {
-                NavigationViewControl.SelectedItem = item;
-                ProcessNavigation(item);
-            }
+            // Show back button with animation
+            TitleBarBackButton.IsHitTestVisible = true;
+            PageTitleText.IsHitTestVisible = true;
+            ShowBackButtonStoryboard?.Begin();
+            HidePageTitleStoryboard?.Stop();
+            ShowPageTitleStoryboard?.Begin();
         }
-
- private void NavigationView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
- {
- if (ContentFrame.CanGoBack)
- ContentFrame.GoBack();
- }
-
-        private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        else
         {
-            if (args.IsSettingsSelected)
-            {
-                PageHeader.Text = LocalizationService.Get("NavSettings");
-                ContentFrame.Navigate(typeof(SettingsPage));
-                return;
-            }
-
-            var item = args.SelectedItem as NavigationViewItem;
-            if (item?.Tag?.ToString() == "settings")
-            {
-                PageHeader.Text = LocalizationService.Get("NavSettings");
-                ContentFrame.Navigate(typeof(SettingsPage));
-                return;
-            }
-
-            ProcessNavigation(item);
+            // Hide back button with animation — do NOT update PageTitleText
+            // to avoid flash when navigating from Dashboard (no PageHeader) to
+            // a subpage (has PageHeader). Title is set only on scroll show.
+            TitleBarBackButton.IsHitTestVisible = false;
+            PageTitleText.IsHitTestVisible = false;
+            HideBackButtonStoryboard?.Begin();
+            HidePageTitleStoryboard?.Begin();
         }
+    }
 
-	private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
-	{
-		if (args.IsSettingsInvoked)
-		{
-			NavigateTo("settings");
-			return;
-		}
+    /// <summary>
+    /// Immediately hides the floating back button without animation.
+    /// Called on page navigation to prevent flash (From=1 in storyboard
+    /// would briefly show the button even if already at Opacity=0).
+    /// </summary>
+    public void HideFloatingBackButtonImmediate()
+    {
+        if (TitleBarBackButton == null || PageTitleText == null) return;
 
-		var item = args.InvokedItemContainer as NavigationViewItem;
-		var tag = item?.Tag?.ToString();
-		if (!string.IsNullOrEmpty(tag))
-		{
-			NavigateTo(tag);
-		}
-	}
+        // Stop any running animations
+        ShowBackButtonStoryboard?.Stop();
+        HideBackButtonStoryboard?.Stop();
+        ShowPageTitleStoryboard?.Stop();
+        HidePageTitleStoryboard?.Stop();
 
- private NavigationViewItem? GetPreviousSelectedItem()
- {
- return NavigationViewControl.MenuItems.OfType<NavigationViewItem>()
- .FirstOrDefault(i => i.IsSelected) ??
- NavigationViewControl.FooterMenuItems.OfType<NavigationViewItem>()
- .FirstOrDefault(i => i.IsSelected);
- }
+        // Set final state directly — no animation, no flash
+        TitleBarBackButton.Opacity = 0;
+        TitleBarBackButton.IsHitTestVisible = false;
+        PageTitleText.Opacity = 0;
+        PageTitleText.IsHitTestVisible = false;
 
-	private bool CheckUnsavedSettings()
-	{
-		return true;
-	}
+        _isFloatingBackButtonVisible = false;
+    }
 
-private bool _isNavigating = false;
+    /// <summary>
+    /// Returns true if the current page has a PageHeader that would show a back button.
+    /// Used to determine if the floating back button should be shown on scroll.
+    /// </summary>
+    public bool CurrentPageHasBackButton()
+    {
+        if (RootFrame?.Content is not Page page) return false;
 
-	private void ProcessNavigation(NavigationViewItem? item)
-	{
-		if (_isNavigating) return;
-		_isNavigating = true;
-		
-		if (item == null) 
-		{
-			_isNavigating = false;
-			return;
-		}
+        // Check if the page has a PageHeader with a back button
+        var header = FindChildOfType<ZUI.Controls.PageHeader>(page);
+        return header != null && NavigationService?.CanGoBack == true;
+    }
 
-		string tag = item.Tag?.ToString() ?? "";
-		PageHeader.Text = item.Content?.ToString();
+    /// <summary>
+    /// Gets the title of the current page from its PageHeader if available.
+    /// </summary>
+    public string? GetCurrentPageTitle()
+    {
+        if (RootFrame?.Content is not Page page) return null;
 
-		switch (tag)
-		{
-			case "dashboard":
-				ContentFrame.Navigate(typeof(DashboardPage));
-				break;
-			case "strategies":
-				ContentFrame.Navigate(typeof(StrategiesPage));
-				break;
-			case "updates":
-				ContentFrame.Navigate(typeof(ServicesPage), 0);
-				UpdatesBadge.Visibility = Visibility.Collapsed;
-				break;
-			case "about":
-				ContentFrame.Navigate(typeof(AboutPage));
-				break;
-		}
+        var header = FindChildOfType<ZUI.Controls.PageHeader>(page);
+        return header?.Title;
+    }
 
-		_isNavigating = false;
-	}
+    private static T? FindChildOfType<T>(DependencyObject parent) where T : DependencyObject
+    {
+        for (int i = 0; i < Microsoft.UI.Xaml.Media.VisualTreeHelper.GetChildrenCount(parent); i++)
+        {
+            var child = Microsoft.UI.Xaml.Media.VisualTreeHelper.GetChild(parent, i);
+            if (child is T result) return result;
 
-private void SetNavMenuEnabled(bool enabled)
- {
- foreach (var item in NavigationViewControl.MenuItems.OfType<NavigationViewItem>())
- item.IsEnabled = enabled;
- foreach (var item in NavigationViewControl.FooterMenuItems.OfType<NavigationViewItem>())
- item.IsEnabled = enabled;
- }
+            var descendant = FindChildOfType<T>(child);
+            if (descendant != null) return descendant;
+        }
+        return null;
+    }
 
- private async Task CheckHostsInBackground()
- {
- await Task.Delay(3000);
- }
-
- public void CompleteSetup()
- {
- SetNavMenuEnabled(true);
- NavigateTo("dashboard");
- }
-
- public void SetCurrentSettingsViewModel(SettingsViewModel? viewModel)
- {
- _currentSettingsViewModel = viewModel;
- }
-
- public void NavigateToSettings()
- {
- NavigateTo("settings");
- }
- }
+    private void TitleBarBackButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (NavigationService?.CanGoBack == true)
+        {
+            NavigationService.GoBack();
+        }
+    }
 }

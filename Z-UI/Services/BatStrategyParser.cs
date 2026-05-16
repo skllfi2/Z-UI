@@ -1,148 +1,199 @@
-using System;
+// BatStrategyParser.cs - Parse .bat strategy files and extract winws.exe arguments
 using System.IO;
 using System.Text.RegularExpressions;
+using ZUI;
 
-namespace ZUI.Services
+namespace ZUI.Services;
+
+/// <summary>
+/// Parses zapret .bat strategy files to extract winws.exe command-line arguments.
+/// Replaces %BIN% and %LISTS% variables with actual paths from ZapretPaths.
+/// </summary>
+public static class BatStrategyParser
 {
-    public static class BatStrategyParser
+    /// <summary>
+    /// Parse a .bat strategy file and extract the winws.exe arguments.
+    /// Replaces %BIN% with the winws directory and %LISTS% with the lists directory.
+    /// </summary>
+    /// <param name="batFilePath">Full path to the .bat strategy file.</param>
+    /// <returns>The winws.exe arguments string, or null if parsing failed.</returns>
+    public static string? ParseStrategy(string batFilePath)
     {
-        public static string? ParseStrategy(string batFilePath)
-        {
-            return ExtractArguments(batFilePath, ZapretPaths.WinwsDir + "\\", ZapretPaths.ListsDir + "\\");
-        }
-
-        public static string? ExtractArguments(string batFilePath, string binPath, string listsPath)
+        try
         {
             if (!File.Exists(batFilePath)) return null;
 
             var content = File.ReadAllText(batFilePath);
 
-            var match = Regex.Match(content,
-                @"start\s+""[^""]*""\s+/min\s+""[^""]*winws\.exe""\s+([\s\S]+?)(?=\r?\n\r?\n|\z)",
-                RegexOptions.IgnoreCase);
-
-            if (!match.Success) return null;
-
-            var args = match.Groups[1].Value;
-
-            // Убираем продолжение строк ^
-            args = Regex.Replace(args, @"\s*\^\s*\r?\n\s*", " ");
-
-            // Подставляем пути
-            args = args.Replace("%BIN%", binPath)
-                       .Replace("%LISTS%", listsPath);
-
-            // ── Game Filter ───────────────────────────────────────────
-            // service.bat логика:
-            //   all  → GameFilter=1024-65535, GameFilterTCP=1024-65535, GameFilterUDP=1024-65535
-            //   tcp  → GameFilter=1024-65535, GameFilterTCP=1024-65535, GameFilterUDP=12 (пустышка)
-            //   udp  → GameFilter=1024-65535, GameFilterTCP=12 (пустышка), GameFilterUDP=1024-65535
-            //   disabled → все удаляем
-
-            var gameFilter = AppSettings.GameFilter ?? "disabled";
-
-            string gameTcp, gameUdp, gameAll;
-            switch (gameFilter)
+            // Find the line containing winws.exe
+            string? winwsLine = null;
+            foreach (var line in content.Split('\n'))
             {
-                case "all":
-                    gameAll = "1024-65535"; gameTcp = "1024-65535"; gameUdp = "1024-65535";
+                var trimmed = line.Trim();
+                if (trimmed.Contains("winws.exe", StringComparison.OrdinalIgnoreCase) ||
+                    trimmed.Contains("%BIN%", StringComparison.OrdinalIgnoreCase))
+                {
+                    winwsLine = trimmed;
                     break;
-                case "tcp":
-                    gameAll = "1024-65535"; gameTcp = "1024-65535"; gameUdp = ""; // пустышка → удаляем
-                    break;
-                case "udp":
-                    gameAll = "1024-65535"; gameTcp = ""; gameUdp = "1024-65535"; // пустышка → удаляем
-                    break;
-                default: // disabled
-                    gameAll = ""; gameTcp = ""; gameUdp = "";
-                    break;
+                }
             }
 
-            args = SubstituteOrRemove(args, "%GameFilter%",    gameAll,  new[] { "--wf-tcp", "--wf-udp", "--filter-tcp", "--filter-udp" });
-            args = SubstituteOrRemove(args, "%GameFilterTCP%", gameTcp,  new[] { "--wf-tcp", "--filter-tcp" });
-            args = SubstituteOrRemove(args, "%GameFilterUDP%", gameUdp,  new[] { "--wf-udp", "--filter-udp" });
+            if (winwsLine == null) return null;
 
-            // Убираем висячий --new в конце
-            args = Regex.Replace(args, @"--new\s*$", "");
+            // Replace variables with actual paths
+            var binPath = ZapretPaths.WinwsDir + "\\";
+            var listsPath = ZapretPaths.ListsDir + "\\";
 
-            // Нормализуем пробелы
-            args = args.Trim();
-            args = Regex.Replace(args, @"\s+", " ");
+            winwsLine = winwsLine
+                .Replace("%BIN%", binPath)
+                .Replace("%LISTS%", listsPath);
 
-            return args;
+            // Extract just the arguments (everything after winws.exe)
+            var exeMatch = Regex.Match(winwsLine, @"winws\.exe\s+(.*)", RegexOptions.IgnoreCase);
+            return exeMatch.Success ? exeMatch.Groups[1].Value.Trim() : winwsLine;
         }
-
-        private static string SubstituteOrRemove(string args, string placeholder, string value, string[] flagPrefixes)
+        catch (Exception ex)
         {
-            if (!string.IsNullOrEmpty(value))
-                return args.Replace(placeholder, value);
-
-            // Удаляем --flag=PLACEHOLDER (с любым из указанных флагов)
-            foreach (var prefix in flagPrefixes)
-                args = Regex.Replace(args, $@"{Regex.Escape(prefix)}={Regex.Escape(placeholder)}\s*", "");
-
-            // Удаляем из перечисления: ,PLACEHOLDER или PLACEHOLDER,
-            args = Regex.Replace(args, $@",\s*{Regex.Escape(placeholder)}", "");
-            args = Regex.Replace(args, $@"{Regex.Escape(placeholder)}\s*,\s*", "");
-
-            // Удаляем остаток если не нашли
-            args = args.Replace(placeholder, "");
-
-            return args;
+            System.Diagnostics.Debug.WriteLine($"[Z-UI] BatStrategyParser.ParseStrategy failed: {ex.Message}");
+            return null;
         }
+    }
 
-        // ── IPSet Filter ──────────────────────────────────────────────
-        // Повторяет логику service.bat: меняем содержимое ipset-all.txt
-        //   loaded → реальный список IP (восстанавливаем из .backup)
-        //   none   → пустышка 203.0.113.113/32 (winws ничего не фильтрует по IP)
-        //   any    → пустой файл (winws игнорирует ipset совсем)
-
-        public static void ApplyIpsetFilter(string mode)
+    /// <summary>
+    /// Get the current ipset mode from the active strategy.
+    /// </summary>
+    /// <returns>"any", "loaded", or "none"</returns>
+    public static string GetCurrentIpsetMode()
+    {
+        try
         {
-            var listFile   = Path.Combine(ZapretPaths.ListsDir, "ipset-all.txt");
-            var backupFile = listFile + ".backup";
+            var strategy = AppSettings.CurrentStrategy;
+            var batFile = Path.Combine(ZapretPaths.StrategiesDir, strategy + ".bat");
 
-            Directory.CreateDirectory(ZapretPaths.ListsDir);
+            if (!File.Exists(batFile)) return "any";
 
-            switch (mode)
+            var content = File.ReadAllText(batFile);
+
+            if (content.Contains("--ipset=", StringComparison.OrdinalIgnoreCase))
+                return "loaded";
+            if (content.Contains("any", StringComparison.OrdinalIgnoreCase))
+                return "any";
+
+            return "any";
+        }
+        catch
+        {
+            return "any";
+        }
+    }
+
+    /// <summary>
+    /// Apply an ipset filter mode to the active strategy .bat file.
+    /// Mode "any" disables the filter; other modes (russia, ukraine, custom) set a specific list file.
+    /// </summary>
+    public static void ApplyIpsetFilter(string mode)
+    {
+        try
+        {
+            var strategy = AppSettings.CurrentStrategy;
+            var batFile = Path.Combine(ZapretPaths.StrategiesDir, strategy + ".bat");
+
+            if (!File.Exists(batFile))
             {
-                case "loaded":
-                    if (File.Exists(backupFile))
+                System.Diagnostics.Debug.WriteLine($"[Z-UI] BatStrategyParser.ApplyIpsetFilter: Strategy file not found: {batFile}");
+                return;
+            }
+
+            // Read the .bat file content
+            // Use UTF-8 with BOM encoding for reading (standard for .bat files in this project)
+            var content = File.ReadAllText(batFile);
+            var lines = content.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            var modified = false;
+
+            for (var i = 0; i < lines.Length; i++)
+            {
+                var line = lines[i];
+                var trimmed = line.Trim();
+
+                // Look for lines containing --ipset or --ipset= in the winws.exe command
+                if (trimmed.Contains("--ipset", StringComparison.OrdinalIgnoreCase) &&
+                    (trimmed.Contains("winws", StringComparison.OrdinalIgnoreCase) ||
+                     trimmed.Contains("%BIN%", StringComparison.OrdinalIgnoreCase)))
+                {
+                    if (string.Equals(mode, "any", StringComparison.OrdinalIgnoreCase))
                     {
-                        if (File.Exists(listFile)) File.Delete(listFile);
-                        File.Copy(backupFile, listFile);
+                        // Remove the --ipset argument entirely
+                        // Handle both --ipset=list-file and --ipset list-file forms
+                        lines[i] = System.Text.RegularExpressions.Regex.Replace(
+                            line,
+                            @"\s*--ipset=\S+",
+                            "",
+                            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+                        lines[i] = System.Text.RegularExpressions.Regex.Replace(
+                            lines[i],
+                            @"\s*--ipset\s+\S+",
+                            "",
+                            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+                        modified = true;
                     }
-                    break;
+                    else
+                    {
+                        // Determine the list file based on mode
+                        var listFile = mode.ToLowerInvariant() switch
+                        {
+                            "russia" => "list-russia.txt",
+                            "ukraine" => "list-ukraine.txt",
+                            "custom" => "list-custom.txt",
+                            _ => $"list-{mode}.txt"
+                        };
 
-                case "none":
-                    BackupIfReal(listFile, backupFile);
-                    File.WriteAllText(listFile, "203.0.113.113/32\n");
-                    break;
+                        var listPath = $"%LISTS%\\{listFile}";
 
-                case "any":
-                    BackupIfReal(listFile, backupFile);
-                    File.WriteAllText(listFile, "");
-                    break;
+                        // Replace --ipset=<old> with --ipset=<new>
+                        if (System.Text.RegularExpressions.Regex.IsMatch(lines[i], @"--ipset=\S+", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                        {
+                            lines[i] = System.Text.RegularExpressions.Regex.Replace(
+                                lines[i],
+                                @"--ipset=\S+",
+                                $"--ipset={listPath}",
+                                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                        }
+                        // Replace --ipset <old> with --ipset <new>
+                        else if (System.Text.RegularExpressions.Regex.IsMatch(lines[i], @"--ipset\s+\S+", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                        {
+                            lines[i] = System.Text.RegularExpressions.Regex.Replace(
+                                lines[i],
+                                @"(--ipset)\s+\S+",
+                                $"$1 {listPath}",
+                                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                        }
+
+                        modified = true;
+                    }
+                }
+            }
+
+            if (modified)
+            {
+                // Write back with UTF-8 BOM encoding (CRITICAL per project conventions)
+                var newContent = string.Join(Environment.NewLine, lines);
+                var bom = new byte[] { 0xEF, 0xBB, 0xBF };
+                var utf8Bytes = System.Text.Encoding.UTF8.GetBytes(newContent);
+                var fullPath = Path.GetFullPath(batFile);
+                File.WriteAllBytes(fullPath, [.. bom, .. utf8Bytes]);
+
+                System.Diagnostics.Debug.WriteLine($"[Z-UI] BatStrategyParser.ApplyIpsetFilter: Applied mode='{mode}' to {strategy}.bat");
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"[Z-UI] BatStrategyParser.ApplyIpsetFilter: No --ipset found in {strategy}.bat, mode={mode}");
             }
         }
-
-        private static void BackupIfReal(string listFile, string backupFile)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            if (!File.Exists(listFile)) return;
-            var content = File.ReadAllText(listFile).Trim();
-            if (content != "203.0.113.113/32" && content != "")
-                File.Copy(listFile, backupFile, overwrite: true);
-        }
-
-        // Определяет текущий режим по содержимому файла (как в service.bat)
-        public static string GetCurrentIpsetMode()
-        {
-            var listFile = Path.Combine(ZapretPaths.ListsDir, "ipset-all.txt");
-            if (!File.Exists(listFile)) return "any";
-            var content = File.ReadAllText(listFile).Trim();
-            if (content == "") return "any";
-            if (content == "203.0.113.113/32") return "none";
-            return "loaded";
+            System.Diagnostics.Debug.WriteLine($"[Z-UI] BatStrategyParser.ApplyIpsetFilter failed: {ex.Message}");
         }
     }
 }

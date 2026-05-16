@@ -1,232 +1,393 @@
-<Page
-x:Class="ZUI.Views.DashboardPage"
-xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-xmlns:vm="using:ZUI.ViewModels"
-mc:Ignorable="d">
+<!-- DashboardPage.xaml - Dashboard with Hero section + 4 navigation cards in 2×2 grid -->
+<local:BasePage
+    x:Class="ZUI.Views.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZUI.Views"
+    xmlns:controls="using:ZUI.Controls">
 
-<Page.Resources>
-<vm:LocalizationViewModel x:Key="L"/>
-</Page.Resources>
+  <Grid Padding="32,16,32,32">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
 
-<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-<StackPanel Spacing="16" Padding="24,16,24,24">
+    <!-- Loading Overlay -->
+    <ProgressRing IsActive="{Binding IsLoading, Mode=OneWay}"
+      HorizontalAlignment="Center" VerticalAlignment="Center"
+      Width="40" Height="40"
+      Visibility="{Binding IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+      Grid.RowSpan="4"/>
 
-<!-- Admin indicator -->
-<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
-<StackPanel Orientation="Horizontal" Spacing="4" Visibility="{x:Bind ViewModel.IsAdmin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-<FontIcon Glyph="&#xE7EF;" FontSize="12" Foreground="#FF0078D4" VerticalAlignment="Center"/>
-<TextBlock Text="{Binding Administrator, Source={StaticResource L}}" Style="{ThemeResource CaptionTextBlockStyle}" FontSize="11" Foreground="#FF0078D4" VerticalAlignment="Center"/>
-</StackPanel>
-</StackPanel>
+        <!-- Compact Protection Hero -->
+        <Border x:Name="HeroSection" Grid.Row="0" CornerRadius="12" Padding="20"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1" Translation="0,0,8">
+            <Border.Shadow>
+                <ThemeShadow/>
+            </Border.Shadow>
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-<!-- 1. Hero: статус защиты -->
-<Border CornerRadius="12" Padding="16"
-Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-BorderThickness="1">
-<Grid ColumnSpacing="16">
-<Grid.ColumnDefinitions>
-<ColumnDefinition Width="Auto"/>
-<ColumnDefinition Width="*"/>
-<ColumnDefinition Width="Auto"/>
-</Grid.ColumnDefinitions>
+                <!-- Status Icon - Shield with checkmark -->
+                <Ellipse Grid.Column="0" Width="48" Height="48"
+                         Fill="{Binding IsProtected, Converter={StaticResource BoolToColorConverter}, Mode=OneWay}"/>
+                <FontIcon Grid.Column="0" Glyph="&#xE8D4;" FontSize="22"
+                          HorizontalAlignment="Center" VerticalAlignment="Center"
+                          Foreground="White"/>
 
-<!-- Иконка щита -->
-<Grid Grid.Column="0" Width="56" Height="56">
-<Ellipse Width="56" Height="56">
-<Ellipse.Fill>
-<SolidColorBrush Color="{x:Bind ViewModel.IsServiceRunning, Mode=OneWay, Converter={StaticResource BoolToAccentMutedColorConverter}}"/>
-</Ellipse.Fill>
-</Ellipse>
-<FontIcon Glyph="&#xE7B3;" FontSize="24"
-Foreground="White"
-HorizontalAlignment="Center" VerticalAlignment="Center"/>
-</Grid>
+                <!-- Status Info -->
+                <StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding StatusText, Mode=OneWay}" FontSize="20" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding CurrentStrategyName, Mode=OneWay}" FontSize="13"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <Border Background="{ThemeResource AccentFillColorDefaultBrush}" CornerRadius="4"
+                                Padding="6,2" VerticalAlignment="Center"
+                                Visibility="{Binding AdaptiveStrategyName, Converter={StaticResource StringToVisibilityConverter}, Mode=OneWay}">
+                            <TextBlock Text="{Binding AdaptiveStrategyName, Mode=OneWay}" FontSize="10"
+                                       Foreground="White" FontWeight="SemiBold"/>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8"
+                                Visibility="{Binding IsWorkerConnected, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
+                        <TextBlock Text="{Binding WorkerNotConnectedText, Mode=OneWay}" FontSize="12"
+                                   Foreground="{ThemeResource WarningBrush}" VerticalAlignment="Center"/>
+                        <Button Content="{Binding InstallWorkerButtonText, Mode=OneWay}"
+                                Command="{Binding InstallWorkerCommand}"
+                                FontSize="12" Padding="8,4" Height="28"
+                                Style="{StaticResource AccentButtonStyle}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8"
+                                Visibility="{Binding IsDnsBypassActive, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Ellipse Width="6" Height="6" VerticalAlignment="Center"
+                                 Fill="{Binding IsDnsBypassActive, Converter={StaticResource BoolToColorConverter}, Mode=OneWay}"/>
+                        <TextBlock Text="{Binding DnsBypassStatusText, Mode=OneWay}" FontSize="11"
+                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                    </StackPanel>
+                    </StackPanel>
 
-<!-- Контент -->
-<StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center">
-<TextBlock Text="{x:Bind ViewModel.StatusText, Mode=OneWay}"
-FontSize="18" FontWeight="SemiBold"/>
-<StackPanel Orientation="Horizontal" Spacing="12">
-<StackPanel Orientation="Horizontal" Spacing="4">
-<FontIcon Glyph="&#xE896;" FontSize="11" Opacity="0.5" VerticalAlignment="Center"/>
-<TextBlock Text="{x:Bind ViewModel.ZapretVersion, Mode=OneWay}"
-Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.6"/>
-</StackPanel>
-<StackPanel Orientation="Horizontal" Spacing="4">
-<FontIcon Glyph="&#xE8CB;" FontSize="11" Opacity="0.5" VerticalAlignment="Center"/>
-<TextBlock Text="{x:Bind ViewModel.CurrentStrategy, Mode=OneWay}"
-Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.6"/>
-</StackPanel>
-</StackPanel>
-</StackPanel>
+                <!-- Toggle Button -->
+                <Button x:Name="ToggleProtectionButton" Grid.Column="2"
+                        Content="{Binding ToggleButtonText, Mode=OneWay}"
+                        Style="{StaticResource AccentButtonStyle}"
+                        Command="{Binding ToggleProtectionCommand}"
+                        IsEnabled="{Binding IsToggling, Converter={StaticResource BoolNegationConverter}, Mode=OneWay}"
+                        MinWidth="140" Height="40" FontSize="14"
+                        VerticalAlignment="Center"
+                        RenderTransformOrigin="0.5,0.5"
+                        PointerPressed="ToggleButton_PointerPressed"
+                        PointerReleased="ToggleButton_PointerReleased">
+                    <Button.RenderTransform>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    </Button.RenderTransform>
+                </Button>
+            </Grid>
+        </Border>
 
-<!-- Кнопка запуска/остановки -->
-<Button Grid.Column="2" Command="{x:Bind ViewModel.ToggleServiceCommand}"
-Style="{ThemeResource AccentButtonStyle}"
-MinWidth="140" CornerRadius="8">
-<StackPanel Orientation="Horizontal" Spacing="8">
-<FontIcon FontSize="14" VerticalAlignment="Center"
-Glyph="{x:Bind ViewModel.IsServiceRunning, Mode=OneWay, Converter={StaticResource BoolToStopPlayGlyphConverter}}"/>
-<TextBlock Text="{x:Bind ViewModel.IsServiceRunning, Mode=OneWay, Converter={StaticResource BoolToStartStopConverter}}"
-FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center"/>
-</StackPanel>
-</Button>
-</Grid>
-</Border>
+    <!-- Worker Service Section -->
+    <Border x:Name="WorkerSection" Grid.Row="1" CornerRadius="12" Padding="20" Margin="0,8,0,0"
+      Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+      BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+      Translation="0,0,8">
+      <Border.Shadow><ThemeShadow/></Border.Shadow>
+      <Grid ColumnSpacing="16">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
-<!-- 2. Быстрые действия -->
-<TextBlock Text="{Binding QuickActions, Source={StaticResource L}}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.45" CharacterSpacing="80"/>
+        <!-- Status Info -->
+        <StackPanel Spacing="4" VerticalAlignment="Center">
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <Border Width="36" Height="36" CornerRadius="8"
+              Background="{ThemeResource LayerFillColorDefaultBrush}">
+              <FontIcon Glyph="&#xE9F5;" FontSize="18"
+                Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <TextBlock x:Uid="Dashboard_WorkerServiceTitle" Text="Служба Worker" FontSize="16" FontWeight="SemiBold"
+              VerticalAlignment="Center"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,0,0">
+            <Ellipse Width="6" Height="6" VerticalAlignment="Center"
+              Fill="{Binding IsWorkerRunning, Converter={StaticResource BoolToColorConverter}, Mode=OneWay}"/>
+            <TextBlock Text="{Binding WorkerStatusText, Mode=OneWay}" FontSize="12"
+              Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+          </StackPanel>
+        </StackPanel>
 
-<Grid ColumnSpacing="12">
-<Grid.ColumnDefinitions>
-<ColumnDefinition Width="*"/>
-<ColumnDefinition Width="*"/>
-</Grid.ColumnDefinitions>
+            <!-- Action Buttons -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8"
+                        VerticalAlignment="Center"
+                        Visibility="{Binding IsWorkerInstalling, Converter={StaticResource BoolToVisibilityNegationConverter}, Mode=OneWay}">
+                <!-- Install (shown when NOT installed) -->
+                <Button x:Uid="Dashboard_InstallWorker" Content="Установить" Style="{StaticResource AccentButtonStyle}"
+                        Command="{Binding InstallWorkerCommand}"
+                        MinWidth="120" Height="36" FontSize="13"
+                        Visibility="{Binding IsWorkerInstalled, Converter={StaticResource BoolToVisibilityNegationConverter}, Mode=OneWay}"/>
+                <!-- Start + Uninstall + Reinstall (shown when installed + NOT running) -->
+                <StackPanel Orientation="Horizontal" Spacing="8"
+                            Visibility="{Binding IsWorkerInstalled, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
+                    <Button x:Uid="Dashboard_StartWorker" Content="Запустить" Style="{StaticResource AccentButtonStyle}"
+                            Command="{Binding StartWorkerCommand}"
+                            MinWidth="100" Height="36" FontSize="13"
+                            Visibility="{Binding IsWorkerRunning, Converter={StaticResource BoolToVisibilityNegationConverter}, Mode=OneWay}"/>
+                    <Button Content="Удалить"
+                            Command="{Binding UninstallWorkerCommand}"
+                            MinWidth="80" Height="36" FontSize="13"
+                            Visibility="{Binding IsWorkerRunning, Converter={StaticResource BoolToVisibilityNegationConverter}, Mode=OneWay}"/>
+                <Button x:Uid="Dashboard_ReinstallWorker" Content="Переустановить"
+                            Command="{Binding ReinstallWorkerCommand}"
+                            MinWidth="120" Height="36" FontSize="13"
+                            Visibility="{Binding IsWorkerRunning, Converter={StaticResource BoolToVisibilityNegationConverter}, Mode=OneWay}"/>
+                </StackPanel>
+                <!-- Stop + Reinstall (shown when running) -->
+                <Button x:Uid="Dashboard_StopWorker" Content="Остановить"
+                        Command="{Binding StopWorkerCommand}"
+                        MinWidth="100" Height="36" FontSize="13"
+                        Visibility="{Binding IsWorkerRunning, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
+                <Button Content="Переустановить"
+                        Command="{Binding ReinstallWorkerCommand}"
+                        MinWidth="120" Height="36" FontSize="13"
+                        Visibility="{Binding IsWorkerRunning, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
+            </StackPanel>
 
-<!-- Мастер настройки -->
-<Border Grid.Column="0" CornerRadius="8" Padding="12"
-Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-BorderThickness="1">
-<Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
-Background="Transparent" BorderThickness="0"
-Command="{x:Bind ViewModel.OpenWizardCommand}">
-<StackPanel Orientation="Horizontal" Spacing="10">
-<Border Width="36" Height="36" CornerRadius="8" Background="{ThemeResource SubtleFillColorSecondaryBrush}">
-<FontIcon Glyph="&#xE8CB;" FontSize="16"/>
-</Border>
-<StackPanel Spacing="2" VerticalAlignment="Center">
-<TextBlock Text="{Binding SetupWizard, Source={StaticResource L}}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-<TextBlock Text="{Binding InstallZapret, Source={StaticResource L}}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5"/>
-</StackPanel>
-</StackPanel>
-</Button>
-</Border>
+        <!-- Installing Progress -->
+        <ProgressRing Grid.Column="1" IsActive="{Binding IsWorkerInstalling, Mode=OneWay}"
+          Width="24" Height="24" VerticalAlignment="Center"
+          Visibility="{Binding IsWorkerInstalling, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
+      </Grid>
+    </Border>
 
-<!-- Проверка версии -->
-<Border Grid.Column="1" CornerRadius="8" Padding="12"
-Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-BorderThickness="1">
-<Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
-Background="Transparent" BorderThickness="0"
-Command="{x:Bind ViewModel.CheckVersionCommand}"
-IsEnabled="{x:Bind ViewModel.IsCheckingVersion, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
-<Grid ColumnSpacing="10">
-<Grid.ColumnDefinitions>
-<ColumnDefinition Width="Auto"/>
-<ColumnDefinition Width="*"/>
-</Grid.ColumnDefinitions>
-<Border Grid.Column="0" Width="36" Height="36" CornerRadius="8" Background="{ThemeResource SubtleFillColorSecondaryBrush}">
-<FontIcon Glyph="&#xE895;" FontSize="16"/>
-</Border>
-<StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
-<TextBlock Text="zapret-discord-youtube" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-<TextBlock Text="{x:Bind ViewModel.VersionStatus, Mode=OneWay}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5" TextTrimming="CharacterEllipsis"/>
-</StackPanel>
-</Grid>
-</Button>
-</Border>
-</Grid>
+    <!-- Admin Warning & Progress -->
+    <StackPanel Grid.Row="2" Margin="0,8,0,0">
+            <InfoBar Severity="Warning" IsOpen="{Binding IsAdmin, Converter={StaticResource BoolNegationConverter}, Mode=OneWay}"
+                     IsClosable="False" x:Uid="Dashboard_AdminRequired" Message="Требуются права администратора"/>
+            <ProgressBar IsIndeterminate="True"
+                         Visibility="{Binding IsToggling, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"
+                         Height="2" Margin="0,4,0,0"/>
+        </StackPanel>
 
-<!-- 3. Фильтры -->
-<Expander Header="{Binding AdvancedFilters, Source={StaticResource L}}"
-HorizontalAlignment="Stretch"
-CornerRadius="8">
-<Grid ColumnSpacing="12" Margin="0,8,0,0">
-<Grid.ColumnDefinitions>
-<ColumnDefinition Width="*"/>
-<ColumnDefinition Width="*"/>
-</Grid.ColumnDefinitions>
+    <!-- Navigation Cards — 2×2 grid, fills available space -->
+    <Grid Grid.Row="3" Margin="0,16,0,0"
+              ColumnSpacing="12" RowSpacing="12">
+  <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-<!-- Game Filter -->
-<Border Grid.Column="0" CornerRadius="8" Padding="12"
-Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-BorderThickness="1">
-<StackPanel Spacing="8">
-<TextBlock Text="{Binding GameFilter, Source={StaticResource L}}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-<TextBlock Text="{Binding GameFilterDesc, Source={StaticResource L}}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5" TextWrapping="Wrap"/>
-<ComboBox SelectedIndex="{x:Bind ViewModel.GameFilterIndex, Mode=TwoWay}" HorizontalAlignment="Stretch">
-<ComboBoxItem Content="{Binding Disabled, Source={StaticResource L}}"/>
-<ComboBoxItem Content="{Binding TcpAndUdp, Source={StaticResource L}}"/>
-<ComboBoxItem Content="{Binding TcpOnly, Source={StaticResource L}}"/>
-<ComboBoxItem Content="{Binding UdpOnly, Source={StaticResource L}}"/>
-</ComboBox>
-</StackPanel>
-</Border>
+            <!-- Card: Стратегии -->
+            <Border x:Name="CardStrategies" Grid.Row="0" Grid.Column="0"
+                    CornerRadius="12" Padding="16"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+                    PointerEntered="Card_PointerEntered" PointerExited="Card_PointerExited"
+                    PointerPressed="GoToGenerator"
+                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8">
+                <Border.Shadow><ThemeShadow/></Border.Shadow>
+                <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
+                <StackPanel Spacing="8" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Border Width="36" Height="36" CornerRadius="8"
+                                Background="{ThemeResource LayerFillColorDefaultBrush}">
+                            <FontIcon Glyph="&#xE710;" FontSize="18"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock x:Uid="Dashboard_StrategiesCard" Text="Стратегии" FontSize="16" FontWeight="SemiBold"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock x:Uid="Dashboard_StrategiesDesc" Text="Готовые и кастомные стратегии обхода DPI"
+                               FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="Wrap" MaxLines="2"/>
+                    <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,0,0">
+                        <Ellipse Width="6" Height="6" VerticalAlignment="Center"
+                                 Fill="{Binding IsProtected, Converter={StaticResource BoolToColorConverter}, Mode=OneWay}"/>
+                        <TextBlock Text="{Binding CurrentStrategyName, Mode=OneWay}" FontSize="11"
+                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                   TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
 
-<!-- IPSet Filter -->
-<Border Grid.Column="1" CornerRadius="8" Padding="12"
-Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-BorderThickness="1">
-<StackPanel Spacing="8">
-<TextBlock Text="{Binding IpsetFilter, Source={StaticResource L}}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-<TextBlock Text="{x:Bind ViewModel.IpsetStatusText, Mode=OneWay}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.5" TextWrapping="Wrap"/>
-<ComboBox SelectedIndex="{x:Bind ViewModel.IpsetFilterIndex, Mode=TwoWay}" HorizontalAlignment="Stretch">
-<ComboBoxItem Content="{Binding AnyIp, Source={StaticResource L}}"/>
-<ComboBoxItem Content="{Binding FromList, Source={StaticResource L}}"/>
-<ComboBoxItem Content="{Binding None, Source={StaticResource L}}"/>
-</ComboBox>
-</StackPanel>
-</Border>
-</Grid>
-</Expander>
+            <!-- Card: Проксификатор -->
+            <Border x:Name="CardProxifier" Grid.Row="0" Grid.Column="1"
+              CornerRadius="12" Padding="16"
+              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+              PointerEntered="Card_PointerEntered" PointerExited="Card_PointerExited"
+              PointerPressed="GoToProxifier"
+              RenderTransformOrigin="0.5,0.5" Translation="0,0,8">
+              <Border.Shadow><ThemeShadow/></Border.Shadow>
+              <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
+              <StackPanel Spacing="8" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                  <Border Width="36" Height="36" CornerRadius="8"
+                    Background="{ThemeResource LayerFillColorDefaultBrush}">
+                    <FontIcon Glyph="&#xE774;" FontSize="18"
+                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                  </Border>
+                  <TextBlock x:Uid="Dashboard_ProxifierCard" Text="Проксификатор" FontSize="16" FontWeight="SemiBold"
+                    VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock x:Uid="Dashboard_ProxifierDesc" Text="Маршрутизация трафика через прокси-серверы"
+                  FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                  TextWrapping="Wrap" MaxLines="2"/>
+                <TextBlock x:Uid="Dashboard_ProxifierSub" Text="Per-app прокси, правила, цепочки"
+                  FontSize="11" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+              </StackPanel>
+            </Border>
 
-<!-- 4. Баннер: zapret не установлен -->
-<InfoBar IsOpen="{x:Bind ViewModel.SetupRequired, Mode=OneWay}"
-IsClosable="False"
-Severity="Warning"
-Title="{Binding ZapretNotInstalled, Source={StaticResource L}}"
-Message="{Binding ZapretNotInstalledMsg, Source={StaticResource L}}">
-<InfoBar.ActionButton>
-<Button Content="{Binding LaunchSetupWizard, Source={StaticResource L}}"
-Style="{ThemeResource AccentButtonStyle}"
-Command="{x:Bind ViewModel.OpenWizardCommand}"/>
-</InfoBar.ActionButton>
-</InfoBar>
+            <!-- Card: Сеть -->
+            <Border x:Name="CardNetwork" Grid.Row="0" Grid.Column="2"
+                    CornerRadius="12" Padding="16"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+                    PointerEntered="Card_PointerEntered" PointerExited="Card_PointerExited"
+                    PointerPressed="GoToNetwork"
+                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8">
+                <Border.Shadow><ThemeShadow/></Border.Shadow>
+                <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
+                <StackPanel Spacing="8" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Border Width="36" Height="36" CornerRadius="8"
+                                Background="{ThemeResource LayerFillColorDefaultBrush}">
+                            <FontIcon Glyph="&#xE774;" FontSize="18"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock x:Uid="Dashboard_NetworkCard" Text="Сеть" FontSize="16" FontWeight="SemiBold"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock x:Uid="Dashboard_NetworkDesc" Text="Настройки DNS, прокси и маршрутизации"
+                               FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="Wrap" MaxLines="2"/>
+                    <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,0,0">
+                        <Ellipse Width="6" Height="6" VerticalAlignment="Center"
+                                 Fill="{Binding IsSecureDnsEnabled, Converter={StaticResource BoolToColorConverter}, Mode=OneWay}"/>
+                        <TextBlock FontSize="11" VerticalAlignment="Center"
+                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}">
+                            <Run Text="DNS"/><Run Text=" · "/><Run Text="{Binding DnsPrimaryServer, Mode=OneWay}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
 
-<!-- 5. InfoBar обновления -->
-<InfoBar IsOpen="{x:Bind ViewModel.UpdateAvailable, Mode=OneWay}"
-IsClosable="True"
-Severity="Informational"
-Title="{Binding UpdateAvailable, Source={StaticResource L}}"
-Message="{x:Bind ViewModel.UpdateVersion, Mode=OneWay}">
-<InfoBar.ActionButton>
-<Button Content="{Binding Update, Source={StaticResource L}}"
-Style="{ThemeResource AccentButtonStyle}"
-Command="{x:Bind ViewModel.StartUpdateCommand}"
-Visibility="{x:Bind ViewModel.IsUpdating, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
-</InfoBar.ActionButton>
-</InfoBar>
+            <!-- Card: Диагностика -->
+            <Border x:Name="CardDiagnostics" Grid.Row="1" Grid.Column="0"
+                    CornerRadius="12" Padding="16"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+                    PointerEntered="Card_PointerEntered" PointerExited="Card_PointerExited"
+                    PointerPressed="GoToDiagnostics"
+                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8">
+                <Border.Shadow><ThemeShadow/></Border.Shadow>
+                <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
+                <StackPanel Spacing="8" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Border Width="36" Height="36" CornerRadius="8"
+                                Background="{ThemeResource LayerFillColorDefaultBrush}">
+                            <FontIcon Glyph="&#xE90F;" FontSize="18"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock x:Uid="Dashboard_DiagnosticsCard" Text="Диагностика" FontSize="16" FontWeight="SemiBold"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock x:Uid="Dashboard_DiagnosticsDesc" Text="Проверка системы: права, WinDivert, сеть"
+                               FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="Wrap" MaxLines="2"/>
+                    <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,0,0">
+                        <Ellipse Width="6" Height="6" VerticalAlignment="Center"
+                                 Fill="{StaticResource SuccessBrush}"
+                                 Visibility="{Binding HasCriticalIssues, Converter={StaticResource BoolToVisibilityNegationConverter}, Mode=OneWay}"/>
+                        <Ellipse Width="6" Height="6" VerticalAlignment="Center"
+                                 Fill="{StaticResource WarningBrush}"
+                                 Visibility="{Binding HasCriticalIssues, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
+                        <TextBlock FontSize="11" VerticalAlignment="Center"
+                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}">
+                            <Run Text="{Binding PassedChecks, Mode=OneWay}"/><Run Text="/"/><Run Text="{Binding TotalChecks, Mode=OneWay}"/>
+                            <Run Text=" · "/><Run Text="{Binding IspName, Mode=OneWay}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
 
-<!-- 6. Прогресс обновления -->
-<Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-BorderThickness="1" CornerRadius="8" Padding="16,12"
-Visibility="{x:Bind ViewModel.IsUpdating, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-<StackPanel Spacing="8">
-<TextBlock Text="{x:Bind ViewModel.UpdateStatusText, Mode=OneWay}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-<ProgressBar Value="{x:Bind ViewModel.UpdateProgress, Mode=OneWay}" Maximum="100" ShowError="False" ShowPaused="False"/>
-<TextBlock Text="{x:Bind ViewModel.UpdateProgress, Mode=OneWay, Converter={StaticResource ProgressToPercentConverter}}"
-Style="{ThemeResource CaptionTextBlockStyle}" Opacity="0.6"/>
-</StackPanel>
-</Border>
+            <!-- Card: Настройки -->
+            <Border x:Name="CardSettings" Grid.Row="1" Grid.Column="1"
+                    CornerRadius="12" Padding="16"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+                    PointerEntered="Card_PointerEntered" PointerExited="Card_PointerExited"
+                    PointerPressed="GoToSettings"
+                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8">
+                <Border.Shadow><ThemeShadow/></Border.Shadow>
+                <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
+                <StackPanel Spacing="8" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Border Width="36" Height="36" CornerRadius="8"
+                                Background="{ThemeResource LayerFillColorDefaultBrush}">
+                            <FontIcon Glyph="&#xE713;" FontSize="18"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock x:Uid="Dashboard_SettingsCard" Text="Настройки" FontSize="16" FontWeight="SemiBold"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock x:Uid="Dashboard_SettingsDesc" Text="Тема, автозапуск, язык и параметры"
+                               FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="Wrap" MaxLines="2"/>
+                    <TextBlock Text="{Binding SettingsInfoText, Mode=OneWay}" FontSize="11"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                               TextTrimming="CharacterEllipsis"/>
+                </StackPanel>
+            </Border>
 
-<!-- 7. Changelog -->
-<Expander Visibility="{x:Bind ViewModel.ChangelogVisible, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
-Header="{Binding Changelog, Source={StaticResource L}}"
-IsExpanded="True"
-CornerRadius="8">
-<ScrollViewer MaxHeight="200" Padding="8">
-<TextBlock Text="{x:Bind ViewModel.Changelog, Mode=OneWay}" TextWrapping="Wrap"/>
-</ScrollViewer>
-</Expander>
-</StackPanel>
-</ScrollViewer>
-</Page>
+            <!-- Card: О приложении -->
+            <Border x:Name="CardAbout" Grid.Row="1" Grid.Column="2"
+                    CornerRadius="12" Padding="16"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+                    PointerEntered="Card_PointerEntered" PointerExited="Card_PointerExited"
+                    PointerPressed="GoToAbout"
+                    RenderTransformOrigin="0.5,0.5" Translation="0,0,8">
+                <Border.Shadow><ThemeShadow/></Border.Shadow>
+                <Border.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1"/></Border.RenderTransform>
+                <StackPanel Spacing="8" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Border Width="36" Height="36" CornerRadius="8"
+                                Background="{ThemeResource LayerFillColorDefaultBrush}">
+                            <FontIcon Glyph="&#xE946;" FontSize="18"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock x:Uid="Dashboard_AboutCard" Text="О приложении" FontSize="16" FontWeight="SemiBold"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock x:Uid="Dashboard_AboutDesc" Text="Версия, лицензия и ссылки"
+                               FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="Wrap" MaxLines="2"/>
+                    <TextBlock Text="{Binding AppVersion, Mode=OneWay}" FontSize="11"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                               TextTrimming="CharacterEllipsis"/>
+                </StackPanel>
+            </Border>
+
+        </Grid>
+
+    </Grid>
+</local:BasePage>

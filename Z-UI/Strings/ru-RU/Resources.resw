@@ -614,7 +614,1039 @@
 	<data name="StrategiyaNeVybrana.Text" xml:space="preserve">
 		<value>Стратегия не выбрана</value>
 	</data>
-	<data name="VersiyaNeUstanovlena.Text" xml:space="preserve">
-		<value>Версия не установлена</value>
+  <data name="VersiyaNeUstanovlena.Text" xml:space="preserve">
+    <value>Версия не установлена</value>
+  </data>
+
+  <!-- DNS Page -->
+  <data name="DnsPage.Title" xml:space="preserve">
+    <value>Настройки DNS</value>
+  </data>
+  <data name="DnsPage.Description" xml:space="preserve">
+    <value>Настройте DNS-серверы для обхода IP-блокировок</value>
+  </data>
+  <data name="DnsStatus.Applied" xml:space="preserve">
+    <value>DNS применён</value>
+  </data>
+  <data name="DnsStatus.NotApplied" xml:space="preserve">
+    <value>Используется системный DNS</value>
+  </data>
+  <data name="Dns.Apply" xml:space="preserve">
+    <value>Применить DNS</value>
+  </data>
+  <data name="Dns.ResetToDhcp" xml:space="preserve">
+    <value>Сбросить в DHCP</value>
+  </data>
+  <data name="Dns.RestoreBackup" xml:space="preserve">
+    <value>Восстановить из бэкапа</value>
+  </data>
+  <data name="Dns.TestAll" xml:space="preserve">
+    <value>Протестировать все</value>
+  </data>
+  <data name="Dns.TestSelected" xml:space="preserve">
+    <value>Тест выбранного</value>
+  </data>
+  <data name="Dns.CancelTest" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="Dns.CheckUpdates" xml:space="preserve">
+    <value>Проверить обновления</value>
+  </data>
+	<data name="Dns.AutoApplyLabel" xml:space="preserve">
+		<value>Применять DNS при запуске zapret</value>
 	</data>
+	<data name="Dns.AutoApplyDesc" xml:space="preserve">
+		<value>Автоматически применять выбранный DNS при запуске zapret</value>
+	</data>
+	<data name="Dns.AutoRestoreLabel" xml:space="preserve">
+		<value>Восстанавливать DNS при остановке zapret</value>
+	</data>
+	<data name="Dns.AutoRestoreDesc" xml:space="preserve">
+		<value>Автоматически восстанавливать предыдущий DNS при остановке zapret</value>
+	</data>
+	<data name="Dns.AutoUpdateLabel" xml:space="preserve">
+		<value>Автообновление конфигурации DNS</value>
+	</data>
+	<data name="Dns.AutoUpdateDesc" xml:space="preserve">
+		<value>Автоматически проверять обновления IP DNS-серверов из удалённого источника</value>
+	</data>
+  <data name="Dns.LastCheck" xml:space="preserve">
+    <value>Последняя проверка</value>
+  </data>
+  <data name="Dns.CheckNow" xml:space="preserve">
+    <value>Проверить сейчас</value>
+  </data>
+  <data name="Dns.NetworkAdapter" xml:space="preserve">
+    <value>Сетевой адаптер</value>
+  </data>
+  <data name="Dns.CurrentDns" xml:space="preserve">
+    <value>Текущий DNS</value>
+  </data>
+  <data name="Dns.Dhcp" xml:space="preserve">
+    <value>DHCP (Системный)</value>
+  </data>
+	<data name="Dns.AboutTitle" xml:space="preserve">
+		<value>О DNS</value>
+	</data>
+	<data name="Dns.AboutDesc" xml:space="preserve">
+		<value>DNS (Domain Name System) преобразует доменные имена в IP-адреса. dns.malw.link помогает обходить IP-блокировки от самих сервисов (Discord, YouTube и др.). Zapret (winws) обходит DPI/SNI блокировки Роскомнадзора. Вместе они обеспечивают лучший доступ к заблокированным ресурсам.</value>
+	</data>
+  <data name="Dns.Server.Recommended" xml:space="preserve">
+    <value>Рекомендуется</value>
+  </data>
+  <data name="Dns.Server.RussianOptimized" xml:space="preserve">
+    <value>Оптимизирован для России</value>
+  </data>
+  <data name="Dns.Test.Success" xml:space="preserve">
+    <value>Успешно</value>
+  </data>
+  <data name="Dns.Test.Failed" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Dns.Test.ResponseTime" xml:space="preserve">
+    <value>Время отклика</value>
+  </data>
+  <data name="Dns.Status.Applying" xml:space="preserve">
+    <value>Применение DNS...</value>
+  </data>
+  <data name="Dns.Status.AppliedSuccess" xml:space="preserve">
+    <value>DNS успешно применён</value>
+  </data>
+  <data name="Dns.Status.ResetSuccess" xml:space="preserve">
+    <value>DNS сброшен к системным настройкам</value>
+  </data>
+  <data name="Dns.Status.Restored" xml:space="preserve">
+    <value>DNS восстановлен из бэкапа</value>
+  </data>
+  <data name="Dns.Status.NoBackup" xml:space="preserve">
+    <value>Бэкап DNS не найден</value>
+  </data>
+  <data name="Dns.Status.UpdateAvailable" xml:space="preserve">
+    <value>Конфигурация DNS обновлена из удалённого источника</value>
+  </data>
+  <data name="Dns.Status.UpToDate" xml:space="preserve">
+    <value>Конфигурация DNS актуальна</value>
+  </data>
+  <data name="Dns.Custom.Primary" xml:space="preserve">
+    <value>Первичный DNS</value>
+  </data>
+  <data name="Dns.Custom.Secondary" xml:space="preserve">
+    <value>Вторичный DNS (необязательно)</value>
+  </data>
+  <data name="Dns.Custom.Header" xml:space="preserve">
+    <value>Пользовательские DNS-серверы</value>
+  </data>
+  <data name="NavDns" xml:space="preserve">
+    <value>DNS</value>
+  </data>
+  <data name="DnsTest" xml:space="preserve">
+    <value>Тест DNS</value>
+  </data>
+  <data name="CurrentStatus" xml:space="preserve">
+    <value>Текущий статус</value>
+  </data>
+  <data name="AutoSettings" xml:space="preserve">
+    <value>Автонастройки</value>
+  </data>
+  <data name="AutoDnsSetup" xml:space="preserve">
+    <value>Автонастройка DNS</value>
+  </data>
+  <data name="DnsConfigured" xml:space="preserve">
+    <value>DNS настроен</value>
+  </data>
+  <data name="DnsNotConfigured" xml:space="preserve">
+    <value>DNS не настроен</value>
+  </data>
+  <data name="DnsConfiguring" xml:space="preserve">
+    <value>Настройка DNS...</value>
+  </data>
+  <data name="UsingSystemDns" xml:space="preserve">
+    <value>Используется системный DNS</value>
+  </data>
+
+  <!-- ═══ TgProxy ═══ -->
+  <data name="ErrorF" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="TgSocks5Off" xml:space="preserve">
+    <value>SOCKS5 proxy выключен</value>
+  </data>
+  <data name="TgSocks5Stopped" xml:space="preserve">
+    <value>SOCKS5 proxy остановлен</value>
+  </data>
+  <data name="TgSocks5Active" xml:space="preserve">
+    <value>SOCKS5 proxy активен (порт {0})</value>
+  </data>
+  <data name="TgSpecifyWsUrl" xml:space="preserve">
+    <value>Укажите WebSocket URL</value>
+  </data>
+  <data name="TgMtProxyOff" xml:space="preserve">
+    <value>MTProxy выключен</value>
+  </data>
+  <data name="TgMtProxyStopped" xml:space="preserve">
+    <value>MTProxy остановлен</value>
+  </data>
+  <data name="TgMtProxyActive" xml:space="preserve">
+    <value>MTProxy активен (порт {0})</value>
+  </data>
+  <data name="TgSpecifyMtSecret" xml:space="preserve">
+    <value>Укажите секрет MTProxy</value>
+  </data>
+  <data name="TgPartialError" xml:space="preserve">
+    <value>Частичная ошибка</value>
+  </data>
+  <data name="TgSocks5WsTitle" xml:space="preserve">
+    <value>SOCKS5 → WebSocket</value>
+  </data>
+  <data name="TgSocks5WsDesc" xml:space="preserve">
+    <value>Прокси для обхода блокировок Telegram через WebSocket</value>
+  </data>
+  <data name="TgMtProxyTitle" xml:space="preserve">
+    <value>MTProxy</value>
+  </data>
+  <data name="TgMtProxyDesc" xml:space="preserve">
+    <value>Нативный MTProxy протокол для Telegram</value>
+  </data>
+  <data name="TgPort" xml:space="preserve">
+    <value>Порт</value>
+  </data>
+  <data name="TgWsUrl" xml:space="preserve">
+    <value>WebSocket URL</value>
+  </data>
+  <data name="TgSecret" xml:space="preserve">
+    <value>Секрет</value>
+  </data>
+  <data name="TgStart" xml:space="preserve">
+    <value>Запустить</value>
+  </data>
+  <data name="TgStop" xml:space="preserve">
+    <value>Остановить</value>
+  </data>
+  <data name="TgStopAll" xml:space="preserve">
+    <value>Остановить всё</value>
+  </data>
+  <data name="TgRefresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="TgCopyLink" xml:space="preserve">
+    <value>Скопировать ссылку</value>
+  </data>
+  <data name="TgProxyLink" xml:space="preserve">
+    <value>Ссылка для подключения</value>
+  </data>
+  <data name="TgActiveConnections" xml:space="preserve">
+    <value>Активные подключения</value>
+  </data>
+
+  <!-- ═══ About ═══ -->
+  <data name="AboutTitle" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
+  <data name="AboutSubtitle" xml:space="preserve">
+    <value>Информация о версии и лицензии</value>
+  </data>
+  <data name="AboutVersion" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="AboutDescription" xml:space="preserve">
+    <value>Z-UI — графическая оболочка для обхода DPI на базе zapret-discord-youtube. Современный интерфейс для Windows 10/11.</value>
+  </data>
+  <data name="AboutLicense" xml:space="preserve">
+    <value>Лицензия</value>
+  </data>
+  <data name="AboutLicenseInfo" xml:space="preserve">
+    <value>MIT License</value>
+  </data>
+  <data name="AboutGitHub" xml:space="preserve">
+    <value>GitHub репозиторий</value>
+  </data>
+  <data name="AboutGitHubDesc" xml:space="preserve">
+    <value>Исходный код, issues и обновления</value>
+  </data>
+  <data name="AboutZapret" xml:space="preserve">
+    <value>Проект zapret</value>
+  </data>
+  <data name="AboutZapretDesc" xml:space="preserve">
+    <value>Оригинальный проект обхода DPI</value>
+  </data>
+  <data name="AboutDependencies" xml:space="preserve">
+    <value>Зависимости</value>
+  </data>
+  <data name="AboutDepsInfo" xml:space="preserve">
+    <value>WinUI 3, .NET 10, CommunityToolkit.Mvvm, WinDivert</value>
+  </data>
+  <data name="AboutCopyright" xml:space="preserve">
+    <value>© 2026 Z-UI. MIT License.</value>
+  </data>
+  <data name="WorkerLabel" xml:space="preserve">
+    <value>Worker</value>
+  </data>
+  <data name="OpenLabel" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Недоступно</value>
+  </data>
+
+  <!-- ═══ Dashboard Page ═══ -->
+  <data name="Dashboard.WorkerServiceTitle" xml:space="preserve">
+    <value>Служба Worker</value>
+  </data>
+  <data name="Dashboard.InstallWorker" xml:space="preserve">
+    <value>Установить</value>
+  </data>
+  <data name="Dashboard.StartWorker" xml:space="preserve">
+    <value>Запустить</value>
+  </data>
+  <data name="Dashboard.StopWorker" xml:space="preserve">
+    <value>Остановить</value>
+  </data>
+  <data name="Dashboard.ReinstallWorker" xml:space="preserve">
+    <value>Переустановить</value>
+  </data>
+  <data name="Dashboard.AdminRequired" xml:space="preserve">
+    <value>Требуются права администратора</value>
+  </data>
+  <data name="Dashboard.StrategiesCard" xml:space="preserve">
+    <value>Стратегии</value>
+  </data>
+  <data name="Dashboard.StrategiesDesc" xml:space="preserve">
+    <value>Готовые и кастомные стратегии обхода DPI</value>
+  </data>
+  <data name="Dashboard.ProxifierCard" xml:space="preserve">
+    <value>Проксификатор</value>
+  </data>
+  <data name="Dashboard.ProxifierDesc" xml:space="preserve">
+    <value>Маршрутизация трафика через прокси-серверы</value>
+  </data>
+  <data name="Dashboard.ProxifierSub" xml:space="preserve">
+    <value>Per-app прокси, правила, цепочки</value>
+  </data>
+  <data name="Dashboard.NetworkCard" xml:space="preserve">
+    <value>Сеть</value>
+  </data>
+  <data name="Dashboard.NetworkDesc" xml:space="preserve">
+    <value>Настройки DNS, прокси и маршрутизации</value>
+  </data>
+  <data name="Dashboard.DiagnosticsCard" xml:space="preserve">
+    <value>Диагностика</value>
+  </data>
+  <data name="Dashboard.DiagnosticsDesc" xml:space="preserve">
+    <value>Проверка системы: права, WinDivert, сеть</value>
+  </data>
+  <data name="Dashboard.SettingsCard" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Dashboard.SettingsDesc" xml:space="preserve">
+    <value>Тема, автозапуск, язык и параметры</value>
+  </data>
+  <data name="Dashboard.AboutCard" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
+  <data name="Dashboard.AboutDesc" xml:space="preserve">
+    <value>Версия, лицензия и ссылки</value>
+  </data>
+  <data name="Dashboard.DnsLabel" xml:space="preserve">
+    <value>DNS</value>
+  </data>
+
+  <!-- ═══ Settings Page ═══ -->
+  <data name="Settings.Title" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Settings.Subtitle" xml:space="preserve">
+    <value>Параметры приложения и защиты</value>
+  </data>
+  <data name="Settings.ProtectionSection" xml:space="preserve">
+    <value>Защита</value>
+  </data>
+  <data name="Settings.AutoProtect" xml:space="preserve">
+    <value>Автозапуск защиты</value>
+  </data>
+  <data name="Settings.AutoProtectDesc" xml:space="preserve">
+    <value>Автоматически запускать обход DPI при старте приложения</value>
+  </data>
+  <data name="Settings.DefaultStrategy" xml:space="preserve">
+    <value>Стратегия по умолчанию</value>
+  </data>
+  <data name="Settings.DefaultStrategyDesc" xml:space="preserve">
+    <value>Стратегия для автозапуска защиты</value>
+  </data>
+  <data name="Settings.NoUac" xml:space="preserve">
+    <value>Запуск без UAC</value>
+  </data>
+  <data name="Settings.NoUacDesc" xml:space="preserve">
+    <value>Автоматический запуск с правами администратора через планировщик задач</value>
+  </data>
+  <data name="Settings.DnsSection" xml:space="preserve">
+    <value>DNS</value>
+  </data>
+  <data name="Settings.DefaultDnsMode" xml:space="preserve">
+    <value>Режим DNS по умолчанию</value>
+  </data>
+  <data name="Settings.DefaultDnsModeDesc" xml:space="preserve">
+    <value>DNS режим при автозапуске защиты</value>
+  </data>
+  <data name="Settings.DnsProxyRecommended" xml:space="preserve">
+    <value>DNS Proxy (Рекомендуется)</value>
+  </data>
+  <data name="Settings.DnsOverHttps" xml:space="preserve">
+    <value>DNS over HTTPS</value>
+  </data>
+  <data name="Settings.DnsDisabled" xml:space="preserve">
+    <value>Выключен</value>
+  </data>
+  <data name="Settings.NotificationsSection" xml:space="preserve">
+    <value>Уведомления</value>
+  </data>
+  <data name="Settings.WindowsNotifications" xml:space="preserve">
+    <value>Уведомления Windows</value>
+  </data>
+  <data name="Settings.WindowsNotificationsDesc" xml:space="preserve">
+    <value>Показывать уведомления о статусе защиты и ошибках</value>
+  </data>
+  <data name="Settings.NotifyOnStart" xml:space="preserve">
+    <value>Уведомление при запуске защиты</value>
+  </data>
+  <data name="Settings.NotifyOnStartDesc" xml:space="preserve">
+    <value>Показывать уведомление когда защита активирована</value>
+  </data>
+  <data name="Settings.NotifyOnStop" xml:space="preserve">
+    <value>Уведомление при остановке</value>
+  </data>
+  <data name="Settings.NotifyOnStopDesc" xml:space="preserve">
+    <value>Показывать уведомление когда защита остановлена</value>
+  </data>
+  <data name="Settings.NotifyOnErrors" xml:space="preserve">
+    <value>Уведомление об ошибках</value>
+  </data>
+  <data name="Settings.NotifyOnErrorsDesc" xml:space="preserve">
+    <value>Показывать уведомление при ошибках защиты</value>
+  </data>
+  <data name="Settings.AppearanceSection" xml:space="preserve">
+    <value>Внешний вид</value>
+  </data>
+  <data name="Settings.AppTheme" xml:space="preserve">
+    <value>Тема приложения</value>
+  </data>
+  <data name="Settings.Language" xml:space="preserve">
+    <value>Язык интерфейса</value>
+  </data>
+  <data name="Settings.LanguageDesc" xml:space="preserve">
+    <value>Язык приложения (требуется перезапуск)</value>
+  </data>
+  <data name="Settings.Animations" xml:space="preserve">
+    <value>Анимации интерфейса</value>
+  </data>
+  <data name="Settings.AnimationsDesc" xml:space="preserve">
+    <value>Плавные переходы и эффекты при наведении</value>
+  </data>
+  <data name="Settings.TraySection" xml:space="preserve">
+    <value>Системный трей</value>
+  </data>
+  <data name="Settings.MinimizeToTray" xml:space="preserve">
+    <value>Минимизировать в трей</value>
+  </data>
+  <data name="Settings.MinimizeToTrayDesc" xml:space="preserve">
+    <value>Скрывать окно в трей при сворачивании</value>
+  </data>
+  <data name="Settings.StartInTray" xml:space="preserve">
+    <value>Запускать в трее</value>
+  </data>
+  <data name="Settings.StartInTrayDesc" xml:space="preserve">
+    <value>Запускать приложение свёрнутым в трей</value>
+  </data>
+  <data name="Settings.ShowTrayIcon" xml:space="preserve">
+    <value>Показывать иконку в трее</value>
+  </data>
+  <data name="Settings.ShowTrayIconDesc" xml:space="preserve">
+    <value>Отображать иконку Z-UI в системном трее</value>
+  </data>
+  <data name="Settings.SoundSection" xml:space="preserve">
+    <value>Звуки</value>
+  </data>
+  <data name="Settings.SoundEffects" xml:space="preserve">
+    <value>Звуковые эффекты</value>
+  </data>
+  <data name="Settings.SoundEffectsDesc" xml:space="preserve">
+    <value>Воспроизводить звуки при взаимодействии</value>
+  </data>
+  <data name="Settings.UpdatesSection" xml:space="preserve">
+    <value>Обновления</value>
+  </data>
+  <data name="Settings.AutoUpdateCheck" xml:space="preserve">
+    <value>Автоматическая проверка обновлений</value>
+  </data>
+  <data name="Settings.AutoUpdateCheckDesc" xml:space="preserve">
+    <value>Проверять наличие обновлений при запуске</value>
+  </data>
+  <data name="Settings.AutoUpdateDownload" xml:space="preserve">
+    <value>Автоматическая загрузка</value>
+  </data>
+  <data name="Settings.AutoUpdateDownloadDesc" xml:space="preserve">
+    <value>Загружать обновления автоматически</value>
+  </data>
+  <data name="Settings.DataSection" xml:space="preserve">
+    <value>Данные</value>
+  </data>
+  <data name="Settings.ExportSettings" xml:space="preserve">
+    <value>Экспорт настроек</value>
+  </data>
+  <data name="Settings.ExportSettingsDesc" xml:space="preserve">
+    <value>Сохранить все настройки в файл</value>
+  </data>
+  <data name="Settings.ImportSettings" xml:space="preserve">
+    <value>Импорт настроек</value>
+  </data>
+  <data name="Settings.ImportSettingsDesc" xml:space="preserve">
+    <value>Загрузить настройки из файла</value>
+  </data>
+  <data name="Settings.ResetSettings" xml:space="preserve">
+    <value>Сбросить настройки</value>
+  </data>
+  <data name="Settings.ResetSettingsDesc" xml:space="preserve">
+    <value>Вернуть все настройки к значениям по умолчанию</value>
+  </data>
+  <data name="Settings.OpenLogs" xml:space="preserve">
+    <value>Открыть папку логов</value>
+  </data>
+  <data name="Settings.OpenLogsDesc" xml:space="preserve">
+    <value>Открыть папку с файлами журналов</value>
+  </data>
+  <data name="Settings.CheckUpdates" xml:space="preserve">
+    <value>Проверить обновления</value>
+  </data>
+  <data name="Settings.DownloadUpdate" xml:space="preserve">
+    <value>Загрузить обновление</value>
+  </data>
+  <data name="Settings.VersionSection" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="Settings.Export" xml:space="preserve">
+    <value>Экспорт</value>
+  </data>
+  <data name="Settings.Import" xml:space="preserve">
+    <value>Импорт</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>Сброс</value>
+  </data>
+  <data name="Settings.Open" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="Settings.LightTheme" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
+  <data name="Settings.DarkTheme" xml:space="preserve">
+    <value>Тёмная</value>
+  </data>
+  <data name="Settings.SystemTheme" xml:space="preserve">
+    <value>Как в системе</value>
+  </data>
+  <data name="Settings.RussianLang" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="Settings.EnglishLang" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Settings.LogLevel" xml:space="preserve">
+    <value>Уровень логирования</value>
+  </data>
+  <data name="Settings.LogLevelDesc" xml:space="preserve">
+    <value>Детализация записей в журнале</value>
+  </data>
+  <data name="Settings.LogDebug" xml:space="preserve">
+    <value>Отладка</value>
+  </data>
+  <data name="Settings.LogInfo" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="Settings.LogWarning" xml:space="preserve">
+    <value>Предупреждения</value>
+  </data>
+  <data name="Settings.LogError" xml:space="preserve">
+    <value>Ошибки</value>
+  </data>
+  <data name="Settings.LogNone" xml:space="preserve">
+    <value>Отключён</value>
+  </data>
+  <data name="Settings.AutostartSection" xml:space="preserve">
+    <value>Автозапуск</value>
+  </data>
+  <data name="Settings.Autostart" xml:space="preserve">
+    <value>Запускать вместе с Windows</value>
+  </data>
+  <data name="Settings.AutostartDesc" xml:space="preserve">
+    <value>Запускать Z-UI при входе в систему</value>
+  </data>
+  <data name="Settings.StartMinimized" xml:space="preserve">
+    <value>Минимизация в трей при запуске</value>
+  </data>
+  <data name="Settings.StartMinimizedDesc" xml:space="preserve">
+    <value>Скрывать окно при старте приложения</value>
+  </data>
+  <data name="Settings.SoundEffectsDesc" xml:space="preserve">
+    <value>Звуки при нажатии кнопок и действиях</value>
+  </data>
+  <data name="Settings.LogLevelTitle" xml:space="preserve">
+    <value>Логирование</value>
+  </data>
+  <data name="Settings.LogLevelDetail" xml:space="preserve">
+    <value>Подробность записи логов приложения</value>
+  </data>
+  <data name="Settings.OpenLogsFolder" xml:space="preserve">
+    <value>Открыть папку логов</value>
+  </data>
+  <data name="Settings.StartupWindows" xml:space="preserve">
+    <value>Запуск Windows</value>
+  </data>
+  <data name="Settings.StartMinimizedLabel" xml:space="preserve">
+    <value>Сворачивать при запуске</value>
+  </data>
+  <data name="Settings.StartMinimizedLabelDesc" xml:space="preserve">
+    <value>Скрывать окно и работать в фоне</value>
+  </data>
+  <data name="Settings.CheckUpdatesLabel" xml:space="preserve">
+    <value>Проверять обновления</value>
+  </data>
+  <data name="Settings.CheckUpdatesLabelDesc" xml:space="preserve">
+    <value>Автоматически проверять наличие новых версий</value>
+  </data>
+  <data name="Settings.CheckOnStart" xml:space="preserve">
+    <value>Проверять при запуске</value>
+  </data>
+  <data name="Settings.CheckOnStartDesc" xml:space="preserve">
+    <value>Проверять обновления при запуске приложения</value>
+  </data>
+  <data name="Settings.CheckUpdatesBtn" xml:space="preserve">
+    <value>Проверить обновления</value>
+  </data>
+  <data name="Settings.DownloadUpdateBtn" xml:space="preserve">
+    <value>Скачать обновление</value>
+  </data>
+  <data name="AboutDescriptionFull" xml:space="preserve">
+    <value>Основано на zapret-discord-youtube от Flowseal. Поддерживает Discord, YouTube и другие сервисы.</value>
+  </data>
+  <data name="AboutReportIssue" xml:space="preserve">
+    <value>Сообщить о проблеме</value>
+  </data>
+  <data name="AboutLicense" xml:space="preserve">
+    <value>Лицензия</value>
+  </data>
+  <data name="Settings.MinimizeToTrayDesc2" xml:space="preserve">
+    <value>Сворачивать приложение в системный трей вместо панели задач</value>
+  </data>
+
+  <!-- ═══ Diagnostics Page ═══ -->
+  <data name="Diagnostics.Title" xml:space="preserve">
+    <value>Диагностика системы</value>
+  </data>
+  <data name="Diagnostics.Subtitle" xml:space="preserve">
+    <value>Проверка готовности системы к обходу DPI</value>
+  </data>
+  <data name="Diagnostics.SystemState" xml:space="preserve">
+    <value>Состояние системы</value>
+  </data>
+  <data name="Diagnostics.PassedChecks" xml:space="preserve">
+    <value>Проверок пройдено:</value>
+  </data>
+  <data name="Diagnostics.AdminTitle" xml:space="preserve">
+    <value>Права администратора</value>
+  </data>
+  <data name="Diagnostics.WorkerTitle" xml:space="preserve">
+    <value>Worker Service (IPC)</value>
+  </data>
+  <data name="Diagnostics.WinDivertTitle" xml:space="preserve">
+    <value>WinDivert драйвер</value>
+  </data>
+  <data name="Diagnostics.DomainListsTitle" xml:space="preserve">
+    <value>Списки доменов</value>
+  </data>
+  <data name="Diagnostics.BinaryFilesTitle" xml:space="preserve">
+    <value>Бинарные файлы</value>
+  </data>
+  <data name="Diagnostics.NetworkTitle" xml:space="preserve">
+    <value>Сетевое подключение</value>
+  </data>
+  <data name="Diagnostics.DetailedResults" xml:space="preserve">
+    <value>Подробные результаты</value>
+  </data>
+  <data name="Diagnostics.RunCheck" xml:space="preserve">
+    <value>Запустить проверку</value>
+  </data>
+  <data name="Diagnostics.QuickCheck" xml:space="preserve">
+    <value>Быстрая проверка</value>
+  </data>
+  <data name="Diagnostics.ExportReport" xml:space="preserve">
+    <value>Экспорт отчёта</value>
+  </data>
+  <data name="Diagnostics.FixAdmin" xml:space="preserve">
+    <value>Запуск от админа</value>
+  </data>
+  <data name="Diagnostics.FixWorker" xml:space="preserve">
+    <value>Установить Worker</value>
+  </data>
+  <data name="Diagnostics.FixWinDivert" xml:space="preserve">
+    <value>Установить WinDivert</value>
+  </data>
+  <data name="Diagnostics.FixDomainLists" xml:space="preserve">
+    <value>Скачать списки</value>
+  </data>
+  <data name="Diagnostics.FixBinaryFiles" xml:space="preserve">
+    <value>Скачать файлы</value>
+  </data>
+  <data name="Diagnostics.FixNetwork" xml:space="preserve">
+    <value>Диагностика сети</value>
+  </data>
+  <data name="Diagnostics.ClearLogs" xml:space="preserve">
+    <value>Очистить логи</value>
+  </data>
+
+  <!-- ═══ Generator Page ═══ -->
+  <data name="Generator.Title" xml:space="preserve">
+    <value>Генератор стратегий</value>
+  </data>
+  <data name="Generator.Subtitle" xml:space="preserve">
+    <value>Выберите готовую стратегию или создайте свою</value>
+  </data>
+  <data name="Generator.TabReady" xml:space="preserve">
+    <value>Готовые стратегии</value>
+  </data>
+  <data name="Generator.TabCreate" xml:space="preserve">
+    <value>Создать стратегию</value>
+  </data>
+  <data name="Generator.CurrentStrategy" xml:space="preserve">
+    <value>Текущая стратегия</value>
+  </data>
+  <data name="Generator.SelectStrategy" xml:space="preserve">
+    <value>Выбор стратегии</value>
+  </data>
+  <data name="Generator.StrategyLabel" xml:space="preserve">
+    <value>Стратегия</value>
+  </data>
+  <data name="Generator.StrategyDesc" xml:space="preserve">
+    <value>Выберите готовую стратегию для обхода DPI</value>
+  </data>
+  <data name="Generator.SelectStrategyPlaceholder" xml:space="preserve">
+    <value>Выберите стратегию</value>
+  </data>
+  <data name="Generator.Testing" xml:space="preserve">
+    <value>Тестирование</value>
+  </data>
+  <data name="Generator.Test" xml:space="preserve">
+    <value>Тестировать</value>
+  </data>
+  <data name="Generator.SelectServices" xml:space="preserve">
+    <value>Выберите сервисы</value>
+  </data>
+  <data name="Generator.SelectServicesDesc" xml:space="preserve">
+    <value>Отметьте сервисы, которые должны работать:</value>
+  </data>
+  <data name="Generator.OrAddDomains" xml:space="preserve">
+    <value>Или добавьте свои домены:</value>
+  </data>
+  <data name="Generator.DomainPlaceholder" xml:space="preserve">
+    <value>example.com, another-site.org</value>
+  </data>
+  <data name="Generator.Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Generator.BypassMethod" xml:space="preserve">
+    <value>Метод обхода</value>
+  </data>
+  <data name="Generator.BypassMethodDesc" xml:space="preserve">
+    <value>Выберите метод DPI обхода и настройте параметры:</value>
+  </data>
+  <data name="Generator.BypassMethodLabel" xml:space="preserve">
+    <value>Метод обхода</value>
+  </data>
+  <data name="Generator.SelectMethod" xml:space="preserve">
+    <value>Выберите метод</value>
+  </data>
+  <data name="Generator.FoolingMode" xml:space="preserve">
+    <value>Режим fooling</value>
+  </data>
+  <data name="Generator.RepeatCount" xml:space="preserve">
+    <value>Количество повторов</value>
+  </data>
+  <data name="Generator.SplitParams" xml:space="preserve">
+    <value>Параметры разбиения</value>
+  </data>
+  <data name="Generator.Seqovl" xml:space="preserve">
+    <value>Seqovl</value>
+  </data>
+  <data name="Generator.SplitPos" xml:space="preserve">
+    <value>Split pos</value>
+  </data>
+  <data name="Generator.FakedsplitPattern" xml:space="preserve">
+    <value>Паттерн fakedsplit</value>
+  </data>
+  <data name="Generator.HostfakesplitModifier" xml:space="preserve">
+    <value>Модификатор hostfakesplit</value>
+  </data>
+  <data name="Generator.CombineMultidisorder" xml:space="preserve">
+    <value>Комбинировать с multidisorder</value>
+  </data>
+  <data name="Generator.CombineMultidisorderDesc" xml:space="preserve">
+    <value>Выкл: Только syndata · Вкл: syndata + multidisorder</value>
+  </data>
+  <data name="Generator.DetectProvider" xml:space="preserve">
+    <value>Определение провайдера</value>
+  </data>
+  <data name="Generator.Change" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="Generator.TestMode" xml:space="preserve">
+    <value>Режим тестирования</value>
+  </data>
+  <data name="Generator.TestModeDesc" xml:space="preserve">
+    <value>Выберите режим тестирования стратегии</value>
+  </data>
+  <data name="Generator.QuickTest" xml:space="preserve">
+    <value>Быстрый тест</value>
+  </data>
+  <data name="Generator.FullTest" xml:space="preserve">
+    <value>Полный тест</value>
+  </data>
+  <data name="Generator.NoTest" xml:space="preserve">
+    <value>Без теста</value>
+  </data>
+  <data name="Generator.RunTest" xml:space="preserve">
+    <value>Запустить тест</value>
+  </data>
+  <data name="Generator.ApplyStrategy" xml:space="preserve">
+    <value>Применить стратегию</value>
+  </data>
+  <data name="Generator.GeneratedArgs" xml:space="preserve">
+    <value>Сгенерированные аргументы</value>
+  </data>
+  <data name="Generator.CopyArgs" xml:space="preserve">
+    <value>Копировать</value>
+  </data>
+  <data name="Generator.TestModeLabel" xml:space="preserve">
+    <value>Режим тестирования</value>
+  </data>
+  <data name="Generator.ResultsTitle" xml:space="preserve">
+    <value>Результаты тестирования</value>
+  </data>
+  <data name="Generator.RunTestBtn" xml:space="preserve">
+    <value>Запустить тест</value>
+  </data>
+  <data name="Generator.GeneratedArgsLabel" xml:space="preserve">
+    <value>Сгенерированные аргументы</value>
+  </data>
+  <data name="Generator.FakedsplitPlaceholder" xml:space="preserve">
+    <value>0x00</value>
+  </data>
+
+  <!-- ═══ Network Page ═══ -->
+  <data name="Network.Title" xml:space="preserve">
+    <value>Сеть</value>
+  </data>
+  <data name="Network.Subtitle" xml:space="preserve">
+    <value>Настройки DNS, прокси и маршрутизации трафика</value>
+  </data>
+  <data name="Network.TabDns" xml:space="preserve">
+    <value>DNS</value>
+  </data>
+  <data name="Network.TabProxifier" xml:space="preserve">
+    <value>Проксификатор</value>
+  </data>
+  <data name="Network.TabTelegram" xml:space="preserve">
+    <value>Telegram Proxy</value>
+  </data>
+  <data name="Network.DnsModeLabel" xml:space="preserve">
+    <value>Выберите режим DNS</value>
+  </data>
+  <data name="Network.DnsModePlaceholder" xml:space="preserve">
+    <value>Выберите режим</value>
+  </data>
+  <data name="Network.DnsProxyTitle" xml:space="preserve">
+    <value>DNS Proxy (Встроенный)</value>
+  </data>
+  <data name="Network.DnsProxyPort" xml:space="preserve">
+    <value>Порт DNS Proxy</value>
+  </data>
+  <data name="Network.HowItWorks" xml:space="preserve">
+    <value>Как это работает:</value>
+  </data>
+  <data name="Network.DnsProxyPoint1" xml:space="preserve">
+    <value>DNS Proxy запускается на порту 5353</value>
+  </data>
+  <data name="Network.DnsProxyPoint2" xml:space="preserve">
+    <value>Заблокированные сайты → dns.malw.link (обход блокировок)</value>
+  </data>
+  <data name="Network.DnsProxyPoint3" xml:space="preserve">
+    <value>Остальные сайты → Cloudflare 1.1.1.1 (быстро и приватно)</value>
+  </data>
+  <data name="Network.DnsProxyPoint4" xml:space="preserve">
+    <value>Не требует сторонних программ</value>
+  </data>
+  <data name="Network.DohTitle" xml:space="preserve">
+    <value>DNS over HTTPS (Windows)</value>
+  </data>
+  <data name="Network.DnsProvider" xml:space="preserve">
+    <value>Провайдер:</value>
+  </data>
+  <data name="Network.DohInfo" xml:space="preserve">
+    <value>DNS over HTTPS (DoH) доступен на Windows 10 1903+ и Windows 11</value>
+  </data>
+  <data name="Network.SelectProvider" xml:space="preserve">
+    <value>Выбор провайдера DNS</value>
+  </data>
+  <data name="Network.SelectProviderPlaceholder" xml:space="preserve">
+    <value>Выберите провайдер</value>
+  </data>
+  <data name="Network.Management" xml:space="preserve">
+    <value>Управление</value>
+  </data>
+  <data name="Network.Statistics" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
+  <data name="Network.ActiveRules" xml:space="preserve">
+    <value>Активные правила</value>
+  </data>
+  <data name="Network.ActiveConnections" xml:space="preserve">
+    <value>Активные соединения</value>
+  </data>
+  <data name="Network.TrafficSent" xml:space="preserve">
+    <value>Отправлено</value>
+  </data>
+  <data name="Network.TrafficReceived" xml:space="preserve">
+    <value>Получено</value>
+  </data>
+  <data name="Network.ProxifierPoint1" xml:space="preserve">
+    <value>Перехватывает TCP-соединения выбранных приложений</value>
+  </data>
+  <data name="Network.ProxifierPoint2" xml:space="preserve">
+    <value>Маршрутизирует трафик через настроенный прокси</value>
+  </data>
+  <data name="Network.ProxifierPoint3" xml:space="preserve">
+    <value>Использует WinDivert для перехвата на уровне ядра</value>
+  </data>
+  <data name="Network.ProxifierPoint4" xml:space="preserve">
+    <value>Работает прозрачно для приложений</value>
+  </data>
+  <data name="Network.ProxifierNote" xml:space="preserve">
+    <value>Правила проксификации настраиваются в Worker Service. Управление через UI появится в будущих версиях.</value>
+  </data>
+  <data name="Network.Socks5Title" xml:space="preserve">
+    <value>SOCKS5 → WebSocket</value>
+  </data>
+  <data name="Network.Socks5Port" xml:space="preserve">
+    <value>Порт SOCKS5</value>
+  </data>
+  <data name="Network.WsUrl" xml:space="preserve">
+    <value>WebSocket URL</value>
+  </data>
+  <data name="Network.WsSecret" xml:space="preserve">
+    <value>Секрет</value>
+  </data>
+  <data name="Network.MtProxyTitle" xml:space="preserve">
+    <value>MTProxy</value>
+  </data>
+  <data name="Network.MtProxyPort" xml:space="preserve">
+    <value>Порт MTProxy</value>
+  </data>
+  <data name="Network.MtProxySecret" xml:space="preserve">
+    <value>Секрет MTProxy</value>
+  </data>
+  <data name="Network.ProxyLink" xml:space="preserve">
+    <value>Ссылка для подключения</value>
+  </data>
+  <data name="Network.CopyLink" xml:space="preserve">
+    <value>Скопировать</value>
+  </data>
+  <data name="Network.Start" xml:space="preserve">
+    <value>Запустить</value>
+  </data>
+  <data name="Network.Stop" xml:space="preserve">
+    <value>Остановить</value>
+  </data>
+  <data name="Network.StopAll" xml:space="preserve">
+    <value>Остановить всё</value>
+  </data>
+  <data name="Network.Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Network.ApplyDns" xml:space="preserve">
+    <value>Применить DNS</value>
+  </data>
+  <data name="Network.ResetDns" xml:space="preserve">
+    <value>Сбросить DNS</value>
+  </data>
+  <data name="Network.RestoreDns" xml:space="preserve">
+    <value>Восстановить DNS</value>
+  </data>
+  <data name="Network.StartProxifier" xml:space="preserve">
+    <value>Запустить проксификатор</value>
+  </data>
+  <data name="Network.StopProxifier" xml:space="preserve">
+    <value>Остановить проксификатор</value>
+  </data>
+
+  <!-- ═══ Proxifier Page ═══ -->
+  <data name="Proxifier.Title" xml:space="preserve">
+    <value>Proxifier</value>
+  </data>
+  <data name="Proxifier.Subtitle" xml:space="preserve">
+    <value>Proxy routing configuration</value>
+  </data>
+  <data name="Proxifier.TabServers" xml:space="preserve">
+    <value>Servers</value>
+  </data>
+  <data name="Proxifier.TabRules" xml:space="preserve">
+    <value>Rules</value>
+  </data>
+  <data name="Proxifier.TabChains" xml:space="preserve">
+    <value>Chains</value>
+  </data>
+  <data name="Proxifier.AddServer" xml:space="preserve">
+    <value>Add Server</value>
+  </data>
+  <data name="Proxifier.AddRule" xml:space="preserve">
+    <value>Add Rule</value>
+  </data>
+  <data name="Proxifier.Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Proxifier.ChainsComingSoon" xml:space="preserve">
+    <value>Proxy chains will be available in a future update</value>
+  </data>
+  <data name="Proxifier.Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Proxifier.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Proxifier.ServerName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Proxifier.ServerHost" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="Proxifier.ServerNamePlaceholder" xml:space="preserve">
+    <value>My Server</value>
+  </data>
+  <data name="Proxifier.ServerHostPlaceholder" xml:space="preserve">
+    <value>127.0.0.1</value>
+  </data>
+  <data name="Proxifier.RuleName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Proxifier.RuleProcessName" xml:space="preserve">
+    <value>Process Name (optional)</value>
+  </data>
+  <data name="Proxifier.RuleDomain" xml:space="preserve">
+    <value>Destination Domain (optional)</value>
+  </data>
+  <data name="Proxifier.RuleNamePlaceholder" xml:space="preserve">
+    <value>My Rule</value>
+  </data>
+  <data name="Proxifier.RuleProcessPlaceholder" xml:space="preserve">
+    <value>chrome.exe</value>
+  </data>
+  <data name="Proxifier.RuleDomainPlaceholder" xml:space="preserve">
+    <value>example.com</value>
+  </data>
 </root>

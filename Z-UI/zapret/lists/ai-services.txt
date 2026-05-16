@@ -1,0 +1,59 @@
+# AI Services - GeoIP Blocked
+# DNS bypass via dns.malw.link
+
+# OpenAI (ChatGPT)
+openai.com
+chatgpt.com
+chat.openai.com
+api.openai.com
+platform.openai.com
+cdn.openai.com
+files.oaiusercontent.com
+
+# Anthropic (Claude)
+anthropic.com
+claude.ai
+api.anthropic.com
+console.anthropic.com
+cdn.anthropic.com
+
+# Google AI
+ai.google
+gemini.google.com
+bard.google.com
+makersuite.google.com
+aistudio.google.com
+
+# Midjourney
+midjourney.com
+cdn.midjourney.com
+api.midjourney.com
+
+# Stability AI
+stability.ai
+platform.stability.ai
+
+# Character.AI
+character.ai
+beta.character.ai
+cdn.character.ai
+
+# Perplexity
+perplexity.ai
+www.perplexity.ai
+api.perplexity.ai
+
+# Copilot
+copilot.microsoft.com
+copilot.github.com
+
+# Other AI
+huggingface.co
+replicate.com
+runwayml.com
+elevenlabs.io
+jasper.ai
+copy.ai
+writesonic.com
+rytr.me
+sudowrite.com

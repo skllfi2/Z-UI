@@ -1,0 +1,248 @@
+<!-- ProxifierPage.xaml - Proxy routing configuration page -->
+<views:BasePage
+    x:Class="ZUI.Views.ProxifierPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:views="using:ZUI.Views"
+    xmlns:controls="using:ZUI.Controls"
+    xmlns:models="using:ZUI.Models">
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <!-- Page Header -->
+    <controls:PageHeader x:Name="HeaderControl" Grid.Row="0"
+      Title="Proxifier"
+      Subtitle="Proxy routing configuration"/>
+
+    <!-- TabView with 3 tabs -->
+    <TabView Grid.Row="1"
+      IsAddTabButtonVisible="False"
+      Padding="24,12,24,0">
+
+      <!-- Tab 1: Proxy Servers -->
+      <TabViewItem Header="Servers" Width="110">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+          <StackPanel Spacing="16" Padding="8,0,8,32">
+
+            <!-- Status Card -->
+            <Border CornerRadius="12" Padding="24"
+              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+              BorderThickness="1">
+              <StackPanel Spacing="8">
+                <TextBlock Text="{x:Bind ViewModel.StatusText, Mode=OneWay}"
+                  FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock FontSize="12"
+                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                  x:Name="StatusSubtext"
+                  Text="{x:Bind ViewModel.Servers.Count, Mode=OneWay, FallbackValue='0 servers'}"/>
+
+              </StackPanel>
+            </Border>
+
+            <!-- Add Server Button -->
+            <Button HorizontalAlignment="Right" Padding="16,8"
+              Click="ShowAddServerDialog_Click">
+              <StackPanel Orientation="Horizontal" Spacing="8">
+                <FontIcon Glyph="&#xE710;" FontSize="14"/>
+                <TextBlock Text="Add Server" x:Uid="Proxifier_AddServer"/>
+              </StackPanel>
+            </Button>
+
+            <!-- Server List -->
+            <ListView
+              ItemsSource="{x:Bind ViewModel.Servers, Mode=OneWay}"
+              SelectionMode="None"
+              HorizontalContentAlignment="Stretch">
+              <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:ProxyServerDisplayModel">
+                  <Grid Padding="12,8"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/>
+                      <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Spacing="2">
+                      <TextBlock Text="{x:Bind Name}" FontSize="14" FontWeight="SemiBold"/>
+                      <TextBlock FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                        <Run Text="{x:Bind Host}"/><Run Text=":"/><Run Text="{x:Bind Port}"/>
+                        <Run Text=" &#x2022; "/><Run Text="{x:Bind ProxyType}"/>
+                      </TextBlock>
+                      <TextBlock FontSize="11" Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                        Visibility="{x:Bind AuthenticationEnabled, Mode=OneWay}">
+                        [auth enabled]
+                      </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4"
+                      VerticalAlignment="Center">
+                      <Button ToolTipService.ToolTip="Check"
+                        Tag="{x:Bind Name}"
+                        Click="CheckServerButton_Click">
+                        <FontIcon Glyph="&#xE774;" FontSize="14"/>
+                      </Button>
+                      <Button ToolTipService.ToolTip="Remove"
+                        Tag="{x:Bind Name}"
+                        Click="RemoveServerButton_Click">
+                        <FontIcon Glyph="&#xE74D;" FontSize="14"/>
+                      </Button>
+                    </StackPanel>
+                  </Grid>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+          </StackPanel>
+        </ScrollViewer>
+      </TabViewItem>
+
+      <!-- Tab 2: Rules -->
+      <TabViewItem Header="Rules" Width="110">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+          <StackPanel Spacing="16" Padding="8,0,8,32">
+
+            <!-- Add Rule Button -->
+            <Button HorizontalAlignment="Right" Padding="16,8"
+              Click="ShowAddRuleDialog_Click">
+              <StackPanel Orientation="Horizontal" Spacing="8">
+                <FontIcon Glyph="&#xE710;" FontSize="14"/>
+                <TextBlock Text="Add Rule" x:Uid="Proxifier_AddRule"/>
+              </StackPanel>
+            </Button>
+
+            <!-- Rule List -->
+            <ListView
+              ItemsSource="{x:Bind ViewModel.Rules, Mode=OneWay}"
+              SelectionMode="None"
+              HorizontalContentAlignment="Stretch">
+              <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:ProxyRuleDisplayModel">
+                  <Grid Padding="12,8"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/>
+                      <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Spacing="2">
+                      <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{x:Bind Name}" FontSize="14" FontWeight="SemiBold"/>
+                        <Border
+                          Padding="4,2"
+                          CornerRadius="4"
+                          Background="{ThemeResource AccentFillColorDefaultBrush}"
+                          Visibility="{x:Bind IsEnabled, Mode=OneWay}">
+                          <TextBlock Text="Enabled" FontSize="10" x:Uid="Proxifier_Enabled"/>
+                        </Border>
+                      </StackPanel>
+                      <TextBlock FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                        <Run Text="{x:Bind Action}"/><Run Text=" "/>
+                        <Run Text="&#x2022;"/><Run Text=" "/>
+                        <Run Text="{x:Bind DestinationDomain, FallbackValue='any'}"/><Run Text=" "/>
+                        <Run Text="&#x2022;"/><Run Text=" "/>
+                        <Run Text="{x:Bind ProcessName, FallbackValue='any app'}"/><Run Text=" "/>
+                      </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4"
+                      VerticalAlignment="Center">
+                      <Button ToolTipService.ToolTip="Remove"
+                        Tag="{x:Bind Id}"
+                        Click="RemoveRuleButton_Click">
+                        <FontIcon Glyph="&#xE74D;" FontSize="14"/>
+                      </Button>
+                    </StackPanel>
+                  </Grid>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+          </StackPanel>
+        </ScrollViewer>
+      </TabViewItem>
+
+      <!-- Tab 3: Chains -->
+      <TabViewItem Header="Chains" Width="110">
+        <Grid>
+          <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
+            <FontIcon Glyph="&#xEA3C;" FontSize="32"
+              Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+            <TextBlock Text="Proxy chains will be available in a future update" x:Uid="Proxifier_ChainsComingSoon"
+              FontSize="14"
+              Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+              TextAlignment="Center" TextWrapping="Wrap" MaxWidth="300"/>
+          </StackPanel>
+        </Grid>
+      </TabViewItem>
+
+    </TabView>
+
+    <!-- Server Dialog -->
+  <ContentDialog x:Name="AddServerDialog"
+    PrimaryButtonText="Add" x:Uid="Proxifier_Add"
+    CloseButtonText="Cancel" x:Uid="Proxifier_Cancel"
+      DefaultButton="Primary"
+      PrimaryButtonClick="AddServerDialog_PrimaryButtonClick">
+      <StackPanel Spacing="12" MinWidth="400">
+    <TextBox x:Name="ServerNameTextBox" Header="Name" PlaceholderText="My Server" x:Uid="Proxifier_ServerNameTextBox"/>
+    <TextBox x:Name="ServerHostTextBox" Header="Host" PlaceholderText="127.0.0.1" x:Uid="Proxifier_ServerHostTextBox"/>
+        <NumberBox x:Name="ServerPortNumberBox" Header="Port" Value="1080" SpinButtonPlacementMode="Inline"/>
+        <ComboBox x:Name="ServerTypeComboBox" Header="Type" SelectedIndex="2">
+          <x:String>Socks4</x:String>
+          <x:String>Socks4a</x:String>
+          <x:String>Socks5</x:String>
+          <x:String>HttpConnect</x:String>
+        </ComboBox>
+        <CheckBox x:Name="ServerAuthCheckBox" Content="Authentication required"
+          Checked="ServerAuthCheckBox_Checked" Unchecked="ServerAuthCheckBox_Unchecked"/>
+        <StackPanel x:Name="ServerAuthPanel" Visibility="Collapsed">
+          <TextBox x:Name="ServerUsernameTextBox" Header="Username" Margin="0,8,0,0"/>
+          <PasswordBox x:Name="ServerPasswordBox" Header="Password" Margin="0,8,0,0"/>
+        </StackPanel>
+        <ComboBox x:Name="DnsPolicyComboBox" Header="DNS Policy" SelectedIndex="0">
+          <x:String>Local</x:String>
+          <x:String>ThroughProxy</x:String>
+        </ComboBox>
+      </StackPanel>
+    </ContentDialog>
+
+    <!-- Rule Dialog -->
+  <ContentDialog x:Name="AddRuleDialog"
+    PrimaryButtonText="Add" x:Uid="Proxifier_Add"
+    CloseButtonText="Cancel" x:Uid="Proxifier_Cancel"
+      DefaultButton="Primary"
+      PrimaryButtonClick="AddRuleDialog_PrimaryButtonClick">
+      <StackPanel Spacing="12" MinWidth="400">
+    <TextBox x:Name="RuleNameTextBox" Header="Name" PlaceholderText="My Rule" x:Uid="Proxifier_RuleNameTextBox"/>
+    <TextBox x:Name="RuleProcessNameTextBox" Header="Process Name (optional)" PlaceholderText="chrome.exe" x:Uid="Proxifier_RuleProcessNameTextBox"/>
+    <TextBox x:Name="RuleDomainTextBox" Header="Destination Domain (optional)" PlaceholderText="example.com" x:Uid="Proxifier_RuleDomainTextBox"/>
+        <ComboBox x:Name="RuleActionComboBox" Header="Action" SelectedIndex="0">
+          <x:String>Direct</x:String>
+          <x:String>Proxy</x:String>
+          <x:String>Chain</x:String>
+          <x:String>Block</x:String>
+        </ComboBox>
+        <ComboBox x:Name="RuleProxyServerComboBox" 
+          Header="Proxy Server"
+          ItemsSource="{x:Bind ViewModel.Servers, Mode=OneWay}"
+          DisplayMemberPath="Name"/>
+        <ComboBox x:Name="RuleDnsPolicyComboBox" Header="DNS Policy" SelectedIndex="0">
+          <x:String>Local</x:String>
+          <x:String>ThroughProxy</x:String>
+        </ComboBox>
+      </StackPanel>
+    </ContentDialog>
+
+  </Grid>
+</views:BasePage>

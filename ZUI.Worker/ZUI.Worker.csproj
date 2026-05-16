@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
+    <RootNamespace>ZUI.Worker</RootNamespace>
+    <AssemblyName>ZUI.Worker</AssemblyName>
+    <UseWinUI>false</UseWinUI>
+    <Platforms>x64</Platforms>
+    <!-- Worker Service — runs under SYSTEM account -->
+
+    <!-- Native AOT: standalone binary, no .NET runtime dependency -->
+    <!-- Enabled for all builds to avoid dependency loading issues when running as Windows Service -->
+    <PublishAot>true</PublishAot>
+    <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+    <EnableTrimming>true</EnableTrimming>
+    <PublishTrimmed>true</PublishTrimmed>
+
+
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ZUI.Core\ZUI.Core.csproj" />
+    <ProjectReference Include="..\ZUI.Ipc\ZUI.Ipc.csproj" />
+    <ProjectReference Include="..\ZUI.Proxy\ZUI.Proxy.csproj" />
+    <ProjectReference Include="..\ZUI.Telegram\ZUI.Telegram.csproj" />
+  </ItemGroup>
+
+</Project>

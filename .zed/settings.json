@@ -1,0 +1,26 @@
+{
+  "lsp": {
+    "csharp": {
+      "binary": {
+        "path": "C:\\Users\\dexox\\.dotnet\\tools\\roslyn-language-server.cmd",
+        "arguments": ["--stdio", "--autoLoadProjects", "--logLevel", "Information", "--extensionLogDirectory", "C:\\Users\\dexox\\AppData\\Local\\Temp\\roslyn-lsp-logs"]
+      }
+    }
+  },
+  "format_on_save": "on",
+  "formatter": "language_server",
+  "file_scan_exclusions": [
+    "**/bin/**",
+    "**/obj/**",
+    "**/.git/**",
+    "**/node_modules/**",
+    "**/opencode/**"
+  ],
+  "languages": {
+    "C#": {
+      "tab_size": 4,
+      "soft_wrap": "preferred_line_length",
+      "preferred_line_length": 120
+    }
+  }
+}

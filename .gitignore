@@ -89,3 +89,8 @@ TestResults/
 Tests/
 installer/
 publish/
+
+# AI tool caches
+.codebase-memory/
+.sisyphus/
+*.zip

@@ -1,0 +1,289 @@
+{
+  "id": "general-(fake-tls-auto)",
+  "name": "general (FAKE TLS AUTO)",
+  "winDivertFilter": "outbound and (tcp.DstPort == 80 or tcp.DstPort == 443 or tcp.DstPort == 2053 or tcp.DstPort == 2083 or tcp.DstPort == 2087 or tcp.DstPort == 2096 or tcp.DstPort == 8443 or udp.DstPort == 443)",
+  "rules": [
+    {
+      "protocol": 1,
+      "ports": [
+        443
+      ],
+      "hostLists": [
+        "lists/list-general.txt",
+        "lists/list-general-user.txt"
+      ],
+      "hostExcludeLists": [
+        "lists/list-exclude.txt",
+        "lists/list-exclude-user.txt"
+      ],
+      "ipsetExcludeLists": [
+        "lists/ipset-exclude.txt",
+        "lists/ipset-exclude-user.txt"
+      ],
+      "ipIdZero": false,
+      "desyncModes": [
+        1
+      ],
+      "fakeRepeats": 11,
+      "fooling": 0,
+      "fakeQuicFile": "quic_initial_www_google_com.bin",
+      "anyProtocol": false,
+      "order": 0
+    },
+    {
+      "protocol": 1,
+      "ports": [
+        "19294-19344",
+        "50000-50100"
+      ],
+      "l7Protocols": [
+        "discord",
+        "stun"
+      ],
+      "ipIdZero": false,
+      "desyncModes": [
+        1
+      ],
+      "fakeRepeats": 6,
+      "fooling": 0,
+      "anyProtocol": false,
+      "order": 1
+    },
+    {
+      "protocol": 0,
+      "ports": [
+        2053,
+        2083,
+        2087,
+        2096,
+        8443
+      ],
+      "hostDomains": [
+        "discord.media"
+      ],
+      "ipIdZero": false,
+      "desyncModes": [
+        1,
+        4
+      ],
+      "fakeRepeats": 11,
+      "fooling": 2,
+      "fakeTlsFiles": [
+        "0x00000000",
+        "!"
+      ],
+      "fakeTlsMods": [
+        "rnd",
+        "dupsid",
+        "sni=www.google.com"
+      ],
+      "splitPositions": [
+        1,
+        "midsld"
+      ],
+      "anyProtocol": false,
+      "order": 2
+    },
+    {
+      "protocol": 0,
+      "ports": [
+        443
+      ],
+      "hostLists": [
+        "lists/list-google.txt"
+      ],
+      "ipIdZero": true,
+      "desyncModes": [
+        1,
+        4
+      ],
+      "fakeRepeats": 11,
+      "fooling": 2,
+      "fakeTlsFiles": [
+        "0x00000000",
+        "!"
+      ],
+      "fakeTlsMods": [
+        "rnd",
+        "dupsid",
+        "sni=www.google.com"
+      ],
+      "splitPositions": [
+        1,
+        "midsld"
+      ],
+      "anyProtocol": false,
+      "order": 3
+    },
+    {
+      "protocol": 0,
+      "ports": [
+        80,
+        443
+      ],
+      "hostLists": [
+        "lists/list-general.txt",
+        "lists/list-general-user.txt"
+      ],
+      "hostExcludeLists": [
+        "lists/list-exclude.txt",
+        "lists/list-exclude-user.txt"
+      ],
+      "ipsetExcludeLists": [
+        "lists/ipset-exclude.txt",
+        "lists/ipset-exclude-user.txt"
+      ],
+      "ipIdZero": false,
+      "desyncModes": [
+        1,
+        4
+      ],
+      "fakeRepeats": 11,
+      "fooling": 2,
+      "fakeTlsFiles": [
+        "0x00000000",
+        "!"
+      ],
+      "fakeTlsMods": [
+        "rnd",
+        "dupsid",
+        "sni=www.google.com"
+      ],
+      "fakeHttpFile": "tls_clienthello_max_ru.bin",
+      "splitPositions": [
+        1,
+        "midsld"
+      ],
+      "anyProtocol": false,
+      "order": 4
+    },
+    {
+      "protocol": 1,
+      "ports": [
+        443
+      ],
+      "hostExcludeLists": [
+        "lists/list-exclude.txt",
+        "lists/list-exclude-user.txt"
+      ],
+      "ipsetLists": [
+        "lists/ipset-all.txt"
+      ],
+      "ipsetExcludeLists": [
+        "lists/ipset-exclude.txt",
+        "lists/ipset-exclude-user.txt"
+      ],
+      "ipIdZero": false,
+      "desyncModes": [
+        1
+      ],
+      "fakeRepeats": 11,
+      "fooling": 0,
+      "fakeQuicFile": "quic_initial_www_google_com.bin",
+      "anyProtocol": false,
+      "order": 5
+    },
+    {
+      "protocol": 0,
+      "ports": [
+        80,
+        443,
+        8443
+      ],
+      "hostExcludeLists": [
+        "lists/list-exclude.txt",
+        "lists/list-exclude-user.txt"
+      ],
+      "ipsetLists": [
+        "lists/ipset-all.txt"
+      ],
+      "ipsetExcludeLists": [
+        "lists/ipset-exclude.txt",
+        "lists/ipset-exclude-user.txt"
+      ],
+      "ipIdZero": false,
+      "desyncModes": [
+        1,
+        4
+      ],
+      "fakeRepeats": 11,
+      "fooling": 2,
+      "fakeTlsFiles": [
+        "0x00000000",
+        "!"
+      ],
+      "fakeTlsMods": [
+        "rnd",
+        "dupsid",
+        "sni=www.google.com"
+      ],
+      "fakeHttpFile": "tls_clienthello_max_ru.bin",
+      "splitPositions": [
+        1,
+        "midsld"
+      ],
+      "anyProtocol": false,
+      "order": 6
+    },
+    {
+      "protocol": 0,
+      "ports": [],
+      "ipsetLists": [
+        "lists/ipset-all.txt"
+      ],
+      "ipsetExcludeLists": [
+        "lists/ipset-exclude.txt",
+        "lists/ipset-exclude-user.txt"
+      ],
+      "ipIdZero": false,
+      "desyncModes": [
+        1,
+        4
+      ],
+      "fakeRepeats": 11,
+      "fooling": 2,
+      "fakeTlsFiles": [
+        "0x00000000",
+        "!"
+      ],
+      "fakeTlsMods": [
+        "rnd",
+        "dupsid",
+        "sni=www.google.com"
+      ],
+      "fakeHttpFile": "tls_clienthello_max_ru.bin",
+      "splitPositions": [
+        1,
+        "midsld"
+      ],
+      "anyProtocol": true,
+      "cutoff": 4,
+      "order": 7
+    },
+    {
+      "protocol": 1,
+      "ports": [],
+      "ipsetLists": [
+        "lists/ipset-all.txt"
+      ],
+      "ipsetExcludeLists": [
+        "lists/ipset-exclude.txt",
+        "lists/ipset-exclude-user.txt"
+      ],
+      "ipIdZero": false,
+      "desyncModes": [
+        1
+      ],
+      "fakeRepeats": 10,
+      "fooling": 0,
+      "fakeUnknownUdpFile": "quic_initial_www_google_com.bin",
+      "anyProtocol": true,
+      "cutoff": 2,
+      "order": 8
+    }
+  ],
+  "gameFilter": 2,
+  "sourceBatFile": "Z-UI\\zapret\\strategies\\general (FAKE TLS AUTO).bat",
+  "rating": 0,
+  "isEnabled": true
+}

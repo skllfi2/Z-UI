@@ -1,12 +1,26 @@
 <Solution>
-<Configurations>
-<Platform Name="ARM64" />
-<Platform Name="x64" />
-<Platform Name="x86" />
-</Configurations>
-<Project Path="Z-UI/Z-UI.csproj">
-<Platform Solution="*|ARM64" Project="ARM64" />
-<Platform Solution="*|x64" Project="x64" />
-<Platform Solution="*|x86" Project="x86" />
-</Project>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="Z-UI/Z-UI.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="ZUI.Core/ZUI.Core.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="ZUI.Ipc/ZUI.Ipc.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="ZUI.Proxy/ZUI.Proxy.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="ZUI.Telegram/ZUI.Telegram.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="ZUI.Tests/ZUI.Tests.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="ZUI.Worker/ZUI.Worker.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
 </Solution>

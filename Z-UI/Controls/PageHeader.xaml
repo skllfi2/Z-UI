@@ -1,0 +1,84 @@
+<!-- PageHeader.xaml - Sticky page header with back button and page title -->
+<UserControl
+x:Class="ZUI.Controls.PageHeader"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:local="using:ZUI.Controls">
+
+<Grid x:Name="RootGrid">
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="StickyStates">
+            <VisualState x:Name="NormalState">
+                <VisualState.Setters>
+                    <Setter Target="StickyBackground.Opacity" Value="0"/>
+                    <Setter Target="StickyDivider.Opacity" Value="0"/>
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="StickyState">
+                <VisualState.Setters>
+                    <Setter Target="StickyBackground.Opacity" Value="1"/>
+                    <Setter Target="StickyDivider.Opacity" Value="1"/>
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+    <!-- Sticky background — Mica-like layer when pinned to top -->
+    <Border x:Name="StickyBackground"
+        Background="{ThemeResource LayerFillColorDefaultBrush}"
+        Opacity="0"
+        IsHitTestVisible="False"/>
+
+    <Grid Padding="32,8,32,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Back Button -->
+        <Button x:Name="BackButton"
+            Grid.Column="0"
+            Click="BackButton_Click"
+            Width="40" Height="40"
+            CornerRadius="8"
+            Padding="0"
+            Background="Transparent"
+            BorderThickness="0"
+            ToolTipService.ToolTip="Назад">
+            <FontIcon Glyph="&#xE72B;" FontSize="16"/>
+        </Button>
+
+        <!-- Page Title + Subtitle -->
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2" Margin="12,0,0,0">
+            <TextBlock x:Name="TitleTextBlock"
+                Text="{x:Bind Title, Mode=OneWay}"
+                FontSize="20" FontWeight="SemiBold"
+                TextTrimming="CharacterEllipsis"/>
+            <TextBlock x:Name="SubtitleTextBlock"
+                Text="{x:Bind Subtitle, Mode=OneWay}"
+                FontSize="13"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                TextTrimming="CharacterEllipsis"
+                Visibility="{x:Bind HasSubtitle, Mode=OneWay}"/>
+        </StackPanel>
+
+        <!-- Optional action buttons slot (right side) -->
+        <ContentPresenter x:Name="ActionsSlot"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            Content="{x:Bind Actions, Mode=OneWay}"/>
+
+        <!-- Divider below header — visible only in sticky mode -->
+        <Border x:Name="StickyDivider" Grid.Row="1" Grid.ColumnSpan="3"
+            Height="1"
+            Background="{ThemeResource DividerStrokeColorDefaultBrush}"
+            Margin="0,8,0,0"
+            Opacity="0"/>
+    </Grid>
+</Grid>
+</UserControl>

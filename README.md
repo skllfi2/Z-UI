@@ -6,7 +6,7 @@
 [![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com)
 [![WinUI](https://img.shields.io/badge/WinUI-3.0-0078D4?logo=microsoft)](https://docs.microsoft.com/windows/apps/winui)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
-[![GitHub Release](https://img.shields.io/github/v/release/your-repo/Z-UI?include_prereleases)](https://github.com/your-repo/Z-UI/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/Flowseal/Z-UI?include_prereleases)](https://github.com/Flowseal/Z-UI/releases)
 
 **English** | [Русский](README.ru.md)
 
@@ -35,7 +35,7 @@ Z-UI is a modern graphical shell for managing DPI bypass based on [zapret-discor
 
 ### Download Installer
 
-⬇️ [Download latest release](https://github.com/your-repo/Z-UI/releases/latest)
+⬇️ [Download latest release](https://github.com/Flowseal/Z-UI/releases/latest)
 
 ### System Requirements
 
@@ -46,7 +46,7 @@ Z-UI is a modern graphical shell for managing DPI bypass based on [zapret-discor
 
 ```powershell
 # Clone repository
-git clone https://github.com/your-repo/Z-UI.git
+git clone https://github.com/Flowseal/Z-UI.git
 cd Z-UI
 
 # Build

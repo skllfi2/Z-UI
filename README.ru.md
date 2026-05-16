@@ -34,7 +34,7 @@ Z-UI — современная графическая оболочка для �
 
 ### Скачать инсталлятор
 
-⬇️ [Скачать последнюю версию](https://github.com/your-repo/Z-UI/releases/latest)
+⬇️ [Скачать последнюю версию](https://github.com/Flowseal/Z-UI/releases/latest)
 
 ### Системные требования
 
@@ -45,7 +45,7 @@ Z-UI — современная графическая оболочка для �
 
 ```powershell
 # Клонировать репозиторий
-git clone https://github.com/your-repo/Z-UI.git
+git clone https://github.com/Flowseal/Z-UI.git
 cd Z-UI
 
 # Сборка

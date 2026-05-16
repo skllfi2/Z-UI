@@ -89,17 +89,60 @@ if (-not (Test-Path $priDst)) { Fail "resources.pri не найден — при
 
 OK "Публикация готова → .\publish\"
 
-# ── Шаг 5: Windows App Runtime ───────────────────────
+# ── Шаг 5: Сборка ZUI.Worker (Native AOT) ─────────────
+Step "Сборка ZUI.Worker (Native AOT)"
+
+$workerProject = ".\ZUI.Worker\ZUI.Worker.csproj"
+if (Test-Path $workerProject) {
+    Info "Публикация ZUI.Worker (Native AOT, win-x64)..."
+
+    dotnet publish $workerProject `
+        -c Release `
+        -r win-x64 `
+        -o .\publish\ZUI.Worker
+
+    if ($LASTEXITCODE -ne 0) { Fail "dotnet publish ZUI.Worker завершился с ошибкой" }
+
+    $workerExe = ".\publish\ZUI.Worker\ZUI.Worker.exe"
+    if (-not (Test-Path $workerExe)) { Fail "ZUI.Worker.exe не создан" }
+
+    OK "ZUI.Worker.exe скопирован в publish\ZUI.Worker\"
+} else {
+    Fail "ZUI.Worker проект не найден: $workerProject"
+}
+
+# ── Шаг 6: Сборка zui-broker ───────────────────────────
+Step "Сборка zui-broker (Rust)"
+
+$brokerPath = ".\zui-broker"
+if (Test-Path "$brokerPath\Cargo.toml") {
+    Info "Собираю zui-broker..."
+    Push-Location $brokerPath
+    cargo build --release
+    Pop-Location
+    
+    if ($LASTEXITCODE -ne 0) { Fail "cargo build завершился с ошибкой" }
+    
+    $brokerExe = ".\zui-broker\target\release\zui-broker.exe"
+    if (-not (Test-Path $brokerExe)) { Fail "zui-broker.exe не создан" }
+    
+    Copy-Item $brokerExe ".\publish\zui-broker.exe" -Force
+    OK "zui-broker.exe скопирован в publish"
+} else {
+    Info "zui-broker не найден, пропускаю"
+}
+
+# ── Шаг 7: Windows App Runtime ───────────────────────
 Step "Windows App Runtime Redistributable"
 
 $rtInstaller = ".\WindowsAppRuntimeInstall-x64.exe"
 
 if (-not (Test-Path $rtInstaller)) {
-    Fail "Не найден: $rtInstaller`n  Скачай experimental Runtime вручную с:`n  https://github.com/microsoft/WindowsAppSDK/releases/tag/2.0.0-experimental6n  и положи в корень проекта."
+    Fail "Не найден: $rtInstaller`n Скачай experimental Runtime вручную с:`n https://github.com/microsoft/WindowsAppSDK/releases/tag/2.0.0-experimental6n и положи в корень проекта."
 }
 OK "Runtime найден: $rtInstaller"
 
-# ── Шаг 6: Сборка установщика ────────────────────────
+# ── Шаг 8: Сборка установщика ────────────────────────
 Step "Inno Setup → Z-UI-Setup.exe"
 
 Info "Компилирую setup.iss..."

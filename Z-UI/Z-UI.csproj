@@ -1,147 +1,76 @@
 <Project Sdk="Microsoft.NET.Sdk">
 <PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<DefineConstants>DISABLE_XAML_GENERATED_MAIN</DefineConstants>
-		<TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
-		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-		<RootNamespace>ZUI</RootNamespace>
-		<AssemblyVersion>1.0.0.0</AssemblyVersion>
-		<FileVersion>1.0.0.0</FileVersion>
-		<Version>1.0.0</Version>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
-    <Platforms>x86;x64;ARM64</Platforms>
-    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
-    <PublishProfile>win-$(Platform).pubxml</PublishProfile>
-    <UseWinUI>true</UseWinUI>
+<OutputType>WinExe</OutputType>
+<TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+<RootNamespace>ZUI</RootNamespace>
+<UseWinUI>true</UseWinUI>
     <WindowsPackageType>None</WindowsPackageType>
-    <EnableMsixTooling>false</EnableMsixTooling>
+<EnableMsixTooling>false</EnableMsixTooling>
 <Nullable>enable</Nullable>
 <ImplicitUsings>enable</ImplicitUsings>
-<PriGeneratorSuppressedWarnings>PRI263</PriGeneratorSuppressedWarnings>
-<NoWarn>$(NoWarn);MVVMTK0045;MVVMTK0034</NoWarn>
+<LangVersion>preview</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  <!-- Suppress auto-generated Main() — we provide a custom entry point in Program.cs -->
+  <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+    <Platforms>x64;x86;ARM64</Platforms>
+<RuntimeIdentifiers>win-x64;win-x86;win-arm64</RuntimeIdentifiers>
+<ApplicationIcon>Assets\Z-UI.ico</ApplicationIcon>
+<!-- Workaround for XamlCompiler exit code 1 with .NET 10 -->
+<XamlCompilerDisablePeerAssemblyGeneration>true</XamlCompilerDisablePeerAssemblyGeneration>
+<!-- Suppress MVVMTK0045 warnings - private fields are stable for WinUI 3 -->
+<!-- Suppress minor code quality warnings -->
+    <AnalysisLevel>latest</AnalysisLevel>
+    <!-- Suppress MVVMTK0045 - private fields are stable for WinUI 3 -->
+    <!-- Suppress style/structure warnings that don't affect correctness -->
+    <NoWarn>$(NoWarn);MVVMTK0045;CA1051;CA1056;CA1819;CA2227;CA1063;CA1805;CA1822;CA1801;CA1054;CA1823</NoWarn>
   </PropertyGroup>
-
   <ItemGroup>
-    <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.0.1" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.8" />
   </ItemGroup>
 
+  <!-- Copy zapret folder to output -->
   <ItemGroup>
-    <Manifest Include="$(ApplicationManifest)" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-    <ProjectCapability Include="Msix" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="zapret\strategies\bin\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="zapret\strategies\lists\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="zapret\strategies\*.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="zapret\version.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="zapret\utils\**\*.*">
+    <Content Include="zapret\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
+  <!-- Copy Assets -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.5" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1-RTM" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.0.0-experimental6" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
-    <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.5" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Assets\Z-UI.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Z-UI-16x16.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Z-UI-24x24.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Z-UI-32x32.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Z-UI-48x48.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Z-UI-64x64.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Z-UI-96x96.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Z-UI-128x128.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Z-UI-256x256.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Assets\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
-    <Page Update="Views\DashboardPage.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
-    <Page Update="Views\StrategiesPage.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
-    <Page Update="Views\ServicesPage.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
-    <Page Update="Views\SettingsPage.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
-    <Page Update="Views\SetupWizardPage.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
-    <Page Update="Views\DiagnosticsPage.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
-    <Page Update="Views\UpdatesPage.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
-    <Page Update="Views\ServicePage.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
-    <Page Update="Views\AboutPage.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
-    <Page Update="Windows\MainWindow.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Page>
+    <ProjectReference Include="..\ZUI.Core\ZUI.Core.csproj" />
+    <ProjectReference Include="..\ZUI.Ipc\ZUI.Ipc.csproj" />
+    <!-- ZUI.Worker: build dependency only (Native AOT exe, not a library).
+         ReferenceOutputAssembly=false prevents referencing Worker DLLs.
+         PublishTargetsOnly ensures Worker is published during dotnet publish. -->
+    <ProjectReference Include="..\ZUI.Worker\ZUI.Worker.csproj" ReferenceOutputAssembly="false" PublishTargetsOnly="true" />
   </ItemGroup>
 
-  <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-    <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
-    <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">False</PublishReadyToRun>
-    <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
-    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">False</PublishTrimmed>
-    <ApplicationIcon>Assets\Z-UI.ico</ApplicationIcon>
-  </PropertyGroup>
-
-<Target Name="CopyPriToPublish" AfterTargets="Publish">
-	<Copy SourceFiles="$(OutDir)Z-UI.pri" DestinationFiles="$(PublishDir)resources.pri" Condition="Exists('$(OutDir)Z-UI.pri')" />
-</Target>
+  <!-- After Worker builds, publish it as Native AOT and copy to Z-UI output under ZUI.Worker\ subfolder.
+       This creates a standalone executable that doesn't require .NET runtime dependencies. -->
+  <Target Name="PublishWorkerBinary" AfterTargets="Build" Condition="!Exists('$(TargetDir)ZUI.Worker\ZUI.Worker.exe')">
+    <PropertyGroup>
+      <WorkerProjectPath>$(MSBuildThisFileDirectory)..\ZUI.Worker\ZUI.Worker.csproj</WorkerProjectPath>
+      <WorkerPublishPath>$(MSBuildThisFileDirectory)..\ZUI.Worker\bin\Debug\$(TargetFramework)\win-$(Platform)\publish\</WorkerPublishPath>
+      <WorkerDestPath>$(TargetDir)ZUI.Worker\</WorkerDestPath>
+    </PropertyGroup>
+    <MakeDir Directories="$(WorkerDestPath)" />
+    <!-- Publish Worker as Native AOT if not already published -->
+    <Exec Command="dotnet publish &quot;$(WorkerProjectPath)&quot; -c $(Configuration) -r win-$(Platform) --no-restore" Condition="!Exists('$(WorkerPublishPath)ZUI.Worker.exe')" />
+    <!-- Copy Native AOT executable and PDBs -->
+    <Exec Command="xcopy &quot;$(WorkerPublishPath)*.exe&quot; &quot;$(WorkerDestPath)&quot; /Y" />
+    <Exec Command="xcopy &quot;$(WorkerPublishPath)*.pdb&quot; &quot;$(WorkerDestPath)&quot; /Y" />
+    <!-- Copy WinDivert dependencies from zapret folder -->
+    <Exec Command="xcopy &quot;$(MSBuildThisFileDirectory)zapret\WinDivert.dll&quot; &quot;$(WorkerDestPath)&quot; /Y" />
+    <Exec Command="xcopy &quot;$(MSBuildThisFileDirectory)zapret\WinDivert64.sys&quot; &quot;$(WorkerDestPath)&quot; /Y" />
+  </Target>
 </Project>

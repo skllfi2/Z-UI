@@ -1,0 +1,23 @@
+# Path of Exile 2 - Game Traffic
+# Port 20481, UDP voice chat
+
+pathofexile.com
+poe2.com
+poecdn.com
+poegame.com
+
+# All regions
+login.pathofexile.com
+us.pathofexile.com
+eu.pathofexile.com
+sg.pathofexile.com
+jp.pathofexile.com
+br.pathofexile.com
+ru.pathofexile.com
+
+# Steam
+steam.pathofexile.com
+
+# API
+api.pathofexile.com
+www.pathofexile.com

@@ -1,35 +1,261 @@
-<Page
-    x:Class="ZUI.Views.DiagnosticsPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+<!-- DiagnosticsPage.xaml - MVVM-bound diagnostics page -->
+<views:BasePage
+x:Class="ZUI.Views.DiagnosticsPage"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:views="using:ZUI.Views"
+xmlns:converters="using:ZUI.Converters"
+xmlns:controls="using:ZUI.Controls"
+xmlns:helpers="using:ZUI.Helpers">
 
-<ScrollViewer Padding="24">
- <StackPanel Spacing="16" HorizontalAlignment="Stretch">
- <StackPanel Orientation="Horizontal" Spacing="12">
-                <Button Content="Очистить лог"
-                        Command="{x:Bind ViewModel.ClearLogsCommand}"
-                        Style="{StaticResource AccentButtonStyle}" />
-            </StackPanel>
+    <views:BasePage.Resources>
+        <converters:BoolToCheckGlyphConverter x:Key="CheckGlyphConverter"/>
+        <converters:BoolToSuccessColorConverter x:Key="SuccessColorConverter"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisConverter"/>
+        <converters:StringToVisibilityConverter x:Key="StringToVisConverter"/>
+    </views:BasePage.Resources>
 
-            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <!-- Page Header (back button + title) — sticky on scroll -->
+    <controls:PageHeader x:Name="HeaderControl" Grid.Row="0" Title="Диагностика системы" Subtitle="Проверка готовности системы к обходу DPI"/>
+
+    <!-- Scrollable content -->
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+        helpers:StickyHeaderHelper.StickyHeader="{x:Bind HeaderControl}">
+      <StackPanel Spacing="20" Padding="32,0,32,32">
+
+                <!-- Quick Status Card -->
+                <Border x:Name="SectionSummary" CornerRadius="12" Padding="24"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1" CornerRadius="8" Padding="16">
-                <StackPanel Spacing="8">
-                    <TextBlock Text="Лог диагностики" Style="{StaticResource SubtitleTextBlockStyle}" />
-                    <ListView ItemsSource="{x:Bind ViewModel.LogLines, Mode=OneWay}"
-                              MaxHeight="500"
-                              ScrollViewer.VerticalScrollBarVisibility="Auto">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="x:String">
-                                <TextBlock Text="{x:Bind}" FontFamily="Consolas" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    BorderThickness="1">
+                    <StackPanel Spacing="12">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <FontIcon Glyph="&#xE90F;" FontSize="24" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock x:Uid="Diagnostics_SystemState" Text="Состояние системы" FontSize="18" FontWeight="SemiBold"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock x:Uid="Diagnostics_PassedChecks" Text="Проверок пройдено:" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                            <TextBlock Text="{x:Bind ViewModel.PassedChecks, Mode=OneWay}"
+                                Foreground="{StaticResource SuccessBrush}" FontWeight="SemiBold"/>
+                            <TextBlock Text="/"/>
+                            <TextBlock Text="{x:Bind ViewModel.TotalChecks, Mode=OneWay}"/>
+                        </StackPanel>
+
+                        <TextBlock Text="{x:Bind ViewModel.SummaryText, Mode=OneWay}"
+                            TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                </Border>
+
+    <!-- Admin Check Card -->
+            <Border x:Name="SectionAdmin" CornerRadius="12" Padding="24"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1">
+                <StackPanel Spacing="12">
+                        <TextBlock x:Uid="Diagnostics_AdminTitle" Text="Права администратора" FontSize="16" FontWeight="SemiBold"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon Glyph="{x:Bind ViewModel.IsAdmin, Mode=OneWay, Converter={StaticResource CheckGlyphConverter}}"
+                            FontSize="16" Foreground="{x:Bind ViewModel.IsAdmin, Mode=OneWay, Converter={StaticResource SuccessColorConverter}}"/>
+                        <TextBlock Text="{x:Bind ViewModel.AdminStatusText, Mode=OneWay}" FontSize="14"/>
+                    </StackPanel>
+
+                    <TextBlock Text="{x:Bind ViewModel.AdminInfoText, Mode=OneWay}"
+                        TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+
+                    <Button Content="Исправить"
+                        Command="{x:Bind ViewModel.FixAdminCommand}"
+                        Visibility="{x:Bind ViewModel.AdminFixAction, Mode=OneWay, Converter={StaticResource StringToVisConverter}}"
+                        Style="{ThemeResource AccentButtonStyle}"/>
                 </StackPanel>
             </Border>
-        </StackPanel>
+
+                <!-- Worker IPC Check Card -->
+                <Border x:Name="SectionWorker" CornerRadius="12" Padding="24"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1">
+                    <StackPanel Spacing="12">
+                        <TextBlock x:Uid="Diagnostics_WorkerTitle" Text="Worker Service (IPC)" FontSize="16" FontWeight="SemiBold"/>
+
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="{x:Bind ViewModel.IsWorkerReachable, Mode=OneWay, Converter={StaticResource CheckGlyphConverter}}"
+                                FontSize="16" Foreground="{x:Bind ViewModel.IsWorkerReachable, Mode=OneWay, Converter={StaticResource SuccessColorConverter}}"/>
+                            <TextBlock Text="{x:Bind ViewModel.WorkerStatusText, Mode=OneWay}" FontSize="14"/>
+                        </StackPanel>
+
+                    <TextBlock Text="{x:Bind ViewModel.WorkerInfoText, Mode=OneWay}"
+                        TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+
+                    <Button Content="Исправить"
+                        Command="{x:Bind ViewModel.FixWorkerCommand}"
+                        Visibility="{x:Bind ViewModel.WorkerFixAction, Mode=OneWay, Converter={StaticResource StringToVisConverter}}"
+                        Style="{ThemeResource AccentButtonStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- WinDivert Check Card -->
+                <Border x:Name="SectionWinDivert" CornerRadius="12" Padding="24"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1">
+                    <StackPanel Spacing="12">
+                        <TextBlock x:Uid="Diagnostics_WinDivertTitle" Text="WinDivert драйвер" FontSize="16" FontWeight="SemiBold"/>
+
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="{x:Bind ViewModel.IsWinDivertOk, Mode=OneWay, Converter={StaticResource CheckGlyphConverter}}"
+                                FontSize="16" Foreground="{x:Bind ViewModel.IsWinDivertOk, Mode=OneWay, Converter={StaticResource SuccessColorConverter}}"/>
+                            <TextBlock Text="{x:Bind ViewModel.WinDivertStatusText, Mode=OneWay}" FontSize="14"/>
+                        </StackPanel>
+
+                    <TextBlock Text="{x:Bind ViewModel.WinDivertInfoText, Mode=OneWay}"
+                        TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+
+                    <Button Content="Исправить"
+                        Command="{x:Bind ViewModel.FixWinDivertCommand}"
+                        Visibility="{x:Bind ViewModel.WinDivertFixAction, Mode=OneWay, Converter={StaticResource StringToVisConverter}}"
+                        Style="{ThemeResource AccentButtonStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Domain Lists Check Card -->
+                <Border x:Name="SectionDomainLists" CornerRadius="12" Padding="24"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1">
+                    <StackPanel Spacing="12">
+                        <TextBlock x:Uid="Diagnostics_DomainListsTitle" Text="Списки доменов" FontSize="16" FontWeight="SemiBold"/>
+
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="{x:Bind ViewModel.IsDomainListsOk, Mode=OneWay, Converter={StaticResource CheckGlyphConverter}}"
+                                FontSize="16" Foreground="{x:Bind ViewModel.IsDomainListsOk, Mode=OneWay, Converter={StaticResource SuccessColorConverter}}"/>
+                            <TextBlock Text="{x:Bind ViewModel.DomainListsStatusText, Mode=OneWay}" FontSize="14"/>
+                        </StackPanel>
+
+                    <TextBlock Text="{x:Bind ViewModel.DomainListsInfoText, Mode=OneWay}"
+                        TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+
+                    <Button Content="Исправить"
+                        Command="{x:Bind ViewModel.FixDomainListsCommand}"
+                        Visibility="{x:Bind ViewModel.DomainListsFixAction, Mode=OneWay, Converter={StaticResource StringToVisConverter}}"
+                        Style="{ThemeResource AccentButtonStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Binary Files Check Card -->
+                <Border x:Name="SectionBinaries" CornerRadius="12" Padding="24"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1">
+                    <StackPanel Spacing="12">
+                        <TextBlock x:Uid="Diagnostics_BinaryFilesTitle" Text="Бинарные файлы" FontSize="16" FontWeight="SemiBold"/>
+
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="{x:Bind ViewModel.IsBinaryFilesOk, Mode=OneWay, Converter={StaticResource CheckGlyphConverter}}"
+                                FontSize="16" Foreground="{x:Bind ViewModel.IsBinaryFilesOk, Mode=OneWay, Converter={StaticResource SuccessColorConverter}}"/>
+                            <TextBlock Text="{x:Bind ViewModel.BinaryFilesStatusText, Mode=OneWay}" FontSize="14"/>
+                        </StackPanel>
+
+                    <TextBlock Text="{x:Bind ViewModel.BinaryFilesInfoText, Mode=OneWay}"
+                        TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+
+                    <Button Content="Исправить"
+                        Command="{x:Bind ViewModel.FixBinaryFilesCommand}"
+                        Visibility="{x:Bind ViewModel.BinaryFilesFixAction, Mode=OneWay, Converter={StaticResource StringToVisConverter}}"
+                        Style="{ThemeResource AccentButtonStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Network Check Card -->
+                <Border x:Name="SectionNetwork" CornerRadius="12" Padding="24"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1">
+                    <StackPanel Spacing="12">
+                        <TextBlock x:Uid="Diagnostics_NetworkTitle" Text="Сетевое подключение" FontSize="16" FontWeight="SemiBold"/>
+
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="{x:Bind ViewModel.IsNetworkOk, Mode=OneWay, Converter={StaticResource CheckGlyphConverter}}"
+                                FontSize="16" Foreground="{x:Bind ViewModel.IsNetworkOk, Mode=OneWay, Converter={StaticResource SuccessColorConverter}}"/>
+                            <TextBlock Text="{x:Bind ViewModel.NetworkStatusText, Mode=OneWay}" FontSize="14"/>
+                        </StackPanel>
+
+                    <TextBlock Text="{x:Bind ViewModel.NetworkInfoText, Mode=OneWay}"
+                        TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+
+                    <Button Content="Исправить"
+                        Command="{x:Bind ViewModel.FixNetworkCommand}"
+                        Visibility="{x:Bind ViewModel.NetworkFixAction, Mode=OneWay, Converter={StaticResource StringToVisConverter}}"
+                        Style="{ThemeResource AccentButtonStyle}"/>
+                </StackPanel>
+            </Border>
+
+                <!-- Detailed Results -->
+                <Border x:Name="SectionResults" CornerRadius="12" Padding="24"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    Visibility="{x:Bind ViewModel.HasResults, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}">
+                    <StackPanel Spacing="12">
+                        <TextBlock x:Uid="Diagnostics_DetailedResults" Text="Подробные результаты" FontSize="16" FontWeight="SemiBold"/>
+                        <ListView ItemsSource="{x:Bind ViewModel.DiagnosticResults, Mode=OneWay}"
+                            SelectionMode="None"
+                            IsItemClickEnabled="False">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Padding="4,8" ColumnSpacing="12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <FontIcon Grid.Column="0"
+                                            Glyph="{Binding Success, Converter={StaticResource CheckGlyphConverter}}"
+                                            FontSize="16"
+                                            Foreground="{Binding Success, Converter={StaticResource SuccessColorConverter}}"/>
+                                        <StackPanel Grid.Column="1" Spacing="2">
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="13"/>
+                                            <TextBlock Text="{Binding Message}" FontSize="12"
+                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </Border>
+
+    <!-- Run Diagnostics Button -->
+            <Button Content="Проверить систему"
+                Command="{x:Bind ViewModel.RunDiagnosticsCommand}"
+                Style="{ThemeResource AccentButtonStyle}"
+                HorizontalAlignment="Stretch"
+                Height="48" FontSize="16"/>
+
+            <!-- Export Report Button -->
+            <Button Content="📋 Экспорт отчёта"
+                Command="{x:Bind ViewModel.ExportReportCommand}"
+                IsEnabled="{x:Bind ViewModel.CanExport, Mode=OneWay}"
+                HorizontalAlignment="Stretch"
+                Height="40" FontSize="14"/>
+
+                <ProgressBar IsIndeterminate="True"
+                    Visibility="{x:Bind ViewModel.IsRunning, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"/>
+
+                <!-- Info -->
+                <InfoBar Severity="Informational"
+                    Message="Диагностика проверяет: права администратора, Worker Service (IPC), WinDivert драйвер, списки доменов, бинарные файлы и сетевое подключение."
+                    IsOpen="True"
+                IsClosable="False"/>
+
+      </StackPanel>
     </ScrollViewer>
-</Page>
+  </Grid>
+</views:BasePage>
