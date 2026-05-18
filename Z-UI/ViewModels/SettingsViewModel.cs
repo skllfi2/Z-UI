@@ -43,9 +43,6 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty]
     private int _selectedDnsModeIndex;
 
-    [ObservableProperty]
-    private int _dnsPort = 5353;
-
     // ── Notifications ───────────────────────────────────────
 
     [ObservableProperty]
@@ -195,8 +192,6 @@ public partial class SettingsViewModel : ObservableObject
             "None" => 2,
             _ => 0
         };
-        DnsPort = _settings.DnsPort;
-
         NotificationsEnabled = _settings.NotificationsEnabled;
         NotifyOnStart = _settings.NotifyOnStart;
         NotifyOnStop = _settings.NotifyOnStop;
@@ -377,12 +372,6 @@ public partial class SettingsViewModel : ObservableObject
         };
     }
 
-    partial void OnDnsPortChanged(int value)
-    {
-        if (value >= 1024 && value <= 65535)
-            _settings.DnsPort = value;
-    }
-
     partial void OnNotificationsEnabledChanged(bool value) => _settings.NotificationsEnabled = value;
     partial void OnNotifyOnStartChanged(bool value) => _settings.NotifyOnStart = value;
     partial void OnNotifyOnStopChanged(bool value) => _settings.NotifyOnStop = value;
@@ -451,9 +440,6 @@ public partial class SettingsViewModel : ObservableObject
     partial void OnCheckUpdatesOnStartChanged(bool value) => _settings.CheckUpdatesOnStart = value;
 
     // ── Commands ────────────────────────────────────────────
-
-    [RelayCommand]
-    private void ResetDnsPort() => DnsPort = 5353;
 
     [RelayCommand]
     private async Task CheckUpdatesAsync(CancellationToken ct)

@@ -29,7 +29,6 @@ public class SettingsViewModelTests
         _mockSettings.Setup(s => s.DefaultStrategy).Returns("auto");
         _mockSettings.Setup(s => s.RunAsAdmin).Returns(false);
         _mockSettings.Setup(s => s.DefaultDnsMode).Returns("Proxy");
-        _mockSettings.Setup(s => s.DnsPort).Returns(5353);
         _mockSettings.Setup(s => s.NotificationsEnabled).Returns(true);
         _mockSettings.Setup(s => s.NotifyOnStart).Returns(true);
         _mockSettings.Setup(s => s.NotifyOnStop).Returns(false);
@@ -176,14 +175,6 @@ public class SettingsViewModelTests
         Assert.Equal(2, vm.SelectedLogLevelIndex);
     }
 
-    [Fact]
-    public void Constructor_LoadsDnsPort()
-    {
-        _mockSettings.Setup(s => s.DnsPort).Returns(5353);
-        var vm = CreateVm();
-        Assert.Equal(5353, vm.DnsPort);
-    }
-
     // ── LoadStrategies ──────────────────────────────────────────
 
     [Fact]
@@ -238,22 +229,6 @@ public class SettingsViewModelTests
         _mockSettings.Invocations.Clear();
         vm.SelectedDnsModeIndex = 0; // Proxy
         _mockSettings.VerifySet(s => s.DefaultDnsMode = "Proxy", Times.Once());
-    }
-
-    [Fact]
-    public void OnDnsPortChanged_ValidPort_SyncsToSettings()
-    {
-        var vm = CreateVm();
-        vm.DnsPort = 8080;
-        _mockSettings.VerifySet(s => s.DnsPort = 8080, Times.Once());
-    }
-
-    [Fact]
-    public void OnDnsPortChanged_InvalidPort_DoesNotSync()
-    {
-        var vm = CreateVm();
-        vm.DnsPort = 80; // Below 1024
-        _mockSettings.VerifySet(s => s.DnsPort = It.IsAny<int>(), Times.Never());
     }
 
     [Fact]
@@ -325,17 +300,6 @@ public class SettingsViewModelTests
         _mockSettings.VerifySet(s => s.CheckUpdatesOnStart = true, Times.Once());
     }
 
-    // ── ResetDnsPortCommand ─────────────────────────────────────
-
-    [Fact]
-    public void ResetDnsPort_SetsTo5353()
-    {
-        var vm = CreateVm();
-        vm.DnsPort = 8080;
-        vm.ResetDnsPortCommand.Execute(null);
-        Assert.Equal(5353, vm.DnsPort);
-    }
-
     // ── ResetSettingsCommand ────────────────────────────────────
 
     [Fact]
@@ -370,7 +334,6 @@ public class SettingsViewModelTests
         _mockSettings.Verify(s => s.SetSetting("AutoProtect", false), Times.Once());
         _mockSettings.Verify(s => s.SetSetting("DefaultStrategy", "auto"), Times.Once());
         _mockSettings.Verify(s => s.SetSetting("DefaultDnsMode", "Proxy"), Times.Once());
-        _mockSettings.Verify(s => s.SetSetting("DnsPort", 5353), Times.Once());
     }
 
     // ── ThemeChangeRequested event ──────────────────────────────
