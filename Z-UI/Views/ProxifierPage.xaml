@@ -15,8 +15,7 @@
 
     <!-- Page Header -->
     <controls:PageHeader x:Name="HeaderControl" Grid.Row="0"
-      Title="Proxifier"
-      Subtitle="Proxy routing configuration"/>
+      x:Uid="Proxifier"/>
 
     <!-- TabView with 3 tabs -->
     <TabView Grid.Row="1"
@@ -24,7 +23,7 @@
       Padding="24,12,24,0">
 
       <!-- Tab 1: Proxy Servers -->
-      <TabViewItem Header="Servers" Width="110">
+      <TabViewItem x:Uid="Proxifier_TabServers" Width="110">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
           <StackPanel Spacing="16" Padding="8,0,8,32">
 
@@ -56,7 +55,7 @@
               Click="ShowAddServerDialog_Click">
               <StackPanel Orientation="Horizontal" Spacing="8">
                 <FontIcon Glyph="&#xE710;" FontSize="14"/>
-                <TextBlock Text="Add Server" x:Uid="Proxifier_AddServer"/>
+                <TextBlock x:Uid="Proxifier_AddServer"/>
               </StackPanel>
             </Button>
 
@@ -85,19 +84,18 @@
                         <Run Text=" &#x2022; "/><Run Text="{x:Bind ProxyType}"/>
                       </TextBlock>
                       <TextBlock FontSize="11" Foreground="{ThemeResource TextFillColorTertiaryBrush}"
-                        Visibility="{x:Bind AuthenticationEnabled, Mode=OneWay}">
-                        [auth enabled]
-                      </TextBlock>
+                        Visibility="{x:Bind AuthenticationEnabled, Mode=OneWay}"
+                        x:Uid="Proxifier_AuthEnabled"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4"
                       VerticalAlignment="Center">
-                      <Button ToolTipService.ToolTip="Check"
+                      <Button x:Uid="Proxifier_CheckButton"
                         Tag="{x:Bind Name}"
                         Click="CheckServerButton_Click">
                         <FontIcon Glyph="&#xE774;" FontSize="14"/>
                       </Button>
-                      <Button ToolTipService.ToolTip="Remove"
+                      <Button x:Uid="Proxifier_RemoveServerButton"
                         Tag="{x:Bind Name}"
                         Click="RemoveServerButton_Click">
                         <FontIcon Glyph="&#xE74D;" FontSize="14"/>
@@ -112,7 +110,7 @@
       </TabViewItem>
 
       <!-- Tab 2: Rules -->
-      <TabViewItem Header="Rules" Width="110">
+      <TabViewItem x:Uid="Proxifier_TabRules" Width="110">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
           <StackPanel Spacing="16" Padding="8,0,8,32">
 
@@ -121,7 +119,7 @@
               Click="ShowAddRuleDialog_Click">
               <StackPanel Orientation="Horizontal" Spacing="8">
                 <FontIcon Glyph="&#xE710;" FontSize="14"/>
-                <TextBlock Text="Add Rule" x:Uid="Proxifier_AddRule"/>
+                <TextBlock x:Uid="Proxifier_AddRule"/>
               </StackPanel>
             </Button>
 
@@ -151,7 +149,7 @@
                           CornerRadius="4"
                           Background="{ThemeResource AccentFillColorDefaultBrush}"
                           Visibility="{x:Bind IsEnabled, Mode=OneWay}">
-                          <TextBlock Text="Enabled" FontSize="10" x:Uid="Proxifier_Enabled"/>
+                          <TextBlock FontSize="10" x:Uid="Proxifier_Enabled"/>
                         </Border>
                       </StackPanel>
                       <TextBlock FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}">
@@ -165,7 +163,7 @@
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4"
                       VerticalAlignment="Center">
-                      <Button ToolTipService.ToolTip="Remove"
+                      <Button x:Uid="Proxifier_RemoveRuleButton"
                         Tag="{x:Bind Id}"
                         Click="RemoveRuleButton_Click">
                         <FontIcon Glyph="&#xE74D;" FontSize="14"/>
@@ -180,12 +178,12 @@
       </TabViewItem>
 
       <!-- Tab 3: Chains -->
-      <TabViewItem Header="Chains" Width="110">
+      <TabViewItem x:Uid="Proxifier_TabChains" Width="110">
         <Grid>
           <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
             <FontIcon Glyph="&#xEA3C;" FontSize="32"
               Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
-            <TextBlock Text="Proxy chains will be available in a future update" x:Uid="Proxifier_ChainsComingSoon"
+            <TextBlock x:Uid="Proxifier_ChainsComingSoon"
               FontSize="14"
               Foreground="{ThemeResource TextFillColorTertiaryBrush}"
               TextAlignment="Center" TextWrapping="Wrap" MaxWidth="300"/>
@@ -201,24 +199,24 @@
       DefaultButton="Primary"
       PrimaryButtonClick="AddServerDialog_PrimaryButtonClick">
       <StackPanel Spacing="12" MinWidth="400">
-    <TextBox x:Name="ServerNameTextBox" Header="Name" PlaceholderText="My Server" x:Uid="Proxifier_ServerNameTextBox"/>
-    <TextBox x:Name="ServerHostTextBox" Header="Host" PlaceholderText="127.0.0.1" x:Uid="Proxifier_ServerHostTextBox"/>
-        <NumberBox x:Name="ServerPortNumberBox" Header="Port" Value="1080" SpinButtonPlacementMode="Inline"/>
-        <ComboBox x:Name="ServerTypeComboBox" Header="Type" SelectedIndex="2">
-          <x:String>Socks4</x:String>
-          <x:String>Socks4a</x:String>
-          <x:String>Socks5</x:String>
-          <x:String>HttpConnect</x:String>
+    <TextBox x:Name="ServerNameTextBox" x:Uid="Proxifier_ServerNameTextBox"/>
+    <TextBox x:Name="ServerHostTextBox" x:Uid="Proxifier_ServerHostTextBox"/>
+        <NumberBox x:Name="ServerPortNumberBox" x:Uid="Proxifier_ServerPortNumberBox" Value="1080" SpinButtonPlacementMode="Inline"/>
+        <ComboBox x:Name="ServerTypeComboBox" x:Uid="Proxifier_ServerTypeComboBox" SelectedIndex="2">
+          <ComboBoxItem x:Uid="Proxifier_Socks4"/>
+          <ComboBoxItem x:Uid="Proxifier_Socks4a"/>
+          <ComboBoxItem x:Uid="Proxifier_Socks5"/>
+          <ComboBoxItem x:Uid="Proxifier_HttpConnect"/>
         </ComboBox>
-        <CheckBox x:Name="ServerAuthCheckBox" Content="Authentication required"
+        <CheckBox x:Name="ServerAuthCheckBox" x:Uid="Proxifier_ServerAuthCheckBox"
           Checked="ServerAuthCheckBox_Checked" Unchecked="ServerAuthCheckBox_Unchecked"/>
         <StackPanel x:Name="ServerAuthPanel" Visibility="Collapsed">
-          <TextBox x:Name="ServerUsernameTextBox" Header="Username" Margin="0,8,0,0"/>
-          <PasswordBox x:Name="ServerPasswordBox" Header="Password" Margin="0,8,0,0"/>
+          <TextBox x:Name="ServerUsernameTextBox" x:Uid="Proxifier_ServerUsernameTextBox" Margin="0,8,0,0"/>
+          <PasswordBox x:Name="ServerPasswordBox" x:Uid="Proxifier_ServerPasswordBox" Margin="0,8,0,0"/>
         </StackPanel>
-        <ComboBox x:Name="DnsPolicyComboBox" Header="DNS Policy" SelectedIndex="0">
-          <x:String>Local</x:String>
-          <x:String>ThroughProxy</x:String>
+        <ComboBox x:Name="DnsPolicyComboBox" x:Uid="Proxifier_DnsPolicyComboBox" SelectedIndex="0">
+          <ComboBoxItem x:Uid="Proxifier_Local"/>
+          <ComboBoxItem x:Uid="Proxifier_ThroughProxy"/>
         </ComboBox>
       </StackPanel>
     </ContentDialog>
@@ -229,22 +227,23 @@
       DefaultButton="Primary"
       PrimaryButtonClick="AddRuleDialog_PrimaryButtonClick">
       <StackPanel Spacing="12" MinWidth="400">
-    <TextBox x:Name="RuleNameTextBox" Header="Name" PlaceholderText="My Rule" x:Uid="Proxifier_RuleNameTextBox"/>
-    <TextBox x:Name="RuleProcessNameTextBox" Header="Process Name (optional)" PlaceholderText="chrome.exe" x:Uid="Proxifier_RuleProcessNameTextBox"/>
-    <TextBox x:Name="RuleDomainTextBox" Header="Destination Domain (optional)" PlaceholderText="example.com" x:Uid="Proxifier_RuleDomainTextBox"/>
-        <ComboBox x:Name="RuleActionComboBox" Header="Action" SelectedIndex="0">
-          <x:String>Direct</x:String>
-          <x:String>Proxy</x:String>
-          <x:String>Chain</x:String>
-          <x:String>Block</x:String>
+    <TextBox x:Name="RuleNameTextBox" x:Uid="Proxifier_RuleNameTextBox"/>
+    <CheckBox x:Name="RuleEnabledCheckBox" x:Uid="Proxifier_RuleEnabledCheckBox" IsChecked="True"/>
+    <NumberBox x:Name="RulePriorityNumberBox" x:Uid="Proxifier_RulePriorityNumberBox" Value="1" Minimum="1" SpinButtonPlacementMode="Inline"/>
+    <TextBox x:Name="RuleProcessNameTextBox" x:Uid="Proxifier_RuleProcessNameTextBox"/>
+    <TextBox x:Name="RuleDomainTextBox" x:Uid="Proxifier_RuleDomainTextBox"/>
+        <ComboBox x:Name="RuleActionComboBox" x:Uid="Proxifier_RuleActionComboBox" SelectedIndex="0">
+          <ComboBoxItem x:Uid="Proxifier_Direct"/>
+          <ComboBoxItem x:Uid="Proxifier_Proxy"/>
+          <ComboBoxItem x:Uid="Proxifier_Chain"/>
+          <ComboBoxItem x:Uid="Proxifier_Block"/>
         </ComboBox>
-        <ComboBox x:Name="RuleProxyServerComboBox" 
-          Header="Proxy Server"
+        <ComboBox x:Name="RuleProxyServerComboBox" x:Uid="Proxifier_RuleProxyServerComboBox"
           ItemsSource="{x:Bind ViewModel.Servers, Mode=OneWay}"
           DisplayMemberPath="Name"/>
-        <ComboBox x:Name="RuleDnsPolicyComboBox" Header="DNS Policy" SelectedIndex="0">
-          <x:String>Local</x:String>
-          <x:String>ThroughProxy</x:String>
+        <ComboBox x:Name="RuleDnsPolicyComboBox" x:Uid="Proxifier_RuleDnsPolicyComboBox" SelectedIndex="0">
+          <ComboBoxItem x:Uid="Proxifier_Local"/>
+          <ComboBoxItem x:Uid="Proxifier_ThroughProxy"/>
         </ComboBox>
       </StackPanel>
     </ContentDialog>

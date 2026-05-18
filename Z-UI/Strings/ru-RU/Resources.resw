@@ -904,6 +904,9 @@
   <data name="Dashboard.ReinstallWorker" xml:space="preserve">
     <value>Переустановить</value>
   </data>
+  <data name="Dashboard.UninstallWorker" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
   <data name="Dashboard.AdminRequired" xml:space="preserve">
     <value>Требуются права администратора</value>
   </data>
@@ -1152,6 +1155,9 @@
   <data name="Settings.LogLevel" xml:space="preserve">
     <value>Уровень логирования</value>
   </data>
+  <data name="Settings.LogLevelSection" xml:space="preserve">
+    <value>Логирование</value>
+  </data>
   <data name="Settings.LogLevelDesc" xml:space="preserve">
     <value>Детализация записей в журнале</value>
   </data>
@@ -1184,9 +1190,6 @@
   </data>
   <data name="Settings.StartMinimizedDesc" xml:space="preserve">
     <value>Скрывать окно при старте приложения</value>
-  </data>
-  <data name="Settings.SoundEffectsDesc" xml:space="preserve">
-    <value>Звуки при нажатии кнопок и действиях</value>
   </data>
   <data name="Settings.LogLevelTitle" xml:space="preserve">
     <value>Логирование</value>
@@ -1335,6 +1338,9 @@
   </data>
   <data name="Generator.Test" xml:space="preserve">
     <value>Тестировать</value>
+  </data>
+  <data name="Generator.TestStrategy" xml:space="preserve">
+    <value>Тестировать стратегию</value>
   </data>
   <data name="Generator.SelectServices" xml:space="preserve">
     <value>Выберите сервисы</value>
@@ -1660,5 +1666,147 @@
   </data>
   <data name="Proxifier_AddRuleDialog.CloseButtonText" xml:space="preserve">
     <value>Отмена</value>
+  </data>
+
+  <!-- ProxifierPage tabs & buttons -->
+  <data name="Proxifier_TabServers.Header" xml:space="preserve">
+    <value>Серверы</value>
+  </data>
+  <data name="Proxifier_AddServer.Content" xml:space="preserve">
+    <value>Добавить сервер</value>
+  </data>
+  <data name="Proxifier_AuthEnabled.Text" xml:space="preserve">
+    <value>[авторизация]</value>
+  </data>
+  <data name="Proxifier_CheckButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Проверить</value>
+  </data>
+  <data name="Proxifier_RemoveServerButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Proxifier_TabRules.Header" xml:space="preserve">
+    <value>Правила</value>
+  </data>
+  <data name="Proxifier_AddRule.Content" xml:space="preserve">
+    <value>Добавить правило</value>
+  </data>
+  <data name="Proxifier_Enabled.Text" xml:space="preserve">
+    <value>Вкл</value>
+  </data>
+  <data name="Proxifier_RemoveRuleButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Proxifier_TabChains.Header" xml:space="preserve">
+    <value>Цепочки</value>
+  </data>
+
+  <!-- Proxifier Server Dialog -->
+  <data name="Proxifier_ServerNameTextBox.Header" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Proxifier_ServerNameTextBox.PlaceholderText" xml:space="preserve">
+    <value>Мой сервер</value>
+  </data>
+  <data name="Proxifier_ServerHostTextBox.Header" xml:space="preserve">
+    <value>Хост</value>
+  </data>
+  <data name="Proxifier_ServerHostTextBox.PlaceholderText" xml:space="preserve">
+    <value>127.0.0.1</value>
+  </data>
+  <data name="Proxifier_ServerPortNumberBox.Header" xml:space="preserve">
+    <value>Порт</value>
+  </data>
+  <data name="Proxifier_ServerTypeComboBox.Header" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Proxifier_ServerAuthCheckBox.Content" xml:space="preserve">
+    <value>Требуется авторизация</value>
+  </data>
+  <data name="Proxifier_ServerUsernameTextBox.Header" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+  <data name="Proxifier_ServerPasswordBox.Header" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Proxifier_DnsPolicyComboBox.Header" xml:space="preserve">
+    <value>DNS политика</value>
+  </data>
+
+  <!-- Proxifier Rule Dialog -->
+  <data name="Proxifier_RuleEnabledCheckBox.Content" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="Proxifier_RulePriorityNumberBox.Header" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="Proxifier_RuleActionComboBox.Header" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="Proxifier_RuleProxyServerComboBox.Header" xml:space="preserve">
+    <value>Прокси-сервер</value>
+  </data>
+  <data name="Proxifier_RuleDnsPolicyComboBox.Header" xml:space="preserve">
+    <value>DNS политика</value>
+  </data>
+
+  <!-- Proxifier ComboBox items -->
+  <data name="Proxifier_Socks4.Content" xml:space="preserve">
+    <value>Socks4</value>
+  </data>
+  <data name="Proxifier_Socks4a.Content" xml:space="preserve">
+    <value>Socks4a</value>
+  </data>
+  <data name="Proxifier_Socks5.Content" xml:space="preserve">
+    <value>Socks5</value>
+  </data>
+  <data name="Proxifier_HttpConnect.Content" xml:space="preserve">
+    <value>HttpConnect</value>
+  </data>
+  <data name="Proxifier_Direct.Content" xml:space="preserve">
+    <value>Прямое</value>
+  </data>
+  <data name="Proxifier_Proxy.Content" xml:space="preserve">
+    <value>Прокси</value>
+  </data>
+  <data name="Proxifier_Chain.Content" xml:space="preserve">
+    <value>Цепочка</value>
+  </data>
+  <data name="Proxifier_Block.Content" xml:space="preserve">
+    <value>Блокировать</value>
+  </data>
+  <data name="Proxifier_Local.Content" xml:space="preserve">
+    <value>Локальный</value>
+  </data>
+  <data name="Proxifier_ThroughProxy.Content" xml:space="preserve">
+    <value>Через прокси</value>
+  </data>
+
+  <!-- Dashboard Worker buttons -->
+  <data name="Dashboard_UninstallWorker.Content" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Dashboard_ReinstallWorker.Content" xml:space="preserve">
+    <value>Переустановить</value>
+  </data>
+
+  <!-- Generator test buttons -->
+  <data name="Generator_TestStrategy.Text" xml:space="preserve">
+    <value>Тестировать стратегию</value>
+  </data>
+  <data name="Generator_RunTest.Text" xml:space="preserve">
+    <value>Запустить тест</value>
+  </data>
+
+  <!-- Diagnostics export -->
+  <data name="Diagnostics_ExportReport.Text" xml:space="preserve">
+    <value>Экспорт отчёта</value>
+  </data>
+
+  <!-- Settings sections -->
+  <data name="Settings_LogLevelSection.Text" xml:space="preserve">
+    <value>Логирование</value>
+  </data>
+  <data name="Settings_ManagementSection.Text" xml:space="preserve">
+    <value>Управление</value>
   </data>
 </root>

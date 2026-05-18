@@ -905,6 +905,9 @@
   <data name="Dashboard.ReinstallWorker" xml:space="preserve">
     <value>Reinstall</value>
   </data>
+  <data name="Dashboard.UninstallWorker" xml:space="preserve">
+    <value>Uninstall</value>
+  </data>
   <data name="Dashboard.AdminRequired" xml:space="preserve">
     <value>Administrator rights required</value>
   </data>
@@ -1153,6 +1156,9 @@
   <data name="Settings.LogLevel" xml:space="preserve">
     <value>Log level</value>
   </data>
+  <data name="Settings.LogLevelSection" xml:space="preserve">
+    <value>Logging</value>
+  </data>
   <data name="Settings.LogLevelDesc" xml:space="preserve">
     <value>Log detail level</value>
   </data>
@@ -1185,9 +1191,6 @@
   </data>
   <data name="Settings.StartMinimizedDesc" xml:space="preserve">
     <value>Hide window on app startup</value>
-  </data>
-  <data name="Settings.SoundEffectsDesc" xml:space="preserve">
-    <value>Play sounds on button clicks and actions</value>
   </data>
   <data name="Settings.LogLevelTitle" xml:space="preserve">
     <value>Logging</value>
@@ -1336,6 +1339,9 @@
   </data>
   <data name="Generator.Test" xml:space="preserve">
     <value>Test</value>
+  </data>
+  <data name="Generator.TestStrategy" xml:space="preserve">
+    <value>Test Strategy</value>
   </data>
   <data name="Generator.SelectServices" xml:space="preserve">
     <value>Select Services</value>
@@ -1661,5 +1667,147 @@
   </data>
   <data name="Proxifier_AddRuleDialog.CloseButtonText" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+
+  <!-- ProxifierPage tabs & buttons -->
+  <data name="Proxifier_TabServers.Header" xml:space="preserve">
+    <value>Servers</value>
+  </data>
+  <data name="Proxifier_AddServer.Content" xml:space="preserve">
+    <value>Add Server</value>
+  </data>
+  <data name="Proxifier_AuthEnabled.Text" xml:space="preserve">
+    <value>[auth enabled]</value>
+  </data>
+  <data name="Proxifier_CheckButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="Proxifier_RemoveServerButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Proxifier_TabRules.Header" xml:space="preserve">
+    <value>Rules</value>
+  </data>
+  <data name="Proxifier_AddRule.Content" xml:space="preserve">
+    <value>Add Rule</value>
+  </data>
+  <data name="Proxifier_Enabled.Text" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Proxifier_RemoveRuleButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Proxifier_TabChains.Header" xml:space="preserve">
+    <value>Chains</value>
+  </data>
+
+  <!-- Proxifier Server Dialog -->
+  <data name="Proxifier_ServerNameTextBox.Header" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Proxifier_ServerNameTextBox.PlaceholderText" xml:space="preserve">
+    <value>My Server</value>
+  </data>
+  <data name="Proxifier_ServerHostTextBox.Header" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="Proxifier_ServerHostTextBox.PlaceholderText" xml:space="preserve">
+    <value>127.0.0.1</value>
+  </data>
+  <data name="Proxifier_ServerPortNumberBox.Header" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="Proxifier_ServerTypeComboBox.Header" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Proxifier_ServerAuthCheckBox.Content" xml:space="preserve">
+    <value>Authentication required</value>
+  </data>
+  <data name="Proxifier_ServerUsernameTextBox.Header" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Proxifier_ServerPasswordBox.Header" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Proxifier_DnsPolicyComboBox.Header" xml:space="preserve">
+    <value>DNS Policy</value>
+  </data>
+
+  <!-- Proxifier Rule Dialog -->
+  <data name="Proxifier_RuleEnabledCheckBox.Content" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Proxifier_RulePriorityNumberBox.Header" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="Proxifier_RuleActionComboBox.Header" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Proxifier_RuleProxyServerComboBox.Header" xml:space="preserve">
+    <value>Proxy Server</value>
+  </data>
+  <data name="Proxifier_RuleDnsPolicyComboBox.Header" xml:space="preserve">
+    <value>DNS Policy</value>
+  </data>
+
+  <!-- Proxifier ComboBox items -->
+  <data name="Proxifier_Socks4.Content" xml:space="preserve">
+    <value>Socks4</value>
+  </data>
+  <data name="Proxifier_Socks4a.Content" xml:space="preserve">
+    <value>Socks4a</value>
+  </data>
+  <data name="Proxifier_Socks5.Content" xml:space="preserve">
+    <value>Socks5</value>
+  </data>
+  <data name="Proxifier_HttpConnect.Content" xml:space="preserve">
+    <value>HttpConnect</value>
+  </data>
+  <data name="Proxifier_Direct.Content" xml:space="preserve">
+    <value>Direct</value>
+  </data>
+  <data name="Proxifier_Proxy.Content" xml:space="preserve">
+    <value>Proxy</value>
+  </data>
+  <data name="Proxifier_Chain.Content" xml:space="preserve">
+    <value>Chain</value>
+  </data>
+  <data name="Proxifier_Block.Content" xml:space="preserve">
+    <value>Block</value>
+  </data>
+  <data name="Proxifier_Local.Content" xml:space="preserve">
+    <value>Local</value>
+  </data>
+  <data name="Proxifier_ThroughProxy.Content" xml:space="preserve">
+    <value>ThroughProxy</value>
+  </data>
+
+  <!-- Dashboard Worker buttons -->
+  <data name="Dashboard_UninstallWorker.Content" xml:space="preserve">
+    <value>Uninstall</value>
+  </data>
+  <data name="Dashboard_ReinstallWorker.Content" xml:space="preserve">
+    <value>Reinstall</value>
+  </data>
+
+  <!-- Generator test buttons -->
+  <data name="Generator_TestStrategy.Text" xml:space="preserve">
+    <value>Test Strategy</value>
+  </data>
+  <data name="Generator_RunTest.Text" xml:space="preserve">
+    <value>Run Test</value>
+  </data>
+
+  <!-- Diagnostics export -->
+  <data name="Diagnostics_ExportReport.Text" xml:space="preserve">
+    <value>Export Report</value>
+  </data>
+
+  <!-- Settings sections -->
+  <data name="Settings_LogLevelSection.Text" xml:space="preserve">
+    <value>Logging</value>
+  </data>
+  <data name="Settings_ManagementSection.Text" xml:space="preserve">
+    <value>Management</value>
   </data>
 </root>
