@@ -30,10 +30,9 @@ public partial class ViewModelBase : ObservableObject
     {
         if (_dispatcherQueue == null)
         {
-            // DispatcherQueue not available yet — defer until SetDispatcherQueue is called.
-            // This happens when events fire during DI construction before the page is navigated to.
-            _pendingActions ??= [];
-            _pendingActions.Add(action);
+            // Test context or pre-navigation — run synchronously.
+            // Matches RunOnUIThreadAsync behavior for testability.
+            action();
             return;
         }
 
@@ -42,8 +41,6 @@ public partial class ViewModelBase : ObservableObject
         else
             _dispatcherQueue.TryEnqueue(() => action());
     }
-
-    private List<Action>? _pendingActions;
 
     /// <summary>
     /// Run an action on the UI thread asynchronously, returning a Task that completes
