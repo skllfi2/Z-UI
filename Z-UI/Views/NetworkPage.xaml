@@ -15,7 +15,7 @@ xmlns:local="using:ZUI.Views"
     <!-- Page Header (back button + title) — sticky on scroll -->
     <controls:PageHeader x:Name="HeaderControl" Grid.Row="0" Title="Сеть" Subtitle="Настройки DNS, прокси и маршрутизации трафика"/>
 
- <!-- TabView with 3 tabs: DNS, Проксификатор, Telegram Proxy -->
+ <!-- TabView with 2 tabs: DNS, Telegram Proxy -->
   <TabView Grid.Row="1"
     IsAddTabButtonVisible="False"
     Padding="24,12,24,0">
@@ -237,146 +237,7 @@ xmlns:local="using:ZUI.Views"
       </ScrollViewer>
     </TabViewItem>
 
-    <!-- ═══ Tab 2: Проксификатор ═══ -->
-    <TabViewItem Header="Проксификатор">
-      <TabViewItem.IconSource>
-        <FontIconSource Glyph="&#xE77B;"/>
-      </TabViewItem.IconSource>
-      <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <StackPanel Spacing="20" Padding="8,0,8,32" DataContext="{x:Bind ProxifierViewModel}">
-
-          <!-- Main Control Card -->
-          <Border CornerRadius="12" Padding="24"
-            Background="Transparent"
-            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-            BorderThickness="1">
-            <Grid>
-              <controls:SystemBackdropElement CornerRadius="12">
-                <controls:SystemBackdropElement.SystemBackdrop>
-                  <MicaBackdrop Kind="Base"/>
-                </controls:SystemBackdropElement.SystemBackdrop>
-              </controls:SystemBackdropElement>
-              <StackPanel Spacing="16">
-              <StackPanel Orientation="Horizontal" Spacing="10">
-                <FontIcon Glyph="&#xE77B;" FontSize="24" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
-                <TextBlock x:Uid="Network_Management" Text="Управление" FontSize="18" FontWeight="SemiBold"/>
-              </StackPanel>
-
-              <!-- Status -->
-              <StackPanel Orientation="Horizontal" Spacing="8">
-                <Ellipse Width="12" Height="12"
-                  Fill="{StaticResource SuccessBrush}"
-                  Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
-                <Ellipse Width="12" Height="12"
-                  Fill="{StaticResource ErrorBrush}"
-                  Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibilityNegationConverter}, Mode=OneWay}"/>
-                <TextBlock Text="{Binding StatusText, Mode=OneWay}" FontSize="14" TextWrapping="Wrap"/>
-              </StackPanel>
-
-              <!-- Toggle Button -->
-              <Button Content="{Binding ToggleButtonText, Mode=OneWay}"
-                Style="{ThemeResource AccentButtonStyle}"
-                Command="{Binding ToggleProxifierCommand}"
-                IsEnabled="{Binding IsToggling, Converter={StaticResource BoolNegationConverter}, Mode=OneWay}"
-                HorizontalAlignment="Stretch"
-                Height="44"/>
-
-              <ProgressBar IsIndeterminate="True"
-                Visibility="{Binding IsToggling, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
-            </StackPanel>
-            </Grid>
-          </Border>
-
-          <!-- Stats Card -->
-          <Border CornerRadius="12" Padding="24"
-            Background="Transparent"
-            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-            BorderThickness="1">
-            <Grid>
-              <controls:SystemBackdropElement CornerRadius="12">
-                <controls:SystemBackdropElement.SystemBackdrop>
-                  <MicaBackdrop Kind="Base"/>
-                </controls:SystemBackdropElement.SystemBackdrop>
-              </controls:SystemBackdropElement>
-              <StackPanel Spacing="16">
-              <StackPanel Orientation="Horizontal" Spacing="10">
-                <FontIcon Glyph="&#xE9D9;" FontSize="24" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
-                <TextBlock x:Uid="Network_Statistics" Text="Статистика" FontSize="18" FontWeight="SemiBold"/>
-              </StackPanel>
-
-              <Grid ColumnSpacing="16" RowSpacing="8">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                  <RowDefinition/>
-                  <RowDefinition/>
-                  <RowDefinition/>
-                </Grid.RowDefinitions>
-
-                <StackPanel Grid.Row="0" Grid.Column="0">
-                  <TextBlock x:Uid="Network_ActiveRules" Text="Активные правила" FontSize="12"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                  <TextBlock Text="{Binding ActiveRules, Mode=OneWay}" FontSize="24" FontWeight="Bold"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="0" Grid.Column="1">
-                  <TextBlock x:Uid="Network_ActiveConnections" Text="Активные соединения" FontSize="12"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                  <TextBlock Text="{Binding ActiveConnections, Mode=OneWay}" FontSize="24" FontWeight="Bold"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="1" Grid.Column="0">
-                  <TextBlock x:Uid="Network_TrafficSent" Text="Отправлено" FontSize="12"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                  <TextBlock Text="{Binding TrafficSent, Mode=OneWay}" FontSize="18" FontWeight="SemiBold"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="1" Grid.Column="1">
-                  <TextBlock x:Uid="Network_TrafficReceived" Text="Получено" FontSize="12"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                  <TextBlock Text="{Binding TrafficReceived, Mode=OneWay}" FontSize="18" FontWeight="SemiBold"/>
-                </StackPanel>
-              </Grid>
-            </StackPanel>
-            </Grid>
-          </Border>
-
-          <!-- How it works Card -->
-          <Border CornerRadius="8" Padding="12" Background="{ThemeResource LayerFillColorDefaultBrush}">
-            <StackPanel Spacing="8">
-              <TextBlock Text="Как это работает:" FontWeight="SemiBold" FontSize="13"/>
-              <TextBlock x:Uid="Network_ProxifierPoint1" Text="• Перехватывает TCP-соединения выбранных приложений"
-                FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-              <TextBlock x:Uid="Network_ProxifierPoint2" Text="• Маршрутизирует трафик через настроенный прокси"
-                FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-              <TextBlock x:Uid="Network_ProxifierPoint3" Text="• Использует WinDivert для перехвата на уровне ядра"
-                FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-              <TextBlock x:Uid="Network_ProxifierPoint4" Text="• Работает прозрачно для приложений"
-                FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-            </StackPanel>
-          </Border>
-
-          <!-- Rules Management Note -->
-          <Border CornerRadius="8" Padding="12" Background="{ThemeResource LayerFillColorDefaultBrush}">
-            <StackPanel Spacing="4" Orientation="Horizontal">
-              <FontIcon Glyph="&#xE946;" FontSize="14" Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center"/>
-              <TextBlock x:Uid="Network_ProxifierNote" Text="Правила проксификации настраиваются в Worker Service. Управление через UI появится в будущих версиях."
-                FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" VerticalAlignment="Center"/>
-            </StackPanel>
-          </Border>
-
-          <!-- Refresh Button -->
-          <Button Content="Обновить статус проксификатора"
-            Command="{Binding RefreshStatusCommand}"
-            HorizontalAlignment="Left"/>
-
-        </StackPanel>
-      </ScrollViewer>
-    </TabViewItem>
-
-    <!-- ═══ Tab 3: Telegram Proxy ═══ -->
+    <!-- ═══ Tab 2: Telegram Proxy ═══ -->
     <TabViewItem Header="Telegram Proxy">
       <TabViewItem.IconSource>
         <FontIconSource Glyph="&#xE708;"/>
