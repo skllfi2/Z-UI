@@ -412,7 +412,7 @@ xmlns:helpers="using:ZUI.Helpers">
 			</Border>
 
 			<!-- Logging Section -->
-			<TextBlock x:Uid="Settings_LogLevel" Text="Логирование" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
+			<TextBlock x:Uid="Settings_LogLevelSection" Text="Логирование" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
 
 			<Border CornerRadius="12" Padding="24"
 				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -516,6 +516,27 @@ xmlns:helpers="using:ZUI.Helpers">
 				</Grid>
 			</Border>
 
+			<!-- Management Section -->
+			<TextBlock x:Uid="Settings_ManagementSection" Text="Управление" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
+
+			<Border x:Name="SectionManagement" CornerRadius="12" Padding="24"
+				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+				BorderThickness="1"
+				Background="Transparent">
+				<Grid>
+					<controls:SystemBackdropElement CornerRadius="12">
+					<controls:SystemBackdropElement.SystemBackdrop>
+						<MicaBackdrop Kind="Base"/>
+					</controls:SystemBackdropElement.SystemBackdrop>
+				</controls:SystemBackdropElement>
+					<StackPanel Spacing="8">
+						<Button Content="Экспорт настроек" Command="{x:Bind ViewModel.ExportSettingsCommand}" HorizontalAlignment="Left"/>
+						<Button Content="Импорт настроек" Command="{x:Bind ViewModel.ImportSettingsCommand}" HorizontalAlignment="Left"/>
+						<Button Content="Сбросить настройки" Command="{x:Bind ViewModel.ResetSettingsCommand}" HorizontalAlignment="Left"/>
+					</StackPanel>
+				</Grid>
+			</Border>
+
 			<!-- Updates Section -->
 			<TextBlock x:Uid="Settings_UpdatesSection" Text="Обновления" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
 
@@ -578,46 +599,7 @@ xmlns:helpers="using:ZUI.Helpers">
                     </Grid>
                 </Border>
 
-<!-- About Section -->
-<TextBlock x:Uid="AboutTitle" Text="О приложении" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0"/>
 
-                <Border x:Name="SectionAbout" CornerRadius="12" Padding="24"
-                    Background="Transparent"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1">
-                    <Grid>
-                        <controls:SystemBackdropElement CornerRadius="12">
-                            <controls:SystemBackdropElement.SystemBackdrop>
-                                <MicaBackdrop Kind="Base"/>
-                            </controls:SystemBackdropElement.SystemBackdrop>
-                        </controls:SystemBackdropElement>
-                        <StackPanel Spacing="12">
-                        <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border Width="48" Height="48" CornerRadius="8" Background="{ThemeResource AccentFillColorDefaultBrush}">
-                                <FontIcon Glyph="&#xE9E9;" FontSize="24" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <StackPanel Spacing="4">
-                                <TextBlock Text="Z-UI" FontSize="20" FontWeight="Bold"/>
-                                <TextBlock x:Uid="AboutDescription" Text="Графическая оболочка для обхода DPI" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                            </StackPanel>
-                        </StackPanel>
-                        <TextBlock x:Uid="AboutDescriptionFull" TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}">Основано на zapret-discord-youtube от Flowseal. Поддерживает Discord, YouTube и другие сервисы.</TextBlock>
-            <StackPanel Orientation="Horizontal" Spacing="12">
-                <HyperlinkButton x:Uid="AboutGitHub" Content="GitHub" NavigateUri="https://github.com/Flowseal/zapret-discord-youtube"/>
-                <HyperlinkButton x:Uid="AboutReportIssue" Content="Сообщить о проблеме" NavigateUri="https://github.com/Flowseal/zapret-discord-youtube/issues"/>
-                <HyperlinkButton x:Uid="AboutLicense" Content="Лицензия" NavigateUri="https://github.com/Flowseal/zapret-discord-youtube/blob/main/LICENSE"/>
-                <HyperlinkButton Content="Changelog" NavigateUri="https://github.com/Flowseal/zapret-discord-youtube/blob/main/CHANGELOG.md"/>
-                <HyperlinkButton Content="Дисклеймер" NavigateUri="https://github.com/Flowseal/zapret-discord-youtube/blob/main/DISCLAIMER.md"/>
-            </StackPanel>
-
-                        <StackPanel Spacing="8" Margin="0,8,0,0">
-                            <Button Content="Экспорт настроек" Command="{x:Bind ViewModel.ExportSettingsCommand}" HorizontalAlignment="Left"/>
-                            <Button Content="Импорт настроек" Command="{x:Bind ViewModel.ImportSettingsCommand}" HorizontalAlignment="Left"/>
-                            <Button Content="Сбросить настройки" Command="{x:Bind ViewModel.ResetSettingsCommand}" HorizontalAlignment="Left"/>
-                        </StackPanel>
-        </StackPanel>
-        </Grid>
-        </Border>
 
       </StackPanel>
     </ScrollViewer>
