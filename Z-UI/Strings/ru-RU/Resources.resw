@@ -1592,8 +1592,23 @@
   </data>
 
   <!-- ═══ Proxifier Page ═══ -->
-  <data name="Proxifier.Title" xml:space="preserve">
-    <value>Proxifier</value>
+  <data name="Proxifier_Header.Title" xml:space="preserve">
+    <value>Проксификатор</value>
+  </data>
+  <data name="Proxifier_Header.Subtitle" xml:space="preserve">
+    <value>Настройка прокси-маршрутизации</value>
+  </data>
+  <data name="Proxifier.AddServerDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Proxifier.AddServerDialog.CloseButtonText" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Proxifier.AddRuleDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Proxifier.AddRuleDialog.CloseButtonText" xml:space="preserve">
+    <value>Отмена</value>
   </data>
   <data name="Proxifier.Subtitle" xml:space="preserve">
     <value>Proxy routing configuration</value>
@@ -1619,11 +1634,11 @@
   <data name="Proxifier.ChainsComingSoon" xml:space="preserve">
     <value>Proxy chains will be available in a future update</value>
   </data>
-  <data name="Proxifier.Add" xml:space="preserve">
-    <value>Add</value>
+  <data name="Proxifier.DialogAdd" xml:space="preserve">
+    <value>Добавить</value>
   </data>
-  <data name="Proxifier.Cancel" xml:space="preserve">
-    <value>Cancel</value>
+  <data name="Proxifier.DialogCancel" xml:space="preserve">
+    <value>Отмена</value>
   </data>
   <data name="Proxifier.ServerName" xml:space="preserve">
     <value>Name</value>

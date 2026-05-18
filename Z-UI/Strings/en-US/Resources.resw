@@ -1593,11 +1593,23 @@
   </data>
 
   <!-- ═══ Proxifier Page ═══ -->
-  <data name="Proxifier.Title" xml:space="preserve">
+  <data name="Proxifier_Header.Title" xml:space="preserve">
     <value>Proxifier</value>
   </data>
-  <data name="Proxifier.Subtitle" xml:space="preserve">
+  <data name="Proxifier_Header.Subtitle" xml:space="preserve">
     <value>Proxy routing configuration</value>
+  </data>
+  <data name="Proxifier.AddServerDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Proxifier.AddServerDialog.CloseButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Proxifier.AddRuleDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Proxifier.AddRuleDialog.CloseButtonText" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="Proxifier.TabServers" xml:space="preserve">
     <value>Servers</value>
@@ -1620,10 +1632,10 @@
   <data name="Proxifier.ChainsComingSoon" xml:space="preserve">
     <value>Proxy chains will be available in a future update</value>
   </data>
-  <data name="Proxifier.Add" xml:space="preserve">
+  <data name="Proxifier.DialogAdd" xml:space="preserve">
     <value>Add</value>
   </data>
-  <data name="Proxifier.Cancel" xml:space="preserve">
+  <data name="Proxifier.DialogCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="Proxifier.ServerName" xml:space="preserve">

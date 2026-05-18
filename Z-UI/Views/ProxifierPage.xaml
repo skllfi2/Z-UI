@@ -15,7 +15,7 @@
 
     <!-- Page Header -->
     <controls:PageHeader x:Name="HeaderControl" Grid.Row="0"
-      x:Uid="Proxifier"/>
+      x:Uid="Proxifier_Header" Title="Проксификатор" Subtitle="Настройка прокси-маршрутизации"/>
 
     <!-- TabView with 3 tabs -->
     <TabView Grid.Row="1"
