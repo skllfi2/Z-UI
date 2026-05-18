@@ -153,7 +153,7 @@
                             Command="{Binding StartWorkerCommand}"
                             MinWidth="100" Height="36" FontSize="13"
                             Visibility="{Binding IsWorkerRunning, Converter={StaticResource BoolToVisibilityNegationConverter}, Mode=OneWay}"/>
-                    <Button Content="Удалить"
+                    <Button x:Uid="Dashboard_UninstallWorker" Content="Удалить"
                             Command="{Binding UninstallWorkerCommand}"
                             MinWidth="80" Height="36" FontSize="13"
                             Visibility="{Binding IsWorkerRunning, Converter={StaticResource BoolToVisibilityNegationConverter}, Mode=OneWay}"/>
@@ -167,7 +167,7 @@
                         Command="{Binding StopWorkerCommand}"
                         MinWidth="100" Height="36" FontSize="13"
                         Visibility="{Binding IsWorkerRunning, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>
-                <Button Content="Переустановить"
+                <Button x:Uid="Dashboard_ReinstallWorker" Content="Переустановить"
                         Command="{Binding ReinstallWorkerCommand}"
                         MinWidth="120" Height="36" FontSize="13"
                         Visibility="{Binding IsWorkerRunning, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}"/>

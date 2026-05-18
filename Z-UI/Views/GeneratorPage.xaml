@@ -111,7 +111,7 @@
                                     IsEnabled="{Binding IsTesting, Converter={StaticResource BoolNegationConverter}, Mode=OneWay}">
                                     <StackPanel Orientation="Horizontal" Spacing="8">
                                         <FontIcon Glyph="&#xE117;" FontSize="16"/>
-              <TextBlock x:Uid="Generator_Test" Text="Тестировать"/>
+              <TextBlock x:Uid="Generator_TestStrategy" Text="Тестировать стратегию"/>
                                     </StackPanel>
                                 </Button>
 
@@ -619,7 +619,7 @@
                                 IsEnabled="{Binding CanRunTest, Mode=OneWay}">
                                 <StackPanel Orientation="Horizontal" Spacing="8">
                                     <FontIcon Glyph="&#xE117;" FontSize="16"/>
-                                    <TextBlock Text="Тестировать"/>
+                                    <TextBlock x:Uid="Generator_RunTest" Text="Запустить тест"/>
                                 </StackPanel>
                             </Button>
 

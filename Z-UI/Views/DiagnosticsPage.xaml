@@ -296,11 +296,12 @@ xmlns:helpers="using:ZUI.Helpers">
                 Height="48" FontSize="16"/>
 
             <!-- Export Report Button -->
-            <Button Content="📋 Экспорт отчёта"
-                Command="{x:Bind ViewModel.ExportReportCommand}"
-                IsEnabled="{x:Bind ViewModel.CanExport, Mode=OneWay}"
-                HorizontalAlignment="Stretch"
-                Height="40" FontSize="14"/>
+            <Button Command="{x:Bind ViewModel.ExportReportCommand}" IsEnabled="{x:Bind ViewModel.CanExport, Mode=OneWay}" HorizontalAlignment="Stretch" Height="40" FontSize="14">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <FontIcon Glyph="&#xE8A0;" FontSize="14"/>
+                    <TextBlock x:Uid="Diagnostics_ExportReport" Text="Экспорт отчёта"/>
+                </StackPanel>
+            </Button>
 
                 <ProgressBar IsIndeterminate="True"
                     Visibility="{x:Bind ViewModel.IsRunning, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"/>

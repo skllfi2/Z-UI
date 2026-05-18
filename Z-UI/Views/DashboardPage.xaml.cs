@@ -114,7 +114,7 @@ public sealed partial class DashboardPage : BasePage
     {
         if (sender is Border border)
         {
-            border.Background = new Microsoft.UI.Xaml.Media.MediaBrush();
+            border.Background = null;
             AnimateCardHover(border, false);
         }
     }

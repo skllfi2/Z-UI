@@ -1,4 +1,5 @@
 // AboutPage.xaml.cs - Thin code-behind for About page
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Navigation;
 using ZUI.ViewModels;
 
